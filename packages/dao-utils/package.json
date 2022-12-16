@@ -1,9 +1,9 @@
 {
-  "name": "sample-package",
+  "name": "@public-assembly/dao-utils",
   "version": "0.0.0",
   "description": "Example package with some web3 peer dependencies\"",
-  "main": "dist/sample-package.cjs.js",
-  "module": "dist/sample-package.esm.js",
+  "main": "dist/public-assembly-dao-utils.cjs.js",
+  "module": "dist/public-assembly-dao-utils.esm.js",
   "types": "src/index.ts",
   "author": "Public Assembly",
   "license": "MIT",

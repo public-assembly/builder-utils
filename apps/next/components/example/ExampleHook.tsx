@@ -1,4 +1,4 @@
-import { useOwnedTokens } from 'sample-package'
+import { useOwnedTokens } from '@public-assembly/dao-utils'
 
 export default function ExampleHook({ address }: { address: string }) {
   const { tokens } = useOwnedTokens({ address: address })

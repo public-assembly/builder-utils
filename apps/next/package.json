@@ -21,7 +21,7 @@
     "nextjs-progressbar": "^0.0.16",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "sample-package": "workspace:*",
+    "@public-assembly/dao-utils": "workspace:*",
     "swr": "^1.3.0",
     "wagmi": "^0.6.6"
   },
