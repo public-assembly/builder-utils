@@ -1,0 +1,40 @@
+packages/**/dist/**
+
+# cache
+.pnp.cjs
+.pnp.loader.mjs
+.parcel-cache
+
+# dependencies
+node_modules
+
+.next/**
+dist/**
+build/**
+
+apps/**/dist/**
+apps/**/.next
+apps/**/node_modules/**
+apps/**/.env.local
+
+# local env files (followinf dotenv-flow / nextjs convention)
+.env.local
+.env.*.local
+
+# Misc
+.DS_Store
+*.pem
+.turbo
+
+# Debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+packages/**/npm-debug.log*
+packages/**/yarn-debug.log*
+packages/**/yarn-error.log*
+
+packages/**/npm-debug.log*
+
+*.tsbuildinfo
