@@ -1,3 +1,5 @@
+/* @ts-ignore */
+import * as React from 'react'
 import useSWR from 'swr'
 import { DAO_TOKEN_QUERY } from '../data/daoTokenQuery'
 import { zoraApiFetcher } from '../lib/zoraApiFetcher'

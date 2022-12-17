@@ -1,4 +1,6 @@
-import { useAuth } from '../../hooks/useAuth'
+/* @ts-ignore */
+import * as React from 'react'
+import { useAccount } from 'wagmi'
 import Connect from './Connect'
 
 export default function AuthCheck({
@@ -8,10 +10,6 @@ export default function AuthCheck({
   formUI?: JSX.Element
   connectCopy?: string | JSX.Element
 }) {
-  const { isConnected } = useAuth()
-  return (
-    <div className={`ns-surfacePrimary`}>
-      {!isConnected ? <Connect connectCopy={connectCopy} /> : formUI}
-    </div>
-  )
+  const { isConnected } = useAccount()
+  return <div>{!isConnected ? <Connect connectCopy={connectCopy} /> : formUI}</div>
 }

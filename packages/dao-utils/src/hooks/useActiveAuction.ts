@@ -2,7 +2,6 @@ import * as React from 'react'
 import { useDaoAuctionQuery } from './useDaoAuctionQuery'
 import { BigNumber as EthersBN, ContractTransaction } from 'ethers'
 import { parseUnits } from '@ethersproject/units'
-import { useEnsName } from 'wagmi'
 import { useBidder } from './useBidder'
 import { useNounsProtocol } from './useNounsProtocol'
 

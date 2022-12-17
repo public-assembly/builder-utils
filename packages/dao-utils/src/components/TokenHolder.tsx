@@ -1,4 +1,5 @@
-import React from 'react'
+/* @ts-ignore */
+import * as React from 'react'
 import { useDaoToken } from '../hooks/useDaoToken'
 import { useBidder } from '../hooks/useBidder'
 

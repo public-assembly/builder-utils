@@ -1,4 +1,5 @@
-import React from 'react'
+/* @ts-ignore */
+import * as React from 'react'
 import TokenThumbnail from './TokenThumbnail'
 import TokenTitle from './TokenTitle'
 import TokenHolder from './TokenHolder'

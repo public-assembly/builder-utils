@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { useDaoToken } from '../hooks/useDaoToken'
 import { useNounsProtocol } from '../hooks/useNounsProtocol'
 import { useActiveAuction } from '../hooks/useActiveAuction'

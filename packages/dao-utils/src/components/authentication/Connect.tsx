@@ -1,3 +1,5 @@
+/* @ts-ignore */
+import * as React from 'react'
 import { ConnectButton as RKConnectButton } from '@rainbow-me/rainbowkit'
 import Avatar from './Avatar'
 

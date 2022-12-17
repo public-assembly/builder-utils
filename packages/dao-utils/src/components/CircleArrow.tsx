@@ -1,4 +1,5 @@
-import React from 'react'
+/* @ts-ignore */
+import * as React from 'react'
 
 export default function CircleArrow({
   direction = 'forward',
