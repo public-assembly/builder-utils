@@ -12,6 +12,7 @@
     "dist/**"
   ],
   "peerDependencies": {
+    "@rainbow-me/rainbowkit": "^0.6.0",
     "@zoralabs/nft-hooks": "^1.1.9",
     "@zoralabs/nouns-protocol": "^1.0.1",
     "@zoralabs/zdk": "^2.1.8",
@@ -24,6 +25,7 @@
     "wagmi": "^0.6.6"
   },
   "devDependencies": {
+    "@rainbow-me/rainbowkit": "^0.6.0",
     "@types/react": "^18.0.20",
     "@types/react-dom": "^18.0.6",
     "@zoralabs/nft-hooks": "^1.1.9",

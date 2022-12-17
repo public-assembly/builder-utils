@@ -7,7 +7,7 @@ import { zoraApiFetcher } from '../lib/zoraApiFetcher'
 
 export function useDaoAuctionQuery({ collectionAddress }: { collectionAddress: string }) {
   const { data: activeAuction, error } = useSWR<NounishAuctionsQuery>(
-    `pa-auction`,
+    `pa-auction-${collectionAddress}`,
     async () =>
       zoraApiFetcher(DAO_AUCTION_QUERY, {
         collectionAddress,

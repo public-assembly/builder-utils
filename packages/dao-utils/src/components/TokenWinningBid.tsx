@@ -1,9 +1,16 @@
 import React from 'react'
-import { useDaoToken } from '@dao-auction/hooks/useDaoToken'
-import { useNounsProtocol } from '@dao-auction/hooks/useNounsProtocol'
-import { useActiveAuction } from '@dao-auction/hooks/useActiveAuction'
+import { useDaoToken } from '../hooks/useDaoToken'
+import { useNounsProtocol } from '../hooks/useNounsProtocol'
+import { useActiveAuction } from '../hooks/useActiveAuction'
 import { ethers } from 'ethers'
 import { etherscanLink } from '../lib'
+
+export type AuctionEvent = {
+  id: number
+  bidder: string
+  amount: string
+  transactionHash: string
+}
 
 export default function TokenWinningBid({
   tokenId,
@@ -42,14 +49,14 @@ export default function TokenWinningBid({
             'latest' /* Clamp at next token block number if decrementing */
           )
           if (bids) {
-            const auctionEventsArray = bids.map((event) => {
+            const auctionEventsArray = bids.map((event: any) => {
               return {
                 id: parseInt(event.args?.tokenId?._hex, 16),
-                bidder: event.args?.bidder,
+                bidder: event.args?.bidder as string,
                 amount: ethers.utils.formatEther(event.args?.amount),
-                transactionHash: event.transactionHash,
+                transactionHash: event.transactionHash as string,
               }
-            })
+            }) as AuctionEvent[]
 
             const tokenEvents = auctionEventsArray?.filter(
               (token) => token?.id === Number(tokenId)

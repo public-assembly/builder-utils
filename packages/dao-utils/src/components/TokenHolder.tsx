@@ -1,5 +1,5 @@
 import React from 'react'
-import { useDaoToken } from '@dao-auction/hooks/useDaoToken'
+import { useDaoToken } from '../hooks/useDaoToken'
 import { useBidder } from '../hooks/useBidder'
 
 export default function TokenTitle({

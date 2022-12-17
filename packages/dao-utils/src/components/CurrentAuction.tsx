@@ -1,8 +1,8 @@
-import React from 'react'
+import * as React from 'react'
 import AuctionCountdown from './AuctionCountdown'
 import TokenThumbnail from './TokenThumbnail'
 import TokenTitle from './TokenTitle'
-import { AuthCheck } from '../../components/elements'
+import AuthCheck from './authentication/AuthCheck'
 import { useActiveAuction } from '../hooks/useActiveAuction'
 
 /**

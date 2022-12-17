@@ -1,5 +1,5 @@
 import React from 'react'
-import { useCountdown } from '@dao-auction/hooks/useCountdown'
+import { useCountdown } from '../hooks/useCountdown'
 
 export default function AuctionCountdown({ endTime }: { endTime: number }) {
   const { countdownString, isEnded } = useCountdown(endTime)

@@ -1,6 +1,6 @@
 import useSWR from 'swr'
 import { DAO_TOKEN_QUERY } from '../data/daoTokenQuery'
-import { zoraApiFetcher } from '@dao-auction/lib/zoraApiFetcher'
+import { zoraApiFetcher } from '../lib/zoraApiFetcher'
 
 export type TokenData = {
   lastRefreshTime: string
