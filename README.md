@@ -15,6 +15,19 @@ Also included in this repo an example app exposing usage you can view at:
 
 ---
 
+# 🦾 IT'S AS EASY AS 🤡:
+
+```
+import React from 'react'
+import { TokenExplorer } from '@public-assembly/dao-utils'
+
+export default function ReactThingAmaBob() {
+  return <TokenExplorer daoAddress='0xdf9b7d26c8fc806b1ae6273684556761ff02d422' />
+}
+```
+  
+---
+
 ### Installation:
 `npm i @public-assembly/dao-utils` 
    
@@ -22,7 +35,6 @@ Also included in this repo an example app exposing usage you can view at:
    
 `yarn add @public-assembly/dao-utils` 
    
-
 ---
 
 ### Peer Dependencies:
