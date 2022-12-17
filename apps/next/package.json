@@ -12,16 +12,17 @@
     "clean": "rimraf --no-glob .next node_modules"
   },
   "dependencies": {
+    "@public-assembly/dao-utils": "workspace:*",
     "@rainbow-me/rainbowkit": "^0.6.0",
     "@zoralabs/nft-hooks": "^1.1.9",
     "@zoralabs/zdk": "^2.1.8",
     "ethers": "^5.7.1",
     "graphql-request": "^5.0.0",
+    "graphql-tag": "^2.12.6",
     "next": "^12.3.0",
     "nextjs-progressbar": "^0.0.16",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "@public-assembly/dao-utils": "workspace:*",
     "swr": "^1.3.0",
     "wagmi": "^0.6.6"
   },
