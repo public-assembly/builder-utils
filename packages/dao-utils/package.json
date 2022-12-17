@@ -1,13 +1,18 @@
 {
   "name": "@public-assembly/dao-utils",
-  "version": "0.0.01",
-  "description": "Example package with some web3 peer dependencies\"",
+  "version": "0.0.02",
+  "description": "React componentry and hooks to interact with the ourzora/nouns-protocol smart contracts.",
   "main": "dist/public-assembly-dao-utils.cjs.js",
   "module": "dist/public-assembly-dao-utils.esm.js",
   "types": "src/index.ts",
   "author": "Public Assembly",
   "license": "MIT",
   "private": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/public-assembly/dao-utils",
+    "directory": "packages/dao-utils"
+  },
   "files": [
     "dist/**"
   ],
