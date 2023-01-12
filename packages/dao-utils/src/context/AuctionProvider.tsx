@@ -1,13 +1,10 @@
 import * as React from 'react'
 import { useContractRead } from 'wagmi'
 import { auctionAbi } from '../abi/auctionAbi'
+import { useManagerProvider } from './ManagerProvider'
 
 export interface AuctionProviderProps {
   children?: React.ReactNode
-  /**
-   * Pass in the dao contract auction address if you want to interact with the auction
-   */
-  auctionAddress?: string
 }
 
 export interface AuctionReturnTypes {
@@ -23,7 +20,11 @@ export interface AuctionReturnTypes {
 }
 const AuctionContext = React.createContext({} as AuctionReturnTypes)
 
-export function AuctionProvider({ children, auctionAddress }: AuctionProviderProps) {
+export function AuctionProvider({ children }: AuctionProviderProps) {
+  const {
+    daoAddresses: { auctionAddress },
+  } = useManagerProvider()
+
   const { data: auction } = useContractRead({
     addressOrName: auctionAddress as string,
     contractInterface: auctionAbi,

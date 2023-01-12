@@ -12,7 +12,7 @@ export interface ManagerProviderProps {
 
 export interface ManagerReturnTypes {
   tokenAddress?: string
-  daoAddresses?: {
+  daoAddresses: {
     metadataAddress: string
     auctionAddress: string
     treasuryAddress: string
