@@ -4,10 +4,10 @@ import { useDaoToken } from '../hooks/useDaoToken'
 
 export default function TokenTitle({
   tokenId,
-  auctionAddress,
+  daoAddress,
   externalLinkBaseURI = 'https://nouns.build/dao',
 }: {
-  auctionAddress: string
+  daoAddress: string
   tokenId: string
   /**
    * External link base url
@@ -16,13 +16,13 @@ export default function TokenTitle({
   externalLinkBaseURI?: string
 }) {
   const { tokenData } = useDaoToken({
-    auctionAddress: auctionAddress,
+    daoAddress: daoAddress,
     tokenId: tokenId,
   })
 
   return (
     <a
-      href={`${externalLinkBaseURI}/${auctionAddress}/${tokenId}`}
+      href={`${externalLinkBaseURI}/${daoAddress}/${tokenId}`}
       target="_blank"
       rel="noreferrer"
       className="font-bold text-[24px] hover:underline flex flex-row items-center gap-2">

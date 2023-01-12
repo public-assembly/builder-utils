@@ -1,17 +1,17 @@
 import * as React from 'react'
-import { useContractRead, useContractReads } from 'wagmi'
+import { useContractRead } from 'wagmi'
 import { auctionAbi } from '../abi/auctionAbi'
 
-interface AuctionProviderProps {
+export interface AuctionProviderProps {
   children?: React.ReactNode
   /**
    * Pass in the dao contract auction address if you want to interact with the auction
    */
-  auctionAddress: string
+  auctionAddress?: string
 }
 
-interface AuctionReturnTypes {
-  auctionAddress: string
+export interface AuctionReturnTypes {
+  auctionAddress?: string
   auctionState?: {
     tokenId: number
     highestBid: number

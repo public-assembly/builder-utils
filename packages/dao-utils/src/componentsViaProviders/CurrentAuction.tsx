@@ -7,8 +7,18 @@ import AuthCheck from '../components/authentication/AuthCheck'
 import { useActiveAuction } from '../hooks/useActiveAuction'
 import { useAuctionProvider } from '../context/AuctionProvider'
 
-export default function CurrentAuction({ ...props }) {
+export interface CurrentAuctionProps extends React.HTMLProps<HTMLDivElement> {
+  /**
+   * Nounish NFT Contract address
+   */
+  daoAddress: string
+}
+
+export default function CurrentAuction({ daoAddress, ...props }: CurrentAuctionProps) {
   const { auctionAddress, auctionState } = useAuctionProvider()
+
+  //   console.log('auctionAddress:', auctionAddress)
+  //   console.log('auctionState:', auctionState)
 
   const {
     auctionData,
@@ -18,19 +28,16 @@ export default function CurrentAuction({ ...props }) {
     createBidLoading,
     isValidBid,
     totalSupply,
-  } = useActiveAuction(auctionAddress)
+  } = useActiveAuction(daoAddress)
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 max-w-[1440px]" {...props}>
       {auctionData?.tokenId && (
-        <TokenThumbnail tokenId={auctionData.tokenId} auctionAddress={auctionAddress} />
+        <TokenThumbnail tokenId={auctionData.tokenId} daoAddress={daoAddress} />
       )}
       <div className="flex flex-col justify-end gap-4">
         {totalSupply && (
-          <TokenTitle
-            auctionAddress={auctionAddress}
-            tokenId={(totalSupply - 1).toString()}
-          />
+          <TokenTitle daoAddress={daoAddress} tokenId={(totalSupply - 1).toString()} />
         )}
         <div className="flex flex-col gap-2">
           <div className="flex flex-row gap-10">
@@ -68,7 +75,7 @@ export default function CurrentAuction({ ...props }) {
                     {createBidLoading && <span>Submitting bid</span>}
                     {createBidSuccess && (
                       <a
-                        href={`https://nouns.build/dao/${auctionAddress}`}
+                        href={`https://nouns.build/dao/${daoAddress}`}
                         target="_blank"
                         rel="noreferrer">
                         Bid placed: view on nouns.build
