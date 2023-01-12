@@ -8,6 +8,7 @@ export interface AuctionProviderProps {
 }
 
 export interface AuctionReturnTypes {
+  tokenAddress?: string
   auctionAddress?: string
   auctionState?: {
     tokenId: number
@@ -22,6 +23,7 @@ const AuctionContext = React.createContext({} as AuctionReturnTypes)
 
 export function AuctionProvider({ children }: AuctionProviderProps) {
   const {
+    tokenAddress,
     daoAddresses: { auctionAddress },
   } = useManagerProvider()
 
@@ -43,7 +45,7 @@ export function AuctionProvider({ children }: AuctionProviderProps) {
   }, [auction])
 
   return (
-    <AuctionContext.Provider value={{ auctionAddress, auctionState }}>
+    <AuctionContext.Provider value={{ tokenAddress, auctionAddress, auctionState }}>
       {children}
     </AuctionContext.Provider>
   )
