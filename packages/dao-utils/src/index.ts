@@ -13,6 +13,8 @@ import {
 
 import { useAuctionProvider, AuctionProvider } from './context/AuctionProvider'
 
+import { useGovernorProvider, GovernorProvider } from './context/GovernorProvider'
+
 import { useManagerProvider, ManagerProvider } from './context/ManagerProvider'
 
 import { shortenAddress, zoraApiFetcher, etherscanLink } from './lib'
@@ -44,6 +46,8 @@ export {
    */
   AuctionProvider,
   useAuctionProvider,
+  GovernorProvider,
+  useGovernorProvider,
   ManagerProvider,
   useManagerProvider,
 }

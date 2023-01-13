@@ -1,5 +1,10 @@
 import { Seo } from '@/components/Seo'
-import { ManagerProvider, useManagerProvider } from '@public-assembly/dao-utils'
+import {
+  ManagerProvider,
+  useManagerProvider,
+  GovernorProvider,
+  useGovernorProvider,
+} from '@public-assembly/dao-utils'
 import { RawDisplayer } from '../components'
 
 function PrintManagerProviderData() {
@@ -7,13 +12,26 @@ function PrintManagerProviderData() {
   return <RawDisplayer data={daoAddresses} />
 }
 
+function PrintGovernorProviderData() {
+  const { proposalId, proposalDetails } = useGovernorProvider()
+  return (
+    <>
+      <RawDisplayer data={proposalId} />
+      <RawDisplayer data={proposalDetails} />
+    </>
+  )
+}
+
 function Providers() {
   return (
     <section className="max-w-[1240px] m-auto px-4 gap-8 flex flex-col">
       <Seo title="providers" />
       <div className="bg-slate-300 p-4 rounded-2xl text-black">
-        <ManagerProvider tokenAddress="0xdf9b7d26c8fc806b1ae6273684556761ff02d422">
+        <ManagerProvider tokenAddress="0x8983eC4B57dbebe8944Af8d4F9D3adBAfEA5b9f1">
           <PrintManagerProviderData />
+          <GovernorProvider proposalId="0x892CC8EE0DDE04122318FED5C70FEA674BDFC46675142E9593FC3F338EDE6605">
+            <PrintGovernorProviderData />
+          </GovernorProvider>
         </ManagerProvider>
       </div>
     </section>
