@@ -10,6 +10,9 @@ export interface ManagerProviderProps {
   tokenAddress?: string
 }
 
+/**
+ * TODO: fix typings, strings should become addresses
+ */
 export interface ManagerReturnTypes {
   tokenAddress?: string
   daoAddresses: {

@@ -13,13 +13,18 @@ function PrintManagerProviderData() {
 }
 
 function PrintGovernorProviderData() {
-  const { proposalId, proposalDetails } = useGovernorProvider()
+  const { proposalId, proposalDetails, proposalArray } = useGovernorProvider()
   return (
     <>
       <RawDisplayer data={proposalId} />
       <RawDisplayer data={proposalDetails} />
     </>
   )
+}
+
+function PrintAllProposals() {
+  const { proposalArray } = useGovernorProvider()
+  return <RawDisplayer data={proposalArray} />
 }
 
 function Providers() {
@@ -31,6 +36,7 @@ function Providers() {
           <PrintManagerProviderData />
           <GovernorProvider proposalId="0x892CC8EE0DDE04122318FED5C70FEA674BDFC46675142E9593FC3F338EDE6605">
             <PrintGovernorProviderData />
+            <PrintAllProposals />
           </GovernorProvider>
         </ManagerProvider>
       </div>
