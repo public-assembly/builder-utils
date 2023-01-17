@@ -1,9 +1,5 @@
 import { Seo } from '@/components/Seo'
-import {
-  ManagerProvider,
-  useManagerProvider,
-  TokenExplorer,
-} from '@public-assembly/dao-utils'
+import { ManagerProvider, useManagerProvider } from '@public-assembly/dao-utils'
 import { RawDisplayer } from '../components'
 
 function PrintManagerProviderData() {
@@ -18,7 +14,6 @@ function Providers() {
       <div className="bg-slate-300 p-4 rounded-2xl text-black">
         <ManagerProvider tokenAddress="0xdf9b7d26c8fc806b1ae6273684556761ff02d422">
           <PrintManagerProviderData />
-          <TokenExplorer />
         </ManagerProvider>
       </div>
     </section>

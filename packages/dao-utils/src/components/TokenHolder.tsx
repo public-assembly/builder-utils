@@ -3,8 +3,17 @@ import * as React from 'react'
 import { useAuctionProvider } from '../context'
 import { useBidder } from '../hooks/useBidder'
 
-export default function TokenTitle() {
-  const { tokenData } = useAuctionProvider()
+export default function TokenTitle({
+  tokenId,
+  daoAddress,
+}: {
+  daoAddress: string
+  tokenId: string
+}) {
+  const { tokenData } = useDaoToken({
+    daoAddress: daoAddress,
+    tokenId: tokenId,
+  })
 
   const { bidder: holder } = useBidder(tokenData?.owner)
 

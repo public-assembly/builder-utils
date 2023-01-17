@@ -11,7 +11,15 @@ import { useAuctionProvider } from '../context'
  * - render bid success txHash
  * - break ui out into atomic components
  */
-export default function CurrentAuction({ ...props }) {
+
+export interface CurrentAuctionProps extends React.HTMLProps<HTMLDivElement> {
+  /**
+   * Nounish NFT Contract address
+   */
+  daoAddress: string
+}
+
+export default function CurrentAuction({ daoAddress, ...props }: CurrentAuctionProps) {
   const {
     tokenAddress,
     tokenId,
@@ -22,14 +30,17 @@ export default function CurrentAuction({ ...props }) {
     createBidLoading,
     isValidBid,
     totalSupply,
-  } = useAuctionProvider()
+  } = useActiveAuction(daoAddress)
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 max-w-[1440px]" {...props}>
-      {auctionData?.tokenId && <TokenThumbnail />}
+      {auctionData?.tokenId && (
+        <TokenThumbnail tokenId={auctionData.tokenId} daoAddress={daoAddress} />
+      )}
       <div className="flex flex-col justify-end gap-4">
-        {/* {totalSupply && <TokenTitle tokenId={(totalSupply - 1).toString()} />} */}
-        {totalSupply && <TokenTitle />}
+        {totalSupply && (
+          <TokenTitle daoAddress={daoAddress} tokenId={(totalSupply - 1).toString()} />
+        )}
         <div className="flex flex-col gap-2">
           <div className="flex flex-row gap-10">
             <div className="flex flex-col">
@@ -66,7 +77,7 @@ export default function CurrentAuction({ ...props }) {
                     {createBidLoading && <span>Submitting bid</span>}
                     {createBidSuccess && (
                       <a
-                        href={`https://nouns.build/dao/${tokenAddress}`}
+                        href={`https://nouns.build/dao/${daoAddress}`}
                         target="_blank"
                         rel="noreferrer">
                         Bid placed: view on nouns.build

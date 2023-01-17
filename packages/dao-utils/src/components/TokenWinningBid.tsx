@@ -11,8 +11,14 @@ export type AuctionEvent = {
   transactionHash: string
 }
 
-export default function TokenWinningBid() {
-  const { auctionData, tokenAddress, tokenData, tokenId } = useAuctionProvider()
+export default function TokenWinningBid({
+  tokenId,
+  daoAddress,
+}: {
+  daoAddress: string
+  tokenId: string
+}) {
+  const { auctionData, tokenAddress, tokenData } = useAuctionProvider()
 
   const { BuilderAuction } = useNounsProtocol({
     tokenAddress: tokenAddress,
