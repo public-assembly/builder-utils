@@ -1,7 +1,8 @@
 import * as React from 'react'
 import { useDaoToken } from '../hooks/useDaoToken'
 import { useNounsProtocol } from '../hooks/useNounsProtocol'
-import { useActiveAuction } from '../hooks/useActiveAuction'
+// import { useActiveAuction } from '../hooks/useActiveAuction'
+import { useAuctionProvider } from '../context'
 import { ethers } from 'ethers'
 import { etherscanLink } from '../lib'
 
@@ -19,7 +20,7 @@ export default function TokenWinningBid({
   daoAddress: string
   tokenId: string
 }) {
-  const { auctionData } = useActiveAuction(daoAddress)
+  const { auctionData } = useAuctionProvider()
 
   const { tokenData } = useDaoToken({
     daoAddress: daoAddress,
