@@ -4,23 +4,17 @@ import AuctionCountdown from './AuctionCountdown'
 import TokenThumbnail from './TokenThumbnail'
 import TokenTitle from './TokenTitle'
 import AuthCheck from './authentication/AuthCheck'
-import { useActiveAuction } from '../hooks/useActiveAuction'
+import { useAuctionProvider } from '../context'
 
 /**
  * TODO:
  * - render bid success txHash
  * - break ui out into atomic components
  */
-
-export interface CurrentAuctionProps extends React.HTMLProps<HTMLDivElement> {
-  /**
-   * Nounish NFT Contract address
-   */
-  tokenAddress: string
-}
-
-export default function CurrentAuction({ tokenAddress, ...props }: CurrentAuctionProps) {
+export default function CurrentAuction({ ...props }) {
   const {
+    tokenAddress,
+    tokenId,
     auctionData,
     createBid,
     updateBidAmount,
@@ -28,20 +22,14 @@ export default function CurrentAuction({ tokenAddress, ...props }: CurrentAuctio
     createBidLoading,
     isValidBid,
     totalSupply,
-  } = useActiveAuction(tokenAddress)
+  } = useAuctionProvider()
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 max-w-[1440px]" {...props}>
-      {auctionData?.tokenId && (
-        <TokenThumbnail tokenId={auctionData.tokenId} tokenAddress={tokenAddress} />
-      )}
+      {auctionData?.tokenId && <TokenThumbnail />}
       <div className="flex flex-col justify-end gap-4">
-        {totalSupply && (
-          <TokenTitle
-            tokenAddress={tokenAddress}
-            tokenId={(totalSupply - 1).toString()}
-          />
-        )}
+        {/* {totalSupply && <TokenTitle tokenId={(totalSupply - 1).toString()} />} */}
+        {totalSupply && <TokenTitle />}
         <div className="flex flex-col gap-2">
           <div className="flex flex-row gap-10">
             <div className="flex flex-col">

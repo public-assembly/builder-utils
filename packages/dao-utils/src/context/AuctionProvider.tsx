@@ -24,7 +24,14 @@ export interface AuctionReturnTypes {
    * TODO: Confirm types
    */
   auctionData?: any
+  totalSupply?: any
+  createBid?: any
+  updateBidAmount?: any
+  createBidSuccess?: any
+  createBidLoading?: any
+  isValidBid?: any
   tokenData?: any
+  tokenId?: any
 }
 const AuctionContext = React.createContext({} as AuctionReturnTypes)
 
@@ -34,7 +41,15 @@ export function AuctionProvider({ children, tokenId }: AuctionProviderProps) {
     daoAddresses: { auctionAddress },
   } = useManagerProvider()
 
-  const { auctionData } = useActiveAuction(tokenAddress as string)
+  const {
+    auctionData,
+    totalSupply,
+    createBid,
+    updateBidAmount,
+    createBidSuccess,
+    createBidLoading,
+    isValidBid,
+  } = useActiveAuction(tokenAddress as string)
   const { tokenData } = useDaoToken({
     tokenAddress: tokenAddress as string,
     tokenId: tokenId as string,
@@ -59,7 +74,20 @@ export function AuctionProvider({ children, tokenId }: AuctionProviderProps) {
 
   return (
     <AuctionContext.Provider
-      value={{ tokenAddress, auctionAddress, auctionState, auctionData, tokenData }}>
+      value={{
+        tokenAddress,
+        tokenData,
+        tokenId,
+        auctionAddress,
+        auctionData,
+        auctionState,
+        totalSupply,
+        createBid,
+        updateBidAmount,
+        createBidSuccess,
+        createBidLoading,
+        isValidBid,
+      }}>
       {children}
     </AuctionContext.Provider>
   )

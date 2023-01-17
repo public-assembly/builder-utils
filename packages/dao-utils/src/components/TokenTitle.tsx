@@ -1,24 +1,17 @@
 /* @ts-ignore */
 import * as React from 'react'
-import { useDaoToken } from '../hooks/useDaoToken'
+import { useAuctionProvider } from '../context'
 
 export default function TokenTitle({
-  tokenId,
-  tokenAddress,
   externalLinkBaseURI = 'https://nouns.build/dao',
 }: {
-  tokenAddress: string
-  tokenId: string
   /**
    * External link base url
    * @default 'https://nouns.build/dao'
    */
   externalLinkBaseURI?: string
 }) {
-  const { tokenData } = useDaoToken({
-    tokenAddress: tokenAddress,
-    tokenId: tokenId,
-  })
+  const { tokenData, tokenAddress, tokenId } = useAuctionProvider()
 
   return (
     <a

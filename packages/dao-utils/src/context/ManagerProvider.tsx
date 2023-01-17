@@ -4,9 +4,6 @@ import { managerAbi } from '../abi/managerAbi'
 
 export interface ManagerProviderProps {
   children?: React.ReactNode
-  /**
-   * Pass in the dao token address to read from the manager contract
-   */
   tokenAddress?: string
 }
 

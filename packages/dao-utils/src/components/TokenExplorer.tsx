@@ -1,15 +1,11 @@
 /* @ts-ignore */
 import * as React from 'react'
-import { useActiveAuction } from '../hooks/useActiveAuction'
 import CurrentAuction from './CurrentAuction'
 import TokenRenderer from './TokenRenderer'
 import CircleArrow from './CircleArrow'
+import { useAuctionProvider } from '../context'
 
 export interface TokenExplorerProps extends React.HTMLProps<HTMLDivElement> {
-  /**
-   * Nounish NFT Contract address
-   */
-  tokenAddress: string
   /**
    * Renderer Component for current auction
    */
@@ -20,12 +16,8 @@ export interface TokenExplorerProps extends React.HTMLProps<HTMLDivElement> {
   tokenRenderer?: React.ReactNode
 }
 
-export default function TokenPagination({
-  tokenAddress,
-  auctionRenderer,
-  ...props
-}: TokenExplorerProps) {
-  const { totalSupply } = useActiveAuction(tokenAddress)
+export default function TokenExplorer({ auctionRenderer, ...props }: TokenExplorerProps) {
+  const { tokenAddress, totalSupply } = useAuctionProvider()
 
   const [tokenId, setTokenId] = React.useState(0)
 
@@ -50,9 +42,9 @@ export default function TokenPagination({
   return (
     <div {...props} className="flex flex-col gap-2">
       {tokenId === totalSupply - 1 ? (
-        <>{auctionRenderer || <CurrentAuction tokenAddress={tokenAddress} />}</>
+        <>{auctionRenderer || <CurrentAuction />}</>
       ) : (
-        <TokenRenderer tokenAddress={tokenAddress} tokenId={tokenId?.toString()!} />
+        <TokenRenderer tokenId={tokenId?.toString()!} />
       )}
       <div className="flex flex-row gap-1">
         <button
