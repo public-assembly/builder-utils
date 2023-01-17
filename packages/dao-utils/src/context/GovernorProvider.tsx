@@ -1,6 +1,7 @@
 import { Contract } from 'ethers'
 import * as React from 'react'
-import { useContractRead, useContractEvent } from 'wagmi'
+import { useContractRead } from 'wagmi'
+import { getContract } from '@wagmi/core'
 import { governorAbi } from '../abi/governorAbi'
 import { useManagerProvider } from './ManagerProvider'
 
@@ -39,7 +40,7 @@ export interface ProposalCreated {
 
 export interface GovernorReturnTypes extends Proposal {
   tokenAddress?: string
-  governorAddress?: string
+  governorAddress: string
   /**
    * TODO: confirm types
    */
@@ -57,39 +58,44 @@ export function GovernorProvider({ children, proposalId }: GovernorProviderProps
 
   const [proposalArray, setProposalArray] = React.useState<Proposal[]>()
 
-  const governorContract = new Contract(governorAddress, governorAbi)
+  /**
+   * Create a type-safe Contract instance
+   */
+  const governorContract = getContract({
+    addressOrName: governorAddress,
+    // addressOrName: '0xe3F8d5488C69d18ABda42FCA10c177d7C19e8B1a',
+    contractInterface: governorAbi,
+  })
 
   /**
    * Used to query Proposal creation events as defined below:
    * https://github.com/ourzora/nouns-protocol/blob/main/src/governance/governor/IGovernor.sol#L18-L27
    */
-  React.useEffect(() => {
-    async function getProposals() {
-      try {
-        const proposalCreationEvents = await governorContract?.queryFilter(
-          'ProposalCreated' as any
-        )
-        if (proposalCreationEvents) {
-          const proposalEventsArray = proposalCreationEvents.map((event: any) => {
-            return {
-              proposalId: event?.proposalId,
-              targets: event?.targets,
-              values: event?.values,
-              calldatas: event?.calldatas,
-              description: event?.description,
-              descriptionHash: event?.description,
-              proposal: event?.proposal,
-            }
-          }) as Proposal[]
-          console.log(proposalEventsArray)
-          if (proposalEventsArray) {
-            setProposalArray(proposalEventsArray)
+  async function getProposals() {
+    try {
+      const proposalCreationEvents = await governorContract?.queryFilter(
+        'ProposalCreated' as any,
+        7400416,
+        'latest'
+      )
+      if (proposalCreationEvents) {
+        const proposalEventsArray = proposalCreationEvents.map((event: any) => {
+          return {
+            proposalId: event?.proposalId,
+            targets: event?.targets,
+            values: event?.values,
+            calldatas: event?.calldatas,
+            description: event?.description,
+            descriptionHash: event?.description,
+            proposal: event?.proposal,
           }
-        }
-      } catch (err) {}
+        }) as Proposal[]
+        setProposalArray(proposalEventsArray)
+      }
+    } catch (err) {
+      console.error(err)
     }
-    getProposals()
-  })
+  }
 
   const { data: getProposal } = useContractRead({
     addressOrName: governorAddress as string,
