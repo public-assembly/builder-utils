@@ -20,12 +20,7 @@ export default function TokenWinningBid({
   tokenAddress: string
   tokenId: string
 }) {
-  const { auctionData } = useAuctionProvider()
-
-  const { tokenData } = useDaoToken({
-    tokenAddress: tokenAddress,
-    tokenId: tokenId,
-  })
+  const { auctionData, tokenData } = useAuctionProvider()
 
   const { BuilderAuction } = useNounsProtocol({
     tokenAddress: tokenAddress,

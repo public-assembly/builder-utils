@@ -2,10 +2,11 @@ import * as React from 'react'
 import { useContractRead } from 'wagmi'
 import { auctionAbi } from '../abi/auctionAbi'
 import { useManagerProvider } from './ManagerProvider'
-import { useActiveAuction, useDaoAuctionQuery } from '../hooks'
+import { useActiveAuction, useDaoAuctionQuery, useDaoToken } from '../hooks'
 
 export interface AuctionProviderProps {
   children?: React.ReactNode
+  tokenId?: string
 }
 
 export interface AuctionReturnTypes {
@@ -22,17 +23,22 @@ export interface AuctionReturnTypes {
   /**
    * TODO: Confirm types
    */
-  auctionData: any
+  auctionData?: any
+  tokenData?: any
 }
 const AuctionContext = React.createContext({} as AuctionReturnTypes)
 
-export function AuctionProvider({ children }: AuctionProviderProps) {
+export function AuctionProvider({ children, tokenId }: AuctionProviderProps) {
   const {
     tokenAddress,
     daoAddresses: { auctionAddress },
   } = useManagerProvider()
 
   const { auctionData } = useActiveAuction(tokenAddress as string)
+  const { tokenData } = useDaoToken({
+    tokenAddress: tokenAddress as string,
+    tokenId: tokenId as string,
+  })
 
   const { data: auction } = useContractRead({
     addressOrName: auctionAddress as string,
@@ -53,7 +59,7 @@ export function AuctionProvider({ children }: AuctionProviderProps) {
 
   return (
     <AuctionContext.Provider
-      value={{ tokenAddress, auctionAddress, auctionState, auctionData }}>
+      value={{ tokenAddress, auctionAddress, auctionState, auctionData, tokenData }}>
       {children}
     </AuctionContext.Provider>
   )
