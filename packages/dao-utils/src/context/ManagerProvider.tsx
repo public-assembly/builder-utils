@@ -12,7 +12,7 @@ export interface ManagerReturnTypes {
   tokenAddress?: string
   daoAddresses: {
     metadataAddress: string
-    auctionAddress: GetContractResult<typeof auctionAbi>
+    auctionAddress: GetContractResult<typeof auctionAbi> | string
     treasuryAddress: string
     governorAddress: string
   }
