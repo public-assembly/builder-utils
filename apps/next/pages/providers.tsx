@@ -1,11 +1,6 @@
 import { Seo } from '@/components/Seo'
-import { ManagerProvider, useManagerProvider } from '@public-assembly/dao-utils'
-import { RawDisplayer } from '../components'
-
-function PrintManagerProviderData() {
-  const { daoAddresses } = useManagerProvider()
-  return <RawDisplayer data={daoAddresses} />
-}
+import { ManagerProvider } from '@public-assembly/dao-utils'
+import { PrintManagerProviderData } from '../components'
 
 function Providers() {
   return (
