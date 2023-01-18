@@ -51,6 +51,7 @@ export function AuctionProvider({ children, tokenId }: AuctionProviderProps) {
     createBidLoading,
     isValidBid,
   } = useActiveAuction(tokenAddress as string)
+
   const { tokenData } = useDaoToken({
     tokenAddress: tokenAddress as string,
     tokenId: tokenId as string,

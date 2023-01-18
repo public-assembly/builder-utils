@@ -1,14 +1,11 @@
 /* @ts-ignore */
 import * as React from 'react'
 import { useAuctionProvider } from '../context'
-import { useDaoToken } from '../hooks'
 
 export default function TokenTitle({
   tokenId,
-  tokenAddress,
   externalLinkBaseURI = 'https://nouns.build/dao',
 }: {
-  tokenAddress: string
   tokenId: string
   /**
    * External link base url
@@ -16,10 +13,7 @@ export default function TokenTitle({
    */
   externalLinkBaseURI?: string
 }) {
-  const { tokenData } = useDaoToken({
-    tokenAddress: tokenAddress,
-    tokenId: tokenId,
-  })
+  const { tokenAddress, tokenData } = useAuctionProvider()
 
   return (
     <a

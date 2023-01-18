@@ -17,7 +17,7 @@ export default function TokenRenderer({
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 max-w-[1440px]" {...props}>
       <TokenThumbnail tokenId={tokenId} tokenAddress={tokenAddress} />
       <div className="flex flex-col justify-end gap-4">
-        <TokenTitle tokenAddress={tokenAddress} tokenId={tokenId} />
+        <TokenTitle tokenId={tokenId} />
         <div className="flex flex-row gap-10">
           <TokenHolder tokenAddress={tokenAddress} tokenId={tokenId} />
           <TokenWinningBid tokenAddress={tokenAddress} tokenId={tokenId} />
