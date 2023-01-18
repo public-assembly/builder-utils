@@ -37,12 +37,7 @@ export default function CurrentAuction({ tokenAddress, ...props }: CurrentAuctio
         <TokenThumbnail tokenId={auctionData.tokenId} tokenAddress={tokenAddress} />
       )}
       <div className="flex flex-col justify-end gap-4">
-        {totalSupply && (
-          <TokenTitle
-            tokenAddress={tokenAddress}
-            tokenId={(totalSupply - 1).toString()}
-          />
-        )}
+        {totalSupply && <TokenTitle tokenId={(totalSupply - 1).toString()} />}
         <div className="flex flex-col gap-2">
           <div className="flex flex-row gap-10">
             <div className="flex flex-col">
