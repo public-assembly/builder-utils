@@ -2,7 +2,6 @@ import * as React from 'react'
 import { useContractRead } from 'wagmi'
 import { auctionAbi } from '../abi/auctionAbi'
 import { useManagerProvider } from './ManagerProvider'
-import type { GetContractResult } from '@wagmi/core'
 import { useActiveAuction, useDaoAuctionQuery, useDaoToken } from '../hooks'
 
 export interface AuctionProviderProps {
@@ -12,7 +11,7 @@ export interface AuctionProviderProps {
 
 export interface AuctionReturnTypes {
   tokenAddress?: string
-  auctionAddress: GetContractResult<typeof auctionAbi> | string
+  auctionAddress: string
   auctionState?: {
     tokenId: number
     highestBid: number
