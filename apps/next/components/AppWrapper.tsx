@@ -1,7 +1,8 @@
 import '@rainbow-me/rainbowkit/styles.css'
 import NextNProgress from 'nextjs-progressbar'
 import { getDefaultWallets, RainbowKitProvider, lightTheme } from '@rainbow-me/rainbowkit'
-import { createClient, chain, configureChains, WagmiConfig } from 'wagmi'
+import { createClient, configureChains, WagmiConfig } from 'wagmi'
+import { mainnet, goerli } from 'wagmi/chains'
 import { publicProvider } from 'wagmi/providers/public'
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc'
 import { infuraProvider } from 'wagmi/providers/infura'
@@ -12,20 +13,23 @@ import { Header } from './Header'
 import { Footer } from './Footer'
 
 const { chains, provider } = configureChains(
-  [chain.mainnet, chain.goerli],
+  [mainnet, goerli],
   [
     infuraProvider({
-      priority: 0,
       apiKey: process.env.NEXT_PUBLIC_INFURA_KEY,
+      priority: 0,
     }),
-    jsonRpcProvider({
-      priority: 1,
-      rpc: (chain) =>
-        chain.id === 1
-          ? { http: 'https://rpc.ankr.com/eth' }
-          : { http: 'https://rpc.ankr.com/eth_goerli' },
-    }),
-    publicProvider({ priority: 2 }),
+    /**
+     * Because `chain` is no longer exposed, this syntax is deprecated
+     */
+    // jsonRpcProvider({
+    //   priority: 1,
+    //   rpc: (chain) =>
+    //     chain.id === 1
+    //       ? { http: 'https://rpc.ankr.com/eth' }
+    //       : { http: 'https://rpc.ankr.com/eth_goerli' },
+    // }),
+    publicProvider({ priority: 1 }),
   ]
 )
 
