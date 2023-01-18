@@ -115,7 +115,6 @@ importers:
       '@rainbow-me/rainbowkit': ^0.8.1
       '@types/react': ^18.0.20
       '@types/react-dom': ^18.0.6
-      '@wagmi/core': ^0.8.15
       '@zoralabs/nft-hooks': ^1.1.9
       '@zoralabs/nouns-protocol': ^1.0.1
       '@zoralabs/zdk': ^2.1.8
@@ -135,7 +134,6 @@ importers:
       '@rainbow-me/rainbowkit': 0.8.1_fezigg3zfjjslgsk3b5jevqf4m
       '@types/react': 18.0.26
       '@types/react-dom': 18.0.9
-      '@wagmi/core': 0.8.15_2zmba3zh2lo2ye5dzgeckiacfa
       '@zoralabs/nft-hooks': 1.1.10_gdcq4dv6opitr3wbfwyjmanyra
       '@zoralabs/nouns-protocol': 1.0.1
       '@zoralabs/zdk': 2.2.0
@@ -3071,7 +3069,7 @@ packages:
     dependencies:
       '@coinbase/wallet-sdk': 3.6.3
       '@ledgerhq/connect-kit-loader': 1.0.2
-      '@wagmi/core': 0.8.15_2zmba3zh2lo2ye5dzgeckiacfa
+      '@wagmi/core': 0.8.15_x4d3gduigo4gw4jtoghioomvum
       '@walletconnect/ethereum-provider': 1.8.0
       '@walletconnect/universal-provider': 2.2.1_typescript@4.9.4
       '@web3modal/standalone': 2.0.0-rc.3_react@18.2.0
@@ -3115,42 +3113,6 @@ packages:
       - immer
       - react
     dev: false
-
-  /@wagmi/core/0.8.15_2zmba3zh2lo2ye5dzgeckiacfa:
-    resolution: {integrity: sha512-HTfLHNbTygxTG47Unae9HbmMkwZZvtAK9oMP9RmWwZup+LaiExxb7EF0TGJt7J4gtXnHDXPkwcx12lwRmc7YvA==}
-    peerDependencies:
-      '@coinbase/wallet-sdk': '>=3.6.0'
-      '@walletconnect/ethereum-provider': '>=1.7.5'
-      ethers: '>=5.5.1'
-    peerDependenciesMeta:
-      '@coinbase/wallet-sdk':
-        optional: true
-      '@walletconnect/ethereum-provider':
-        optional: true
-    dependencies:
-      '@wagmi/chains': 0.1.10
-      '@wagmi/connectors': 0.1.8_6kgozxlve4pi7mkgr2qmip7rlq
-      abitype: 0.2.5_typescript@4.9.4
-      ethers: 5.7.2
-      eventemitter3: 4.0.7
-      zustand: 4.3.2_react@18.2.0
-    transitivePeerDependencies:
-      - '@babel/core'
-      - '@react-native-async-storage/async-storage'
-      - '@swc/core'
-      - '@swc/wasm'
-      - '@types/node'
-      - bufferutil
-      - debug
-      - encoding
-      - immer
-      - lokijs
-      - react
-      - supports-color
-      - typescript
-      - utf-8-validate
-      - zod
-    dev: true
 
   /@wagmi/core/0.8.15_x4d3gduigo4gw4jtoghioomvum:
     resolution: {integrity: sha512-HTfLHNbTygxTG47Unae9HbmMkwZZvtAK9oMP9RmWwZup+LaiExxb7EF0TGJt7J4gtXnHDXPkwcx12lwRmc7YvA==}
