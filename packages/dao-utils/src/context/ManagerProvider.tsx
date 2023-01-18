@@ -4,12 +4,12 @@ import type { GetContractResult } from '@wagmi/core'
 import { managerAbi, auctionAbi } from '../abi'
 
 export interface ManagerProviderProps {
-  children?: React.ReactNode
-  tokenAddress?: string
+  children: React.ReactNode
+  tokenAddress: string
 }
 
 export interface ManagerReturnTypes {
-  tokenAddress?: string
+  tokenAddress: string
   daoAddresses: {
     metadataAddress: string
     auctionAddress: GetContractResult<typeof auctionAbi> | string
