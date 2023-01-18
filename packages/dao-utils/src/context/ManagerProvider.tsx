@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { useContractRead } from 'wagmi'
-import { managerAbi } from '../abi/managerAbi'
+import type { GetContractResult } from '@wagmi/core'
+import { managerAbi, auctionAbi } from '../abi'
 
 export interface ManagerProviderProps {
   children?: React.ReactNode
@@ -11,7 +12,7 @@ export interface ManagerReturnTypes {
   tokenAddress?: string
   daoAddresses: {
     metadataAddress: string
-    auctionAddress: string
+    auctionAddress: GetContractResult<typeof auctionAbi>
     treasuryAddress: string
     governorAddress: string
   }

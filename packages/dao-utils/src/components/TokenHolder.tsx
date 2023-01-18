@@ -2,16 +2,17 @@
 import * as React from 'react'
 import { useAuctionProvider } from '../context'
 import { useBidder } from '../hooks/useBidder'
+import { useDaoToken } from '../hooks'
 
 export default function TokenTitle({
   tokenId,
-  daoAddress,
+  tokenAddress,
 }: {
-  daoAddress: string
+  tokenAddress: string
   tokenId: string
 }) {
   const { tokenData } = useDaoToken({
-    daoAddress: daoAddress,
+    tokenAddress: tokenAddress,
     tokenId: tokenId,
   })
 

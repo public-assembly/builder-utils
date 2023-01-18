@@ -10,7 +10,7 @@ export interface TokenExplorerProps extends React.HTMLProps<HTMLDivElement> {
   /**
    * Nounish NFT Contract address
    */
-  daoAddress: string
+  tokenAddress: string
   /**
    * Renderer Component for current auction
    */
@@ -21,12 +21,12 @@ export interface TokenExplorerProps extends React.HTMLProps<HTMLDivElement> {
   tokenRenderer?: React.ReactNode
 }
 
-export default function TokenPagination({
-  daoAddress,
+export default function TokenExplorer({
+  tokenAddress,
   auctionRenderer,
   ...props
 }: TokenExplorerProps) {
-  const { totalSupply } = useActiveAuction(daoAddress)
+  const { totalSupply } = useActiveAuction(tokenAddress)
 
   const [tokenId, setTokenId] = React.useState(0)
 
@@ -51,9 +51,9 @@ export default function TokenPagination({
   return (
     <div {...props} className="flex flex-col gap-2">
       {tokenId === totalSupply - 1 ? (
-        <>{auctionRenderer || <CurrentAuction daoAddress={daoAddress} />}</>
+        <>{auctionRenderer || <CurrentAuction tokenAddress={tokenAddress} />}</>
       ) : (
-        <TokenRenderer daoAddress={daoAddress} tokenId={tokenId?.toString()!} />
+        <TokenRenderer tokenAddress={tokenAddress} tokenId={tokenId?.toString()!} />
       )}
       <div className="flex flex-row gap-1">
         <button
