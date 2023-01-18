@@ -18,7 +18,7 @@
   ],
   "peerDependencies": {
     "@ethersproject/units": "^5.7.0",
-    "@rainbow-me/rainbowkit": "^0.6.0",
+    "@rainbow-me/rainbowkit": "^0.8.1",
     "@wagmi/core": "^0.8.15",
     "@zoralabs/nft-hooks": "^1.1.9",
     "@zoralabs/nouns-protocol": "^1.0.1",
@@ -32,11 +32,11 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "swr": "^1.3.0",
-    "wagmi": "^0.6.6"
+    "wagmi": "^0.10.11"
   },
   "devDependencies": {
     "@ethersproject/units": "^5.7.0",
-    "@rainbow-me/rainbowkit": "^0.6.0",
+    "@rainbow-me/rainbowkit": "^0.8.1",
     "@types/react": "^18.0.20",
     "@types/react-dom": "^18.0.6",
     "@wagmi/core": "^0.8.15",
@@ -53,6 +53,6 @@
     "react-dom": "^18.2.0",
     "swr": "^1.3.0",
     "typescript": "^4.8.3",
-    "wagmi": "^0.6.6"
+    "wagmi": "^0.10.11"
   }
 }

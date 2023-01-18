@@ -2,8 +2,8 @@ import * as React from 'react'
 import { useContractRead } from 'wagmi'
 import { auctionAbi } from '../abi/auctionAbi'
 import { useManagerProvider } from './ManagerProvider'
-import type { GetContractResult } from '@wagmi/core'
 import { useActiveAuction, useDaoAuctionQuery, useDaoToken } from '../hooks'
+import { BigNumber } from 'ethers'
 
 export interface AuctionProviderProps {
   children?: React.ReactNode
@@ -12,14 +12,14 @@ export interface AuctionProviderProps {
 
 export interface AuctionReturnTypes {
   tokenAddress?: string
-  auctionAddress: GetContractResult<typeof auctionAbi> | string
-  auctionState?: {
-    tokenId: number
-    highestBid: number
-    highestBidder: string
-    startTime: number
-    endTime: number
-    settled: boolean
+  auctionAddress?: `0x${string}`
+  auctionState: {
+    tokenId?: BigNumber
+    highestBid?: BigNumber
+    highestBidder?: `0x${string}`
+    startTime?: number
+    endTime?: number
+    settled?: boolean
   }
   /**
    * TODO: Confirm types
@@ -58,8 +58,8 @@ export function AuctionProvider({ children, tokenId }: AuctionProviderProps) {
   })
 
   const { data: auction } = useContractRead({
-    addressOrName: auctionAddress as string,
-    contractInterface: auctionAbi,
+    address: auctionAddress,
+    abi: auctionAbi,
     functionName: 'auction',
   })
 

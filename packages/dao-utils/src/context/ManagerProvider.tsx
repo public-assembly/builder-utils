@@ -1,20 +1,19 @@
 import * as React from 'react'
 import { useContractRead } from 'wagmi'
-import type { GetContractResult } from '@wagmi/core'
-import { managerAbi, auctionAbi } from '../abi'
+import { managerAbi } from '../abi'
 
 export interface ManagerProviderProps {
   children: React.ReactNode
-  tokenAddress: string
+  tokenAddress: `0x${string}`
 }
 
 export interface ManagerReturnTypes {
-  tokenAddress: string
+  tokenAddress: `0x${string}`
   daoAddresses: {
-    metadataAddress: string
-    auctionAddress: GetContractResult<typeof auctionAbi> | string
-    treasuryAddress: string
-    governorAddress: string
+    metadataAddress: `0x${string}`
+    auctionAddress: `0x${string}`
+    treasuryAddress: `0x${string}`
+    governorAddress: `0x${string}`
   }
 }
 
@@ -24,8 +23,8 @@ export function ManagerProvider({ children, tokenAddress }: ManagerProviderProps
   const managerProxyAddress = '0xd310A3041dFcF14Def5ccBc508668974b5da7174'
 
   const { data: getAddresses } = useContractRead({
-    addressOrName: managerProxyAddress,
-    contractInterface: managerAbi,
+    address: managerProxyAddress,
+    abi: managerAbi,
     functionName: 'getAddresses',
     args: [tokenAddress],
   })

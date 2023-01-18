@@ -12,7 +12,7 @@ export default function Avatar() {
     address: address,
   })
   const { data: ensAvatar } = useEnsAvatar({
-    addressOrName: address,
+    address: address,
   })
 
   if (!ensAvatar) return null
