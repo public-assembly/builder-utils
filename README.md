@@ -34,6 +34,19 @@ export default function ReactThingAmaBob() {
 `pnpm add @public-assembly/dao-utils` 
    
 `yarn add @public-assembly/dao-utils` 
+
+### Adding Peer Dependencies:
+From the root directory, navigate to the package
+
+`cd packages/dao-utils`
+
+Add the package as a peer dependency
+
+`npm i <package-name> --save-peer`
+
+`pnpm add <package-name> --save-peer`
+
+`yarn add <package-name> --save-peer`
    
 ---
 
