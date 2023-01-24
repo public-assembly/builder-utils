@@ -16,7 +16,7 @@ export interface CurrentAuctionProps extends React.HTMLProps<HTMLDivElement> {
   /**
    * Nounish NFT Contract address
    */
-  tokenAddress: string
+  tokenAddress: `0x${string}`
 }
 
 export default function CurrentAuction({ tokenAddress, ...props }: CurrentAuctionProps) {

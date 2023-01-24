@@ -9,7 +9,7 @@ export interface TokenExplorerProps extends React.HTMLProps<HTMLDivElement> {
   /**
    * Nounish NFT Contract address
    */
-  tokenAddress: string
+  tokenAddress: `0x${string}`
   /**
    * Renderer Component for current auction
    */
