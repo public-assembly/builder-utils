@@ -9,9 +9,9 @@ export function useActiveAuction(
   /**
    * Nounish NFT Contract address
    */
-  daoAddress: string
+  tokenAddress: string
 ) {
-  const { activeAuction } = useDaoAuctionQuery({ collectionAddress: daoAddress })
+  const { activeAuction } = useDaoAuctionQuery({ collectionAddress: tokenAddress })
 
   const { bidder } = useBidder(activeAuction?.highestBidder as string)
 
@@ -52,7 +52,7 @@ export function useActiveAuction(
   }, [activeAuction, bidder, minBidAmount])
 
   const { BuilderAuction, BuilderToken } = useNounsProtocol({
-    daoAddress: daoAddress,
+    tokenAddress: tokenAddress,
     auctionAddress: auctionData?.address,
     metadataRendererAddress: auctionData?.metadata,
   })

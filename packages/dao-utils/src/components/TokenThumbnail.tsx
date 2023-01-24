@@ -4,15 +4,15 @@ import { useDaoToken } from '../hooks/useDaoToken'
 
 export default function TokenThumbnail({
   tokenId,
-  daoAddress,
+  tokenAddress,
 }: {
-  daoAddress: string
+  tokenAddress: `0x${string}`
   tokenId: string
 }) {
   const [thumbnail, setThumbnail] = React.useState<undefined | string>()
 
   const { tokenData } = useDaoToken({
-    daoAddress: daoAddress,
+    tokenAddress: tokenAddress,
     tokenId: tokenId,
   })
 

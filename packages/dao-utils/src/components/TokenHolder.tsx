@@ -5,13 +5,13 @@ import { useBidder } from '../hooks/useBidder'
 
 export default function TokenTitle({
   tokenId,
-  daoAddress,
+  tokenAddress,
 }: {
-  daoAddress: string
+  tokenAddress: `0x${string}`
   tokenId: string
 }) {
   const { tokenData } = useDaoToken({
-    daoAddress: daoAddress,
+    tokenAddress: tokenAddress,
     tokenId: tokenId,
   })
 

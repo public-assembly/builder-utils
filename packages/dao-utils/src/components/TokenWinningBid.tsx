@@ -14,20 +14,20 @@ export type AuctionEvent = {
 
 export default function TokenWinningBid({
   tokenId,
-  daoAddress,
+  tokenAddress,
 }: {
-  daoAddress: string
+  tokenAddress: `0x${string}`
   tokenId: string
 }) {
-  const { auctionData } = useActiveAuction(daoAddress)
+  const { auctionData } = useActiveAuction(tokenAddress)
 
   const { tokenData } = useDaoToken({
-    daoAddress: daoAddress,
+    tokenAddress: tokenAddress,
     tokenId: tokenId,
   })
 
   const { BuilderAuction } = useNounsProtocol({
-    daoAddress: daoAddress,
+    tokenAddress: tokenAddress,
     auctionAddress: auctionData?.address,
   })
 
