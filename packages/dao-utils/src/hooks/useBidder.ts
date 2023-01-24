@@ -4,7 +4,7 @@ import { shortenAddress } from '../lib/shortenAddress'
 
 export function useBidder(address?: string) {
   const { data: ensName } = useEnsName({
-    address: address as string | undefined,
+    address: address as `0x${string}` | undefined,
   })
 
   const bidder = React.useMemo(
