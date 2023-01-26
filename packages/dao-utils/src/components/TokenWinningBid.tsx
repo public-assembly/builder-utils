@@ -88,11 +88,7 @@ export default function TokenWinningBid({
   }, [BuilderAuction, tokenId, tokenData])
 
   return (
-    <a
-      href={`https://etherscan.io/`}
-      target="_blank"
-      rel="noreferrer"
-      className="flex flex-col leading-5">
+    <div className="flex flex-col leading-5 text-[color:var(--pa-pink)]">
       <span className="opacity-50">Winning bid:</span>
       <a
         href={winningTx}
@@ -101,6 +97,6 @@ export default function TokenWinningBid({
         className={`${!winningTx && 'pointer-events-none'} hover:underline`}>
         {winningBid}
       </a>
-    </a>
+    </div>
   )
 }
