@@ -26,8 +26,7 @@ export function ManagerProvider({ children, tokenAddress }: ManagerProviderProps
     address: managerProxyAddress,
     abi: managerAbi,
     functionName: 'getAddresses',
-    // args: [tokenAddress],
-    args: ['0xd2E7684Cf3E2511cc3B4538bB2885Dc206583076'],
+    args: [tokenAddress],
     onSuccess(getAddresses) {
       console.log(getAddresses)
     },

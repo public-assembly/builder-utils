@@ -3,7 +3,7 @@ import { ManagerProvider } from '@public-assembly/dao-utils'
 import { PrintManagerProviderData } from '../components'
 
 function Providers() {
-  const tokenAddress = '0xd2E7684Cf3E2511cc3B4538bB2885Dc206583076' as `0x${string}`
+  const tokenAddress = '0x8983ec4b57dbebe8944af8d4f9d3adbafea5b9f1' as `0x${string}`
   return (
     <section className="max-w-[1240px] m-auto px-4 gap-8 flex flex-col">
       <Seo title="providers" />
