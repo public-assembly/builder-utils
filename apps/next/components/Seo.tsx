@@ -1,4 +1,4 @@
-import NextHead from 'next/head'
+import Head from 'next/head'
 
 const defaultTitle = process.env.NEXT_PUBLIC_SITE_TITLE || ''
 const defaultDescription = process.env.NEXT_PUBLIC_SITE_DESCRIPTION || ''
@@ -15,7 +15,7 @@ type SeoProps = {
 
 export function Seo({ title, description, url, ogImage }: SeoProps) {
   return (
-    <NextHead>
+    <Head>
       <meta charSet="UTF-8" />
       <title>{title ? `${defaultTitle} | ${title}` : defaultTitle}</title>
       <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -34,6 +34,6 @@ export function Seo({ title, description, url, ogImage }: SeoProps) {
       <meta property="og:image" content={ogImage || defaultOGImage} />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
-    </NextHead>
+    </Head>
   )
 }
