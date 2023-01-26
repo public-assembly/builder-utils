@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { useContractRead } from 'wagmi'
-import { managerAbi, newManagerAbi } from '../abi'
+import { managerAbi } from '../abi'
 
 export interface ManagerProviderProps {
   children: React.ReactNode
@@ -24,7 +24,7 @@ export function ManagerProvider({ children, tokenAddress }: ManagerProviderProps
 
   const { data: getAddresses } = useContractRead({
     address: managerProxyAddress,
-    abi: newManagerAbi,
+    abi: managerAbi,
     functionName: 'getAddresses',
     // args: [tokenAddress],
     args: ['0xd2E7684Cf3E2511cc3B4538bB2885Dc206583076'],
