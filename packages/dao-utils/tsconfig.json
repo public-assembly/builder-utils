@@ -4,10 +4,14 @@
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
     "moduleResolution": "node",
+    "noImplicitAny": false,
+    "allowSyntheticDefaultImports": true,
+    "module": "ESNext",
+    "target": "ES2019",
     "preserveWatchOutput": true,
     "skipLibCheck": true,
     "noEmit": true,
-    "strict": false,
+    "strict": true,
     "jsx": "preserve"
   },
   "exclude": ["node_modules"]
