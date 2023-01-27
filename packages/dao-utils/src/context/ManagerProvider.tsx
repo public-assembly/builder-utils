@@ -1,57 +1,80 @@
-import * as React from 'react'
+import React, { createContext, PropsWithChildren, useContext, useEffect } from 'react'
 import { useContractRead } from 'wagmi'
 import { managerAbi } from '../abi'
 
-export interface ManagerProviderProps {
-  children: React.ReactNode
-  tokenAddress: `0x${string}`
+type Hash = `0x${string}`
+
+type ManagerProviderProps = PropsWithChildren<{
+  tokenAddress: Hash
+}>
+
+type DaoAddresses = {
+  metadataAddress: string
+  auctionAddress: string
+  treasuryAddress: string
+  governorAddress: string
+} | null
+
+export type ManagerReturnTypes = {
+  tokenAddress?: Hash
+  daoAddresses: DaoAddresses
+  isLoading: boolean
+  isError: boolean
 }
 
-export interface ManagerReturnTypes {
-  tokenAddress?: `0x${string}`
-  daoAddresses: {
-    metadataAddress?: `0x${string}`
-    auctionAddress?: `0x${string}`
-    treasuryAddress?: `0x${string}`
-    governorAddress?: `0x${string}`
-  }
-}
+const ManagerContext = createContext<ManagerReturnTypes | null>({
+  tokenAddress: undefined,
+  daoAddresses: null,
+  isLoading: false,
+  isError: false,
+})
 
-const ManagerContext = React.createContext({} as ManagerReturnTypes)
-
-export function ManagerProvider({ children, tokenAddress }: ManagerProviderProps) {
+export const ManagerProvider: React.FC<ManagerProviderProps> = ({
+  children,
+  tokenAddress,
+}) => {
   const managerProxyAddress = '0xd310A3041dFcF14Def5ccBc508668974b5da7174'
 
-  const { data: getAddresses } = useContractRead({
+  const [daoAddresses, setDaoAddress] = React.useState<DaoAddresses | null>(null)
+
+  const {
+    data: getAddresses,
+    isLoading,
+    isError,
+  } = useContractRead({
     address: managerProxyAddress,
     abi: managerAbi,
     functionName: 'getAddresses',
     args: [tokenAddress],
-    onSuccess(getAddresses) {
-      console.log(getAddresses)
+    onSuccess(data: any) {
+      console.log(data)
     },
-    onError(error) {
+    onError(error: any) {
       console.log(error)
     },
   })
 
-  const daoAddresses = React.useMemo(() => {
-    return {
-      metadataAddress: getAddresses?.metadata,
-      auctionAddress: getAddresses?.auction,
-      treasuryAddress: getAddresses?.treasury,
-      governorAddress: getAddresses?.governor,
+  useEffect(() => {
+    if (getAddresses) {
+      setDaoAddress({
+        metadataAddress: getAddresses?.metadata,
+        auctionAddress: getAddresses?.auction,
+        treasuryAddress: getAddresses?.treasury,
+        governorAddress: getAddresses?.governor,
+      })
     }
   }, [getAddresses])
 
-  return (
-    <ManagerContext.Provider value={{ tokenAddress, daoAddresses }}>
-      {children}
-    </ManagerContext.Provider>
-  )
+  const value = { tokenAddress, daoAddresses, isLoading, isError }
+
+  return <ManagerContext.Provider value={value}>{children}</ManagerContext.Provider>
 }
 
 // Access the context value of the ManagerProvider
-export function useManagerProvider() {
-  return React.useContext(ManagerContext)
+export const useManagerContext = () => {
+  const context = useContext(ManagerContext)
+  if (!context) {
+    throw Error('useManagerContext hook must be used within a ManagerProvider')
+  }
+  return context
 }

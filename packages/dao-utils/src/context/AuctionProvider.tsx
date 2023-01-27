@@ -1,9 +1,11 @@
-import * as React from 'react'
+import React, { useContext } from 'react'
 import { useContractRead } from 'wagmi'
 import { auctionAbi } from '../abi/auctionAbi'
-import { useManagerProvider } from './ManagerProvider'
+import { useManagerContext } from './ManagerProvider'
 import { useActiveAuction, useDaoToken } from '../hooks'
 import { BigNumber } from 'ethers'
+
+type Hash = `0x${string}`
 
 export interface AuctionProviderProps {
   children?: React.ReactNode
@@ -11,12 +13,12 @@ export interface AuctionProviderProps {
 }
 
 export interface AuctionReturnTypes {
-  tokenAddress?: `0x${string}`
-  auctionAddress?: `0x${string}`
+  tokenAddress?: Hash
+  auctionAddress?: Hash
   auctionState: {
     tokenId?: BigNumber
     highestBid?: BigNumber
-    highestBidder?: `0x${string}`
+    highestBidder?: Hash
     startTime?: number
     endTime?: number
     settled?: boolean
@@ -37,10 +39,12 @@ export interface AuctionReturnTypes {
 const AuctionContext = React.createContext({} as AuctionReturnTypes)
 
 export function AuctionProvider({ children, tokenId }: AuctionProviderProps) {
-  const {
-    tokenAddress,
-    daoAddresses: { auctionAddress },
-  } = useManagerProvider()
+  const { tokenAddress, daoAddresses } = useManagerContext()
+
+  const auctionAddress = React.useMemo(
+    () => daoAddresses?.auctionAddress as Hash,
+    [daoAddresses]
+  )
 
   const {
     auctionData,
@@ -95,7 +99,11 @@ export function AuctionProvider({ children, tokenId }: AuctionProviderProps) {
   )
 }
 
-// Access the context value of the AuctionProvider
-export function useAuctionProvider() {
-  return React.useContext(AuctionContext)
+// Access the context value of the ManagerProvider
+export const useAuctionContext = () => {
+  const context = useContext(AuctionContext)
+  if (!context) {
+    throw Error('useManagerContext hook must be used within a ManagerProvider')
+  }
+  return context
 }
