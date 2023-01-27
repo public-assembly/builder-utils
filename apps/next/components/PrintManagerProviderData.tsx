@@ -1,7 +1,7 @@
 import { RawDisplayer } from './RawDisplayer'
-import { useManagerProvider } from '@public-assembly/dao-utils'
+import { useManagerContext } from '@public-assembly/dao-utils'
 
 export function PrintManagerProviderData() {
-  const { daoAddresses } = useManagerProvider()
+  const { daoAddresses } = useManagerContext()
   return <RawDisplayer data={daoAddresses} />
 }
