@@ -14,7 +14,7 @@ export function Footer() {
         </a>
       ))}
       <div className="w-[60px] h-[60px] relative">
-        <img src="favicon.png"></img>
+        <img src="favicon.png" alt="favicon"></img>
       </div>
     </footer>
   )

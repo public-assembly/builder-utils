@@ -14,20 +14,20 @@ export type AuctionEvent = {
 
 export default function TokenWinningBid({
   tokenId,
-  daoAddress,
+  tokenAddress,
 }: {
-  daoAddress: string
+  tokenAddress: `0x${string}`
   tokenId: string
 }) {
-  const { auctionData } = useActiveAuction(daoAddress)
+  const { auctionData } = useActiveAuction(tokenAddress)
 
   const { tokenData } = useDaoToken({
-    daoAddress: daoAddress,
+    tokenAddress: tokenAddress,
     tokenId: tokenId,
   })
 
   const { BuilderAuction } = useNounsProtocol({
-    daoAddress: daoAddress,
+    tokenAddress: tokenAddress,
     auctionAddress: auctionData?.address,
   })
 
@@ -88,11 +88,7 @@ export default function TokenWinningBid({
   }, [BuilderAuction, tokenId, tokenData])
 
   return (
-    <a
-      href={`https://etherscan.io/`}
-      target="_blank"
-      rel="noreferrer"
-      className="flex flex-col leading-5">
+    <div className="flex flex-col leading-5 text-[color:var(--pa-pink)]">
       <span className="opacity-50">Winning bid:</span>
       <a
         href={winningTx}
@@ -101,6 +97,6 @@ export default function TokenWinningBid({
         className={`${!winningTx && 'pointer-events-none'} hover:underline`}>
         {winningBid}
       </a>
-    </a>
+    </div>
   )
 }

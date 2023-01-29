@@ -17,7 +17,7 @@ export type NounsProtocolAddresses = {
   /**
    * Pass in the dao contract token address
    */
-  daoAddress?: string
+  tokenAddress?: string
   /**
    * Pass in the dao contract token address
    */
@@ -26,7 +26,7 @@ export type NounsProtocolAddresses = {
 
 export function useNounsProtocol({
   auctionAddress,
-  daoAddress,
+  tokenAddress,
   metadataRendererAddress,
 }: NounsProtocolAddresses) {
   const [BuilderAuction, setBuilderAuction] = React.useState<AuctionInterface>()
@@ -43,13 +43,13 @@ export function useNounsProtocol({
         MetadataRenderer__factory.connect(metadataRendererAddress, signer || provider)
       )
     }
-    if (daoAddress) {
-      setBuilderToken(Token__factory.connect(daoAddress, signer || provider))
+    if (tokenAddress) {
+      setBuilderToken(Token__factory.connect(tokenAddress, signer || provider))
     }
     if (auctionAddress) {
       setBuilderAuction(Auction__factory.connect(auctionAddress, signer || provider))
     }
-  }, [auctionAddress, daoAddress, signer, provider])
+  }, [auctionAddress, tokenAddress, signer, provider])
 
   return {
     BuilderAuction,

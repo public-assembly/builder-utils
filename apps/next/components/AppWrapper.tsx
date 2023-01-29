@@ -16,15 +16,15 @@ const { chains, provider } = configureChains(
   [
     infuraProvider({
       priority: 0,
-      apiKey: process.env.NEXT_PUBLIC_INFURA_KEY,
+      apiKey: process.env.NEXT_PUBLIC_INFURA_KEY as string,
     }),
-    jsonRpcProvider({
-      priority: 1,
-      rpc: (chain) =>
-        chain.id === 1
-          ? { http: 'https://rpc.ankr.com/eth' }
-          : { http: 'https://rpc.ankr.com/eth_goerli' },
-    }),
+    // jsonRpcProvider({
+    //   priority: 1,
+    //   rpc: (chain) =>
+    //     chain.id === 1
+    //       ? { http: 'https://rpc.ankr.com/eth' }
+    //       : { http: 'https://rpc.ankr.com/eth_goerli' },
+    // }),
     publicProvider({ priority: 2 }),
   ]
 )

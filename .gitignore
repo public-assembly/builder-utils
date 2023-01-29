@@ -18,6 +18,7 @@ apps/**/node_modules/**
 apps/**/.env.local
 
 # local env files (followinf dotenv-flow / nextjs convention)
+.env
 .env.local
 .env.*.local
 

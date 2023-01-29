@@ -30,17 +30,17 @@ export type TokenData = {
 }
 
 export function useDaoToken({
-  daoAddress,
+  tokenAddress,
   tokenId,
 }: {
-  daoAddress: string
+  tokenAddress?: `0x${string}`
   tokenId: string
 }) {
   const { data: tokenData, error } = useSWR<any>(
-    `token-metadata-${daoAddress}-${tokenId}`,
+    `token-metadata-${tokenAddress}-${tokenId}`,
     async () =>
       zoraApiFetcher(DAO_TOKEN_QUERY, {
-        daoAddress,
+        tokenAddress,
         tokenId,
       }),
     {
