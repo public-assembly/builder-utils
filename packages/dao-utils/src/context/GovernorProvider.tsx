@@ -7,44 +7,58 @@ type Hash = `0x${string}`
 
 export interface GovernorProviderProps {
   children?: React.ReactNode
-  proposalId?: `0x${string}`
+  proposalId: `0x${string}`
 }
 
-export interface Proposal {
-  proposalDetails?: {
-    proposer: string
-    timeCreated: number
-    againstVotes: number
-    forVotes: number
-    abstainVotes: number
-    voteStart: number
-    voteEnd: number
-    proposalThreshold: number
-    quorumVotes: number
-    executed: boolean
-    canceled: boolean
-    vetoed: boolean
-  }
-}
-
-export interface ProposalCreated {
+/**
+ * https://github.com/ourzora/nouns-protocol/blob/1dbccbf9b82d34cba0b3ecc0b4feaef96909a5e6/src/governance/governor/IGovernor.sol#L19
+ */
+export type Proposal = {
   proposalId: `0x${string}`[]
   targets: `0x${string}`[]
   values: number[]
   calldatas: `0x${string}`[]
   description: string
   descriptionHash: `0x${string}`
-  proposal: Proposal
+  proposal: ProposalDetails
   state: number
 }
 
-export interface GovernorReturnTypes extends Proposal {
-  tokenAddress?: string
-  governorAddress: string
-  /**
-   * TODO: confirm types
-   */
-  proposalId?: `0x${string}`
+/**
+ * https://github.com/ourzora/nouns-protocol/blob/main/src/governance/governor/types/GovernorTypesV1.sol#L42
+ */
+export type ProposalDetails = {
+  proposer?: `0x${string}`
+  timeCreated?: number
+  againstVotes?: number
+  forVotes?: number
+  abstainVotes?: number
+  voteStart?: number
+  voteEnd?: number
+  proposalThreshold?: number
+  quorumVotes?: number
+  executed?: boolean
+  canceled?: boolean
+  vetoed?: boolean
+}
+
+export type ProposalState = {
+  pending: boolean
+  active: boolean
+  canceled: boolean
+  defeated: boolean
+  succeeded: boolean
+  queued: boolean
+  expired: boolean
+  executed: boolean
+  vetoed: boolean
+} | null
+
+export interface GovernorReturnTypes {
+  tokenAddress?: Hash
+  governorAddress: Hash
+  proposalId: Hash
+  proposalDetails: ProposalDetails
   proposalArray?: Proposal[]
 }
 
@@ -98,6 +112,9 @@ export function GovernorProvider({ children, proposalId }: GovernorProviderProps
     }
   }
 
+  /**
+   * Returns a Proposal's details given a proposal id
+   */
   const { data: getProposal } = useContractRead({
     address: governorAddress,
     abi: governorAbi,
