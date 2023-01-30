@@ -99,11 +99,11 @@ export function AuctionProvider({ children, tokenId }: AuctionProviderProps) {
   )
 }
 
-// Access the context value of the ManagerProvider
+// Access the context value of the AuctionProvider
 export const useAuctionContext = () => {
   const context = useContext(AuctionContext)
   if (!context) {
-    throw Error('useManagerContext hook must be used within a ManagerProvider')
+    throw Error('useAuctionContext hook must be used within a AuctionProvider')
   }
   return context
 }
