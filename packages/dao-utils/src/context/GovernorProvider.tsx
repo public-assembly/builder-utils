@@ -42,24 +42,11 @@ export type ProposalDetails = {
   vetoed?: boolean
 }
 
-export type ProposalState = {
-  pending: boolean
-  active: boolean
-  canceled: boolean
-  defeated: boolean
-  succeeded: boolean
-  queued: boolean
-  expired: boolean
-  executed: boolean
-  vetoed: boolean
-} | null
-
 export interface GovernorReturnTypes {
   tokenAddress?: Hash
   governorAddress: Hash
   proposalId: Hash
   proposalDetails: ProposalDetails
-  proposalArray?: Proposal[]
 }
 
 const GovernorContext = React.createContext({} as GovernorReturnTypes)
@@ -71,46 +58,6 @@ export function GovernorProvider({ children, proposalId }: GovernorProviderProps
     () => daoAddresses?.governorAddress as Hash,
     [daoAddresses]
   )
-
-  const [proposalArray, setProposalArray] = React.useState<Proposal[]>()
-
-  /**
-   * Create a type-safe Contract instance
-   */
-  const governorContract = useContract({
-    address: governorAddress,
-    abi: governorAbi,
-  })
-
-  /**
-   * Used to query Proposal creation events as defined below:
-   * https://github.com/ourzora/nouns-protocol/blob/main/src/governance/governor/IGovernor.sol#L18-L27
-   */
-  async function getProposals() {
-    try {
-      const proposalCreationEvents = await governorContract?.queryFilter(
-        'ProposalCreated' as any,
-        7400416,
-        'latest'
-      )
-      if (proposalCreationEvents) {
-        const proposalEventsArray = proposalCreationEvents.map((event: any) => {
-          return {
-            proposalId: event?.proposalId,
-            targets: event?.targets,
-            values: event?.values,
-            calldatas: event?.calldatas,
-            description: event?.description,
-            descriptionHash: event?.description,
-            proposal: event?.proposal,
-          }
-        }) as Proposal[]
-        setProposalArray(proposalEventsArray)
-      }
-    } catch (err) {
-      console.error(err)
-    }
-  }
 
   /**
    * Returns a Proposal's details given a proposal id
@@ -146,7 +93,6 @@ export function GovernorProvider({ children, proposalId }: GovernorProviderProps
         governorAddress,
         proposalId,
         proposalDetails,
-        proposalArray,
       }}>
       {children}
     </GovernorContext.Provider>
