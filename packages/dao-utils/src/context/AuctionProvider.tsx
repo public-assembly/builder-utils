@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { useContractRead } from 'wagmi'
-import { auctionAbi } from '../abi/auctionAbi'
+import { auctionAbi } from '../abi'
 import { useManagerContext } from './ManagerProvider'
 import { useActiveAuction, useDaoToken } from '../hooks'
 import { BigNumber } from 'ethers'

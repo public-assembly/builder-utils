@@ -1,25 +1,25 @@
 import React, { useContext } from 'react'
 import { useContractRead, useContract } from 'wagmi'
-import { governorAbi } from '../abi/governorAbi'
+import { governorAbi } from '../abi'
 import { useManagerContext } from './ManagerProvider'
 
 type Hash = `0x${string}`
 
 export interface GovernorProviderProps {
   children?: React.ReactNode
-  proposalId: `0x${string}`
+  proposalId: Hash
 }
 
 /**
  * https://github.com/ourzora/nouns-protocol/blob/1dbccbf9b82d34cba0b3ecc0b4feaef96909a5e6/src/governance/governor/IGovernor.sol#L19
  */
 export type Proposal = {
-  proposalId: `0x${string}`[]
-  targets: `0x${string}`[]
+  proposalId: Hash[]
+  targets: Hash[]
   values: number[]
-  calldatas: `0x${string}`[]
+  calldatas: Hash[]
   description: string
-  descriptionHash: `0x${string}`
+  descriptionHash: Hash
   proposal: ProposalDetails
   state: number
 }
@@ -28,7 +28,7 @@ export type Proposal = {
  * https://github.com/ourzora/nouns-protocol/blob/main/src/governance/governor/types/GovernorTypesV1.sol#L42
  */
 export type ProposalDetails = {
-  proposer?: `0x${string}`
+  proposer?: Hash
   timeCreated?: number
   againstVotes?: number
   forVotes?: number
