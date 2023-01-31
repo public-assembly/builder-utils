@@ -11,11 +11,9 @@ import {
   useNounsProtocol,
 } from './hooks'
 
-/**
- * Providers & Context
- */
-export { useAuctionContext, AuctionProvider } from './context/AuctionProvider'
-export { useManagerContext, ManagerProvider } from './context/ManagerProvider'
+import { useAuctionContext, AuctionProvider } from './context/AuctionProvider'
+import { useGovernorContext, GovernorProvider } from './context/GovernorProvider'
+import { useManagerContext, ManagerProvider } from './context/ManagerProvider'
 
 import { shortenAddress, zoraApiFetcher, etherscanLink } from './lib'
 
@@ -41,4 +39,13 @@ export {
   etherscanLink,
   shortenAddress,
   zoraApiFetcher,
+  /**
+   * Providers & Context
+   */
+  useAuctionContext,
+  AuctionProvider,
+  useGovernorContext,
+  GovernorProvider,
+  useManagerContext,
+  ManagerProvider,
 }
