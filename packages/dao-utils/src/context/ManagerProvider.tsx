@@ -29,12 +29,12 @@ const ManagerContext = createContext<ManagerReturnTypes | null>({
   isError: false,
 })
 
+const MANAGER_PROXY_ADDRESS = '0xd310A3041dFcF14Def5ccBc508668974b5da7174'
+
 export const ManagerProvider: React.FC<ManagerProviderProps> = ({
   children,
   tokenAddress,
 }) => {
-  const managerProxyAddress = '0xd310A3041dFcF14Def5ccBc508668974b5da7174'
-
   const [daoAddresses, setDaoAddress] = React.useState<DaoAddresses | null>(null)
 
   const {
@@ -42,7 +42,7 @@ export const ManagerProvider: React.FC<ManagerProviderProps> = ({
     isLoading,
     isError,
   } = useContractRead({
-    address: managerProxyAddress,
+    address: MANAGER_PROXY_ADDRESS,
     abi: managerAbi,
     functionName: 'getAddresses',
     args: [tokenAddress],
