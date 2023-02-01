@@ -17,12 +17,9 @@ export function GovernorProvider({ children, proposalId }: GovernorProviderProps
 
   const { proposals } = useDaoProposalQuery({ tokenAddress: tokenAddress })
 
-  // const { proposals } = useDaoProposalQuery({ tokenAddress: '0xdf9b7d26c8fc806b1ae6273684556761ff02d422' })
-
   /**
    * Returns a Proposal's details given a proposal id
    */
-
   const { data: getProposal } = useContractRead({
     address: governorAddress,
     abi: governorAbi,

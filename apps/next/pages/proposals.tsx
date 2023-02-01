@@ -10,7 +10,7 @@ function Proposals() {
   const tokenAddress = '0xd2e7684cf3e2511cc3b4538bb2885dc206583076' as `0x${string}`
   if (isServerSide()) return null
   return (
-    <section className="max-w-[1240px] m-auto px-4 gap-8 flex flex-col">
+    <section className="mx-auto px-4 gap-8 flex flex-col justify-center">
       <Seo title="proposals" />
       <div>
         <ManagerProvider tokenAddress={tokenAddress}>
