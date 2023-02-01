@@ -40,6 +40,10 @@ export type ProposalDetails = {
 export interface GovernorReturnTypes {
   tokenAddress?: Hash
   governorAddress: Hash
+  /**
+   * TODO: Update typings
+   */
+  proposals: any
   proposalId: Hash
   proposalDetails: ProposalDetails
 }

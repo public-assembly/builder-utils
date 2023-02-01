@@ -12,7 +12,7 @@ export function useDaoProposalQuery({ tokenAddress }: { tokenAddress?: Hash }) {
   )
 
   return {
-    proposals: proposals?.nouns?.nounsProposals,
+    proposals: proposals?.nouns?.nounsProposals.nodes,
     error,
   }
 }
