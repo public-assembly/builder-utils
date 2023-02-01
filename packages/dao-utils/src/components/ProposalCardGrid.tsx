@@ -5,7 +5,7 @@ export default function ProposalCardGrid() {
   const { proposals } = useGovernorContext()
 
   return (
-    <div className="flex flex-col space-y-4">
+    <div className="flex flex-col space-y-8">
       {proposals?.map((proposal) => (
         <div
           key={`${proposals.proposalId}`}

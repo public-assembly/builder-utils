@@ -12,12 +12,13 @@ function Proposals() {
   return (
     <section className="max-w-[1240px] m-auto px-4 gap-8 flex flex-col">
       <Seo title="proposals" />
-
-      <ManagerProvider tokenAddress={tokenAddress}>
-        <GovernorProvider proposalId="0x39198d469ff9ca1dbe1c32dc48b93a6d82c86ed8038723a43043f9066ed52bca">
-          <ProposalCardGrid />
-        </GovernorProvider>
-      </ManagerProvider>
+      <div>
+        <ManagerProvider tokenAddress={tokenAddress}>
+          <GovernorProvider proposalId="0x39198d469ff9ca1dbe1c32dc48b93a6d82c86ed8038723a43043f9066ed52bca">
+            <ProposalCardGrid />
+          </GovernorProvider>
+        </ManagerProvider>
+      </div>
     </section>
   )
 }
