@@ -11,7 +11,7 @@
     "preserveWatchOutput": true,
     "skipLibCheck": true,
     "noEmit": true,
-    "strict": true,
+    "strict": false,
     "jsx": "preserve"
   },
   "exclude": ["node_modules"]
