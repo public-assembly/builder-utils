@@ -1,3 +1,3 @@
 export default function ProposalTitle({ proposal }) {
-  return <div>{proposal?.title}</div>
+  return <div className="font-bold text-[16px]">{proposal?.title}</div>
 }

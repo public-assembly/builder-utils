@@ -7,7 +7,7 @@ const ConnectButton = dynamic(() => import('./ConnectButton'), {
 
 export function Header() {
   return (
-    <header className="flex w-full flex-row items-center justify-between px-4 lg:sticky lg:top-0">
+    <header className="flex w-full flex-row items-center justify-between px-4 lg:sticky lg:top-0 bg-black">
       <Navigation />
       <ConnectButton />
     </header>
