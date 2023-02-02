@@ -1,3 +1,5 @@
+import { NounsProposal } from '../types/proposalQuery.generated'
+
 export type Hash = `0x${string}`
 
 export interface GovernorProviderProps {
@@ -37,13 +39,21 @@ export type ProposalDetails = {
   vetoed?: boolean
 }
 
+export type ProposalResponse = {
+  title: string
+  voteStart: number
+  status: string
+  proposer: Hash
+  proposalId: Hash
+}
+
 export interface GovernorReturnTypes {
   tokenAddress?: Hash
   governorAddress: Hash
   /**
    * TODO: Update typings
    */
-  proposals: any
+  proposals: NounsProposal
   proposalId: Hash
   proposalDetails: ProposalDetails
 }
