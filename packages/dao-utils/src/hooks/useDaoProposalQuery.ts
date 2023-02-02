@@ -6,12 +6,10 @@ import { zoraApiFetcher } from '../lib/zoraApiFetcher'
 import type { Hash } from '../types'
 
 export function useDaoProposalQuery({ tokenAddress }: { tokenAddress?: Hash }) {
-  const { data: proposals, error } = useSWR<NounishProposalQuery>(
-    { tokenAddress },
-    async () =>
-      zoraApiFetcher(DAO_PROPOSAL_QUERY, {
-        tokenAddress,
-      })
+  const { data: proposals, error } = useSWR({ tokenAddress }, async () =>
+    zoraApiFetcher(DAO_PROPOSAL_QUERY, {
+      tokenAddress,
+    })
   )
 
   return {

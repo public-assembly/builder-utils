@@ -57,6 +57,7 @@ export type NounsProposalsConnection = {
 export type NounsProposal = {
   proposal:
     | {
+        __typename?: 'NounsProposal'
         abstainVotes: Scalars['Int']
         againstVotes: Scalars['Int']
         auction: Auction
@@ -110,6 +111,7 @@ export type NounishProposalQuery = {
     __typename?: 'Nouns'
     nounsProposals?: {
       nodes: Array<{
+        __typename?: 'NounsProposal' | undefined
         abstainVotes: Scalars['Int']
         againstVotes: Scalars['Int']
         auction: Auction
