@@ -6,13 +6,15 @@ export default function ProposalCardGrid() {
 
   return (
     <div className="flex flex-col space-y-8">
-      {proposals?.map((proposal) => (
-        <div
-          key={`${proposals.proposalId}`}
-          className="grid grid-cols-1 lg:grid-cols-2 gap-4 max-w-[1440px]">
-          <ProposalCard proposal={proposal} />
-        </div>
-      ))}
+      {proposals instanceof Array &&
+        proposals?.map((proposal) => (
+          <div
+            key={`${proposal.proposalId}`}
+            className="grid grid-cols-1 lg:grid-cols-2 gap-4 max-w-[1440px]">
+            <ProposalCard proposal={proposal} />
+          </div>
+        ))}
+      ;
     </div>
   )
 }

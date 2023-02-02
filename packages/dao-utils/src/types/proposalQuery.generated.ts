@@ -55,35 +55,37 @@ export type NounsProposalsConnection = {
 }
 
 export type NounsProposal = {
-  proposal: {
-    abstainVotes: Scalars['Int']
-    againstVotes: Scalars['Int']
-    auction: Auction
-    calldatas: Array<Scalars['String']>
-    collectionAddress: Scalars['String']
-    description: Scalars['String']
-    descriptionHash: Scalars['String']
-    executableFrom: Scalars['Date']
-    expiresAt: Scalars['Date']
-    forVotes: Scalars['Int']
-    governor: Scalars['String']
-    manager: Scalars['String']
-    metadata: Scalars['String']
-    proposalId: Scalars['String']
-    proposalNumber: Scalars['Int']
-    proposalThreshold: Scalars['String']
-    proposer: Scalars['String']
-    quorumVotes: Scalars['String']
-    status: Scalars['String']
-    targets: Array<Scalars['String']>
-    timeCreated: Scalars['Date']
-    title: Scalars['String']
-    treasury: Scalars['String']
-    values: Array<Scalars['String']>
-    voteEnd: Scalars['Date']
-    voteStart: Scalars['Date']
-    votes: Array<NounsProposalVote>
-  }
+  proposal:
+    | {
+        abstainVotes: Scalars['Int']
+        againstVotes: Scalars['Int']
+        auction: Auction
+        calldatas: Array<Scalars['String']>
+        collectionAddress: Scalars['String']
+        description: Scalars['String']
+        descriptionHash: Scalars['String']
+        executableFrom: Scalars['Date']
+        expiresAt: Scalars['Date']
+        forVotes: Scalars['Int']
+        governor: Scalars['String']
+        manager: Scalars['String']
+        metadata: Scalars['String']
+        proposalId: Scalars['String']
+        proposalNumber: Scalars['Int']
+        proposalThreshold: Scalars['String']
+        proposer: Scalars['String']
+        quorumVotes: Scalars['String']
+        status: Scalars['String']
+        targets: Array<Scalars['String']>
+        timeCreated: Scalars['Date']
+        title: Scalars['String']
+        treasury: Scalars['String']
+        values: Array<Scalars['String']>
+        voteEnd: Scalars['Date']
+        voteStart: Scalars['Date']
+        votes: Array<NounsProposalVote>
+      }
+    | undefined
 }
 
 export type Auction = {

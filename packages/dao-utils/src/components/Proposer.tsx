@@ -1,8 +1,9 @@
 import * as React from 'react'
 import { useEnsName } from 'wagmi'
 import { shortenAddress } from '../lib/shortenAddress'
+import type { NounsProposal } from '../types/proposalQuery.generated'
 
-export default function Proposer({ proposal }) {
+export default function Proposer({ proposal }: NounsProposal) {
   const { data: ensName } = useEnsName({
     address: proposal?.proposer as `0x${string}` | undefined,
   })

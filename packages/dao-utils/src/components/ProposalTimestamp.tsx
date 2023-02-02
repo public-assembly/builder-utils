@@ -1,4 +1,6 @@
-export default function ProposalTimestamp({ proposal }) {
+import type { NounsProposal } from '../types/proposalQuery.generated'
+
+export default function ProposalTimestamp({ proposal }: NounsProposal) {
   const dateFormat: [string, Intl.DateTimeFormatOptions] = [
     'en-us',
     {
