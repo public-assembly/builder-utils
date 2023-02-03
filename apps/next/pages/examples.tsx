@@ -10,7 +10,6 @@ const DAOS = [
   '0xd2E7684Cf3E2511cc3B4538bB2885Dc206583076',
   '0x96e396e66087b2b9dcad36fd473e1b049df18998',
   '0x8983ec4b57dbebe8944af8d4f9d3adbafea5b9f1',
-  '0xa45662638e9f3bbb7a6fecb4b17853b7ba0f3a60',
 ] as `0x${string}`[]
 
 function Examples() {
