@@ -6,6 +6,7 @@ export default function ProposalCardGrid() {
 
   return (
     <div className="flex flex-col space-y-8">
+      {/* @ts-ignore */}
       {proposals?.map((proposal) => (
         <div
           key={`${proposals.proposalId}`}

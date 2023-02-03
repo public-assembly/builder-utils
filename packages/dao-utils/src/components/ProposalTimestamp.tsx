@@ -1,3 +1,4 @@
+// @ts-ignore
 export default function ProposalTimestamp({ proposal }) {
   const dateFormat: [string, Intl.DateTimeFormatOptions] = [
     'en-us',

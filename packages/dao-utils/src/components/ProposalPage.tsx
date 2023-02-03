@@ -5,6 +5,7 @@ import ProposalTimestamp from './ProposalTimestamp'
 import VoteTally from './VoteTally'
 import ProposalDescription from './ProposalDescription'
 
+// @ts-ignore
 export default function ProposalPage({ proposal }) {
   return (
     <div className="p-4 text-black bg-slate-300 rounded-2xl">

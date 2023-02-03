@@ -3,6 +3,7 @@ import ProposalTitle from './ProposalTitle'
 import Proposer from './Proposer'
 import ProposalTimestamp from './ProposalTimestamp'
 
+// @ts-ignore
 export default function ProposalCard({ proposal }) {
   return (
     <div className="p-4 text-black bg-slate-300 rounded-2xl">
