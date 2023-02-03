@@ -1,8 +1,7 @@
 /** @type {import('next').NextConfig} */
 
-const withTMwithMDX = require('next-transpile-modules')(['@public-assembly/dao-utils'])(
-  '@next/mdx'
-)({
+const withTM = require('next-transpile-modules')(['@public-assembly/dao-utils'])
+const withMDX = require('@next/mdx')({
   extension: /\.mdx?$/,
 })
 
@@ -12,4 +11,4 @@ const nextConfig = {
   pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
 }
 
-module.exports = withTMwithMDX(nextConfig)
+module.exports = withMDX(withTM(nextConfig))
