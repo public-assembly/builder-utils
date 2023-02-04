@@ -14,11 +14,11 @@ import { Footer } from './Footer'
 const { chains, provider, webSocketProvider } = configureChains(
   [mainnet, goerli],
   [
+    publicProvider(),
     // @ts-ignore
     alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_KEY }),
     // @ts-ignore
     infuraProvider({ apiKey: process.env.NEXT_PUBLIC_INFURA_KEY }),
-    publicProvider(),
   ]
 )
 
