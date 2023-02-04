@@ -3,7 +3,6 @@ import NextNProgress from 'nextjs-progressbar'
 import { getDefaultWallets, RainbowKitProvider, lightTheme } from '@rainbow-me/rainbowkit'
 import { createClient, configureChains, WagmiConfig, mainnet, goerli } from 'wagmi'
 import { publicProvider } from 'wagmi/providers/public'
-import { jsonRpcProvider } from 'wagmi/providers/jsonRpc'
 import { infuraProvider } from 'wagmi/providers/infura'
 import { SWRConfig } from 'swr'
 import { NFTFetchConfiguration } from '@zoralabs/nft-hooks'
@@ -15,17 +14,9 @@ const { chains, provider } = configureChains(
   [mainnet, goerli],
   [
     infuraProvider({
-      priority: 0,
       apiKey: process.env.NEXT_PUBLIC_INFURA_KEY as string,
     }),
-    // jsonRpcProvider({
-    //   priority: 1,
-    //   rpc: (chain) =>
-    //     chain.id === 1
-    //       ? { http: 'https://rpc.ankr.com/eth' }
-    //       : { http: 'https://rpc.ankr.com/eth_goerli' },
-    // }),
-    publicProvider({ priority: 2 }),
+    publicProvider(),
   ]
 )
 
