@@ -10,7 +10,7 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "noEmit": true,
-    "noImplicitAny": false,
+    "noImplicitAny": true,
     "noUncheckedIndexedAccess": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
