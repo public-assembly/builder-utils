@@ -14,6 +14,10 @@ const pages = [
     slug: '/providers',
     title: 'Providers',
   },
+  {
+    slug: '/proposals',
+    title: 'Proposals',
+  },
 ]
 
 export function Navigation() {

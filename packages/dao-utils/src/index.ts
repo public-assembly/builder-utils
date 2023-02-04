@@ -2,6 +2,9 @@ import CurrentAuction from './components/CurrentAuction'
 import TokenExplorer from './components/TokenExplorer'
 import AuthCheck from './components/authentication/AuthCheck'
 
+import ProposalCardGrid from './components/ProposalCardGrid'
+import ProposalPageGrid from './components/ProposalPageGrid'
+
 import {
   useCountdown,
   useDaoAuctionQuery,
@@ -19,11 +22,16 @@ import { shortenAddress, zoraApiFetcher, etherscanLink } from './lib'
 
 export {
   /**
-   * Components
+   * Auction Components
    */
   CurrentAuction,
   TokenExplorer,
   AuthCheck,
+  /**
+   * Proposal Components
+   */
+  ProposalCardGrid,
+  ProposalPageGrid,
   /**
    * Hooks
    */
