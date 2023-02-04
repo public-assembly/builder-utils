@@ -1,4 +1,3 @@
-// @ts-ignore
 export default function VoteTally({ proposal }) {
   return (
     <div className="flex space-x-4">

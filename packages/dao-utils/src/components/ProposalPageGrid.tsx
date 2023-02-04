@@ -6,7 +6,6 @@ export default function ProposalPageGrid() {
 
   return (
     <div className="flex flex-col gap-y-4">
-      {/* @ts-ignore */}
       {proposals?.map((proposal) => (
         <div key={`${proposals.proposalId}`}>
           <ProposalPage proposal={proposal} />
