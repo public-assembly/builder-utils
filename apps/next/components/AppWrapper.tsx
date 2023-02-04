@@ -4,18 +4,20 @@ import { getDefaultWallets, RainbowKitProvider, lightTheme } from '@rainbow-me/r
 import { createClient, configureChains, WagmiConfig, mainnet, goerli } from 'wagmi'
 import { publicProvider } from 'wagmi/providers/public'
 import { infuraProvider } from 'wagmi/providers/infura'
+import { alchemyProvider } from 'wagmi/providers/alchemy'
 import { SWRConfig } from 'swr'
 import { NFTFetchConfiguration } from '@zoralabs/nft-hooks'
 import { ZDKFetchStrategy } from '@zoralabs/nft-hooks/dist/strategies'
 import { Header } from './Header'
 import { Footer } from './Footer'
 
-const { chains, provider } = configureChains(
+const { chains, provider, webSocketProvider } = configureChains(
   [mainnet, goerli],
   [
-    infuraProvider({
-      apiKey: process.env.NEXT_PUBLIC_INFURA_KEY as string,
-    }),
+    // @ts-ignore
+    alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_KEY }),
+    // @ts-ignore
+    infuraProvider({ apiKey: process.env.NEXT_PUBLIC_INFURA_KEY }),
     publicProvider(),
   ]
 )
@@ -29,6 +31,7 @@ const wagmiClient = createClient({
   autoConnect: true,
   connectors,
   provider,
+  webSocketProvider,
 })
 
 export const strategy = new ZDKFetchStrategy('1', 'https://api.zora.co/graphql')
