@@ -23,7 +23,7 @@ const { chains, provider, webSocketProvider } = configureChains(
 )
 
 const { connectors } = getDefaultWallets({
-  appName: 'Public Assembly',
+  appName: 'DAO utils - Sample App',
   chains,
 })
 
