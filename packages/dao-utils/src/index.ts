@@ -2,8 +2,8 @@ import CurrentAuction from './components/CurrentAuction'
 import TokenExplorer from './components/TokenExplorer'
 import AuthCheck from './components/authentication/AuthCheck'
 
-// import ProposalCardRenderer from './components/ProposalCardRenderer'
 import ProposalCardGrid from './components/ProposalCardGrid'
+import ProposalPageGrid from './components/ProposalPageGrid'
 
 import {
   useCountdown,
@@ -31,6 +31,7 @@ export {
    * Proposal Components
    */
   ProposalCardGrid,
+  ProposalPageGrid,
   /**
    * Hooks
    */
