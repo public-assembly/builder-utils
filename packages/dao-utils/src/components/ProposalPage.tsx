@@ -4,6 +4,7 @@ import Proposer from './Proposer'
 import ProposalTimestamp from './ProposalTimestamp'
 import VoteTally from './VoteTally'
 import ProposalDescription from './ProposalDescription'
+import ProposalVoting from './ProposalVoting'
 
 export default function ProposalPage({ proposal }) {
   return (
@@ -20,6 +21,10 @@ export default function ProposalPage({ proposal }) {
       </div>
       <div className="py-3">
         <ProposalDescription proposal={proposal} />
+      </div>
+      <div>
+        <br></br>
+        <ProposalVoting />
       </div>
     </div>
   )

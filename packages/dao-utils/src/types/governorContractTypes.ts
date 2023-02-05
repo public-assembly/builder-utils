@@ -2,8 +2,19 @@ export type Hash = `0x${string}`
 
 export interface GovernorProviderProps {
   children?: React.ReactNode
-  proposalId: Hash
 }
+
+export interface GovernorReturnTypes {
+  tokenAddress?: Hash
+  governorAddress: Hash
+  /**
+   * TODO: Update typings
+   */
+  proposals: any
+}
+
+// castVote?: () => void
+// castVoteWithReason?: () => void
 
 /**
  * https://github.com/ourzora/nouns-protocol/blob/1dbccbf9b82d34cba0b3ecc0b4feaef96909a5e6/src/governance/governor/IGovernor.sol#L19
@@ -35,15 +46,4 @@ export type ProposalDetails = {
   executed?: boolean
   canceled?: boolean
   vetoed?: boolean
-}
-
-export interface GovernorReturnTypes {
-  tokenAddress?: Hash
-  governorAddress: Hash
-  /**
-   * TODO: Update typings
-   */
-  proposals: any
-  proposalId: Hash
-  proposalDetails: ProposalDetails
 }

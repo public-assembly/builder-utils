@@ -3,11 +3,9 @@ import { useManagerContext, useGovernorContext } from '@public-assembly/dao-util
 
 export function PrintManagerProviderData() {
   const { daoAddresses } = useManagerContext()
-  const { proposalDetails } = useGovernorContext()
   return (
     <>
       <RawDisplayer data={daoAddresses} />
-      <RawDisplayer data={proposalDetails} />
     </>
   )
 }
