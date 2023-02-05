@@ -1,8 +1,12 @@
+import { BigNumber } from 'ethers'
+
 export type Hash = `0x${string}`
 
 export interface GovernorProviderProps {
   children?: React.ReactNode
-  proposalId: Hash
+  proposalId?: Hash
+  support?: BigNumber
+  reason?: string
 }
 
 /**
@@ -44,6 +48,7 @@ export interface GovernorReturnTypes {
    * TODO: Update typings
    */
   proposals: any
-  proposalId: Hash
-  proposalDetails: ProposalDetails
+  proposalId?: Hash
+  castVote?: () => void
+  castVoteWithReason?: () => void
 }

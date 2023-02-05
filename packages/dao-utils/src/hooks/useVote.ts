@@ -4,10 +4,10 @@ import { governorAbi } from '../abi'
 import { BigNumber } from 'ethers'
 
 interface VoteProps {
-  governorAddress: Hash
-  proposalId: Hash
-  support: BigNumber
-  reason: string
+  governorAddress?: Hash
+  proposalId?: Hash
+  support?: BigNumber
+  reason?: string
 }
 
 export function useVote({ governorAddress, proposalId, support, reason }: VoteProps) {
@@ -15,7 +15,7 @@ export function useVote({ governorAddress, proposalId, support, reason }: VotePr
     address: governorAddress,
     abi: governorAbi,
     functionName: 'castVote',
-    args: [proposalId, support],
+    args: [proposalId as Hash, support as BigNumber],
   })
   const { write: castVote } = useContractWrite(castVoteConfig)
 
@@ -24,7 +24,7 @@ export function useVote({ governorAddress, proposalId, support, reason }: VotePr
       address: governorAddress,
       abi: governorAbi,
       functionName: 'castVoteWithReason',
-      args: [proposalId, support, reason],
+      args: [proposalId as Hash, support as BigNumber, reason as string],
     })
   const { write: castVoteWithReason } = useContractWrite(castVoteWithReasonConfig)
 

@@ -2,12 +2,17 @@ import React, { useContext } from 'react'
 import { useContractRead } from 'wagmi'
 import { governorAbi } from '../abi'
 import { useManagerContext } from './ManagerProvider'
-import { useDaoProposalQuery } from '../hooks'
+import { useDaoProposalQuery, useVote } from '../hooks'
 import type { Hash, GovernorProviderProps, GovernorReturnTypes } from '../types'
 
 const GovernorContext = React.createContext({} as GovernorReturnTypes)
 
-export function GovernorProvider({ children, proposalId }: GovernorProviderProps) {
+export function GovernorProvider({
+  children,
+  proposalId,
+  support,
+  reason,
+}: GovernorProviderProps) {
   const { tokenAddress, daoAddresses } = useManagerContext()
 
   const governorAddress = React.useMemo(
@@ -15,34 +20,17 @@ export function GovernorProvider({ children, proposalId }: GovernorProviderProps
     [daoAddresses]
   )
 
+  /**
+   * Returns all proposals given a DAO's token address
+   */
   const { proposals } = useDaoProposalQuery({ tokenAddress: tokenAddress })
 
-  /**
-   * Returns a Proposal's details given a proposal id
-   */
-  const { data: getProposal } = useContractRead({
-    address: governorAddress,
-    abi: governorAbi,
-    functionName: 'getProposal',
-    args: [proposalId],
+  const { castVote, castVoteWithReason } = useVote({
+    governorAddress: governorAddress,
+    proposalId,
+    support,
+    reason,
   })
-
-  const proposalDetails = React.useMemo(() => {
-    return {
-      proposer: getProposal?.proposer,
-      timeCreated: getProposal?.timeCreated,
-      againstVotes: getProposal?.againstVotes,
-      forVotes: getProposal?.forVotes,
-      abstainVotes: getProposal?.abstainVotes,
-      voteStart: getProposal?.voteStart,
-      voteEnd: getProposal?.voteEnd,
-      proposalThreshold: getProposal?.proposalThreshold,
-      quorumVotes: getProposal?.quorumVotes,
-      executed: getProposal?.executed,
-      canceled: getProposal?.canceled,
-      vetoed: getProposal?.vetoed,
-    }
-  }, [getProposal])
 
   return (
     <GovernorContext.Provider
@@ -51,7 +39,8 @@ export function GovernorProvider({ children, proposalId }: GovernorProviderProps
         governorAddress,
         proposals,
         proposalId,
-        proposalDetails,
+        castVote,
+        castVoteWithReason,
       }}>
       {children}
     </GovernorContext.Provider>
