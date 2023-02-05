@@ -51,7 +51,7 @@ export function useActiveAuction(
     }
   }, [activeAuction, bidder, minBidAmount])
 
-  const { BuilderAuction, BuilderToken } = useNounsProtocol({
+  const { auctionContract, tokenContract } = useNounsProtocol({
     tokenAddress: tokenAddress,
     auctionAddress: auctionData?.address,
     metadataRendererAddress: auctionData?.metadata,
@@ -62,14 +62,14 @@ export function useActiveAuction(
   React.useEffect(() => {
     async function getSupply() {
       try {
-        const supply = await BuilderToken?.totalSupply()
+        const supply = await tokenContract?.totalSupply()
         setTotalSupply(supply?.toNumber())
       } catch (err) {
         console.error(err)
       }
     }
     getSupply()
-  }, [BuilderToken, auctionData?.tokenId])
+  }, [tokenContract, auctionData?.tokenId])
 
   const [createBidSuccess, setCreateBidSuccess] = React.useState(false)
   const [createBidLoading, setCreateBidLoading] = React.useState(false)
@@ -105,7 +105,8 @@ export function useActiveAuction(
       if (auctionData?.tokenId) {
         setCreateBidLoading(true)
         try {
-          const tx = await BuilderAuction?.createBid(auctionData.tokenId, {
+          /* @ts-ignore */
+          const tx = await auctionContract?.createBid(auctionData.tokenId, {
             value: bidAmount,
           })
           setCreateBidTx(tx)
@@ -118,7 +119,7 @@ export function useActiveAuction(
         }
       }
     },
-    [BuilderAuction, auctionData?.tokenId, bidAmount]
+    [auctionContract, auctionData?.tokenId, bidAmount]
   )
 
   return {

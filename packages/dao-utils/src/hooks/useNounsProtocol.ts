@@ -1,13 +1,6 @@
 import * as React from 'react'
-import { useSigner, useProvider } from 'wagmi'
-import {
-  Auction as AuctionInterface,
-  Auction__factory,
-  Token as TokenInterface,
-  Token__factory,
-  MetadataRenderer as MetadataRendererInterface,
-  MetadataRenderer__factory,
-} from '@zoralabs/nouns-protocol/dist/typechain'
+import { useContract, useProvider, useSigner } from 'wagmi'
+import { auctionAbi, tokenAbi, metadataAbi } from '../abi'
 
 export type NounsProtocolAddresses = {
   /**
@@ -19,7 +12,7 @@ export type NounsProtocolAddresses = {
    */
   tokenAddress?: string
   /**
-   * Pass in the dao contract token address
+   * Pass in the dao metadata renderer address
    */
   metadataRendererAddress?: string
 }
@@ -29,31 +22,30 @@ export function useNounsProtocol({
   tokenAddress,
   metadataRendererAddress,
 }: NounsProtocolAddresses) {
-  const [BuilderAuction, setBuilderAuction] = React.useState<AuctionInterface>()
-  const [BuilderToken, setBuilderToken] = React.useState<TokenInterface>()
-  const [BuilderTokenMetadata, setBuilderTokenMetadata] =
-    React.useState<MetadataRendererInterface>()
-
-  const { data: signer } = useSigner()
   const provider = useProvider()
+  const { data: signer } = useSigner()
 
-  React.useEffect(() => {
-    if (metadataRendererAddress) {
-      setBuilderTokenMetadata(
-        MetadataRenderer__factory.connect(metadataRendererAddress, signer || provider)
-      )
-    }
-    if (tokenAddress) {
-      setBuilderToken(Token__factory.connect(tokenAddress, signer || provider))
-    }
-    if (auctionAddress) {
-      setBuilderAuction(Auction__factory.connect(auctionAddress, signer || provider))
-    }
-  }, [auctionAddress, tokenAddress, signer, provider])
+  const auctionContract = useContract({
+    address: auctionAddress,
+    abi: auctionAbi,
+    signerOrProvider: signer,
+  })
+
+  const tokenContract = useContract({
+    address: tokenAddress,
+    abi: tokenAbi,
+    signerOrProvider: provider,
+  })
+
+  const metadataContract = useContract({
+    address: metadataRendererAddress,
+    abi: metadataAbi,
+    signerOrProvider: provider,
+  })
 
   return {
-    BuilderAuction,
-    BuilderToken,
-    BuilderTokenMetadata,
+    auctionContract,
+    tokenContract,
+    metadataContract,
   }
 }
