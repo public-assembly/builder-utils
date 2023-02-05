@@ -22,7 +22,8 @@ export default function ProposalPage({ proposal }) {
       <div className="py-3">
         <ProposalDescription proposal={proposal} />
       </div>
-      <div className="rounded-xl bg-gray-200 px-5 py-3">
+      <div>
+        <br></br>
         <ProposalVoting />
       </div>
     </div>
