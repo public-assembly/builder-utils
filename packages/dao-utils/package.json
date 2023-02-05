@@ -19,9 +19,6 @@
   "type": "module",
   "peerDependencies": {
     "@ethersproject/units": "^5.7.0",
-    "@rainbow-me/rainbowkit": "^0.8.1",
-    "@zoralabs/nft-hooks": "^1.1.9",
-    "@zoralabs/zdk": "^2.1.8",
     "bignumber.js": "^9.1.1",
     "date-fns": "^2.29.3",
     "ethers": "^5.7.1",
@@ -35,11 +32,8 @@
   },
   "devDependencies": {
     "@ethersproject/units": "^5.7.0",
-    "@rainbow-me/rainbowkit": "^0.8.1",
     "@types/react": "^18.0.20",
     "@types/react-dom": "^18.0.6",
-    "@zoralabs/nft-hooks": "^1.1.9",
-    "@zoralabs/zdk": "^2.1.8",
     "bignumber.js": "^9.1.1",
     "date-fns": "^2.29.3",
     "ethers": "^5.7.1",

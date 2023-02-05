@@ -6,8 +6,6 @@ import { publicProvider } from 'wagmi/providers/public'
 import { infuraProvider } from 'wagmi/providers/infura'
 import { alchemyProvider } from 'wagmi/providers/alchemy'
 import { SWRConfig } from 'swr'
-import { NFTFetchConfiguration } from '@zoralabs/nft-hooks'
-import { ZDKFetchStrategy } from '@zoralabs/nft-hooks/dist/strategies'
 import { Header } from './Header'
 import { Footer } from './Footer'
 
@@ -34,8 +32,6 @@ const wagmiClient = createClient({
   webSocketProvider,
 })
 
-export const strategy = new ZDKFetchStrategy('1', 'https://api.zora.co/graphql')
-
 export function AppWrapper({ children }: { children: JSX.Element }) {
   return (
     <WagmiConfig client={wagmiClient}>
@@ -46,25 +42,22 @@ export function AppWrapper({ children }: { children: JSX.Element }) {
           accentColor: 'black',
           borderRadius: 'large',
         })}>
-        <NFTFetchConfiguration networkId="1" strategy={strategy}>
-          <SWRConfig
-            value={{
-              fetcher: (resource, init) =>
-                fetch(resource, init).then((res) => res.json()),
-            }}>
-            <NextNProgress
-              color="#ff89de"
-              startPosition={0.125}
-              stopDelayMs={200}
-              height={2}
-              showOnShallow={true}
-              options={{ showSpinner: false }}
-            />
-            <Header />
-            <main>{children}</main>
-            <Footer />
-          </SWRConfig>
-        </NFTFetchConfiguration>
+        <SWRConfig
+          value={{
+            fetcher: (resource, init) => fetch(resource, init).then((res) => res.json()),
+          }}>
+          <NextNProgress
+            color="#ff89de"
+            startPosition={0.125}
+            stopDelayMs={200}
+            height={2}
+            showOnShallow={true}
+            options={{ showSpinner: false }}
+          />
+          <Header />
+          <main>{children}</main>
+          <Footer />
+        </SWRConfig>
       </RainbowKitProvider>
     </WagmiConfig>
   )
