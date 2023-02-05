@@ -11,7 +11,7 @@ function Providers() {
       <Seo title="providers" />
       <div className="p-4 text-black bg-slate-300 rounded-2xl">
         <ManagerProvider tokenAddress={tokenAddress}>
-          <GovernorProvider proposalId="0xdfd4d9a05131e7a4106589af59d5b16015eb0890aa86ea9a78ec329385747631">
+          <GovernorProvider>
             <PrintManagerProviderData />
           </GovernorProvider>
         </ManagerProvider>

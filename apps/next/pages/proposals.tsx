@@ -15,7 +15,7 @@ function Proposals() {
       <Seo title="proposals" />
       <div>
         <ManagerProvider tokenAddress={tokenAddress}>
-          <GovernorProvider proposalId="0x39198d469ff9ca1dbe1c32dc48b93a6d82c86ed8038723a43043f9066ed52bca">
+          <GovernorProvider>
             {/* <ProposalCardGrid /> */}
             <ProposalPageGrid />
           </GovernorProvider>
