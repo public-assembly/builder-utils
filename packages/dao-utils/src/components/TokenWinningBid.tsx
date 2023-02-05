@@ -26,7 +26,7 @@ export default function TokenWinningBid({
     tokenId: tokenId,
   })
 
-  const { BuilderAuction } = useNounsProtocol({
+  const { auctionContract } = useNounsProtocol({
     tokenAddress: tokenAddress,
     auctionAddress: auctionData?.address,
   })
@@ -43,7 +43,7 @@ export default function TokenWinningBid({
            * Used to query the Auction events exposed below:
            * https://github.com/ourzora/nouns-protocol/blob/main/src/auction/IAuction.sol#L16-L22
            */
-          const bids = await BuilderAuction?.queryFilter(
+          const bids = await auctionContract?.queryFilter(
             'AuctionBid' as any,
             tokenData?.mintInfo?.mintContext?.blockNumber,
             'latest' /* Clamp at next token block number if decrementing */
@@ -85,7 +85,7 @@ export default function TokenWinningBid({
        */
       // console.log('unmount')
     }
-  }, [BuilderAuction, tokenId, tokenData])
+  }, [auctionContract, tokenId, tokenData])
 
   return (
     <div className="flex flex-col leading-5 text-[color:var(--pa-pink)]">

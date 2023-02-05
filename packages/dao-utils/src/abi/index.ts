@@ -1,3 +1,5 @@
 export * from './auctionAbi'
-export * from './managerAbi'
 export * from './governorAbi'
+export * from './managerAbi'
+export * from './metadataAbi'
+export * from './tokenAbi'
