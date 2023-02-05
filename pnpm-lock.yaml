@@ -120,7 +120,6 @@ importers:
       '@types/react': ^18.0.20
       '@types/react-dom': ^18.0.6
       '@zoralabs/nft-hooks': ^1.1.9
-      '@zoralabs/nouns-protocol': ^1.0.1
       '@zoralabs/zdk': ^2.1.8
       bignumber.js: ^9.1.1
       date-fns: ^2.29.3
@@ -139,7 +138,6 @@ importers:
       '@types/react': 18.0.26
       '@types/react-dom': 18.0.9
       '@zoralabs/nft-hooks': 1.1.10_gdcq4dv6opitr3wbfwyjmanyra
-      '@zoralabs/nouns-protocol': 1.0.1
       '@zoralabs/zdk': 2.2.0
       bignumber.js: 9.1.1
       date-fns: 2.29.3
@@ -2301,14 +2299,6 @@ packages:
       fastq: 1.14.0
     dev: true
 
-  /@openzeppelin/contracts-upgradeable/4.8.0:
-    resolution: {integrity: sha512-5GeFgqMiDlqGT8EdORadp1ntGF0qzWZLmEY7Wbp/yVhN7/B3NNzCxujuI77ktlyG81N3CUZP8cZe3ZAQ/cW10w==}
-    dev: true
-
-  /@openzeppelin/contracts/4.8.0:
-    resolution: {integrity: sha512-AGuwhRRL+NaKx73WKRNzeCxOCOCxpaqF+kp8TJ89QzAipSwZy/NoflkWaL9bywXFRhIzXt8j38sfF7KBKCPWLw==}
-    dev: true
-
   /@pedrouid/environment/1.0.1:
     resolution: {integrity: sha512-HaW78NszGzRZd9SeoI3JD11JqY+lubnaOx7Pewj5pfjqWXOEATpeKIFb9Z4t2WBUK2iryiXX3lzWwmYWgUL0Ug==}
 
@@ -3055,16 +3045,6 @@ packages:
     transitivePeerDependencies:
       - encoding
       - graphql
-
-  /@zoralabs/nouns-protocol/1.0.1:
-    resolution: {integrity: sha512-MAoDP8plR5FAbaQmcmV7csnHnLG47CXRoEkXgoCUB6T/bMVv3NE8pHCnOpR4Xcct08VaRvzcLZLTYor5nO1EZQ==}
-    dependencies:
-      '@openzeppelin/contracts': 4.8.0
-      '@openzeppelin/contracts-upgradeable': 4.8.0
-      '@types/node': 18.11.15
-      micro-onchain-metadata-utils: 0.1.1
-      sol-uriencode: 0.1.0
-    dev: true
 
   /@zoralabs/zdk/2.1.9:
     resolution: {integrity: sha512-u7eUhfZo1qDG9BX08lj2RpDRCQE4BmqljFDETj6fizuRcvQO611NDijgAu3iKfoMn0pDq4ZX/UzV9SXzvbmYOQ==}
@@ -6741,10 +6721,6 @@ packages:
     engines: {node: '>= 8'}
     dev: true
 
-  /micro-onchain-metadata-utils/0.1.1:
-    resolution: {integrity: sha512-8EdHJH5q8ToAgPJGS7PFQZ04STyG4aj8e7Q+xB6dcIv0ySt37x0YmVlTak8O0Xd6qXl5QWnWktwmx886OllEOg==}
-    dev: true
-
   /micromark-core-commonmark/1.0.6:
     resolution: {integrity: sha512-K+PkJTxqjFfSNkfAhp4GB+cZPfQd6dxtTXnf+RjZOV7T4EEXnvgzOcnp+eSTmpGk9d1S9sL6/lqrgSNn/s0HZA==}
     dependencies:
@@ -8552,10 +8528,6 @@ packages:
       use: 3.1.1
     transitivePeerDependencies:
       - supports-color
-    dev: true
-
-  /sol-uriencode/0.1.0:
-    resolution: {integrity: sha512-l3/bP29Yoq5XqMpqiWX/c3OoGYbWXM7ucZ6PRa1TMkIakQxLCmGotukYybjN7llL5Di/yNJWUhrDpa0Li5vljw==}
     dev: true
 
   /source-list-map/0.1.8:
