@@ -1,18 +1,11 @@
 import React, { useContext } from 'react'
-import { useContractRead } from 'wagmi'
-import { governorAbi } from '../abi'
 import { useManagerContext } from './ManagerProvider'
-import { useDaoProposalQuery, useVote } from '../hooks'
+import { useDaoProposalQuery } from '../hooks'
 import type { Hash, GovernorProviderProps, GovernorReturnTypes } from '../types'
 
 const GovernorContext = React.createContext({} as GovernorReturnTypes)
 
-export function GovernorProvider({
-  children,
-  proposalId,
-  support,
-  reason,
-}: GovernorProviderProps) {
+export function GovernorProvider({ children }: GovernorProviderProps) {
   const { tokenAddress, daoAddresses } = useManagerContext()
 
   const governorAddress = React.useMemo(
@@ -25,22 +18,12 @@ export function GovernorProvider({
    */
   const { proposals } = useDaoProposalQuery({ tokenAddress: tokenAddress })
 
-  const { castVote, castVoteWithReason } = useVote({
-    governorAddress: governorAddress,
-    proposalId,
-    support,
-    reason,
-  })
-
   return (
     <GovernorContext.Provider
       value={{
         tokenAddress,
         governorAddress,
         proposals,
-        proposalId,
-        castVote,
-        castVoteWithReason,
       }}>
       {children}
     </GovernorContext.Provider>

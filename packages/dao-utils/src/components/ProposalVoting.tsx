@@ -1,31 +1,59 @@
-import { BigNumber } from 'ethers'
 import * as React from 'react'
-import { useGovernorContext } from '../context'
 import { useVote } from '../hooks'
 
 export default function ProposalVoting() {
-  const { governorAddress, proposalId } = useGovernorContext()
-
-  const [support, setSupport] = React.useState<BigNumber | undefined>()
+  const [support, setSupport] = React.useState<0 | 1 | 2 | undefined>()
   const [reason, setReason] = React.useState<string | undefined>()
 
   const { castVote, castVoteWithReason } = useVote({
-    governorAddress: governorAddress,
-    proposalId: proposalId,
     support: support,
     reason: reason,
   })
 
+  console.log('Support:', support)
+  console.log('Reason:', reason)
+
   return (
-    <>
-      <button onClick={() => setSupport(BigNumber.from(1))}>Vote For</button>
-      <button onClick={() => setSupport(BigNumber.from(0))}>Vote Against</button>
-      <button onClick={() => setSupport(BigNumber.from(2))}>Abstain</button>
-      {reason === undefined ? (
-        <button onClick={() => castVote}>Submit Vote</button>
-      ) : (
-        <button onClick={() => castVoteWithReason}>Submit Vote With Reason</button>
-      )}
-    </>
+    <div>
+      <div className="flex justify-between">
+        <div className="flex gap-x-4">
+          <button
+            className={support === 1 ? 'underline' : undefined}
+            onClick={() => setSupport(1)}>
+            For
+          </button>
+          <button
+            className={support === 0 ? 'underline' : undefined}
+            onClick={() => setSupport(0)}>
+            Against
+          </button>
+          <button
+            className={support === 2 ? 'underline' : undefined}
+            onClick={() => setSupport(2)}>
+            Abstain
+          </button>
+        </div>
+        <div>
+          {reason === undefined ? (
+            <button disabled={support === undefined} onClick={() => castVote}>
+              Submit Vote
+            </button>
+          ) : (
+            <button disabled={support === undefined} onClick={() => castVoteWithReason}>
+              Submit Vote With Reason
+            </button>
+          )}
+        </div>
+      </div>
+      <textarea
+        className="w-full bg-slate-300 rounded-xl px-4 py-2 mt-4"
+        placeholder="In my eyes..."
+        value={reason}
+        onChange={(e) => {
+          setReason(e.target.value)
+        }}
+        cols={40}
+        rows={4}></textarea>
+    </div>
   )
 }
