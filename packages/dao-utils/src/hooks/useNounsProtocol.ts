@@ -2,6 +2,15 @@ import * as React from 'react'
 import { useContract, useProvider, useSigner } from 'wagmi'
 import { auctionAbi, tokenAbi, metadataAbi } from '../abi'
 
+interface NounsProtocolContracts {
+  /**
+   * TODO: Update types
+   */
+  auctionContract: any
+  tokenContract: any
+  metadataContract: any
+}
+
 export type NounsProtocolAddresses = {
   /**
    * Pass in the dao contract auction address if you want to interact with the auction
@@ -21,7 +30,7 @@ export function useNounsProtocol({
   auctionAddress,
   tokenAddress,
   metadataRendererAddress,
-}: NounsProtocolAddresses) {
+}: NounsProtocolAddresses): NounsProtocolContracts {
   const provider = useProvider()
   const { data: signer } = useSigner()
 
@@ -44,8 +53,8 @@ export function useNounsProtocol({
   })
 
   return {
-    auctionContract,
-    tokenContract,
-    metadataContract,
+    auctionContract: auctionContract,
+    tokenContract: tokenContract,
+    metadataContract: metadataContract,
   }
 }
