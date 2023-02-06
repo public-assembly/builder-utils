@@ -10,6 +10,8 @@ React componentry and hooks to interact with the [ourzora/nouns-protocol](https:
 
 [View examples](https://dao-utils.public---assembly.com/examples)
 
+If you're interested in contributing, please open an issue, create a pull request, or bring questions to the Public Assembly forum.
+
 ---
 
 ### Installation:
