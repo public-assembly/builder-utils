@@ -4,12 +4,19 @@ import { governorAbi } from '../abi'
 import { BigNumber } from 'ethers'
 import { useGovernorContext } from '../context'
 
+interface VotingFunctions {
+  castVote?: () => void
+  castVoteWithReason?: () => void
+  castVoteError?: Error | null
+  castVoteWithReasonError?: Error | null
+}
+
 interface VoteProps {
   support?: number
   reason?: string
 }
 
-export function useVote({ support, reason }: VoteProps) {
+export function useVote({ support, reason }: VoteProps): VotingFunctions {
   const { governorAddress, proposals } = useGovernorContext()
 
   const { config: castVoteConfig, error: castVoteError } = usePrepareContractWrite(
