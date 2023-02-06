@@ -1,3 +1,5 @@
+/* @ts-ignore */
+import * as React from 'react'
 export default function ProposalTimestamp({ proposal }) {
   const dateFormat: [string, Intl.DateTimeFormatOptions] = [
     'en-us',

@@ -1,3 +1,5 @@
+/* @ts-ignore */
+import * as React from 'react'
 import ProposalPage from './ProposalPage'
 import { useGovernorContext } from '../context'
 
