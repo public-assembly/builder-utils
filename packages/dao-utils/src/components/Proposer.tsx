@@ -1,3 +1,4 @@
+/* @ts-ignore */
 import * as React from 'react'
 import { useEnsName } from 'wagmi'
 import { shortenAddress } from '../lib/shortenAddress'
