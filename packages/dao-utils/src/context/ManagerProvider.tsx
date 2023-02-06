@@ -1,26 +1,7 @@
-import React, { createContext, PropsWithChildren, useContext, useEffect } from 'react'
+import React, { createContext, useContext, useEffect } from 'react'
 import { useContractRead } from 'wagmi'
 import { managerAbi } from '../abi'
-
-type Hash = `0x${string}`
-
-type ManagerProviderProps = PropsWithChildren<{
-  tokenAddress: Hash
-}>
-
-type DaoAddresses = {
-  metadataAddress: string
-  auctionAddress: string
-  treasuryAddress: string
-  governorAddress: string
-} | null
-
-export type ManagerReturnTypes = {
-  tokenAddress?: Hash
-  daoAddresses: DaoAddresses
-  isLoading: boolean
-  isError: boolean
-}
+import type { ManagerProviderProps, ManagerReturnTypes, DaoAddresses } from '../types'
 
 const ManagerContext = createContext<ManagerReturnTypes | null>({
   tokenAddress: undefined,

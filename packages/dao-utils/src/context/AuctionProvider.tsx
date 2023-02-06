@@ -3,46 +3,15 @@ import { useContractRead } from 'wagmi'
 import { auctionAbi } from '../abi'
 import { useManagerContext } from './ManagerProvider'
 import { useActiveAuction, useDaoToken } from '../hooks'
-import { BigNumber } from 'ethers'
+import { HexString, AuctionProviderProps, AuctionReturnTypes } from '../types'
 
-type Hash = `0x${string}`
-
-export interface AuctionProviderProps {
-  children?: React.ReactNode
-  tokenId?: string
-}
-
-export interface AuctionReturnTypes {
-  tokenAddress?: Hash
-  auctionAddress?: Hash
-  auctionState: {
-    tokenId?: BigNumber
-    highestBid?: BigNumber
-    highestBidder?: Hash
-    startTime?: number
-    endTime?: number
-    settled?: boolean
-  }
-  /**
-   * TODO: Confirm types
-   */
-  auctionData?: any
-  totalSupply?: any
-  createBid?: any
-  updateBidAmount?: any
-  createBidSuccess?: any
-  createBidLoading?: any
-  isValidBid?: any
-  tokenData?: any
-  tokenId?: any
-}
 const AuctionContext = React.createContext({} as AuctionReturnTypes)
 
 export function AuctionProvider({ children, tokenId }: AuctionProviderProps) {
   const { tokenAddress, daoAddresses } = useManagerContext()
 
   const auctionAddress = React.useMemo(
-    () => daoAddresses?.auctionAddress as Hash,
+    () => daoAddresses?.auctionAddress as HexString,
     [daoAddresses]
   )
 
