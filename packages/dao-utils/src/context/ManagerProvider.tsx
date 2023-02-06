@@ -27,9 +27,6 @@ export const ManagerProvider: React.FC<ManagerProviderProps> = ({
     abi: managerAbi,
     functionName: 'getAddresses',
     args: [tokenAddress],
-    onSuccess(data: any) {
-      console.log(data)
-    },
     onError(error: any) {
       console.log(error)
     },
