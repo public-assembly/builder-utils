@@ -1,4 +1,4 @@
-import type { Hash } from '../types'
+import type { HexString } from '../types'
 import { usePrepareContractWrite, useContractWrite } from 'wagmi'
 import { governorAbi } from '../abi'
 import { BigNumber } from 'ethers'
@@ -18,7 +18,7 @@ export function useVote({ support, reason }: VoteProps) {
           address: governorAddress,
           abi: governorAbi,
           functionName: 'castVote',
-          args: [proposals?.proposalId as Hash, BigNumber.from(support)],
+          args: [proposals?.proposalId as HexString, BigNumber.from(support)],
         }
       : undefined
   )
@@ -32,7 +32,7 @@ export function useVote({ support, reason }: VoteProps) {
             abi: governorAbi,
             functionName: 'castVoteWithReason',
             args: [
-              proposals?.proposalId as Hash,
+              proposals?.proposalId as HexString,
               BigNumber.from(support),
               reason as string,
             ],

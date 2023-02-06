@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { useManagerContext } from './ManagerProvider'
 import { useDaoProposalQuery } from '../hooks'
-import type { Hash, GovernorProviderProps, GovernorReturnTypes } from '../types'
+import type { HexString, GovernorProviderProps, GovernorReturnTypes } from '../types'
 
 const GovernorContext = React.createContext({} as GovernorReturnTypes)
 
@@ -9,7 +9,7 @@ export function GovernorProvider({ children }: GovernorProviderProps) {
   const { tokenAddress, daoAddresses } = useManagerContext()
 
   const governorAddress = React.useMemo(
-    () => daoAddresses?.governorAddress as Hash,
+    () => daoAddresses?.governorAddress as HexString,
     [daoAddresses]
   )
 

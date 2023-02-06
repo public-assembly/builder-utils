@@ -1,31 +1,28 @@
-export type Hash = `0x${string}`
+import { HexString } from './wagmiTypes'
 
 export interface GovernorProviderProps {
   children?: React.ReactNode
 }
 
 export interface GovernorReturnTypes {
-  tokenAddress?: Hash
-  governorAddress: Hash
+  tokenAddress?: HexString
+  governorAddress: HexString
   /**
-   * TODO: Update typings
+   * TODO: Update types
    */
   proposals: any
 }
-
-// castVote?: () => void
-// castVoteWithReason?: () => void
 
 /**
  * https://github.com/ourzora/nouns-protocol/blob/1dbccbf9b82d34cba0b3ecc0b4feaef96909a5e6/src/governance/governor/IGovernor.sol#L19
  */
 export type Proposal = {
-  proposalId: Hash[]
-  targets: Hash[]
+  proposalId: HexString[]
+  targets: HexString[]
   values: number[]
-  calldatas: Hash[]
+  calldatas: HexString[]
   description: string
-  descriptionHash: Hash
+  descriptionHexString: HexString
   proposal: ProposalDetails
   state: number
 }
@@ -34,7 +31,7 @@ export type Proposal = {
  * https://github.com/ourzora/nouns-protocol/blob/main/src/governance/governor/types/GovernorTypesV1.sol#L42
  */
 export type ProposalDetails = {
-  proposer?: Hash
+  proposer?: HexString
   timeCreated?: number
   againstVotes?: number
   forVotes?: number
