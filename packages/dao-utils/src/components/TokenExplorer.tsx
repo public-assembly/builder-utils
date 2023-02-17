@@ -20,7 +20,7 @@ export interface TokenExplorerProps extends React.HTMLProps<HTMLDivElement> {
   tokenRenderer?: React.ReactNode
 }
 
-export default function TokenPagination({
+export default function TokenExplorer({
   tokenAddress,
   auctionRenderer,
   ...props

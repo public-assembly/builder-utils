@@ -1,5 +1,6 @@
 /* @ts-ignore */
 import * as React from 'react'
+
 export default function VoteTally({ proposal }) {
   return (
     <div className="flex space-x-4">
