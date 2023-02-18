@@ -18,7 +18,9 @@ export default function ProposalPage({ proposal }) {
         </div>
         <ProposalTimestamp proposal={proposal} />
         <br></br>
-        <ProposalTitle proposal={proposal} />
+        <span className="font-bold text-xl">
+          <ProposalTitle proposal={proposal} />
+        </span>
         <Proposer proposal={proposal} />
       </div>
       <div className="py-3">
@@ -26,7 +28,7 @@ export default function ProposalPage({ proposal }) {
       </div>
       <div>
         <br></br>
-        <ProposalVoting />
+        <ProposalVoting proposal={proposal} />
       </div>
     </div>
   )
