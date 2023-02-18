@@ -13,7 +13,9 @@ export default function ProposalCard({ proposal }) {
           <ProposalStatus proposal={proposal} />
           <ProposalTimestamp proposal={proposal} />
         </div>
-        <ProposalTitle proposal={proposal} />
+        <span className="font-bold text-xl">
+          <ProposalTitle proposal={proposal} />
+        </span>
         <Proposer proposal={proposal} />
       </div>
     </div>

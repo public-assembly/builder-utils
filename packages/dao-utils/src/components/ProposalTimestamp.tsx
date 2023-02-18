@@ -1,5 +1,6 @@
 /* @ts-ignore */
 import * as React from 'react'
+
 export default function ProposalTimestamp({ proposal }) {
   const dateFormat: [string, Intl.DateTimeFormatOptions] = [
     'en-us',
@@ -14,11 +15,3 @@ export default function ProposalTimestamp({ proposal }) {
 
   return <div>{voteStart}</div>
 }
-
-//   if (proposal?.status == 'PENDING') {
-//     return <div>{proposal?.voteStart}</div>
-//   }
-
-//   if (proposal?.status == 'EXECUTED') {
-//     return <div>{proposal?.voteStart}</div>
-//   }

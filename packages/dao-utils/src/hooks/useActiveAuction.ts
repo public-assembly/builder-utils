@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { useDaoAuctionQuery } from './useDaoAuctionQuery'
-import { BigNumber as EthersBN, ContractTransaction } from 'ethers'
-import { parseUnits } from '@ethersproject/units'
+import { BigNumber as EthersBN, ContractTransaction, utils } from 'ethers'
 import { useBidder } from './useBidder'
 import { useNounsProtocol } from './useNounsProtocol'
 
@@ -83,7 +82,7 @@ export function useActiveAuction(
     (value: string) => {
       let newValue: EthersBN
       try {
-        newValue = parseUnits(value, 18)
+        newValue = utils.parseUnits(value, 18)
         if (+value >= auctionData?.minBidAmount) {
           setIsValidBid(true)
         } else {

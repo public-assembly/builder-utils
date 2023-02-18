@@ -1,9 +1,8 @@
 /* @ts-ignore */
 import * as React from 'react'
 import { useVote } from '../hooks'
-import { useGovernorContext } from '../context'
 
-export default function ProposalVoting() {
+export default function ProposalVoting({ proposal }) {
   const [support, setSupport] = React.useState<0 | 1 | 2 | undefined>()
   const [reason, setReason] = React.useState<string | undefined>()
 
@@ -12,9 +11,7 @@ export default function ProposalVoting() {
     reason: reason,
   })
 
-  const { proposals } = useGovernorContext()
-
-  if (proposals?.status == 'ACTIVE') {
+  if (proposal?.status == 'ACTIVE') {
     return (
       <div>
         <div className="flex justify-between">
