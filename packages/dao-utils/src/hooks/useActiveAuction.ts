@@ -1,8 +1,6 @@
 import * as React from 'react'
-import { useDaoAuctionQuery } from './useDaoAuctionQuery'
+import { useDaoAuctionQuery, useBidder, useNounsProtocol } from '@hooks/index'
 import { BigNumber as EthersBN, ContractTransaction, utils } from 'ethers'
-import { useBidder } from './useBidder'
-import { useNounsProtocol } from './useNounsProtocol'
 
 export function useActiveAuction(
   /**

@@ -1,7 +1,7 @@
 /* @ts-ignore */
 import * as React from 'react'
 import ProposalPage from './ProposalPage'
-import { useGovernorContext } from '../context'
+import { useGovernorContext } from '@context/index'
 
 export default function ProposalPageGrid() {
   const { proposals } = useGovernorContext()

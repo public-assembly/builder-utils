@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { useEnsName } from 'wagmi'
-import { shortenAddress } from '../lib/shortenAddress'
+import { shortenAddress } from '@lib/index'
 
 export function useBidder(address?: string) {
   const { data: ensName } = useEnsName({

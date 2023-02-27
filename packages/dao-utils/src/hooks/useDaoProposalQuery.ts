@@ -1,7 +1,7 @@
 /* @ts-ignore */
 import useSWR from 'swr'
 import { DAO_PROPOSAL_QUERY } from '../data/daoProposalQuery'
-import { zoraApiFetcher } from '../lib/zoraApiFetcher'
+import { zoraApiFetcher } from '@lib/index'
 import type { HexString } from '../types'
 
 export function useDaoProposalQuery({ tokenAddress }: { tokenAddress?: HexString }) {

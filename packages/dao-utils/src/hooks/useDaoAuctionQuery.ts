@@ -3,7 +3,7 @@ import * as React from 'react'
 import useSWR from 'swr'
 import { NounishAuctionsQuery } from '../types/zora.api.generated'
 import { DAO_AUCTION_QUERY } from '../data/daoAuctionQuery'
-import { zoraApiFetcher } from '../lib/zoraApiFetcher'
+import { zoraApiFetcher } from '@lib/index'
 
 export function useDaoAuctionQuery({ collectionAddress }: { collectionAddress: string }) {
   const { data: activeAuction, error } = useSWR<NounishAuctionsQuery>(

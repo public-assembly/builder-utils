@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { intervalToDuration, getUnixTime } from 'date-fns'
-import { useInterval } from './useInterval'
+import { useInterval } from '@hooks/index'
 
 interface Countdown {
   isEnded: boolean

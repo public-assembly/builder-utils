@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
-import { useManagerContext } from './ManagerProvider'
-import { useDaoProposalQuery } from '../hooks'
+import { useManagerContext } from '@context/index'
+import { useDaoProposalQuery } from '@hooks/index'
 import type { HexString, GovernorProviderProps, GovernorReturnTypes } from '../types'
 
 const GovernorContext = React.createContext({} as GovernorReturnTypes)

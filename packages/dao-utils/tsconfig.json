@@ -12,7 +12,17 @@
     "skipLibCheck": true,
     "noEmit": true,
     "strict": true,
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "baseUrl": ".", // This must be specified if "paths" is.
+    "paths": {
+      // Mappings are relative to "baseUrl"
+      "@auction/*": ["src/components/auction/*"],
+      "@authentication/*": ["src/components/authentication/*"],
+      "@proposal/*": ["src/components/proposal/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@context/*": ["src/context/*"],
+      "@lib/*": ["src/lib/*"]
+    }
   },
   "exclude": ["node_modules"]
 }

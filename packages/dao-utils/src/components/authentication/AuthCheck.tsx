@@ -1,7 +1,7 @@
 /* @ts-ignore */
 import * as React from 'react'
 import { useAccount } from 'wagmi'
-import Connect from './Connect'
+import { Connect } from '@authentication/index'
 
 export default function AuthCheck({
   formUI,

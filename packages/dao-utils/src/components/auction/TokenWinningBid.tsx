@@ -1,10 +1,8 @@
 /* @ts-ignore */
 import * as React from 'react'
-import { useDaoToken } from '../hooks/useDaoToken'
-import { useNounsProtocol } from '../hooks/useNounsProtocol'
-import { useActiveAuction } from '../hooks/useActiveAuction'
+import { useDaoToken, useNounsProtocol, useActiveAuction } from '@hooks/index'
 import { ethers } from 'ethers'
-import { etherscanLink } from '../lib'
+import { etherscanLink } from '@lib/index'
 
 export type AuctionEvent = {
   id: number

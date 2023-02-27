@@ -1,6 +1,6 @@
 /* @ts-ignore */
 import * as React from 'react'
-import { useActiveAuction } from '../hooks/useActiveAuction'
+import { useActiveAuction } from '../../hooks/useActiveAuction'
 import CurrentAuction from './CurrentAuction'
 import TokenRenderer from './TokenRenderer'
 import CircleArrow from './CircleArrow'

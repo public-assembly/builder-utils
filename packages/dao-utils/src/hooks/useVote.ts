@@ -2,7 +2,7 @@ import type { HexString } from '../types'
 import { usePrepareContractWrite, useContractWrite } from 'wagmi'
 import { governorAbi } from '../abi'
 import { BigNumber } from 'ethers'
-import { useGovernorContext } from '../context'
+import { useGovernorContext } from '@context/index'
 
 interface VotingFunctions {
   castVote?: () => void

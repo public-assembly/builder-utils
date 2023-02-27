@@ -1,12 +1,14 @@
 /* @ts-ignore */
 import * as React from 'react'
-import ProposalStatus from './ProposalStatus'
-import ProposalTitle from './ProposalTitle'
-import Proposer from './Proposer'
-import ProposalTimestamp from './ProposalTimestamp'
-import VoteTally from './VoteTally'
-import ProposalDescription from './ProposalDescription'
-import ProposalVoting from './ProposalVoting'
+import {
+  ProposalStatus,
+  ProposalTitle,
+  Proposer,
+  ProposalTimestamp,
+  VoteTally,
+  ProposalDescription,
+  ProposalVoting,
+} from '@proposal/index'
 
 export default function ProposalPage({ proposal }) {
   return (

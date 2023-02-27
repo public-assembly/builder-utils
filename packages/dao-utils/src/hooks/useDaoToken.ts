@@ -2,7 +2,7 @@
 import * as React from 'react'
 import useSWR from 'swr'
 import { DAO_TOKEN_QUERY } from '../data/daoTokenQuery'
-import { zoraApiFetcher } from '../lib/zoraApiFetcher'
+import { zoraApiFetcher } from '@lib/index'
 
 export type TokenData = {
   lastRefreshTime: string
