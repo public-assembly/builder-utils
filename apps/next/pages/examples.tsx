@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic'
-import { Seo } from '@/components/Seo'
+import { Seo } from '../components/Seo'
 
 const AuctionModule = dynamic(() => import('../components/AuctionModule'), {
   ssr: false,

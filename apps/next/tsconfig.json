@@ -15,13 +15,15 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "baseUrl": ".",
+    "baseUrl": "/Users/salieflewis/dao-utils",
     "paths": {
-      "@/components/*": ["components/*"],
-      "@/context/*": ["context/*"],
-      "@/hooks/*": ["hooks/*"],
-      "@/lib/*": ["lib/*"],
-      "@/docs/*": ["docs/*"]
+      // Paths unique to dao-utils package
+      "@auction/*": ["packages/dao-utils/src/components/auction/*"],
+      "@authentication/*": ["packages/dao-utils/src/components/authentication/*"],
+      "@proposal/*": ["packages/dao-utils/src/components/proposal/*"],
+      "@hooks/*": ["packages/dao-utils/src/hooks/*"],
+      "@context/*": ["packages/dao-utils/src/context/*"],
+      "@lib/*": ["packages/dao-utils/src/lib"]
     },
     "allowSyntheticDefaultImports": true
   },

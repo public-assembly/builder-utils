@@ -1,9 +1,6 @@
 /* @ts-ignore */
 import * as React from 'react'
-import TokenThumbnail from './TokenThumbnail'
-import TokenTitle from './TokenTitle'
-import TokenHolder from './TokenHolder'
-import TokenWinningBid from './TokenWinningBid'
+import { TokenThumbnail, TokenTitle, TokenHolder, TokenWinningBid } from '@auction/index'
 
 export default function TokenRenderer({
   tokenId,

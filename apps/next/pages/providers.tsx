@@ -1,6 +1,6 @@
-import { Seo } from '@/components/Seo'
+import { Seo } from '../components/Seo'
 import { ManagerProvider, GovernorProvider } from '@public-assembly/dao-utils'
-import { isServerSide } from 'utils/helpers'
+import { isServerSide } from '../utils/helpers'
 import { PrintManagerProviderData } from '../components'
 
 function Providers() {

@@ -1,11 +1,11 @@
-import { Seo } from '@/components/Seo'
+import { Seo } from '../components/Seo'
 import {
   ManagerProvider,
   GovernorProvider,
   ProposalCardGrid,
   ProposalPageGrid,
 } from '@public-assembly/dao-utils'
-import { isServerSide } from 'utils/helpers'
+import { isServerSide } from '../utils/helpers'
 
 function Proposals() {
   const tokenAddress = '0xd2e7684cf3e2511cc3b4538bb2885dc206583076' as `0x${string}`

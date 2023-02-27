@@ -1,4 +1,4 @@
-import { links } from 'utils/links'
+import { links } from '../utils/links'
 
 export function Footer() {
   return (

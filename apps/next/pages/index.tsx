@@ -1,5 +1,5 @@
 import Docs from './../../../README.md'
-import { Seo } from '@/components/Seo'
+import { Seo } from '../components/Seo'
 
 function Home() {
   return (

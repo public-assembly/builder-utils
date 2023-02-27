@@ -1,10 +1,8 @@
 /* @ts-ignore */
 import * as React from 'react'
-import AuctionCountdown from './AuctionCountdown'
-import TokenThumbnail from './TokenThumbnail'
-import TokenTitle from './TokenTitle'
-import AuthCheck from './authentication/AuthCheck'
-import { useActiveAuction } from '../hooks/useActiveAuction'
+import { AuctionCountdown, TokenThumbnail, TokenTitle } from '@auction/index'
+import { AuthCheck } from '@authentication/index'
+import { useActiveAuction } from '@hooks/index'
 
 /**
  * TODO:

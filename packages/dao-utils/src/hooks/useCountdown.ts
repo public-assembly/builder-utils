@@ -7,7 +7,7 @@ interface Countdown {
   countdownString: string
 }
 
-export const useCountdown = (endTime: number): Countdown => {
+export function useCountdown(endTime: number): Countdown {
   const [now, setNow] = React.useState(getUnixTime(Date.now() * 1000))
   const [end, setEnd] = React.useState(endTime * 1000)
 
