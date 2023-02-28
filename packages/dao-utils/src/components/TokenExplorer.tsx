@@ -18,11 +18,16 @@ export interface TokenExplorerProps extends React.HTMLProps<HTMLDivElement> {
    * Renderer Component for dao tokens
    */
   tokenRenderer?: React.ReactNode
+  /**
+   * Button to handle wallet connection
+   */
+  connectButton?: React.ReactNode
 }
 
 export default function TokenExplorer({
   tokenAddress,
   auctionRenderer,
+  connectButton,
   ...props
 }: TokenExplorerProps) {
   const { totalSupply } = useActiveAuction(tokenAddress)
@@ -50,7 +55,11 @@ export default function TokenExplorer({
   return (
     <div {...props} className="flex flex-col gap-2">
       {tokenId === totalSupply - 1 ? (
-        <>{auctionRenderer || <CurrentAuction tokenAddress={tokenAddress} />}</>
+        <>
+          {auctionRenderer || (
+            <CurrentAuction tokenAddress={tokenAddress} connectButton={connectButton} />
+          )}
+        </>
       ) : (
         <TokenRenderer tokenAddress={tokenAddress} tokenId={tokenId?.toString()!} />
       )}
