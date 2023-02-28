@@ -1,6 +1,5 @@
 import { Seo } from '@/components/Seo'
-// import { isServerSide } from 'utils/helpers'
-import { TokenThumbnail } from '@public-assembly/dao-utils'
+import { TokenThumbnail, TokenTitle, TokenWinningBid } from '@public-assembly/dao-utils'
 import { isServerSide } from 'utils/helpers'
 
 function Componentry() {
@@ -10,8 +9,25 @@ function Componentry() {
   return (
     <section className="max-w-[1240px] m-auto px-4 gap-8 flex flex-col">
       <Seo title="componentry" />
-      <div className="max-w-[560px] mx-auto -z-10 bg-slate-300 p-4 rounded-2xl text-black">
-        <TokenThumbnail tokenAddress={tokenAddress} tokenId="1" />
+      <div className="max-w-[930px] mx-auto -z-10">
+        <div className="flex justify-center gap-x-8">
+          <span className="sm-font text-white">Token Thumbnail</span>
+          <div className="bg-slate-300 p-4 rounded-2xl">
+            <TokenThumbnail tokenAddress={tokenAddress} tokenId="1" />
+          </div>
+        </div>
+        <div className="flex justify-center gap-x-8">
+          <span className="sm-font text-white">Token Title</span>
+          <div className="bg-slate-300 p-4 rounded-2xl">
+            <TokenTitle tokenAddress={tokenAddress} tokenId="1" />
+          </div>
+        </div>
+        <div className="flex justify-center gap-x-8">
+          <span className="sm-font text-white">Token Winning Bid</span>
+          <div className="bg-slate-300 p-4 rounded-2xl">
+            <TokenWinningBid tokenAddress={tokenAddress} tokenId="1" />
+          </div>
+        </div>
       </div>
     </section>
   )
