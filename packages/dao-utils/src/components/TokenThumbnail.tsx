@@ -24,7 +24,7 @@ export default function TokenThumbnail({
   }, [tokenData])
 
   return (
-    <div className="aspect-square relative w-full bg-slate-50">
+    <div className="aspect-square relative w-full">
       {thumbnail && <img src={thumbnail} className="w-full h-full inset-0" />}
     </div>
   )
