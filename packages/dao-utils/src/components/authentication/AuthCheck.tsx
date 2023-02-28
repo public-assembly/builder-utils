@@ -1,15 +1,16 @@
 /* @ts-ignore */
 import * as React from 'react'
 import { useAccount } from 'wagmi'
-import Connect from './Connect'
 
 export default function AuthCheck({
   formUI,
   connectCopy,
+  connectButton,
 }: {
   formUI?: JSX.Element
   connectCopy?: string | JSX.Element
+  connectButton?: React.ReactNode
 }) {
   const { isConnected } = useAccount()
-  return <div>{!isConnected ? <Connect connectCopy={connectCopy} /> : formUI}</div>
+  return <div>{!isConnected ? connectButton : formUI}</div>
 }

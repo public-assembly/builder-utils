@@ -17,9 +17,14 @@ export interface CurrentAuctionProps extends React.HTMLProps<HTMLDivElement> {
    * Nounish NFT Contract address
    */
   tokenAddress: `0x${string}`
+  connectButton?: React.ReactNode
 }
 
-export default function CurrentAuction({ tokenAddress, ...props }: CurrentAuctionProps) {
+export default function CurrentAuction({
+  tokenAddress,
+  connectButton,
+  ...props
+}: CurrentAuctionProps) {
   const {
     auctionData,
     createBid,
@@ -55,6 +60,7 @@ export default function CurrentAuction({ tokenAddress, ...props }: CurrentAuctio
           <span>Bidder: {auctionData?.highestBidder}</span>
         </div>
         <AuthCheck
+          connectButton={connectButton}
           connectCopy={'Connect to bid'}
           formUI={
             <div>
