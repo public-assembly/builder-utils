@@ -32,6 +32,8 @@ export const ManagerProvider: React.FC<ManagerProviderProps> = ({
     },
   })
 
+  console.log('getAddresses:', getAddresses)
+
   useEffect(() => {
     if (getAddresses) {
       setDaoAddress({
