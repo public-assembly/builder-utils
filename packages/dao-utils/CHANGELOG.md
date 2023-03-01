@@ -1,5 +1,11 @@
 # @public-assembly/dao-utils
 
+## 0.0.7
+
+### Patch Changes
+
+- Patches a pnpm bug and ensures wagmi dependencies are in order
+
 ## 0.0.6
 
 ### Patch Changes
