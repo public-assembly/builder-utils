@@ -4,7 +4,7 @@ export interface MetadataProviderProps {
   children?: React.ReactNode
 }
 
-type Settings = {
+type MetadataSettings = {
   token: HexString
   projectURI: string
   description: string
@@ -15,5 +15,5 @@ type Settings = {
 export interface MetadataReturnTypes {
   tokenAddress?: HexString
   metadataAddress?: HexString
-  settings?: Settings
+  metadataSettings?: MetadataSettings
 }

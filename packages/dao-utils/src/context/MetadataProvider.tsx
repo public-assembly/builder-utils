@@ -14,7 +14,7 @@ export function MetadataProvider({ children }: MetadataProviderProps) {
     [daoAddresses]
   )
 
-  const { data: settings } = useContractRead({
+  const { data: metadataSettings } = useContractRead({
     address: metadataAddress,
     abi: metadataAbi,
     functionName: 'settings',
@@ -25,7 +25,7 @@ export function MetadataProvider({ children }: MetadataProviderProps) {
       value={{
         tokenAddress,
         metadataAddress,
-        settings,
+        metadataSettings,
       }}>
       {children}
     </MetadataContext.Provider>

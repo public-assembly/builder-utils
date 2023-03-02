@@ -1,8 +1,8 @@
 import { Seo } from '@/components/Seo'
 import {
-  ManagerProvider,
   GovernorProvider,
   MetadataProvider,
+  TokenProvider,
 } from '@public-assembly/dao-utils'
 import dynamic from 'next/dynamic'
 import { PrintProviderData } from '../components'
@@ -24,7 +24,9 @@ function Providers() {
         <DynamicManagerProvider tokenAddress={tokenAddress}>
           <GovernorProvider>
             <MetadataProvider>
-              <PrintProviderData />
+              <TokenProvider>
+                <PrintProviderData />
+              </TokenProvider>
             </MetadataProvider>
           </GovernorProvider>
         </DynamicManagerProvider>
