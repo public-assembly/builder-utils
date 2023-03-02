@@ -8,8 +8,6 @@ export type ManagerProviderProps = PropsWithChildren<{
 export type ManagerReturnTypes = {
   tokenAddress?: HexString
   daoAddresses: DaoAddresses
-  isLoading: boolean
-  isError: boolean
 }
 
 export type DaoAddresses = {

@@ -31,7 +31,7 @@ export function AuctionProvider({ children, tokenId }: AuctionProviderProps) {
   })
 
   const { data: auction } = useContractRead({
-    address: auctionAddress as string,
+    address: auctionAddress,
     abi: auctionAbi,
     functionName: 'auction',
   })

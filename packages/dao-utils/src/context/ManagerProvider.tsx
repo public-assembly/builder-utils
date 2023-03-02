@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect } from 'react'
+import React, { createContext, useContext, useEffect, memo } from 'react'
 import { useContractRead } from 'wagmi'
 import { managerAbi } from '../abi'
 import type { ManagerProviderProps, ManagerReturnTypes, DaoAddresses } from '../types'
@@ -6,49 +6,42 @@ import type { ManagerProviderProps, ManagerReturnTypes, DaoAddresses } from '../
 const ManagerContext = createContext<ManagerReturnTypes | null>({
   tokenAddress: undefined,
   daoAddresses: null,
-  isLoading: false,
-  isError: false,
 })
 
 const MANAGER_PROXY_ADDRESS = '0xd310A3041dFcF14Def5ccBc508668974b5da7174'
 
-export const ManagerProvider: React.FC<ManagerProviderProps> = ({
-  children,
-  tokenAddress,
-}) => {
-  const [daoAddresses, setDaoAddress] = React.useState<DaoAddresses | null>(null)
+export const ManagerProvider: React.FC<ManagerProviderProps> = memo(
+  ({ children, tokenAddress }) => {
+    const [daoAddresses, setDaoAddress] = React.useState<DaoAddresses | null>(null)
 
-  const {
-    data: getAddresses,
-    isLoading,
-    isError,
-  } = useContractRead({
-    address: MANAGER_PROXY_ADDRESS,
-    abi: managerAbi,
-    functionName: 'getAddresses',
-    args: [tokenAddress],
-    onError(error: any) {
-      console.log(error)
-    },
-  })
+    const { data: getAddresses } = useContractRead({
+      address: MANAGER_PROXY_ADDRESS,
+      abi: managerAbi,
+      functionName: 'getAddresses',
+      args: [tokenAddress],
+      onError(error: any) {
+        console.log(error)
+      },
+    })
 
-  console.log('getAddresses:', getAddresses)
+    console.log('getAddresses:', getAddresses)
 
-  useEffect(() => {
-    if (getAddresses) {
-      setDaoAddress({
-        metadataAddress: getAddresses?.metadata,
-        auctionAddress: getAddresses?.auction,
-        treasuryAddress: getAddresses?.treasury,
-        governorAddress: getAddresses?.governor,
-      })
-    }
-  }, [getAddresses])
+    useEffect(() => {
+      if (getAddresses) {
+        setDaoAddress({
+          metadataAddress: getAddresses?.metadata,
+          auctionAddress: getAddresses?.auction,
+          treasuryAddress: getAddresses?.treasury,
+          governorAddress: getAddresses?.governor,
+        })
+      }
+    }, [getAddresses])
 
-  const value = { tokenAddress, daoAddresses, isLoading, isError }
+    const value = { tokenAddress, daoAddresses }
 
-  return <ManagerContext.Provider value={value}>{children}</ManagerContext.Provider>
-}
+    return <ManagerContext.Provider value={value}>{children}</ManagerContext.Provider>
+  }
+)
 
 // Access the context value of the ManagerProvider
 export const useManagerContext = () => {
