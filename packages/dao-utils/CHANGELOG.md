@@ -1,5 +1,11 @@
 # @public-assembly/dao-utils
 
+## 0.0.8
+
+### Patch Changes
+
+- Adds a TokenProvider and MetadataProvider to access DAO specific data across your app.
+
 ## 0.0.7
 
 ### Patch Changes
