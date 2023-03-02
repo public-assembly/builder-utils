@@ -36,6 +36,7 @@ import {
 import { useAuctionContext, AuctionProvider } from './context/AuctionProvider'
 import { useGovernorContext, GovernorProvider } from './context/GovernorProvider'
 import { useManagerContext, ManagerProvider } from './context/ManagerProvider'
+import { useMetadataContext, MetadataProvider } from './context/MetadataProvider'
 
 import { shortenAddress, zoraApiFetcher, etherscanLink } from './lib'
 
@@ -93,4 +94,6 @@ export {
   GovernorProvider,
   useManagerContext,
   ManagerProvider,
+  useMetadataContext,
+  MetadataProvider,
 }
