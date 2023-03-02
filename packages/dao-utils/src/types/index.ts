@@ -16,3 +16,5 @@ export type {
 } from './managerContractTypes'
 
 export type { MetadataProviderProps, MetadataReturnTypes } from './metadataContractTypes'
+
+export type { TokenProviderProps, TokenReturnTypes } from './tokenContractTypes'

@@ -18,7 +18,6 @@ export function PrintProviderData() {
         <RawDisplayer data={settings?.contractImage} />
         <RawDisplayer data={settings?.description} />
         <RawDisplayer data={settings?.projectURI} />
-        {/* {settings?.description} */}
       </div>
     </>
   )
