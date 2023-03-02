@@ -4,6 +4,7 @@ import {
   useMetadataContext,
   useTokenContext,
 } from '@public-assembly/dao-utils'
+import { BigNumber } from 'ethers'
 
 export function PrintProviderData() {
   const { daoAddresses } = useManagerContext()
@@ -21,7 +22,7 @@ export function PrintProviderData() {
       <div>
         <RawDisplayer data={tokenSettings?.[0]} />
         <RawDisplayer data={tokenSettings?.[1]} />
-        <RawDisplayer data={tokenSettings?.[2]} />
+        {/* <RawDisplayer data={tokenSettings?.[2]} /> */}
       </div>
     </>
   )
