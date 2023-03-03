@@ -1,5 +1,10 @@
 import { Seo } from '@/components/Seo'
-import { TokenThumbnail, TokenTitle, TokenWinningBid } from '@public-assembly/dao-utils'
+import {
+  TokenExplorer,
+  TokenThumbnail,
+  TokenTitle,
+  TokenWinningBid,
+} from '@public-assembly/dao-utils'
 import { isServerSide } from 'utils/helpers'
 
 function Componentry() {

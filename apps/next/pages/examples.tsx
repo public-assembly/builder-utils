@@ -7,6 +7,7 @@ const AuctionModule = dynamic(() => import('../components/AuctionModule'), {
 
 const DAOS = [
   '0xdf9b7d26c8fc806b1ae6273684556761ff02d422',
+  '0xc230ba378d2d63da003CD5598642D72c6ba42d1E',
   '0xd2E7684Cf3E2511cc3B4538bB2885Dc206583076',
   '0x96e396e66087b2b9dcad36fd473e1b049df18998',
   '0x8983ec4b57dbebe8944af8d4f9d3adbafea5b9f1',
