@@ -1,3 +1,5 @@
+/* eslint-disable */
+import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core'
 export type Maybe<T> = T | null
 export type InputMaybe<T> = Maybe<T>
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] }
@@ -14,6 +16,7 @@ export type Scalars = {
   Boolean: boolean
   Int: number
   Float: number
+  /** The GenericScalar scalar type represents a generic GraphQL scalar value that could be: List or Object. */
   JSONScalar: any
   datetime: any
 }
@@ -34,10 +37,12 @@ export type ActiveMarket = {
 export type ActiveMarketProperties =
   | LilNounsAuction
   | NounsAuction
+  | NounsBuilderAuction
   | V2Auction
   | V3ReserveAuction
 
 export type ActiveMarketQueryInput = {
+  collectionAddress?: InputMaybe<Scalars['String']>
   marketType: ActiveMarketType
   token?: InputMaybe<TokenInput>
 }
@@ -45,6 +50,7 @@ export type ActiveMarketQueryInput = {
 export enum ActiveMarketType {
   ActiveLilNounsAuction = 'ACTIVE_LIL_NOUNS_AUCTION',
   ActiveNounsAuction = 'ACTIVE_NOUNS_AUCTION',
+  ActiveNounsBuilderAuction = 'ACTIVE_NOUNS_BUILDER_AUCTION',
   ActiveV2Auction = 'ACTIVE_V2_AUCTION',
   ActiveV3ReserveAuction = 'ACTIVE_V3_RESERVE_AUCTION',
 }
@@ -53,6 +59,17 @@ export type AggregateAttribute = {
   __typename?: 'AggregateAttribute'
   traitType: Scalars['String']
   valueMetrics: Array<AggregateAttributeValue>
+}
+
+export enum AggregateAttributeSortKey {
+  Count = 'COUNT',
+  None = 'NONE',
+  Value = 'VALUE',
+}
+
+export type AggregateAttributeSortKeySortInput = {
+  sortDirection: SortDirection
+  sortKey: AggregateAttributeSortKey
 }
 
 export type AggregateAttributeValue = {
@@ -144,6 +161,7 @@ export type Collection = {
   name?: Maybe<Scalars['String']>
   networkInfo: NetworkInfo
   symbol?: Maybe<Scalars['String']>
+  tokenStandard?: Maybe<TokenStandard>
   totalSupply?: Maybe<Scalars['Int']>
 }
 
@@ -402,6 +420,7 @@ export enum MarketCategory {
 export type MarketProperties =
   | LilNounsAuction
   | NounsAuction
+  | NounsBuilderAuction
   | V1Ask
   | V1BidShare
   | V1Offer
@@ -432,6 +451,7 @@ export enum MarketStatus {
 export enum MarketType {
   LilNounsAuction = 'LIL_NOUNS_AUCTION',
   NounsAuction = 'NOUNS_AUCTION',
+  NounsBuilderAuction = 'NOUNS_BUILDER_AUCTION',
   V1Ask = 'V1_ASK',
   V1BidShare = 'V1_BID_SHARE',
   V1Offer = 'V1_OFFER',
@@ -569,6 +589,9 @@ export type Nouns = {
   nounsDaos: NounsDaoConnection
   nounsEvents: NounsEventConnection
   nounsMarkets: NounsBuilderAuctionConnection
+  nounsProposal?: Maybe<NounsProposal>
+  nounsProposals: NounsProposalConnection
+  nounsSearch: NounsSearchResultConnection
 }
 
 export type NounsNounsActiveMarketArgs = {
@@ -592,10 +615,30 @@ export type NounsNounsEventsArgs = {
 }
 
 export type NounsNounsMarketsArgs = {
+  filter?: InputMaybe<NounsMarketsQueryFilter>
   networks?: InputMaybe<Array<NetworkInput>>
   pagination?: InputMaybe<PaginationInput>
   sort?: InputMaybe<MarketSortKeySortInput>
   where?: InputMaybe<NounsMarketsQueryInput>
+}
+
+export type NounsNounsProposalArgs = {
+  network?: InputMaybe<NetworkInput>
+  where: NounsProposalQueryInput
+}
+
+export type NounsNounsProposalsArgs = {
+  networks?: InputMaybe<Array<NetworkInput>>
+  pagination?: InputMaybe<PaginationInput>
+  sort?: InputMaybe<NounsProposalSortKeySortInput>
+  where?: InputMaybe<NounsProposalsQueryInput>
+}
+
+export type NounsNounsSearchArgs = {
+  filterModel?: InputMaybe<NounsSearchFilter>
+  networks?: InputMaybe<Array<NetworkInput>>
+  pagination: SearchPaginationInput
+  query: NounsSearchQueryInput
 }
 
 export type NounsActiveMarketQueryInput = {
@@ -699,18 +742,18 @@ export type NounsBuilderAuction = {
   __typename?: 'NounsBuilderAuction'
   address: Scalars['String']
   amount?: Maybe<PriceAtTime>
-  auction: Scalars['String']
+  auction?: Maybe<Scalars['String']>
   collectionAddress: Scalars['String']
   duration: Scalars['String']
   endTime: Scalars['String']
   estimatedDurationTime?: Maybe<Scalars['datetime']>
-  extended: Scalars['Boolean']
+  extended?: Maybe<Scalars['Boolean']>
   firstBidTime?: Maybe<Scalars['datetime']>
-  governor: Scalars['String']
+  governor?: Maybe<Scalars['String']>
   highestBidPrice?: Maybe<PriceAtTime>
   highestBidder?: Maybe<Scalars['String']>
-  manager: Scalars['String']
-  metadata: Scalars['String']
+  manager?: Maybe<Scalars['String']>
+  metadata?: Maybe<Scalars['String']>
   minBidIncrementPercentage?: Maybe<Scalars['Int']>
   networkInfo: NetworkInfo
   reservePrice?: Maybe<PriceAtTime>
@@ -719,7 +762,7 @@ export type NounsBuilderAuction = {
   timeBuffer?: Maybe<Scalars['String']>
   tokenId: Scalars['String']
   transactionInfo: TransactionInfo
-  treasury: Scalars['String']
+  treasury?: Maybe<Scalars['String']>
   winner?: Maybe<Scalars['String']>
 }
 
@@ -863,6 +906,7 @@ export type NounsBuilderGovernorProposalCreatedEventProperties = {
   executed: Scalars['Boolean']
   forVotes: Scalars['String']
   proposalId: Scalars['String']
+  proposalNumber?: Maybe<Scalars['String']>
   proposalThreshold: Scalars['String']
   proposer: Scalars['String']
   quorumVotes: Scalars['String']
@@ -951,17 +995,17 @@ export enum NounsBuilderManagerEventType {
 
 export type NounsDao = {
   __typename?: 'NounsDao'
-  auctionAddress: Scalars['String']
+  auctionAddress?: Maybe<Scalars['String']>
   collectionAddress: Scalars['String']
-  contractAddress: Scalars['String']
+  contractAddress?: Maybe<Scalars['String']>
   description?: Maybe<Scalars['String']>
-  governorAddress: Scalars['String']
-  metadataAddress: Scalars['String']
+  governorAddress?: Maybe<Scalars['String']>
+  metadataAddress?: Maybe<Scalars['String']>
   name?: Maybe<Scalars['String']>
   networkInfo: NetworkInfo
   symbol?: Maybe<Scalars['String']>
   totalSupply?: Maybe<Scalars['Int']>
-  treasuryAddress: Scalars['String']
+  treasuryAddress?: Maybe<Scalars['String']>
 }
 
 export type NounsDaoConnection = {
@@ -986,11 +1030,15 @@ export type NounsEventConnection = {
 }
 
 export type NounsEventProperties =
+  | LilNounsAuctionEvent
+  | NounsAuctionEvent
   | NounsBuilderAuctionEvent
   | NounsBuilderGovernorEvent
   | NounsBuilderManagerEvent
 
 export enum NounsEventType {
+  LilNounsAuctionEvent = 'LIL_NOUNS_AUCTION_EVENT',
+  NounsAuctionEvent = 'NOUNS_AUCTION_EVENT',
   NounsBuilderAuctionEvent = 'NOUNS_BUILDER_AUCTION_EVENT',
   NounsBuilderGovernorEvent = 'NOUNS_BUILDER_GOVERNOR_EVENT',
   NounsBuilderManagerEvent = 'NOUNS_BUILDER_MANAGER_EVENT',
@@ -1010,14 +1058,131 @@ export type NounsEventsQueryInput = {
   governorAddresses?: InputMaybe<Array<Scalars['String']>>
 }
 
+export enum NounsMarketType {
+  LilNounsAuction = 'LIL_NOUNS_AUCTION',
+  NounsAuction = 'NOUNS_AUCTION',
+  NounsBuilderAuction = 'NOUNS_BUILDER_AUCTION',
+}
+
+export type NounsMarketsQueryFilter = {
+  nounsMarketType?: InputMaybe<NounsMarketType>
+  status?: InputMaybe<MarketStatus>
+}
+
 export type NounsMarketsQueryInput = {
   collectionAddresses?: InputMaybe<Array<Scalars['String']>>
   tokens?: InputMaybe<Array<TokenInput>>
 }
 
+export type NounsProposal = {
+  __typename?: 'NounsProposal'
+  abstainVotes: Scalars['Int']
+  againstVotes: Scalars['Int']
+  auction: Scalars['String']
+  calldatas: Array<Scalars['String']>
+  collectionAddress: Scalars['String']
+  description: Scalars['String']
+  descriptionHash: Scalars['String']
+  executableFrom?: Maybe<Scalars['Int']>
+  expiresAt?: Maybe<Scalars['Int']>
+  forVotes: Scalars['Int']
+  governor: Scalars['String']
+  manager: Scalars['String']
+  metadata: Scalars['String']
+  networkInfo: NetworkInfo
+  proposalId: Scalars['String']
+  proposalNumber: Scalars['Int']
+  proposalThreshold: Scalars['Int']
+  proposer: Scalars['String']
+  quorumVotes: Scalars['Int']
+  status: NounsProposalStatus
+  targets: Array<Scalars['String']>
+  timeCreated: Scalars['Int']
+  title: Scalars['String']
+  transactionInfo: TransactionInfo
+  treasury: Scalars['String']
+  values: Array<Scalars['String']>
+  voteEnd: Scalars['Int']
+  voteStart: Scalars['Int']
+  votes: Array<NounsProposalVote>
+}
+
+export type NounsProposalConnection = {
+  __typename?: 'NounsProposalConnection'
+  nodes: Array<NounsProposal>
+  pageInfo: PageInfo
+}
+
+export type NounsProposalQueryInput = {
+  proposal?: InputMaybe<ProposalInput>
+  proposalId?: InputMaybe<Scalars['String']>
+}
+
+export enum NounsProposalSortKey {
+  Created = 'CREATED',
+  None = 'NONE',
+}
+
+export type NounsProposalSortKeySortInput = {
+  sortDirection: SortDirection
+  sortKey: NounsProposalSortKey
+}
+
+export enum NounsProposalStatus {
+  Active = 'ACTIVE',
+  Canceled = 'CANCELED',
+  Created = 'CREATED',
+  Defeated = 'DEFEATED',
+  Executable = 'EXECUTABLE',
+  Executed = 'EXECUTED',
+  Expired = 'EXPIRED',
+  Pending = 'PENDING',
+  Queued = 'QUEUED',
+  Succeeded = 'SUCCEEDED',
+  Vetoed = 'VETOED',
+}
+
+export type NounsProposalVote = {
+  __typename?: 'NounsProposalVote'
+  proposalId: Scalars['String']
+  reason: Scalars['String']
+  support: Support
+  transactionInfo: TransactionInfo
+  voter: Scalars['String']
+  weight: Scalars['Int']
+}
+
+export type NounsProposalsQueryInput = {
+  collectionAddresses?: InputMaybe<Array<Scalars['String']>>
+  proposalIds?: InputMaybe<Array<Scalars['String']>>
+  proposals?: InputMaybe<Array<ProposalInput>>
+}
+
 export type NounsQueryInput = {
   collectionAddresses?: InputMaybe<Array<Scalars['String']>>
   memberAddresses?: InputMaybe<Array<Scalars['String']>>
+}
+
+export type NounsSearchFilter = {
+  collectionAddresses?: InputMaybe<Array<Scalars['String']>>
+}
+
+export type NounsSearchQueryInput = {
+  text: Scalars['String']
+}
+
+export type NounsSearchResult = {
+  __typename?: 'NounsSearchResult'
+  collectionAddress: Scalars['String']
+  entityType: Scalars['String']
+  name?: Maybe<Scalars['String']>
+  networkInfo: NetworkInfo
+}
+
+export type NounsSearchResultConnection = {
+  __typename?: 'NounsSearchResultConnection'
+  nodes: Array<NounsSearchResult>
+  pageInfo: PageInfo
 }
 
 export enum NounsSortKey {
@@ -1127,6 +1292,11 @@ export type PriceFilter = {
   minimumNativePrice?: InputMaybe<Scalars['String']>
 }
 
+export type ProposalInput = {
+  address: Scalars['String']
+  proposalNumber: Scalars['String']
+}
+
 export type ReceivedItem = {
   __typename?: 'ReceivedItem'
   address: Scalars['String']
@@ -1169,6 +1339,7 @@ export type RootQuery = {
 
 export type RootQueryAggregateAttributesArgs = {
   networks?: InputMaybe<Array<NetworkInput>>
+  sort?: InputMaybe<AggregateAttributeSortKeySortInput>
   where: AggregateAttributesQueryInput
 }
 
@@ -1274,6 +1445,7 @@ export enum SaleType {
   LilNounsAuctionSale = 'LIL_NOUNS_AUCTION_SALE',
   LooksRareSale = 'LOOKS_RARE_SALE',
   NounsAuctionSale = 'NOUNS_AUCTION_SALE',
+  NounsBuilderAuctionSale = 'NOUNS_BUILDER_AUCTION_SALE',
   OpenseaBundleSale = 'OPENSEA_BUNDLE_SALE',
   OpenseaSingleSale = 'OPENSEA_SINGLE_SALE',
   RaribleSale = 'RARIBLE_SALE',
@@ -1437,6 +1609,12 @@ export type SpentItem = {
   tokenId: Scalars['String']
 }
 
+export enum Support {
+  Abstain = 'ABSTAIN',
+  Against = 'AGAINST',
+  For = 'FOR',
+}
+
 export type TimeFilter = {
   endBlock?: InputMaybe<Scalars['Int']>
   endDate?: InputMaybe<Scalars['String']>
@@ -1463,6 +1641,7 @@ export type Token = {
   owner?: Maybe<Scalars['String']>
   tokenContract?: Maybe<TokenContract>
   tokenId: Scalars['String']
+  tokenStandard?: Maybe<TokenStandard>
   tokenUrl?: Maybe<Scalars['String']>
   tokenUrlMimeType?: Maybe<Scalars['String']>
 }
@@ -1514,6 +1693,11 @@ export enum TokenSortKey {
   TimedSaleEnding = 'TIMED_SALE_ENDING',
   TokenId = 'TOKEN_ID',
   Transferred = 'TRANSFERRED',
+}
+
+export enum TokenStandard {
+  Erc721 = 'ERC721',
+  Erc1155 = 'ERC1155',
 }
 
 export type TokenWithFullMarketHistory = {
@@ -1573,6 +1757,7 @@ export type TokensQueryFilter = {
   marketFilters?: InputMaybe<Array<MarketTypeFilter>>
   mediaType?: InputMaybe<MediaType>
   priceFilter?: InputMaybe<PriceFilter>
+  timeFilter?: InputMaybe<TimeFilter>
 }
 
 export type TokensQueryInput = {
@@ -1880,9 +2065,17 @@ export type V3AskEventProperties =
   | V3AskCreatedEventProperties
   | V3AskFilledEventProperties
   | V3AskPriceUpdatedEventProperties
+  | V3AsksCoreEthAskEventProperties
+  | V3AsksCoreEthAskFilledEventProperties
+  | V3AsksCoreEthRoyaltyPayoutEventProperties
   | V3PrivateAskEventProperties
 
 export enum V3AskEventType {
+  V3AsksCoreEthCanceled = 'V3_ASKS_CORE_ETH_CANCELED',
+  V3AsksCoreEthCreated = 'V3_ASKS_CORE_ETH_CREATED',
+  V3AsksCoreEthFilled = 'V3_ASKS_CORE_ETH_FILLED',
+  V3AsksCoreEthPriceUpdated = 'V3_ASKS_CORE_ETH_PRICE_UPDATED',
+  V3AsksCoreEthRoyaltyPayout = 'V3_ASKS_CORE_ETH_ROYALTY_PAYOUT',
   V3AskCanceled = 'V3_ASK_CANCELED',
   V3AskCreated = 'V3_ASK_CREATED',
   V3AskFilled = 'V3_ASK_FILLED',
@@ -1913,6 +2106,37 @@ export type V3AskPriceUpdatedEventProperties = {
   price: PriceAtTime
   seller: Scalars['String']
   sellerFundsRecipient: Scalars['String']
+}
+
+export type V3AsksCoreEthAskEventProperties = {
+  __typename?: 'V3AsksCoreEthAskEventProperties'
+  askCurrency: Scalars['String']
+  askPrice: Scalars['String']
+  price: PriceAtTime
+  seller: Scalars['String']
+  tokenContract: Scalars['String']
+  tokenId: Scalars['String']
+}
+
+export type V3AsksCoreEthAskFilledEventProperties = {
+  __typename?: 'V3AsksCoreEthAskFilledEventProperties'
+  askCurrency: Scalars['String']
+  askPrice: Scalars['String']
+  buyer: Scalars['String']
+  price: PriceAtTime
+  seller: Scalars['String']
+  tokenContract: Scalars['String']
+  tokenId: Scalars['String']
+}
+
+export type V3AsksCoreEthRoyaltyPayoutEventProperties = {
+  __typename?: 'V3AsksCoreEthRoyaltyPayoutEventProperties'
+  amount: PriceAtTime
+  askCurrency: Scalars['String']
+  askPrice: Scalars['String']
+  recipient: Scalars['String']
+  tokenContract: Scalars['String']
+  tokenId: Scalars['String']
 }
 
 export type V3ModuleManagerEvent = {
@@ -2042,30 +2266,8 @@ export type VideoEncodingTypes = {
   thumbnail?: Maybe<Scalars['String']>
 }
 
-export type AggStatQueryVariables = Exact<{
-  address: Scalars['String']
-  network: NetworkInput
-}>
-
-export type AggStatQuery = {
-  __typename?: 'RootQuery'
-  aggregateStat: {
-    __typename?: 'AggregateStat'
-    floorPrice?: number | null
-    nftCount: number
-    ownerCount: number
-    salesVolume: {
-      __typename?: 'SalesVolume'
-      chainTokenPrice: number
-      totalCount: number
-      usdcPrice: number
-    }
-  }
-}
-
 export type NounishAuctionsQueryVariables = Exact<{
   collectionAddress: Scalars['String']
-  network?: InputMaybe<NetworkInput>
 }>
 
 export type NounishAuctionsQuery = {
@@ -2074,257 +2276,544 @@ export type NounishAuctionsQuery = {
     __typename?: 'Nouns'
     nounsActiveMarket?: {
       __typename?: 'NounsBuilderAuction'
-      auction: string
-      collectionAddress: string
       duration: string
       endTime: string
-      estimatedDurationTime?: any | null
-      extended: boolean
-      firstBidTime?: any | null
-      governor: string
-      manager: string
-      metadata: string
-      minBidIncrementPercentage?: number | null
-      startTime: string
-      status: MarketStatus
-      timeBuffer?: string | null
-      tokenId: string
-      treasury: string
-      winner?: string | null
-      address: string
       highestBidder?: string | null
-      amount?: {
-        __typename?: 'PriceAtTime'
-        blockNumber: number
-        chainTokenPrice?: {
-          __typename?: 'CurrencyAmount'
-          decimal: number
-          raw: string
-          currency: {
-            __typename?: 'Currency'
-            address: string
-            decimals: number
-            name: string
-          }
-        } | null
-        nativePrice: {
-          __typename?: 'CurrencyAmount'
-          decimal: number
-          raw: string
-          currency: {
-            __typename?: 'Currency'
-            address: string
-            decimals: number
-            name: string
-          }
-        }
-        usdcPrice?: {
-          __typename?: 'CurrencyAmount'
-          decimal: number
-          raw: string
-          currency: {
-            __typename?: 'Currency'
-            address: string
-            decimals: number
-            name: string
-          }
-        } | null
-      } | null
+      metadata?: string | null
+      status: MarketStatus
+      tokenId: string
+      winner?: string | null
+      startTime: string
+      timeBuffer?: string | null
+      treasury?: string | null
+      extended?: boolean | null
+      firstBidTime?: any | null
+      estimatedDurationTime?: any | null
+      auction?: string | null
+      minBidIncrementPercentage?: number | null
+      address: string
       highestBidPrice?: {
         __typename?: 'PriceAtTime'
-        blockNumber: number
         chainTokenPrice?: {
           __typename?: 'CurrencyAmount'
           decimal: number
           raw: string
-          currency: {
-            __typename?: 'Currency'
-            address: string
-            decimals: number
-            name: string
-          }
         } | null
-        nativePrice: {
+        usdcPrice?: { __typename?: 'CurrencyAmount'; decimal: number; raw: string } | null
+      } | null
+      reservePrice?: {
+        __typename?: 'PriceAtTime'
+        chainTokenPrice?: {
           __typename?: 'CurrencyAmount'
           decimal: number
           raw: string
-          currency: {
-            __typename?: 'Currency'
-            address: string
-            decimals: number
-            name: string
-          }
-        }
-        usdcPrice?: {
-          __typename?: 'CurrencyAmount'
-          decimal: number
-          raw: string
-          currency: {
-            __typename?: 'Currency'
-            address: string
-            decimals: number
-            name: string
-          }
         } | null
       } | null
-      networkInfo: { __typename?: 'NetworkInfo'; chain: Chain; network: Network }
-      transactionInfo: {
-        __typename?: 'TransactionInfo'
-        blockNumber: number
-        blockTimestamp: any
-        logIndex?: number | null
-        transactionHash?: string | null
-      }
     } | null
   }
 }
 
-export type NounsDaosQueryVariables = Exact<{
-  network: NetworkInput
+export type NounishProposalsQueryVariables = Exact<{
+  tokenAddress?: InputMaybe<Array<Scalars['String']> | Scalars['String']>
 }>
 
-export type NounsDaosQuery = {
+export type NounishProposalsQuery = {
   __typename?: 'RootQuery'
   nouns: {
     __typename?: 'Nouns'
-    nounsDaos: {
-      __typename?: 'NounsDaoConnection'
+    nounsProposals: {
+      __typename?: 'NounsProposalConnection'
       nodes: Array<{
-        __typename?: 'NounsDao'
-        name?: string | null
+        __typename?: 'NounsProposal'
+        abstainVotes: number
+        againstVotes: number
+        auction: string
+        calldatas: Array<string>
         collectionAddress: string
-        auctionAddress: string
-        governorAddress: string
-        metadataAddress: string
-        description?: string | null
-        symbol?: string | null
-        totalSupply?: number | null
-        treasuryAddress: string
-        contractAddress: string
-        networkInfo: { __typename?: 'NetworkInfo'; chain: Chain; network: Network }
+        description: string
+        descriptionHash: string
+        executableFrom?: number | null
+        expiresAt?: number | null
+        forVotes: number
+        governor: string
+        manager: string
+        metadata: string
+        proposalId: string
+        proposalNumber: number
+        proposalThreshold: number
+        proposer: string
+        quorumVotes: number
+        status: NounsProposalStatus
+        targets: Array<string>
+        timeCreated: number
+        title: string
+        treasury: string
+        values: Array<string>
+        voteEnd: number
+        voteStart: number
+        votes: Array<{
+          __typename?: 'NounsProposalVote'
+          proposalId: string
+          reason: string
+          support: Support
+          voter: string
+          weight: number
+        }>
       }>
     }
   }
 }
 
-export type OneNounsDaoQueryVariables = Exact<{
-  network: NetworkInput
-  address: Scalars['String']
-}>
-
-export type OneNounsDaoQuery = {
-  __typename?: 'RootQuery'
-  nouns: {
-    __typename?: 'Nouns'
-    nounsDaos: {
-      __typename?: 'NounsDaoConnection'
-      nodes: Array<{
-        __typename?: 'NounsDao'
-        name?: string | null
-        collectionAddress: string
-        auctionAddress: string
-        governorAddress: string
-        metadataAddress: string
-        description?: string | null
-        symbol?: string | null
-        totalSupply?: number | null
-        treasuryAddress: string
-        contractAddress: string
-        networkInfo: { __typename?: 'NetworkInfo'; chain: Chain; network: Network }
-      }>
-    }
-  }
-}
-
-export type TokenQueryVariables = Exact<{
-  address: Scalars['String']
+export type NounishTokensQueryVariables = Exact<{
+  tokenAddress: Scalars['String']
   tokenId: Scalars['String']
-  network?: InputMaybe<NetworkInput>
 }>
 
-export type TokenQuery = {
+export type NounishTokensQuery = {
   __typename?: 'RootQuery'
   token?: {
     __typename?: 'TokenWithFullMarketHistory'
     token: {
       __typename?: 'Token'
-      collectionAddress: string
-      collectionName?: string | null
-      tokenUrlMimeType?: string | null
-      tokenUrl?: string | null
-      tokenId: string
-      name?: string | null
       metadata?: any | null
-      description?: string | null
-      lastRefreshTime?: any | null
       owner?: string | null
-      networkInfo: { __typename?: 'NetworkInfo'; chain: Chain; network: Network }
-      attributes?: Array<{
-        __typename?: 'TokenAttribute'
-        displayType?: string | null
-        traitType?: string | null
-        value?: string | null
-      }> | null
-      content?: {
-        __typename?: 'TokenContentMedia'
-        mimeType?: string | null
-        size?: string | null
-        url?: string | null
-        mediaEncoding?:
-          | { __typename?: 'AudioEncodingTypes'; large?: string | null; original: string }
-          | {
-              __typename?: 'ImageEncodingTypes'
-              large?: string | null
-              poster?: string | null
-              original: string
-              thumbnail?: string | null
-            }
-          | { __typename: 'UnsupportedEncodingTypes'; original: string }
-          | {
-              __typename?: 'VideoEncodingTypes'
-              large?: string | null
-              poster?: string | null
-              original: string
-              preview?: string | null
-              thumbnail?: string | null
-            }
-          | null
-      } | null
-      image?: {
-        __typename?: 'TokenContentMedia'
-        mimeType?: string | null
-        url?: string | null
-        size?: string | null
-        mediaEncoding?:
-          | { __typename?: 'AudioEncodingTypes'; large?: string | null; original: string }
-          | {
-              __typename?: 'ImageEncodingTypes'
-              large?: string | null
-              poster?: string | null
-              original: string
-              thumbnail?: string | null
-            }
-          | { __typename: 'UnsupportedEncodingTypes'; original: string }
-          | {
-              __typename?: 'VideoEncodingTypes'
-              large?: string | null
-              poster?: string | null
-              original: string
-              preview?: string | null
-              thumbnail?: string | null
-            }
-          | null
-      } | null
-      tokenContract?: {
-        __typename?: 'TokenContract'
-        totalSupply?: number | null
-        symbol?: string | null
-        network: string
-        name?: string | null
-        description?: string | null
-        collectionAddress: string
-        chain: number
+      lastRefreshTime?: any | null
+      mintInfo?: {
+        __typename?: 'MintInfo'
+        mintContext: { __typename?: 'TransactionInfo'; blockNumber: number }
       } | null
     }
   } | null
 }
+
+export const NounishAuctionsDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'NounishAuctions' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'collectionAddress' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'nouns' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'nounsActiveMarket' },
+                  arguments: [
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'where' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: 'collectionAddress' },
+                            value: {
+                              kind: 'Variable',
+                              name: { kind: 'Name', value: 'collectionAddress' },
+                            },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'duration' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'endTime' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'highestBidder' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'metadata' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'status' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'tokenId' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'winner' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'highestBidPrice' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'chainTokenPrice' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'decimal' },
+                                  },
+                                  { kind: 'Field', name: { kind: 'Name', value: 'raw' } },
+                                ],
+                              },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'usdcPrice' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'decimal' },
+                                  },
+                                  { kind: 'Field', name: { kind: 'Name', value: 'raw' } },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'reservePrice' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'chainTokenPrice' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'decimal' },
+                                  },
+                                  { kind: 'Field', name: { kind: 'Name', value: 'raw' } },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                      { kind: 'Field', name: { kind: 'Name', value: 'startTime' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'timeBuffer' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'treasury' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'extended' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'firstBidTime' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'estimatedDurationTime' },
+                      },
+                      { kind: 'Field', name: { kind: 'Name', value: 'auction' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'minBidIncrementPercentage' },
+                      },
+                      { kind: 'Field', name: { kind: 'Name', value: 'address' } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<NounishAuctionsQuery, NounishAuctionsQueryVariables>
+export const NounishProposalsDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'NounishProposals' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'tokenAddress' } },
+          type: {
+            kind: 'ListType',
+            type: {
+              kind: 'NonNullType',
+              type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'nouns' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'nounsProposals' },
+                  arguments: [
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'where' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: 'collectionAddresses' },
+                            value: {
+                              kind: 'Variable',
+                              name: { kind: 'Name', value: 'tokenAddress' },
+                            },
+                          },
+                        ],
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'sort' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: 'sortDirection' },
+                            value: { kind: 'EnumValue', value: 'DESC' },
+                          },
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: 'sortKey' },
+                            value: { kind: 'EnumValue', value: 'CREATED' },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'nodes' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'abstainVotes' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'againstVotes' },
+                            },
+                            { kind: 'Field', name: { kind: 'Name', value: 'auction' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'calldatas' } },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'collectionAddress' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'description' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'descriptionHash' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'executableFrom' },
+                            },
+                            { kind: 'Field', name: { kind: 'Name', value: 'expiresAt' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'forVotes' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'governor' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'manager' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'metadata' } },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'proposalId' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'proposalNumber' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'proposalThreshold' },
+                            },
+                            { kind: 'Field', name: { kind: 'Name', value: 'proposer' } },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'quorumVotes' },
+                            },
+                            { kind: 'Field', name: { kind: 'Name', value: 'status' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'targets' } },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'timeCreated' },
+                            },
+                            { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'treasury' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'values' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'voteEnd' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'voteStart' } },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'votes' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'proposalId' },
+                                  },
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'reason' },
+                                  },
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'support' },
+                                  },
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'voter' },
+                                  },
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'weight' },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<NounishProposalsQuery, NounishProposalsQueryVariables>
+export const NounishTokensDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'NounishTokens' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'tokenAddress' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'tokenId' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'token' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'token' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'address' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'tokenAddress' },
+                      },
+                    },
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'tokenId' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'tokenId' },
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'token' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'metadata' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'owner' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'lastRefreshTime' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'mintInfo' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'mintContext' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'blockNumber' },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<NounishTokensQuery, NounishTokensQueryVariables>

@@ -1,6 +1,7 @@
 /* @ts-ignore */
 import * as React from 'react'
 import useSWR from 'swr'
+import { NounishTokensQuery } from '../types'
 import { DAO_TOKEN_QUERY } from '../data/daoTokenQuery'
 import { zoraApiFetcher } from '../lib/zoraApiFetcher'
 
@@ -36,7 +37,7 @@ export function useDaoToken({
   tokenAddress?: `0x${string}`
   tokenId: string
 }) {
-  const { data: tokenData, error } = useSWR<any>(
+  const { data: tokenData, error } = useSWR<NounishTokensQuery>(
     `token-metadata-${tokenAddress}-${tokenId}`,
     async () =>
       zoraApiFetcher(DAO_TOKEN_QUERY, {

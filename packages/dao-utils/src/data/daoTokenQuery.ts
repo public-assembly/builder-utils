@@ -1,7 +1,7 @@
 import gql from 'graphql-tag'
 
 export const DAO_TOKEN_QUERY = gql`
-  query NounishAuctions($tokenAddress: String!, $tokenId: String!) {
+  query NounishTokens($tokenAddress: String!, $tokenId: String!) {
     token(token: { address: $tokenAddress, tokenId: $tokenId }) {
       token {
         metadata
