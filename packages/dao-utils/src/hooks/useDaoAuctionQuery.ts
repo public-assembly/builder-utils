@@ -1,7 +1,7 @@
 /* @ts-ignore */
 import * as React from 'react'
 import useSWR from 'swr'
-import { NounishAuctionsQuery } from '../types/zora.api.generated'
+import { NounishAuctionsQuery } from '../types'
 import { DAO_AUCTION_QUERY } from '../data/daoAuctionQuery'
 import { zoraApiFetcher } from '../lib/zoraApiFetcher'
 

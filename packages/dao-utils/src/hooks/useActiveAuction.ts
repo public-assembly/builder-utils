@@ -53,7 +53,7 @@ export function useActiveAuction(
   const { auctionContract, tokenContract } = useNounsProtocol({
     tokenAddress: tokenAddress,
     auctionAddress: auctionData?.address,
-    metadataRendererAddress: auctionData?.metadata,
+    // metadataRendererAddress: auctionData?.metadata,
   })
 
   const [totalSupply, setTotalSupply] = React.useState<number | undefined>()
