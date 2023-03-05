@@ -1,6 +1,6 @@
 /* @ts-ignore */
 import * as React from 'react'
-import { useActiveAuction } from '../hooks/useActiveAuction'
+import { useDaoCollectionQuery } from '../hooks'
 import CurrentAuction from './CurrentAuction'
 import TokenRenderer from './TokenRenderer'
 import CircleArrow from './CircleArrow'
@@ -30,31 +30,31 @@ export default function TokenExplorer({
   connectButton,
   ...props
 }: TokenExplorerProps) {
-  const { totalSupply } = useActiveAuction(tokenAddress)
+  const { nftCount } = useDaoCollectionQuery({ tokenAddress: tokenAddress })
 
   const [tokenId, setTokenId] = React.useState(0)
 
   React.useEffect(() => {
-    totalSupply && setTokenId(totalSupply - 1)
-  }, [totalSupply])
+    nftCount && setTokenId(nftCount - 1)
+  }, [nftCount])
 
   const incrementId = React.useCallback(() => {
-    if (totalSupply && tokenId < totalSupply - 1) {
+    if (nftCount && tokenId < nftCount - 1) {
       setTokenId(tokenId + 1)
     }
   }, [setTokenId, tokenId])
 
   const decrementId = React.useCallback(() => {
-    if (totalSupply && tokenId > 0) {
+    if (nftCount && tokenId > 0) {
       setTokenId(tokenId - 1)
     }
   }, [setTokenId, tokenId])
 
-  if (!totalSupply) return null
+  if (!nftCount) return null
 
   return (
     <div {...props} className="flex flex-col gap-2">
-      {tokenId === totalSupply - 1 ? (
+      {tokenId === nftCount - 1 ? (
         <>
           {auctionRenderer || (
             <CurrentAuction tokenAddress={tokenAddress} connectButton={connectButton} />
@@ -71,9 +71,7 @@ export default function TokenExplorer({
         </button>
         <button
           onClick={incrementId}
-          className={`${
-            tokenId === totalSupply - 1 && 'pointer-events-none opacity-20'
-          }`}>
+          className={`${tokenId === nftCount - 1 && 'pointer-events-none opacity-20'}`}>
           <CircleArrow />
         </button>
       </div>
