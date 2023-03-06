@@ -1,5 +1,11 @@
 # @public-assembly/dao-utils
 
+## 0.0.9
+
+### Patch Changes
+
+- Updates logic in the TokenExplorer component to utilize a DAO’s nftCount versus totalSupply. This was causing issues with DAOs where some tokens were not bidded on, and thus burned.
+
 ## 0.0.8
 
 ### Patch Changes

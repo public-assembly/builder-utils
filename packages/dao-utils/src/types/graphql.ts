@@ -2313,6 +2313,15 @@ export type NounishAuctionsQuery = {
   }
 }
 
+export type NounishCollectionsQueryVariables = Exact<{
+  tokenAddress?: InputMaybe<Array<Scalars['String']> | Scalars['String']>
+}>
+
+export type NounishCollectionsQuery = {
+  __typename?: 'RootQuery'
+  aggregateStat: { __typename?: 'AggregateStat'; nftCount: number; ownerCount: number }
+}
+
 export type NounishProposalsQueryVariables = Exact<{
   tokenAddress?: InputMaybe<Array<Scalars['String']> | Scalars['String']>
 }>
@@ -2533,6 +2542,89 @@ export const NounishAuctionsDocument = {
     },
   ],
 } as unknown as DocumentNode<NounishAuctionsQuery, NounishAuctionsQueryVariables>
+export const NounishCollectionsDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'NounishCollections' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'tokenAddress' } },
+          type: {
+            kind: 'ListType',
+            type: {
+              kind: 'NonNullType',
+              type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'aggregateStat' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'nftCount' },
+                  arguments: [
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'where' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: 'collectionAddresses' },
+                            value: {
+                              kind: 'Variable',
+                              name: { kind: 'Name', value: 'tokenAddress' },
+                            },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'ownerCount' },
+                  arguments: [
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'where' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: 'collectionAddresses' },
+                            value: {
+                              kind: 'Variable',
+                              name: { kind: 'Name', value: 'tokenAddress' },
+                            },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<NounishCollectionsQuery, NounishCollectionsQueryVariables>
 export const NounishProposalsDocument = {
   kind: 'Document',
   definitions: [
