@@ -1,5 +1,11 @@
 # @public-assembly/dao-utils
 
+## 0.0.10
+
+### Patch Changes
+
+- Updates the TokenTitle instance inside the CurrentAuction component to use nftCount over totalSupply.
+
 ## 0.0.9
 
 ### Patch Changes
