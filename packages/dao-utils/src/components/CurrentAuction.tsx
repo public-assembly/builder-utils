@@ -5,6 +5,7 @@ import TokenThumbnail from './TokenThumbnail'
 import TokenTitle from './TokenTitle'
 import AuthCheck from './authentication/AuthCheck'
 import { useActiveAuction } from '../hooks/useActiveAuction'
+import { useDaoCollectionQuery } from '../hooks'
 
 /**
  * TODO:
@@ -32,8 +33,9 @@ export default function CurrentAuction({
     createBidSuccess,
     createBidLoading,
     isValidBid,
-    totalSupply,
   } = useActiveAuction(tokenAddress)
+
+  const { nftCount } = useDaoCollectionQuery({ tokenAddress: tokenAddress })
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 max-w-[1440px]" {...props}>
@@ -41,11 +43,8 @@ export default function CurrentAuction({
         <TokenThumbnail tokenId={auctionData.tokenId} tokenAddress={tokenAddress} />
       )}
       <div className="flex flex-col justify-end gap-4">
-        {totalSupply && (
-          <TokenTitle
-            tokenAddress={tokenAddress}
-            tokenId={(totalSupply - 1).toString()}
-          />
+        {nftCount && (
+          <TokenTitle tokenAddress={tokenAddress} tokenId={(nftCount - 1).toString()} />
         )}
         <div className="flex flex-col gap-2">
           <div className="flex flex-row gap-10">
