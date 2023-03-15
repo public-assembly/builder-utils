@@ -1,6 +1,6 @@
 {
   "name": "@public-assembly/dao-utils",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "React componentry and hooks to interact with the ourzora/nouns-protocol smart contracts.",
   "main": "dist/public-assembly-dao-utils.cjs.js",
   "module": "dist/public-assembly-dao-utils.esm.js",
