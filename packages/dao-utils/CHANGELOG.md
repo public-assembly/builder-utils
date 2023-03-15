@@ -1,5 +1,11 @@
 # @public-assembly/dao-utils
 
+## 0.0.11
+
+### Patch Changes
+
+- Exposes each contract's ABI to allow other frontends to call functions that aren't supported in this package.
+
 ## 0.0.10
 
 ### Patch Changes
