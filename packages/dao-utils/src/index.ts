@@ -41,6 +41,8 @@ import { useTokenContext, TokenProvider } from './context/TokenProvider'
 
 import { shortenAddress, zoraApiFetcher, etherscanLink } from './lib'
 
+import { auctionAbi, governorAbi, managerAbi, metadataAbi, tokenAbi } from './abi'
+
 export {
   /**
    * Authentication Components
@@ -99,4 +101,12 @@ export {
   MetadataProvider,
   useTokenContext,
   TokenProvider,
+  /**
+   * Abis
+   */
+  auctionAbi,
+  governorAbi,
+  managerAbi,
+  metadataAbi,
+  tokenAbi,
 }
