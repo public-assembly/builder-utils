@@ -25,12 +25,16 @@ import ProposalVoting from './components/ProposalVoting'
 import Proposer from './components/Proposer'
 
 import {
+  useActiveAuction,
+  useBidder,
   useCountdown,
   useDaoAuctionQuery,
+  useDaoCollectionQuery,
+  useDaoProposalQuery,
   useDaoToken,
-  useBidder,
-  useActiveAuction,
+  useInterval,
   useNounsProtocol,
+  useVote,
 } from './hooks'
 
 import { useAuctionContext, AuctionProvider } from './context/AuctionProvider'
@@ -76,12 +80,16 @@ export {
   /**
    * Hooks
    */
+  useActiveAuction,
+  useBidder,
   useCountdown,
   useDaoAuctionQuery,
+  useDaoCollectionQuery,
+  useDaoProposalQuery,
   useDaoToken,
-  useBidder,
-  useActiveAuction,
+  useInterval,
   useNounsProtocol,
+  useVote,
   /**
    * Utility Functions
    */
