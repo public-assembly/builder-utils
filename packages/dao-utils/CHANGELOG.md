@@ -1,5 +1,11 @@
 # @public-assembly/dao-utils
 
+## 0.0.12
+
+### Patch Changes
+
+- Exposes all the included hooks as of 0.0.11.
+
 ## 0.0.11
 
 ### Patch Changes
