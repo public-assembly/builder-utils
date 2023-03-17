@@ -7,6 +7,7 @@ export default function ProposalVoting({ proposal }) {
   const [reason, setReason] = React.useState<string | undefined>()
 
   const { castVote, castVoteWithReason } = useVote({
+    proposal: proposal,
     support: support,
     reason: reason,
   })

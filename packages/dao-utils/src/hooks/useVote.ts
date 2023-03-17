@@ -15,7 +15,7 @@ interface VotingFunctions {
 
 interface VoteProps {
   proposal: any
-  support: number
+  support?: number
   reason?: string
 }
 
