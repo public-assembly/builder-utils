@@ -1,57 +1,73 @@
 import type { HexString } from '../types'
-import { usePrepareContractWrite, useContractWrite } from 'wagmi'
+import { usePrepareContractWrite, useContractWrite, useWaitForTransaction } from 'wagmi'
 import { governorAbi } from '../abi'
 import { BigNumber } from 'ethers'
 import { useGovernorContext } from '../context'
 
 interface VotingFunctions {
   castVote?: () => void
+  castVoteLoading?: boolean
+  castVoteSuccess?: boolean
   castVoteWithReason?: () => void
-  castVoteError?: Error | null
-  castVoteWithReasonError?: Error | null
+  castVoteWithReasonLoading?: boolean
+  castVoteWithReasonSuccess?: boolean
 }
 
 interface VoteProps {
+  proposal: any
   support?: number
   reason?: string
 }
 
-export function useVote({ support, reason }: VoteProps): VotingFunctions {
-  const { governorAddress, proposals } = useGovernorContext()
+export function useVote({ proposal, support, reason }: VoteProps): VotingFunctions {
+  const { governorAddress } = useGovernorContext()
 
-  const { config: castVoteConfig, error: castVoteError } = usePrepareContractWrite(
+  const { config: castVoteConfig } = usePrepareContractWrite(
     support !== undefined
       ? {
           address: governorAddress,
           abi: governorAbi,
           functionName: 'castVote',
-          args: [proposals?.proposalId as HexString, BigNumber.from(support)],
+          args: [proposal.proposalId as HexString, BigNumber.from(support)],
         }
       : undefined
   )
-  const { write: castVote } = useContractWrite(castVoteConfig)
+  const { data: castVoteData, write: castVote } = useContractWrite(castVoteConfig)
 
-  const { config: castVoteWithReasonConfig, error: castVoteWithReasonError } =
-    usePrepareContractWrite(
-      support !== undefined
-        ? {
-            address: governorAddress,
-            abi: governorAbi,
-            functionName: 'castVoteWithReason',
-            args: [
-              proposals?.proposalId as HexString,
-              BigNumber.from(support),
-              reason as string,
-            ],
-          }
-        : undefined
-    )
-  const { write: castVoteWithReason } = useContractWrite(castVoteWithReasonConfig)
+  const { isLoading: castVoteLoading, isSuccess: castVoteSuccess } =
+    useWaitForTransaction({
+      hash: castVoteData?.hash,
+    })
+
+  const { config: castVoteWithReasonConfig } = usePrepareContractWrite(
+    support !== undefined
+      ? {
+          address: governorAddress,
+          abi: governorAbi,
+          functionName: 'castVoteWithReason',
+          args: [
+            proposal.proposalId as HexString,
+            BigNumber.from(support),
+            reason as string,
+          ],
+        }
+      : undefined
+  )
+  const { data: castVoteWithReasonData, write: castVoteWithReason } = useContractWrite(
+    castVoteWithReasonConfig
+  )
+
+  const { isLoading: castVoteWithReasonLoading, isSuccess: castVoteWithReasonSuccess } =
+    useWaitForTransaction({
+      hash: castVoteWithReasonData?.hash,
+    })
 
   return {
     castVote,
+    castVoteLoading,
+    castVoteSuccess,
     castVoteWithReason,
-    castVoteError,
-    castVoteWithReasonError,
+    castVoteWithReasonLoading,
+    castVoteWithReasonSuccess,
   }
 }

@@ -1,5 +1,11 @@
 # @public-assembly/dao-utils
 
+## 0.0.13
+
+### Patch Changes
+
+- The hook useVote now takes a proposal object as a prop. Also removes a console log from the ManagerProvider.
+
 ## 0.0.12
 
 ### Patch Changes
