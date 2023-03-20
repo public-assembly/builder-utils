@@ -1,5 +1,11 @@
 # @public-assembly/dao-utils
 
+## 0.0.14
+
+### Patch Changes
+
+- Removes types field from package.json, which allows types to be interpreted automatically.
+
 ## 0.0.13
 
 ### Patch Changes
