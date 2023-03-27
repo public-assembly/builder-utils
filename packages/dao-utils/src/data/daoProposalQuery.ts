@@ -22,6 +22,10 @@ export const DAO_PROPOSAL_QUERY = gql`
           governor
           manager
           metadata
+          networkInfo {
+            chain
+            network
+          }
           proposalId
           proposalNumber
           proposalThreshold
@@ -31,6 +35,10 @@ export const DAO_PROPOSAL_QUERY = gql`
           targets
           timeCreated
           title
+          transactionInfo {
+            blockNumber
+            blockTimestamp
+          }
           treasury
           values
           voteEnd
@@ -39,6 +47,10 @@ export const DAO_PROPOSAL_QUERY = gql`
             proposalId
             reason
             support
+            transactionInfo {
+              blockNumber
+              blockTimestamp
+            }
             voter
             weight
           }

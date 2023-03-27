@@ -2360,6 +2360,12 @@ export type NounishProposalsQuery = {
         values: Array<string>
         voteEnd: number
         voteStart: number
+        networkInfo: { __typename?: 'NetworkInfo'; chain: Chain; network: Network }
+        transactionInfo: {
+          __typename?: 'TransactionInfo'
+          blockNumber: number
+          blockTimestamp: any
+        }
         votes: Array<{
           __typename?: 'NounsProposalVote'
           proposalId: string
@@ -2367,6 +2373,11 @@ export type NounishProposalsQuery = {
           support: Support
           voter: string
           weight: number
+          transactionInfo: {
+            __typename?: 'TransactionInfo'
+            blockNumber: number
+            blockTimestamp: any
+          }
         }>
       }>
     }
@@ -2737,6 +2748,23 @@ export const NounishProposalsDocument = {
                             { kind: 'Field', name: { kind: 'Name', value: 'metadata' } },
                             {
                               kind: 'Field',
+                              name: { kind: 'Name', value: 'networkInfo' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'chain' },
+                                  },
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'network' },
+                                  },
+                                ],
+                              },
+                            },
+                            {
+                              kind: 'Field',
                               name: { kind: 'Name', value: 'proposalId' },
                             },
                             {
@@ -2759,6 +2787,23 @@ export const NounishProposalsDocument = {
                               name: { kind: 'Name', value: 'timeCreated' },
                             },
                             { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'transactionInfo' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'blockNumber' },
+                                  },
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'blockTimestamp' },
+                                  },
+                                ],
+                              },
+                            },
                             { kind: 'Field', name: { kind: 'Name', value: 'treasury' } },
                             { kind: 'Field', name: { kind: 'Name', value: 'values' } },
                             { kind: 'Field', name: { kind: 'Name', value: 'voteEnd' } },
@@ -2780,6 +2825,23 @@ export const NounishProposalsDocument = {
                                   {
                                     kind: 'Field',
                                     name: { kind: 'Name', value: 'support' },
+                                  },
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'transactionInfo' },
+                                    selectionSet: {
+                                      kind: 'SelectionSet',
+                                      selections: [
+                                        {
+                                          kind: 'Field',
+                                          name: { kind: 'Name', value: 'blockNumber' },
+                                        },
+                                        {
+                                          kind: 'Field',
+                                          name: { kind: 'Name', value: 'blockTimestamp' },
+                                        },
+                                      ],
+                                    },
                                   },
                                   {
                                     kind: 'Field',

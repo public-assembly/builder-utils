@@ -1,6 +1,12 @@
 import { DocumentNode } from 'graphql'
 import { GraphQLClient } from 'graphql-request'
-import { Chain } from '../types'
+import {
+  Chain,
+  NounishAuctionsQueryVariables,
+  NounishCollectionsQueryVariables,
+  NounishProposalsQueryVariables,
+  NounishTokensQueryVariables,
+} from '../types'
 
 export const CHAIN = {
   1: Chain.Mainnet,
@@ -19,7 +25,16 @@ export const client = new GraphQLClient('https://api.zora.co/graphql', {
   mode: 'no-cors',
 })
 
-export async function zoraApiFetcher(query: DocumentNode, providedVariables?: any) {
+type ZoraApiFetcherVariablesProps =
+  | NounishAuctionsQueryVariables
+  | NounishCollectionsQueryVariables
+  | NounishProposalsQueryVariables
+  | NounishTokensQueryVariables
+
+export async function zoraApiFetcher(
+  query: DocumentNode,
+  providedVariables?: ZoraApiFetcherVariablesProps
+) {
   let variables = {
     networks: {
       network: 'ETHEREUM',

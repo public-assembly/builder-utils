@@ -26,7 +26,7 @@ export const ManagerProvider: React.FC<ManagerProviderProps> = memo(
       abi: managerAbi,
       functionName: 'getAddresses',
       args: [tokenAddress],
-      onError(error: any) {
+      onError(error: unknown) {
         console.log(error)
       },
     })

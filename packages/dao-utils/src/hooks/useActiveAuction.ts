@@ -3,7 +3,7 @@ import { useDaoAuctionQuery } from './useDaoAuctionQuery'
 import { BigNumber as EthersBN, ContractTransaction, utils } from 'ethers'
 import { useBidder } from './useBidder'
 import { useNounsProtocol } from './useNounsProtocol'
-import { HexString } from '../types'
+import { HexString, AuctionData } from '../types'
 
 export function useActiveAuction(
   /**
@@ -29,12 +29,16 @@ export function useActiveAuction(
       /* @ts-ignore */
       return activeAuction?.reservePrice?.chainTokenPrice?.decimal as number
     }
-  }, [activeAuction?.highestBidPrice?.chainTokenPrice?.decimal])
+  }, [
+    activeAuction?.highestBidPrice?.chainTokenPrice?.decimal,
+    activeAuction?.minBidIncrementPercentage,
+    activeAuction?.reservePrice?.chainTokenPrice?.decimal,
+  ])
 
   /**
    * Fetch all of this directly from contract
    */
-  const auctionData = React.useMemo(() => {
+  const auctionData = React.useMemo<AuctionData>(() => {
     return {
       tokenId: activeAuction?.tokenId,
       address: activeAuction?.address,
@@ -57,7 +61,7 @@ export function useActiveAuction(
     // metadataRendererAddress: auctionData?.metadata,
   })
 
-  const [totalSupply, setTotalSupply] = React.useState<number | undefined>()
+  const [totalSupply, setTotalSupply] = React.useState<number>()
 
   React.useEffect(() => {
     async function getSupply() {
@@ -73,7 +77,7 @@ export function useActiveAuction(
 
   const [createBidSuccess, setCreateBidSuccess] = React.useState(false)
   const [createBidLoading, setCreateBidLoading] = React.useState(false)
-  const [createBidError, setCreateBidError] = React.useState(false)
+  const [createBidError, setCreateBidError] = React.useState<unknown>()
   const [createBidTx, setCreateBidTx] = React.useState<ContractTransaction | undefined>()
   const [isValidBid, setIsValidBid] = React.useState(false)
 
@@ -100,7 +104,7 @@ export function useActiveAuction(
   )
 
   const createBid = React.useCallback(
-    async (event: any) => {
+    async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault()
       if (auctionData?.tokenId) {
         setCreateBidLoading(true)
@@ -111,7 +115,7 @@ export function useActiveAuction(
           })
           setCreateBidTx(tx)
           setCreateBidSuccess(true)
-        } catch (err: any) {
+        } catch (err: unknown) {
           setCreateBidError(err)
           console.error(err)
         } finally {

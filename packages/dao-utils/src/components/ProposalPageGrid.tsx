@@ -8,7 +8,7 @@ export default function ProposalPageGrid() {
 
   return (
     <div className="flex flex-col gap-y-4">
-      {proposals?.map((proposal: any) => (
+      {proposals?.map((proposal) => (
         <div key={`${proposal.proposalId}`}>
           <ProposalPage proposal={proposal} />
         </div>

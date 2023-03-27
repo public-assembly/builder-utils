@@ -69,7 +69,9 @@ export default function CurrentAuction({
                   type="text"
                   pattern="[0-9.]*"
                   placeholder={`${auctionData?.minBidAmount} ETH`}
-                  onChange={(event: any) => updateBidAmount(event.target.value)}
+                  onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                    updateBidAmount(event.target.value)
+                  }
                 />
                 {!createBidLoading && !createBidSuccess ? (
                   <button

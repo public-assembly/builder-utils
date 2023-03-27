@@ -10,7 +10,7 @@ export default function ProposalCardGrid() {
     <div className="flex flex-col space-y-8">
       {proposals?.map((proposal) => (
         <div
-          key={`${proposals.proposalId}`}
+          key={`${proposal.proposalId}`}
           className="grid grid-cols-1 lg:grid-cols-2 gap-4 max-w-[1440px]">
           <ProposalCard proposal={proposal} />
         </div>

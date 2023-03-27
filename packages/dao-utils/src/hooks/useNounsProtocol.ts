@@ -1,14 +1,19 @@
 import * as React from 'react'
 import { useContract, useProvider, useSigner } from 'wagmi'
 import { auctionAbi, tokenAbi, metadataAbi } from '../abi'
+import { GetContractResult } from '@wagmi/core'
 
+/* 
+  TODO define exact contract result types 
+  These types should work (but don't) and do when using @wagmi/core:getContract instead of wagmi:useContract
+  auctionContract: GetContractResult<typeof auctionAbi> | null
+  tokenContract: GetContractResult<typeof tokenAbi> | null
+  metadataContract: GetContractResult<typeof metadataAbi> | null
+*/
 interface NounsProtocolContracts {
-  /**
-   * TODO: Update types
-   */
-  auctionContract: any
-  tokenContract: any
-  metadataContract: any
+  auctionContract: GetContractResult | null
+  tokenContract: GetContractResult | null
+  metadataContract: GetContractResult | null
 }
 
 export type NounsProtocolAddresses = {

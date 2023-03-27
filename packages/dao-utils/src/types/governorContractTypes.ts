@@ -1,3 +1,4 @@
+import { NounsProposal } from './graphql'
 import { HexString } from './wagmiTypes'
 
 export interface GovernorProviderProps {
@@ -7,10 +8,7 @@ export interface GovernorProviderProps {
 export interface GovernorReturnTypes {
   tokenAddress?: HexString
   governorAddress: HexString
-  /**
-   * TODO: Update types
-   */
-  proposals: any
+  proposals?: NounsProposal[]
 }
 
 /**
