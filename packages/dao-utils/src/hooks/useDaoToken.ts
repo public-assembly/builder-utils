@@ -1,9 +1,14 @@
 /* @ts-ignore */
 import * as React from 'react'
 import useSWR from 'swr'
-import { NounishTokensQuery } from '../types'
 import { DAO_TOKEN_QUERY } from '../data/daoTokenQuery'
 import { zoraApiFetcher } from '../lib/zoraApiFetcher'
+import { Chain, NounishTokensQuery } from '../types'
+
+export const CHAIN = {
+  1: Chain.Mainnet,
+  5: Chain.Goerli,
+}[process.env.NEXT_PUBLIC_CHAIN_ID || 1] as Chain
 
 export type TokenData = {
   lastRefreshTime: string
@@ -43,6 +48,7 @@ export function useDaoToken({
       zoraApiFetcher(DAO_TOKEN_QUERY, {
         tokenAddress,
         tokenId,
+        chain: CHAIN,
       }),
     {
       refreshInterval: 5000,

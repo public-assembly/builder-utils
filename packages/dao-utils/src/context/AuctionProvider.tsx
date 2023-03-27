@@ -23,7 +23,7 @@ export function AuctionProvider({ children, tokenId }: AuctionProviderProps) {
     createBidSuccess,
     createBidLoading,
     isValidBid,
-  } = useActiveAuction(tokenAddress as string)
+  } = useActiveAuction(tokenAddress as HexString)
 
   const { tokenData } = useDaoToken({
     tokenAddress: tokenAddress,

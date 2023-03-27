@@ -1,5 +1,11 @@
 # @public-assembly/dao-utils
 
+## 0.0.16
+
+### Patch Changes
+
+- This patch bump introduces breaking changes. It is now necessary to define the CHAIN_ID of your application as an environment variable. Adds support for Goerli testnet.Adds support for supplying a ZORA API key.
+
 ## 0.0.15
 
 ### Patch Changes

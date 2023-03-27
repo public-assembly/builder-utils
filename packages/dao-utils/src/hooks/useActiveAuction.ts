@@ -3,14 +3,15 @@ import { useDaoAuctionQuery } from './useDaoAuctionQuery'
 import { BigNumber as EthersBN, ContractTransaction, utils } from 'ethers'
 import { useBidder } from './useBidder'
 import { useNounsProtocol } from './useNounsProtocol'
+import { HexString } from '../types'
 
 export function useActiveAuction(
   /**
    * Nounish NFT Contract address
    */
-  tokenAddress: string
+  tokenAddress: HexString
 ) {
-  const { activeAuction } = useDaoAuctionQuery({ collectionAddress: tokenAddress })
+  const { activeAuction } = useDaoAuctionQuery({ tokenAddress: tokenAddress })
 
   const { bidder } = useBidder(activeAuction?.highestBidder as string)
 

@@ -1,9 +1,12 @@
 import gql from 'graphql-tag'
 
 export const DAO_AUCTION_QUERY = gql`
-  query NounishAuctions($collectionAddress: String!) {
+  query NounishAuctions($chain: Chain!, $tokenAddress: String!) {
     nouns {
-      nounsActiveMarket(where: { collectionAddress: $collectionAddress }) {
+      nounsActiveMarket(
+        where: { collectionAddress: $tokenAddress }
+        network: { network: ETHEREUM, chain: $chain }
+      ) {
         duration
         endTime
         highestBidder
