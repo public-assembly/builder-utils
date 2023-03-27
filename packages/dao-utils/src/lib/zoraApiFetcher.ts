@@ -1,5 +1,11 @@
 import { DocumentNode } from 'graphql'
 import { GraphQLClient } from 'graphql-request'
+import { Chain } from '../types'
+
+export const CHAIN = {
+  1: Chain.Mainnet,
+  5: Chain.Goerli,
+}[process.env.NEXT_PUBLIC_CHAIN_ID || 1] as Chain
 
 export const client = new GraphQLClient('https://api.zora.co/graphql', {
   method: 'POST',
@@ -15,9 +21,9 @@ export const client = new GraphQLClient('https://api.zora.co/graphql', {
 
 export async function zoraApiFetcher(query: DocumentNode, providedVariables?: any) {
   let variables = {
-    network: {
-      chain: process.env.NEXT_PUBLIC_CHAIN_ID === '5' ? 'GOERLI' : 'MAINNET',
+    networks: {
       network: 'ETHEREUM',
+      chain: CHAIN,
     },
     ...providedVariables,
   }

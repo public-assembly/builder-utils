@@ -15,7 +15,7 @@ const DynamicManagerProvider = dynamic(
 )
 
 function Providers() {
-  const tokenAddress = '0xdf9b7d26c8fc806b1ae6273684556761ff02d422' as `0x${string}`
+  const tokenAddress = process.env.NEXT_PUBLIC_TOKEN_ADDRESS as `0x${string}`
 
   return (
     <section className="max-w-[1240px] m-auto px-4 gap-8 flex flex-col">

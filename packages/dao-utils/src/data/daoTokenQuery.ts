@@ -1,8 +1,11 @@
 import gql from 'graphql-tag'
 
 export const DAO_TOKEN_QUERY = gql`
-  query NounishTokens($tokenAddress: String!, $tokenId: String!) {
-    token(token: { address: $tokenAddress, tokenId: $tokenId }) {
+  query NounishTokens($chain: Chain!, $tokenAddress: String!, $tokenId: String!) {
+    token(
+      token: { address: $tokenAddress, tokenId: $tokenId }
+      network: { network: ETHEREUM, chain: $chain }
+    ) {
       token {
         metadata
         owner
