@@ -7,16 +7,16 @@ const pages = [
     title: 'Docs',
   },
   {
-    slug: '/examples',
-    title: 'Examples',
-  },
-  {
-    slug: '/providers',
-    title: 'Providers',
+    slug: '/auction',
+    title: 'Auction',
   },
   {
     slug: '/proposals',
     title: 'Proposals',
+  },
+  {
+    slug: '/providers',
+    title: 'Providers',
   },
 ]
 
