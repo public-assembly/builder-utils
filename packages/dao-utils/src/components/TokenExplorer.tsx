@@ -27,6 +27,7 @@ export interface TokenExplorerProps extends React.HTMLProps<HTMLDivElement> {
 export default function TokenExplorer({
   tokenAddress,
   auctionRenderer,
+  tokenRenderer,
   connectButton,
   ...props
 }: TokenExplorerProps) {
@@ -61,7 +62,11 @@ export default function TokenExplorer({
           )}
         </>
       ) : (
-        <TokenRenderer tokenAddress={tokenAddress} tokenId={tokenId?.toString()!} />
+        <>
+          {tokenRenderer || (
+            <TokenRenderer tokenAddress={tokenAddress} tokenId={tokenId?.toString()!} />
+          )}
+        </>
       )}
       <div className="flex flex-row gap-1">
         <button
