@@ -38,6 +38,7 @@ export const DAO_PROPOSAL_QUERY = gql`
           transactionInfo {
             blockNumber
             blockTimestamp
+            transactionHash
           }
           treasury
           values
@@ -50,6 +51,7 @@ export const DAO_PROPOSAL_QUERY = gql`
             transactionInfo {
               blockNumber
               blockTimestamp
+              transactionHash
             }
             voter
             weight

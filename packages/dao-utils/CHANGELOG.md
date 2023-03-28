@@ -1,5 +1,11 @@
 # @public-assembly/dao-utils
 
+## 0.0.18
+
+### Patch Changes
+
+- Adds transaction hash field to the gql proposal query.
+
 ## 0.0.17
 
 ### Patch Changes
