@@ -1,4 +1,4 @@
-import type { HexString } from '../types'
+import type { HexString, NounsProposal } from '../types'
 import { usePrepareContractWrite, useContractWrite, useWaitForTransaction } from 'wagmi'
 import { governorAbi } from '../abi'
 import { BigNumber } from 'ethers'
@@ -14,7 +14,7 @@ interface VotingFunctions {
 }
 
 interface VoteProps {
-  proposal: any
+  proposal: NounsProposal
   support?: number
   reason?: string
 }

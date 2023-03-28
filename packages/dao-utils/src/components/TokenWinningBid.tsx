@@ -4,6 +4,7 @@ import { useDaoToken } from '../hooks/useDaoToken'
 import { useNounsProtocol } from '../hooks/useNounsProtocol'
 import { useActiveAuction } from '../hooks/useActiveAuction'
 import { ethers } from 'ethers'
+import { Event } from '@ethersproject/contracts'
 import { etherscanLink } from '../lib'
 
 export type AuctionEvent = {
@@ -50,7 +51,7 @@ export default function TokenWinningBid({
             'latest' /* Clamp at next token block number if decrementing */
           )
           if (bids) {
-            const auctionEventsArray = bids.map((event: any) => {
+            const auctionEventsArray = bids.map((event: Event) => {
               return {
                 id: parseInt(event.args?.tokenId?._hex, 16),
                 bidder: event.args?.bidder as string,

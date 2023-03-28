@@ -2,7 +2,12 @@
 import useSWR from 'swr'
 import { DAO_PROPOSAL_QUERY } from '../data/daoProposalQuery'
 import { zoraApiFetcher } from '../lib/zoraApiFetcher'
-import { HexString, Chain, NounishProposalsQuery } from '../types'
+import {
+  HexString,
+  Chain,
+  NounishProposalsQuery,
+  NounishProposalsQueryVariables,
+} from '../types'
 
 export const CHAIN = {
   1: Chain.Mainnet,
@@ -16,7 +21,7 @@ export function useDaoProposalQuery({ tokenAddress }: { tokenAddress?: HexString
       zoraApiFetcher(DAO_PROPOSAL_QUERY, {
         tokenAddress,
         chain: CHAIN,
-      })
+      } as NounishProposalsQueryVariables)
   )
 
   return {

@@ -3,7 +3,12 @@ import * as React from 'react'
 import useSWR from 'swr'
 import { DAO_AUCTION_QUERY } from '../data/daoAuctionQuery'
 import { zoraApiFetcher } from '../lib/zoraApiFetcher'
-import { HexString, Chain, NounishAuctionsQuery } from '../types'
+import {
+  HexString,
+  Chain,
+  NounishAuctionsQuery,
+  NounishAuctionsQueryVariables,
+} from '../types'
 
 export const CHAIN = {
   1: Chain.Mainnet,
@@ -17,7 +22,7 @@ export function useDaoAuctionQuery({ tokenAddress }: { tokenAddress: HexString }
       zoraApiFetcher(DAO_AUCTION_QUERY, {
         tokenAddress,
         chain: CHAIN,
-      })
+      } as NounishAuctionsQueryVariables)
   )
 
   return {
