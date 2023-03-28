@@ -10,7 +10,7 @@ const config = {
     'src/data/daoTokenQuery.ts',
   ],
   generates: {
-    'src/types/': {
+    'src/types/graphql/': {
       preset: 'client',
       plugins: [],
     },

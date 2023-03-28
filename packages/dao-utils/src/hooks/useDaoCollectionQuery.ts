@@ -2,7 +2,12 @@
 import useSWR from 'swr'
 import { DAO_COLLECTION_QUERY } from '../data/daoCollectionQuery'
 import { zoraApiFetcher } from '../lib/zoraApiFetcher'
-import { HexString, Chain, NounishCollectionsQuery } from '../types'
+import {
+  HexString,
+  Chain,
+  NounishCollectionsQuery,
+  NounishCollectionsQueryVariables,
+} from '../types'
 
 export const CHAIN = {
   1: Chain.Mainnet,
@@ -16,7 +21,7 @@ export function useDaoCollectionQuery({ tokenAddress }: { tokenAddress?: HexStri
       zoraApiFetcher(DAO_COLLECTION_QUERY, {
         tokenAddress,
         chain: CHAIN,
-      })
+      } as NounishCollectionsQueryVariables)
   )
 
   return {

@@ -2267,7 +2267,8 @@ export type VideoEncodingTypes = {
 }
 
 export type NounishAuctionsQueryVariables = Exact<{
-  collectionAddress: Scalars['String']
+  chain: Chain
+  tokenAddress: Scalars['String']
 }>
 
 export type NounishAuctionsQuery = {
@@ -2314,6 +2315,7 @@ export type NounishAuctionsQuery = {
 }
 
 export type NounishCollectionsQueryVariables = Exact<{
+  chain: Chain
   tokenAddress?: InputMaybe<Array<Scalars['String']> | Scalars['String']>
 }>
 
@@ -2323,6 +2325,7 @@ export type NounishCollectionsQuery = {
 }
 
 export type NounishProposalsQueryVariables = Exact<{
+  chain: Chain
   tokenAddress?: InputMaybe<Array<Scalars['String']> | Scalars['String']>
 }>
 
@@ -2385,6 +2388,7 @@ export type NounishProposalsQuery = {
 }
 
 export type NounishTokensQueryVariables = Exact<{
+  chain: Chain
   tokenAddress: Scalars['String']
   tokenId: Scalars['String']
 }>
@@ -2416,10 +2420,15 @@ export const NounishAuctionsDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'collectionAddress' },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'chain' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'Chain' } },
           },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'tokenAddress' } },
           type: {
             kind: 'NonNullType',
             type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
@@ -2450,7 +2459,29 @@ export const NounishAuctionsDocument = {
                             name: { kind: 'Name', value: 'collectionAddress' },
                             value: {
                               kind: 'Variable',
-                              name: { kind: 'Name', value: 'collectionAddress' },
+                              name: { kind: 'Name', value: 'tokenAddress' },
+                            },
+                          },
+                        ],
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'network' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: 'network' },
+                            value: { kind: 'EnumValue', value: 'ETHEREUM' },
+                          },
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: 'chain' },
+                            value: {
+                              kind: 'Variable',
+                              name: { kind: 'Name', value: 'chain' },
                             },
                           },
                         ],
@@ -2563,6 +2594,14 @@ export const NounishCollectionsDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'chain' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'Chain' } },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
           variable: { kind: 'Variable', name: { kind: 'Name', value: 'tokenAddress' } },
           type: {
             kind: 'ListType',
@@ -2603,6 +2642,28 @@ export const NounishCollectionsDocument = {
                         ],
                       },
                     },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'networks' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: 'network' },
+                            value: { kind: 'EnumValue', value: 'ETHEREUM' },
+                          },
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: 'chain' },
+                            value: {
+                              kind: 'Variable',
+                              name: { kind: 'Name', value: 'chain' },
+                            },
+                          },
+                        ],
+                      },
+                    },
                   ],
                 },
                 {
@@ -2626,6 +2687,28 @@ export const NounishCollectionsDocument = {
                         ],
                       },
                     },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'networks' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: 'network' },
+                            value: { kind: 'EnumValue', value: 'ETHEREUM' },
+                          },
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: 'chain' },
+                            value: {
+                              kind: 'Variable',
+                              name: { kind: 'Name', value: 'chain' },
+                            },
+                          },
+                        ],
+                      },
+                    },
                   ],
                 },
               ],
@@ -2644,6 +2727,14 @@ export const NounishProposalsDocument = {
       operation: 'query',
       name: { kind: 'Name', value: 'NounishProposals' },
       variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'chain' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'Chain' } },
+          },
+        },
         {
           kind: 'VariableDefinition',
           variable: { kind: 'Variable', name: { kind: 'Name', value: 'tokenAddress' } },
@@ -2681,6 +2772,28 @@ export const NounishProposalsDocument = {
                             value: {
                               kind: 'Variable',
                               name: { kind: 'Name', value: 'tokenAddress' },
+                            },
+                          },
+                        ],
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'networks' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: 'network' },
+                            value: { kind: 'EnumValue', value: 'ETHEREUM' },
+                          },
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: 'chain' },
+                            value: {
+                              kind: 'Variable',
+                              name: { kind: 'Name', value: 'chain' },
                             },
                           },
                         ],
@@ -2878,6 +2991,14 @@ export const NounishTokensDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'chain' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'Chain' } },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
           variable: { kind: 'Variable', name: { kind: 'Name', value: 'tokenAddress' } },
           type: {
             kind: 'NonNullType',
@@ -2921,6 +3042,25 @@ export const NounishTokensDocument = {
                         kind: 'Variable',
                         name: { kind: 'Name', value: 'tokenId' },
                       },
+                    },
+                  ],
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'network' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'network' },
+                      value: { kind: 'EnumValue', value: 'ETHEREUM' },
+                    },
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'chain' },
+                      value: { kind: 'Variable', name: { kind: 'Name', value: 'chain' } },
                     },
                   ],
                 },

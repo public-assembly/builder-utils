@@ -1,6 +1,6 @@
-export * from './fragment-masking'
-export * from './gql'
-export * from './graphql'
+export * from './graphql/fragment-masking'
+export * from './graphql/gql'
+export * from './graphql/graphql'
 
 export * from './auctionContractTypes'
 export * from './governorContractTypes'

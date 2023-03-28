@@ -3,7 +3,7 @@ import * as React from 'react'
 import useSWR from 'swr'
 import { DAO_TOKEN_QUERY } from '../data/daoTokenQuery'
 import { zoraApiFetcher } from '../lib/zoraApiFetcher'
-import { Chain, NounishTokensQuery } from '../types'
+import { Chain, NounishTokensQuery, NounishTokensQueryVariables } from '../types'
 
 export const CHAIN = {
   1: Chain.Mainnet,
@@ -49,7 +49,7 @@ export function useDaoToken({
         tokenAddress,
         tokenId,
         chain: CHAIN,
-      }),
+      } as NounishTokensQueryVariables),
     {
       refreshInterval: 5000,
     }

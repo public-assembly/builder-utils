@@ -1,4 +1,4 @@
-import { NounsProposal } from './graphql'
+import { NounsProposal } from '.'
 import { HexString } from './wagmiTypes'
 
 export interface GovernorProviderProps {
