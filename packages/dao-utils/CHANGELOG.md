@@ -1,5 +1,11 @@
 # @public-assembly/dao-utils
 
+## 0.0.17
+
+### Patch Changes
+
+- Thanks @vanceingalls! Adds types across the package.
+
 ## 0.0.16
 
 ### Patch Changes
