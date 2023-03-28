@@ -17,7 +17,7 @@ export interface TokenExplorerProps extends React.HTMLProps<HTMLDivElement> {
   /**
    * Renderer Component for dao tokens
    */
-  tokenRenderer?: React.ReactNode
+  tokenRenderer?: (tokenId: string) => React.ReactNode
   /**
    * Button to handle wallet connection
    */
@@ -27,6 +27,7 @@ export interface TokenExplorerProps extends React.HTMLProps<HTMLDivElement> {
 export default function TokenExplorer({
   tokenAddress,
   auctionRenderer,
+  tokenRenderer,
   connectButton,
   ...props
 }: TokenExplorerProps) {
@@ -42,13 +43,13 @@ export default function TokenExplorer({
     if (nftCount && tokenId < nftCount - 1) {
       setTokenId(tokenId + 1)
     }
-  }, [setTokenId, tokenId])
+  }, [nftCount, tokenId])
 
   const decrementId = React.useCallback(() => {
     if (nftCount && tokenId > 0) {
       setTokenId(tokenId - 1)
     }
-  }, [setTokenId, tokenId])
+  }, [nftCount, tokenId])
 
   if (!nftCount) return null
 
@@ -61,7 +62,13 @@ export default function TokenExplorer({
           )}
         </>
       ) : (
-        <TokenRenderer tokenAddress={tokenAddress} tokenId={tokenId?.toString()!} />
+        <>
+          {tokenRenderer ? (
+            tokenRenderer(tokenId.toString())
+          ) : (
+            <TokenRenderer tokenAddress={tokenAddress} tokenId={tokenId.toString()} />
+          )}
+        </>
       )}
       <div className="flex flex-row gap-1">
         <button
