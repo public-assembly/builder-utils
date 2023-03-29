@@ -1,5 +1,11 @@
 # @public-assembly/dao-utils
 
+## 0.0.19
+
+### Patch Changes
+
+- Adds pagination field to the proposal query so that it returns the maximum number of responses.
+
 ## 0.0.18
 
 ### Patch Changes

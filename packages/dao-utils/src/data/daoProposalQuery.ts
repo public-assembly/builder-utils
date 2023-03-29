@@ -7,6 +7,7 @@ export const DAO_PROPOSAL_QUERY = gql`
         where: { collectionAddresses: $tokenAddress }
         networks: { network: ETHEREUM, chain: $chain }
         sort: { sortDirection: DESC, sortKey: CREATED }
+        pagination: { limit: 500 }
       ) {
         nodes {
           abstainVotes
