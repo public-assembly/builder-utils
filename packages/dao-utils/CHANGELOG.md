@@ -1,5 +1,11 @@
 # @public-assembly/dao-utils
 
+## 0.0.20
+
+### Patch Changes
+
+- Removes the useNounsProtocol hook. Adds provider logic from builder for useContract instances. Updates both READMEs.
+
 ## 0.0.19
 
 ### Patch Changes
