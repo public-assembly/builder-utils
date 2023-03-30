@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { useContract, useProvider, useSigner } from 'wagmi'
+import { useContract } from 'wagmi'
 import { auctionAbi, tokenAbi, metadataAbi } from '../abi'
 import { GetContractResult } from '@wagmi/core'
 
@@ -36,25 +36,19 @@ export function useNounsProtocol({
   tokenAddress,
   metadataRendererAddress,
 }: NounsProtocolAddresses): NounsProtocolContracts {
-  const provider = useProvider()
-  const { data: signer } = useSigner()
-
   const auctionContract = useContract({
     address: auctionAddress,
     abi: auctionAbi,
-    signerOrProvider: signer,
   })
 
   const tokenContract = useContract({
     address: tokenAddress,
     abi: tokenAbi,
-    signerOrProvider: provider,
   })
 
   const metadataContract = useContract({
     address: metadataRendererAddress,
     abi: metadataAbi,
-    signerOrProvider: provider,
   })
 
   return {
