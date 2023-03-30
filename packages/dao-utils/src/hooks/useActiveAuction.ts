@@ -20,11 +20,13 @@ export function useActiveAuction(
       activeAuction?.highestBidPrice?.chainTokenPrice?.decimal &&
       activeAuction?.minBidIncrementPercentage
     ) {
-      const minBidValue =
-        activeAuction?.highestBidPrice.chainTokenPrice.decimal *
-          (activeAuction?.minBidIncrementPercentage / 100) +
-        activeAuction?.highestBidPrice.chainTokenPrice.decimal
-      return minBidValue
+      const minBidValue = EthersBN.from(
+        activeAuction?.highestBidPrice.chainTokenPrice.raw
+      )
+        .mul(activeAuction?.minBidIncrementPercentage)
+        .div(100)
+        .add(activeAuction?.highestBidPrice.chainTokenPrice.raw)
+      return Number(utils.formatEther(minBidValue))
     } else {
       /* @ts-ignore */
       return activeAuction?.reservePrice?.chainTokenPrice?.decimal as number
