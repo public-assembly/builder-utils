@@ -33,7 +33,6 @@ import {
   useDaoProposalQuery,
   useDaoToken,
   useInterval,
-  useNounsProtocol,
   useVote,
 } from './hooks'
 
@@ -88,7 +87,6 @@ export {
   useDaoProposalQuery,
   useDaoToken,
   useInterval,
-  useNounsProtocol,
   useVote,
   /**
    * Utility Functions

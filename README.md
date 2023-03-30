@@ -1,32 +1,34 @@
-![Public Assembly - DAO utils](https://hkzmq6akhweeabrxhijjq2oxlyzwgrhv5j6anakmfd5hxn4tunca.arweave.net/OrLIeAo9iEAGNzoSmGnXXjNjRPXqfAaBTCj6e7eTo0Q)
+![dao-utils](https://hkzmq6akhweeabrxhijjq2oxlyzwgrhv5j6anakmfd5hxn4tunca.arweave.net/OrLIeAo9iEAGNzoSmGnXXjNjRPXqfAaBTCj6e7eTo0Q)
 
-# DAO utils by Public Assembly
+## dao-utils
 
-## [GitHub Repo](https://github.com/public-assembly/dao-utils)
+React componentry and hooks to interact with the [ourzora/nouns-protocol](https://github.com/ourzora/nouns-protocol) smart contracts. If you're interested in contributing, please [open an issue](https://github.com/public-assembly/dao-utils/issues/new), create a pull request, or bring questions to the Public Assembly [forum](https://forum.public---assembly.com/).
 
-🚨 PRE ALPHA 🚨
+### Documentation
 
-React componentry and hooks to interact with the [ourzora/nouns-protocol](https://github.com/ourzora/nouns-protocol) smart contracts.
-
-If you're interested in contributing, please open an issue, create a pull request, or bring questions to the Public Assembly forum.
-
----
+For documentation check out the [sample app](https://dao-utils-next.vercel.app/) or visit [GitHub](https://github.com/public-assembly/dao-utils).
 
 ### Installation:
-`npm i @public-assembly/dao-utils` 
-   
-`pnpm add @public-assembly/dao-utils` 
-   
-`yarn add @public-assembly/dao-utils` 
-   
+
+`npm i @public-assembly/dao-utils`
+
+`pnpm add @public-assembly/dao-utils`
+
+`yarn add @public-assembly/dao-utils`
+
+#### Community
+
+Create what's missing.
+
+- Check out our other projects on [GitHub](https://github.com/orgs/public-assembly/repositories).
+- Follow Public Assembly on [Twitter](https://twitter.com/pblcasmbly).
+- Jump into the discussion on [Discourse](https://forum.public---assembly.com/).
 
 ---
 
 ### Peer Dependencies:
+
 ```
-"@ethersproject/units": "^5.7.0",
-"@rainbow-me/rainbowkit": "^0.8.1",
-"bignumber.js": "^9.1.1",
 "date-fns": "^2.29.3",
 "ethers": "^5.7.1",
 "graphql": "^16.6.0",
@@ -43,25 +45,46 @@ If you're interested in contributing, please open an issue, create a pull reques
 ```
 export {
   /**
+   * Authentication Components
+   */
+  AuthCheck,
+  /**
    * Auction Components
    */
+  AuctionCountdown,
+  CircleArrow,
   CurrentAuction,
   TokenExplorer,
-  AuthCheck,
+  TokenHolder,
+  TokenRenderer,
+  TokenThumbnail,
+  TokenTitle,
+  TokenWinningBid,
   /**
    * Proposal Components
    */
+  ProposalCard,
   ProposalCardGrid,
+  ProposalDescription,
+  ProposalPage,
   ProposalPageGrid,
+  ProposalStatus,
+  ProposalTimestamp,
+  ProposalTitle,
+  ProposalVoting,
+  Proposer,
   /**
    * Hooks
    */
+  useActiveAuction,
+  useBidder,
   useCountdown,
   useDaoAuctionQuery,
+  useDaoCollectionQuery,
+  useDaoProposalQuery,
   useDaoToken,
-  useBidder,
-  useActiveAuction,
-  useNounsProtocol,
+  useInterval,
+  useVote,
   /**
    * Utility Functions
    */
@@ -77,5 +100,17 @@ export {
   GovernorProvider,
   useManagerContext,
   ManagerProvider,
+  useMetadataContext,
+  MetadataProvider,
+  useTokenContext,
+  TokenProvider,
+  /**
+   * Abis
+   */
+  auctionAbi,
+  governorAbi,
+  managerAbi,
+  metadataAbi,
+  tokenAbi,
 }
 ```
