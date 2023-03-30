@@ -1,11 +1,13 @@
 /* @ts-ignore */
 import * as React from 'react'
 import { useDaoToken } from '../hooks/useDaoToken'
-import { useNounsProtocol } from '../hooks/useNounsProtocol'
-import { useActiveAuction } from '../hooks/useActiveAuction'
 import { ethers } from 'ethers'
 import { Event } from '@ethersproject/contracts'
 import { etherscanLink } from '../lib'
+import { useContract } from 'wagmi'
+import { auctionAbi } from '../abi'
+import { useManagerContext } from '../context'
+import { ALCHEMY_RPC_URL } from '../constants/rpc'
 
 export type AuctionEvent = {
   id: number
@@ -21,16 +23,17 @@ export default function TokenWinningBid({
   tokenAddress: `0x${string}`
   tokenId: string
 }) {
-  const { auctionData } = useActiveAuction(tokenAddress)
+  const { daoAddresses } = useManagerContext()
+
+  const auctionContract = useContract({
+    address: daoAddresses?.auctionAddress,
+    abi: auctionAbi,
+    signerOrProvider: new ethers.providers.StaticJsonRpcProvider(ALCHEMY_RPC_URL),
+  })
 
   const { tokenData } = useDaoToken({
     tokenAddress: tokenAddress,
     tokenId: tokenId,
-  })
-
-  const { auctionContract } = useNounsProtocol({
-    tokenAddress: tokenAddress,
-    auctionAddress: auctionData?.address,
   })
 
   const [winningBid, setWinningBid] = React.useState<string | undefined>('N/A')
@@ -75,7 +78,7 @@ export default function TokenWinningBid({
           }
         }
       } catch (err) {
-        // console.error(err)
+        console.error(err)
       }
     }
     getBids()

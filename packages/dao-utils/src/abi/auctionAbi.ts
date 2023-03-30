@@ -98,6 +98,11 @@ export const auctionAbi = [
   },
   {
     inputs: [],
+    name: 'MIN_BID_INCREMENT_1_PERCENT',
+    type: 'error',
+  },
+  {
+    inputs: [],
     name: 'NOT_INITIALIZING',
     type: 'error',
   },
@@ -464,6 +469,19 @@ export const auctionAbi = [
     name: 'cancelOwnershipTransfer',
     outputs: [],
     stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'contractVersion',
+    outputs: [
+      {
+        internalType: 'string',
+        name: '',
+        type: 'string',
+      },
+    ],
+    stateMutability: 'pure',
     type: 'function',
   },
   {

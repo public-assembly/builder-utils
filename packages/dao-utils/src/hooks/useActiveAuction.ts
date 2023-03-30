@@ -1,16 +1,12 @@
 import * as React from 'react'
 import { useDaoAuctionQuery } from './useDaoAuctionQuery'
-import { BigNumber as EthersBN, ContractTransaction, utils } from 'ethers'
+import { BigNumber, ContractTransaction, utils } from 'ethers'
 import { useBidder } from './useBidder'
-import { useNounsProtocol } from './useNounsProtocol'
 import { HexString, AuctionData } from '../types'
+import { tokenAbi } from '../abi'
+import { useContractRead } from 'wagmi'
 
-export function useActiveAuction(
-  /**
-   * Nounish NFT Contract address
-   */
-  tokenAddress: HexString
-) {
+export function useActiveAuction(tokenAddress: HexString) {
   const { activeAuction } = useDaoAuctionQuery({ tokenAddress: tokenAddress })
 
   const { bidder } = useBidder(activeAuction?.highestBidder as string)
@@ -20,11 +16,13 @@ export function useActiveAuction(
       activeAuction?.highestBidPrice?.chainTokenPrice?.decimal &&
       activeAuction?.minBidIncrementPercentage
     ) {
-      const minBidValue =
-        activeAuction?.highestBidPrice.chainTokenPrice.decimal *
-          (activeAuction?.minBidIncrementPercentage / 100) +
-        activeAuction?.highestBidPrice.chainTokenPrice.decimal
-      return minBidValue
+      const minBidValue = BigNumber.from(
+        activeAuction?.highestBidPrice.chainTokenPrice.raw
+      )
+        .mul(activeAuction?.minBidIncrementPercentage)
+        .div(100)
+        .add(activeAuction?.highestBidPrice.chainTokenPrice.raw)
+      return Number(utils.formatEther(minBidValue))
     } else {
       /* @ts-ignore */
       return activeAuction?.reservePrice?.chainTokenPrice?.decimal as number
@@ -55,25 +53,16 @@ export function useActiveAuction(
     }
   }, [activeAuction, bidder, minBidAmount])
 
-  const { auctionContract, tokenContract } = useNounsProtocol({
-    tokenAddress: tokenAddress,
-    auctionAddress: auctionData?.address,
-    // metadataRendererAddress: auctionData?.metadata,
-  })
-
   const [totalSupply, setTotalSupply] = React.useState<number>()
 
-  React.useEffect(() => {
-    async function getSupply() {
-      try {
-        const supply = await tokenContract?.totalSupply()
-        setTotalSupply(supply?.toNumber())
-      } catch (err) {
-        console.error(err)
-      }
-    }
-    getSupply()
-  }, [tokenContract, auctionData?.tokenId])
+  useContractRead({
+    address: tokenAddress,
+    abi: tokenAbi,
+    functionName: 'totalSupply',
+    onSuccess(data) {
+      setTotalSupply(data?.toNumber())
+    },
+  })
 
   const [createBidSuccess, setCreateBidSuccess] = React.useState(false)
   const [createBidLoading, setCreateBidLoading] = React.useState(false)
@@ -85,7 +74,7 @@ export function useActiveAuction(
 
   const updateBidAmount = React.useCallback(
     (value: string) => {
-      let newValue: EthersBN
+      let newValue: BigNumber
       try {
         newValue = utils.parseUnits(value, 18)
         if (+value >= auctionData?.minBidAmount) {
@@ -123,7 +112,7 @@ export function useActiveAuction(
         }
       }
     },
-    [auctionContract, auctionData?.tokenId, bidAmount]
+    [auctionData?.tokenId, bidAmount]
   )
 
   return {
