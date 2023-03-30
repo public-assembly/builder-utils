@@ -26,13 +26,10 @@ export default function TokenWinningBid({
   const { daoAddresses } = useManagerContext()
 
   const auctionContract = useContract({
-    // address: daoAddresses?.auctionAddress,
-    address: '0x4DD53079026017300C2489B91ceA62fFbe39ec19',
+    address: daoAddresses?.auctionAddress,
     abi: auctionAbi,
     signerOrProvider: new ethers.providers.StaticJsonRpcProvider(ALCHEMY_RPC_URL),
   })
-
-  console.log('Auction contract', auctionContract)
 
   const { tokenData } = useDaoToken({
     tokenAddress: tokenAddress,
@@ -41,8 +38,6 @@ export default function TokenWinningBid({
 
   const [winningBid, setWinningBid] = React.useState<string | undefined>('N/A')
   const [winningTx, setWinningTx] = React.useState<string | undefined>()
-
-  console.log(winningBid)
 
   React.useEffect(() => {
     async function getBids() {
