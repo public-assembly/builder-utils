@@ -1,5 +1,11 @@
 # @public-assembly/dao-utils
 
+## 0.0.22
+
+### Patch Changes
+
+- Refactors the TokenWinningBid component to use the newly added useBid hook.
+
 ## 0.0.21
 
 ### Patch Changes
