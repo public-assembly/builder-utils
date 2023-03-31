@@ -2,17 +2,32 @@ import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import NextHead from 'next/head'
 import { AppWrapper } from '../components'
+import dynamic from 'next/dynamic'
+import { GovernorProvider } from '@public-assembly/dao-utils'
 
-function ExampleApp({ Component, pageProps }: AppProps) {
+const DynamicManagerProvider = dynamic(
+  () => import('@public-assembly/dao-utils').then((module) => module.ManagerProvider),
+  {
+    ssr: false,
+  }
+)
+
+function App({ Component, pageProps }: AppProps) {
+  const tokenAddress = process.env.NEXT_PUBLIC_TOKEN_ADDRESS as `0x${string}`
+
   return (
     <>
       <NextHead>
-        <title>public assembly</title>
+        <title>Public Assembly</title>
       </NextHead>
       <AppWrapper>
-        <Component {...pageProps} />
+        <DynamicManagerProvider tokenAddress={tokenAddress}>
+          <GovernorProvider>
+            <Component {...pageProps} />
+          </GovernorProvider>
+        </DynamicManagerProvider>
       </AppWrapper>
     </>
   )
 }
-export default ExampleApp
+export default App

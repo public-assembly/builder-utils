@@ -1,14 +1,12 @@
-![dao-utils](https://hkzmq6akhweeabrxhijjq2oxlyzwgrhv5j6anakmfd5hxn4tunca.arweave.net/OrLIeAo9iEAGNzoSmGnXXjNjRPXqfAaBTCj6e7eTo0Q)
+# **dao-utils**
 
-## dao-utils
+React componentry and hooks to interact with the [ourzora/nouns-protocol](https://github.com/ourzora/nouns-protocol) smart contracts.
 
-React componentry and hooks to interact with the [ourzora/nouns-protocol](https://github.com/ourzora/nouns-protocol) smart contracts. If you're interested in contributing, please [open an issue](https://github.com/public-assembly/dao-utils/issues/new), create a pull request, or bring questions to the Public Assembly [forum](https://forum.public---assembly.com/).
+---
 
-### Documentation
+### **Getting Started**
 
-For documentation check out the [sample app](https://dao-utils-next.vercel.app/) or visit [GitHub](https://github.com/public-assembly/dao-utils).
-
-### Installation:
+Begin by installing the [dao-utils](https://www.npmjs.com/package/@public-assembly/dao-utils?activeTab=versions) package into your React application.
 
 `npm i @public-assembly/dao-utils`
 
@@ -16,17 +14,7 @@ For documentation check out the [sample app](https://dao-utils-next.vercel.app/)
 
 `yarn add @public-assembly/dao-utils`
 
-#### Community
-
-Create what's missing.
-
-- Check out our other projects on [GitHub](https://github.com/orgs/public-assembly/repositories).
-- Follow Public Assembly on [Twitter](https://twitter.com/pblcasmbly).
-- Jump into the discussion on [Discourse](https://forum.public---assembly.com/).
-
----
-
-### Peer Dependencies:
+You'll also need to include the following dependencies at their specified versions.
 
 ```
 "date-fns": "^2.29.3",
@@ -40,7 +28,118 @@ Create what's missing.
 "wagmi": "0.9.x"
 ```
 
-### Available Exports:
+---
+
+### **Configuring & Using Providers**
+
+Your Nounish DAO consists of multiple smart contracts, with each contract handling unique functionality and capable of returning contract specific data.
+
+This package contains hooks that enable you to retrieve that contract specific data from any part of your application. It utilizes React context and aggregates on and offchain chain data into contract specific providers.
+
+To begin utilizing these providers, wrap your app with the `ManagerProvider` component. However, because this component utilizes wagmi hooks, you'll need to ensure this component is being loaded client side. Below is a solution to this using [next/dynamic](https://nextjs.org/docs/advanced-features/dynamic-import) from Next.js.
+
+<br></br>
+
+```jsx
+import dynamic from 'next/dynamic'
+
+const DynamicManagerProvider = dynamic(
+  () => import('@public-assembly/dao-utils').then((module) => module.ManagerProvider),
+  {
+    ssr: false,
+  }
+)
+
+function App() {
+  return (
+    <DynamicManagerProvider tokenAddress={tokenAddress}>
+      <YourRoutes />
+    </DynamicManagerProvider>
+  )
+}
+```
+
+If you're not in a Next.js environment, you can handle this issue using something like `useIsClient()` from [usehooks-ts](https://usehooks-ts.com/react-hook/use-is-client).
+
+```jsx
+import { useIsClient } from 'usehooks-ts'
+
+function App() {
+  const isClient = useIsClient()
+
+  if (!isClient) return null
+  return (
+    <ManagerProvider tokenAddress={tokenAddress}>
+      <YourRoutes />
+    </ManagerProvider>
+  )
+}
+```
+
+<br></br>
+
+By providing just the token address of your DAO, the `ManagerProvider` can retrieve the rest of the smart contract addresses associated with your DAO. Your DAO's token address is the address of your DAO's Token.sol contract, and is referred to as NFT under the smart contracts tab on [Nouns Builder](https://nouns.build/).
+
+<br></br>
+Once you've set up the `ManagerProvider` component, you can freely nest the other provider components within it and easily access the data they provide using their corresponding hooks.
+
+```jsx
+import { useIsClient } from 'usehooks-ts'
+
+function App() {
+  const isClient = useIsClient()
+
+  if (!isClient) return null
+  return (
+    <ManagerProvider tokenAddress={tokenAddress}>
+      <GovernorProvider>
+        <YourRoutes />
+      </GovernorProvider>
+    </ManagerProvider>
+  )
+}
+```
+
+```jsx
+import { useGovernorContext } from '@public-assembly/dao-utils'
+
+function Proposals() {
+  const { proposals, governorAddress } = useGovernorContext()
+
+  return <></>
+}
+```
+
+---
+
+### **Componentry**
+
+In addition to the providers described above, there is a number of prebuilt components that will allow you to get up and running quickly. For instance, the `TokenExplorer` component is what is used on the auction page of this sample app. However, if you want to make unique decisions surrounding copy and styling, you'll have to take a [closer look](https://github.com/public-assembly/dao-utils/blob/main/packages/dao-utils/src/components/TokenExplorer.tsx) at the ways these components are put together.
+
+```
+import { TokenExplorer } from '@public-assembly/dao-utils'
+
+function AuctionExplorer() {
+  return <TokenExplorer tokenAddress='0xdf9b7d26c8fc806b1ae6273684556761ff02d422' />
+}
+```
+
+<br></br>
+Beneath this getting started guide is a full list of all the hooks and componentry exposed via the package. If you're interested in contributing, please [open an issue](https://github.com/public-assembly/dao-utils/issues/new), create a pull request, or bring questions to the Public Assembly [forum](https://forum.public---assembly.com/).
+
+---
+
+### **Community**
+
+Create what's missing.
+
+- Check out our other projects on [GitHub](https://github.com/orgs/public-assembly/repositories).
+- Follow Public Assembly on [Twitter](https://twitter.com/pblcasmbly).
+- Jump into the discussion on [Discourse](https://forum.public---assembly.com/).
+
+---
+
+### **Available Exports**
 
 ```
 export {

@@ -18,6 +18,8 @@ export function GovernorProvider({ children }: GovernorProviderProps) {
    */
   const { proposals } = useDaoProposalQuery({ tokenAddress: tokenAddress })
 
+  // console.log('Proposals', proposals)
+
   return (
     <GovernorContext.Provider
       value={{

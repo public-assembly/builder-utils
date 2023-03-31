@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { useContractRead } from 'wagmi'
 import { auctionAbi } from '../abi'
 import { useManagerContext } from './ManagerProvider'
-import { useActiveAuction, useDaoToken, useCountdown } from '../hooks'
+import { useActiveAuction, useDaoToken } from '../hooks'
 import { HexString, AuctionProviderProps, AuctionReturnTypes } from '../types'
 
 const AuctionContext = React.createContext({} as AuctionReturnTypes)
