@@ -1,18 +1,14 @@
 /* @ts-ignore */
+import * as React from 'react'
 import useSWR from 'swr'
 import { DAO_COLLECTION_QUERY } from '../data/daoCollectionQuery'
 import { zoraApiFetcher } from '../lib/zoraApiFetcher'
 import {
   HexString,
-  Chain,
   NounishCollectionsQuery,
   NounishCollectionsQueryVariables,
 } from '../types'
-
-export const CHAIN = {
-  1: Chain.Mainnet,
-  5: Chain.Goerli,
-}[process.env.NEXT_PUBLIC_CHAIN_ID || 1] as Chain
+import { CHAIN } from '../constants/chain'
 
 export function useDaoCollectionQuery({ tokenAddress }: { tokenAddress?: HexString }) {
   const { data: aggregateStat, error } = useSWR<NounishCollectionsQuery>(
@@ -23,7 +19,6 @@ export function useDaoCollectionQuery({ tokenAddress }: { tokenAddress?: HexStri
         chain: CHAIN,
       } as NounishCollectionsQueryVariables)
   )
-
   return {
     nftCount: aggregateStat?.aggregateStat?.nftCount,
     ownerCount: aggregateStat?.aggregateStat?.ownerCount,
