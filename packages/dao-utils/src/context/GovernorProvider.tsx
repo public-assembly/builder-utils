@@ -13,12 +13,7 @@ export function GovernorProvider({ children }: GovernorProviderProps) {
     [daoAddresses]
   )
 
-  /**
-   * Returns all proposals given a DAO's token address
-   */
   const { proposals } = useDaoProposalQuery({ tokenAddress: tokenAddress })
-
-  // console.log('Proposals', proposals)
 
   return (
     <GovernorContext.Provider

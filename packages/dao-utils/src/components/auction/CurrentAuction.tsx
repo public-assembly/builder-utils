@@ -3,9 +3,8 @@ import * as React from 'react'
 import AuctionCountdown from './AuctionCountdown'
 import TokenThumbnail from './TokenThumbnail'
 import TokenTitle from './TokenTitle'
-import AuthCheck from './authentication/AuthCheck'
-import { useActiveAuction } from '../hooks/useActiveAuction'
-import { useDaoCollectionQuery } from '../hooks'
+import AuthCheck from '../authentication/AuthCheck'
+import { useActiveAuction, useDaoCollectionQuery } from '../../hooks'
 
 /**
  * TODO:

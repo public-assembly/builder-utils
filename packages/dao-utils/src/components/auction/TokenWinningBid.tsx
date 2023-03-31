@@ -1,6 +1,6 @@
 /* @ts-ignore */
 import * as React from 'react'
-import { useBid } from '../hooks/useBid'
+import { useBid } from '../../hooks'
 
 export default function TokenWinningBid({
   tokenId,
