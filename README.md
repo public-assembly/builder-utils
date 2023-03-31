@@ -4,7 +4,7 @@ React componentry and hooks to interact with the [ourzora/nouns-protocol](https:
 
 ---
 
-### **Getting Started**
+## **Getting Started**
 
 Begin by installing the [dao-utils](https://www.npmjs.com/package/@public-assembly/dao-utils?activeTab=versions) package into your React application.
 
@@ -15,6 +15,7 @@ Begin by installing the [dao-utils](https://www.npmjs.com/package/@public-assemb
 `yarn add @public-assembly/dao-utils`
 
 You'll also need to include the following dependencies at their specified versions.
+
 
 ```
 "date-fns": "^2.29.3",
@@ -27,7 +28,6 @@ You'll also need to include the following dependencies at their specified versio
 "swr": "^1.3.0",
 "wagmi": "0.9.x"
 ```
-
 ---
 
 ### **Configuring & Using Providers**
@@ -37,8 +37,6 @@ Your Nounish DAO consists of multiple smart contracts, with each contract handli
 This package contains hooks that enable you to retrieve that contract specific data from any part of your application. It utilizes React context and aggregates on and offchain chain data into contract specific providers.
 
 To begin utilizing these providers, wrap your app with the `ManagerProvider` component. However, because this component utilizes wagmi hooks, you'll need to ensure this component is being loaded client side. Below is a solution to this using [next/dynamic](https://nextjs.org/docs/advanced-features/dynamic-import) from Next.js.
-
-<br></br>
 
 ```jsx
 import dynamic from 'next/dynamic'
@@ -76,11 +74,8 @@ function App() {
 }
 ```
 
-<br></br>
-
 By providing just the token address of your DAO, the `ManagerProvider` can retrieve the rest of the smart contract addresses associated with your DAO. Your DAO's token address is the address of your DAO's Token.sol contract, and is referred to as NFT under the smart contracts tab on [Nouns Builder](https://nouns.build/).
 
-<br></br>
 Once you've set up the `ManagerProvider` component, you can freely nest the other provider components within it and easily access the data they provide using their corresponding hooks.
 
 ```jsx
@@ -116,7 +111,7 @@ function Proposals() {
 
 In addition to the providers described above, there is a number of prebuilt components that will allow you to get up and running quickly. For instance, the `TokenExplorer` component is what is used on the auction page of this sample app. However, if you want to make unique decisions surrounding copy and styling, you'll have to take a [closer look](https://github.com/public-assembly/dao-utils/blob/main/packages/dao-utils/src/components/TokenExplorer.tsx) at the ways these components are put together.
 
-```
+```jsx
 import { TokenExplorer } from '@public-assembly/dao-utils'
 
 function AuctionExplorer() {
@@ -124,7 +119,6 @@ function AuctionExplorer() {
 }
 ```
 
-<br></br>
 Beneath this getting started guide is a full list of all the hooks and componentry exposed via the package. If you're interested in contributing, please [open an issue](https://github.com/public-assembly/dao-utils/issues/new), create a pull request, or bring questions to the Public Assembly [forum](https://forum.public---assembly.com/).
 
 ---
@@ -141,7 +135,7 @@ Create what's missing.
 
 ### **Available Exports**
 
-```
+```js
 export {
   /**
    * Authentication Components
