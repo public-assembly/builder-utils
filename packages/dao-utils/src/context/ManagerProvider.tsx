@@ -8,10 +8,10 @@ const ManagerContext = createContext<ManagerReturnTypes | null>({
   daoAddresses: null,
 })
 
-const MANAGER_PROXY_ADDRESS =
-  process.env.NEXT_PUBLIC_CHAIN_ID == '5'
-    ? '0x785708d09b89C470aD7B5b3f8ac804cE72B6b282'
-    : '0xd310A3041dFcF14Def5ccBc508668974b5da7174'
+const MANAGER_PROXY_ADDRESS = {
+  1: '0xd310a3041dfcf14def5ccbc508668974b5da7174',
+  5: '0x0E9F3382Cf2508E3bc83248B5b4707FbA86D7Ee0',
+}[process.env.NEXT_PUBLIC_CHAIN_ID || 1]
 
 export const ManagerProvider: React.FC<ManagerProviderProps> = memo(
   ({ children, tokenAddress }) => {

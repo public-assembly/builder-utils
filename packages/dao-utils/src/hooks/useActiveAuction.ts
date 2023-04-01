@@ -11,6 +11,7 @@ import {
   useWaitForTransaction,
 } from 'wagmi'
 import { useManagerContext } from '../context'
+import { isValid } from 'date-fns'
 
 export function useActiveAuction(tokenAddress: HexString) {
   const { activeAuction } = useDaoAuctionQuery({ tokenAddress: tokenAddress })
@@ -103,6 +104,7 @@ export function useActiveAuction(tokenAddress: HexString) {
     abi: auctionAbi,
     functionName: 'createBid',
     args: [BigNumber.from(bidAmount)],
+    enabled: isValidBid,
   })
 
   const {
