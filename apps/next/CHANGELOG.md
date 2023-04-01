@@ -1,5 +1,12 @@
 # nextjs-dapp
 
+## 1.0.19
+
+### Patch Changes
+
+- Updated dependencies
+  - @public-assembly/dao-utils@0.0.24
+
 ## 1.0.18
 
 ### Patch Changes

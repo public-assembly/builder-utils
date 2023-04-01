@@ -1,5 +1,11 @@
 # @public-assembly/dao-utils
 
+## 0.0.24
+
+### Patch Changes
+
+- Exposes the useBid hook.
+
 ## 0.0.23
 
 ### Patch Changes

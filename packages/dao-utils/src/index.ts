@@ -28,6 +28,7 @@ export {
 import {
   useActiveAuction,
   useBidder,
+  useBid,
   useCountdown,
   useDaoAuctionQuery,
   useDaoCollectionQuery,
@@ -53,6 +54,7 @@ export {
    */
   useActiveAuction,
   useBidder,
+  useBid,
   useCountdown,
   useDaoAuctionQuery,
   useDaoCollectionQuery,
