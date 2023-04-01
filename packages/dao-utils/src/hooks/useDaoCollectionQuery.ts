@@ -10,7 +10,7 @@ import {
 } from '../types'
 import { CHAIN } from '../constants/chain'
 
-export function useDaoCollectionQuery({ tokenAddress }: { tokenAddress?: HexString }) {
+export function useDaoCollectionQuery({ tokenAddress }: { tokenAddress: HexString }) {
   const { data: aggregateStat, error } = useSWR<NounishCollectionsQuery>(
     { tokenAddress, chain: CHAIN },
     async () =>
@@ -19,6 +19,7 @@ export function useDaoCollectionQuery({ tokenAddress }: { tokenAddress?: HexStri
         chain: CHAIN,
       } as NounishCollectionsQueryVariables)
   )
+
   return {
     nftCount: aggregateStat?.aggregateStat?.nftCount,
     ownerCount: aggregateStat?.aggregateStat?.ownerCount,

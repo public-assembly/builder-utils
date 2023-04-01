@@ -6,12 +6,6 @@ import TokenTitle from './TokenTitle'
 import AuthCheck from '../authentication/AuthCheck'
 import { useActiveAuction, useDaoCollectionQuery } from '../../hooks'
 
-/**
- * TODO:
- * - render bid success txHash
- * - break ui out into atomic components
- */
-
 export interface CurrentAuctionProps extends React.HTMLProps<HTMLDivElement> {
   /**
    * Nounish NFT Contract address
@@ -62,7 +56,7 @@ export default function CurrentAuction({
           connectCopy={'Connect to bid'}
           formUI={
             <div>
-              <form onSubmit={createBid} className="flex flex-row gap-4">
+              <form onSubmit={() => createBid?.()} className="flex flex-row gap-4">
                 <input
                   className="form-input px-[10px] py-[5px]"
                   type="text"

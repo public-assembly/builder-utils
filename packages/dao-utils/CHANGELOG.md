@@ -1,5 +1,11 @@
 # @public-assembly/dao-utils
 
+## 0.0.27
+
+### Patch Changes
+
+- Updates useActiveAuction hook to use wagmi hooks.
+
 ## 0.0.26
 
 ### Patch Changes

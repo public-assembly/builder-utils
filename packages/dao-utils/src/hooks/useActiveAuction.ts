@@ -1,12 +1,18 @@
 import * as React from 'react'
 import { useDaoAuctionQuery } from './useDaoAuctionQuery'
-import { BigNumber, ContractTransaction, utils } from 'ethers'
+import { BigNumber, utils } from 'ethers'
 import { useBidder } from './useBidder'
 import { HexString, AuctionData } from '../types'
-import { tokenAbi } from '../abi'
-import { useContractRead } from 'wagmi'
+import { tokenAbi, auctionAbi } from '../abi'
+import {
+  useContractRead,
+  useContractWrite,
+  usePrepareContractWrite,
+  useWaitForTransaction,
+} from 'wagmi'
+import { useManagerContext } from '../context'
 
-export function useActiveAuction(tokenAddress: HexString) {
+export function useActiveAuction(tokenAddress: HexString): any {
   const { activeAuction } = useDaoAuctionQuery({ tokenAddress: tokenAddress })
 
   const { bidder } = useBidder(activeAuction?.highestBidder as string)
@@ -64,13 +70,11 @@ export function useActiveAuction(tokenAddress: HexString) {
     },
   })
 
-  const [createBidSuccess, setCreateBidSuccess] = React.useState(false)
-  const [createBidLoading, setCreateBidLoading] = React.useState(false)
-  const [createBidError, setCreateBidError] = React.useState<unknown>()
-  const [createBidTx, setCreateBidTx] = React.useState<ContractTransaction | undefined>()
-  const [isValidBid, setIsValidBid] = React.useState(false)
-
+  /**
+   * Bid state variables
+   */
   const [bidAmount, setBidAmount] = React.useState('0')
+  const [isValidBid, setIsValidBid] = React.useState(false)
 
   const updateBidAmount = React.useCallback(
     (value: string) => {
@@ -92,28 +96,38 @@ export function useActiveAuction(tokenAddress: HexString) {
     [setBidAmount, auctionData?.minBidAmount]
   )
 
-  const createBid = React.useCallback(
-    async (event: React.FormEvent<HTMLFormElement>) => {
-      event.preventDefault()
-      if (auctionData?.tokenId) {
-        setCreateBidLoading(true)
-        try {
-          /* @ts-ignore */
-          const tx = await auctionContract?.createBid(auctionData.tokenId, {
-            value: bidAmount,
-          })
-          setCreateBidTx(tx)
-          setCreateBidSuccess(true)
-        } catch (err: unknown) {
-          setCreateBidError(err)
-          console.error(err)
-        } finally {
-          setCreateBidLoading(false)
-        }
-      }
-    },
-    [auctionData?.tokenId, bidAmount]
-  )
+  const { daoAddresses } = useManagerContext()
+
+  const [tokenId, setTokenId] = React.useState<string>('0')
+
+  React.useEffect(() => {
+    if (auctionData?.tokenId) {
+      setTokenId(auctionData.tokenId)
+    }
+  }, [])
+
+  const { config: createBidConfig } = usePrepareContractWrite({
+    address: daoAddresses?.auctionAddress,
+    abi: auctionAbi,
+    functionName: 'createBid',
+    args: [BigNumber.from(tokenId)],
+    overrides: { value: BigNumber.from(bidAmount) },
+    enabled: isValidBid,
+  })
+
+  const {
+    data: createBidData,
+    write: createBid,
+    isError: createBidError,
+  } = useContractWrite(createBidConfig)
+
+  const {
+    data: createBidTx,
+    isLoading: createBidLoading,
+    isSuccess: createBidSuccess,
+  } = useWaitForTransaction({
+    hash: createBidData?.hash,
+  })
 
   return {
     updateBidAmount,
