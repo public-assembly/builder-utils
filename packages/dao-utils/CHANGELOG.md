@@ -1,5 +1,11 @@
 # @public-assembly/dao-utils
 
+## 0.0.25
+
+### Patch Changes
+
+- Adjusts the dependency array inside the useBid hook. Fixes an error where RPC calls were getting spammed.
+
 ## 0.0.24
 
 ### Patch Changes
