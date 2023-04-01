@@ -50,7 +50,7 @@ export default function TokenExplorer({
     }
   }, [nftCount, tokenId])
 
-  if (!nftCount) return null
+  if (!nftCount) return <p className="animate-pulse">Loading...</p>
   return (
     <div {...props} className="flex flex-col gap-2">
       {tokenId === nftCount - 1 ? (

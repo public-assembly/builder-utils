@@ -10,9 +10,6 @@ export function PrintProviderData() {
   const { metadataSettings } = useMetadataContext()
   const { tokenSettings } = useTokenContext()
 
-  console.log(metadataSettings)
-  console.log(tokenSettings)
-
   return (
     <>
       Contract Addresses:

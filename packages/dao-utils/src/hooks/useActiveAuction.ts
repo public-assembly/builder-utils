@@ -10,8 +10,8 @@ import {
   usePrepareContractWrite,
   useWaitForTransaction,
 } from 'wagmi'
+import { ethers } from 'ethers'
 import { useManagerContext } from '../context'
-import { isValid } from 'date-fns'
 
 export function useActiveAuction(tokenAddress: HexString) {
   const { activeAuction } = useDaoAuctionQuery({ tokenAddress: tokenAddress })
@@ -99,11 +99,20 @@ export function useActiveAuction(tokenAddress: HexString) {
 
   const { daoAddresses } = useManagerContext()
 
+  const [tokenId, setTokenId] = React.useState<string>('0')
+
+  React.useEffect(() => {
+    if (auctionData?.tokenId) {
+      setTokenId(auctionData.tokenId)
+    }
+  }, [])
+
   const { config: createBidConfig } = usePrepareContractWrite({
     address: daoAddresses?.auctionAddress,
     abi: auctionAbi,
     functionName: 'createBid',
-    args: [BigNumber.from(bidAmount)],
+    args: [BigNumber.from(tokenId)],
+    overrides: { value: BigNumber.from(bidAmount) },
     enabled: isValidBid,
   })
 
