@@ -85,6 +85,6 @@ export const useBid = ({
     getBids()
 
     return function cleanup() {}
-  }, [auctionContract, tokenData, tokenId])
+  }, [tokenData, tokenId])
   return { winningBid, winningTx, address, tokenEvents }
 }
