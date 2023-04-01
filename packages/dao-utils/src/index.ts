@@ -1,4 +1,4 @@
-import {
+export {
   AuctionCountdown,
   CircleArrow,
   CurrentAuction,
@@ -10,9 +10,9 @@ import {
   TokenWinningBid,
 } from './components/auction'
 
-import { AuthCheck, Avatar } from './components/authentication'
+export { AuthCheck, Avatar } from './components/authentication'
 
-import {
+export {
   ProposalCard,
   ProposalCardGrid,
   ProposalDescription,
@@ -48,36 +48,6 @@ import { shortenAddress, zoraApiFetcher, etherscanLink } from './lib'
 import { auctionAbi, governorAbi, managerAbi, metadataAbi, tokenAbi } from './abi'
 
 export {
-  /**
-   * Authentication Components
-   */
-  AuthCheck,
-  Avatar,
-  /**
-   * Auction Components
-   */
-  AuctionCountdown,
-  CircleArrow,
-  CurrentAuction,
-  TokenExplorer,
-  TokenHolder,
-  TokenRenderer,
-  TokenThumbnail,
-  TokenTitle,
-  TokenWinningBid,
-  /**
-   * Proposal Components
-   */
-  ProposalCard,
-  ProposalCardGrid,
-  ProposalDescription,
-  ProposalPage,
-  ProposalPageGrid,
-  ProposalStatus,
-  ProposalTimestamp,
-  ProposalTitle,
-  ProposalVoting,
-  Proposer,
   /**
    * Hooks
    */

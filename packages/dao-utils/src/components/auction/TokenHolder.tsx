@@ -1,7 +1,6 @@
 /* @ts-ignore */
 import * as React from 'react'
-import { useDaoToken } from '../hooks/useDaoToken'
-import { useBidder } from '../hooks/useBidder'
+import { useDaoToken, useBidder } from '../../hooks'
 
 export default function TokenTitle({
   tokenId,

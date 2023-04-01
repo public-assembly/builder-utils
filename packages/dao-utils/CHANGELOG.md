@@ -1,5 +1,11 @@
 # @public-assembly/dao-utils
 
+## 0.0.23
+
+### Patch Changes
+
+- Fixes errors in previous version where components were not being exported properly.
+
 ## 0.0.22
 
 ### Patch Changes
