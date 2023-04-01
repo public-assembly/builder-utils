@@ -1,5 +1,11 @@
 # @public-assembly/dao-utils
 
+## 0.0.26
+
+### Patch Changes
+
+- Attemps to solve build issues in the previous version.
+
 ## 0.0.25
 
 ### Patch Changes
