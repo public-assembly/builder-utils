@@ -35,6 +35,7 @@ export function TokenProvider({ children }: TokenProviderProps) {
     <TokenContext.Provider
       value={{
         tokenAddress,
+        // @ts-ignore
         tokenSettings,
       }}>
       {children}

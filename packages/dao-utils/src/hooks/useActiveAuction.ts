@@ -10,10 +10,9 @@ import {
   usePrepareContractWrite,
   useWaitForTransaction,
 } from 'wagmi'
-import { ethers } from 'ethers'
 import { useManagerContext } from '../context'
 
-export function useActiveAuction(tokenAddress: HexString) {
+export function useActiveAuction(tokenAddress: HexString): any {
   const { activeAuction } = useDaoAuctionQuery({ tokenAddress: tokenAddress })
 
   const { bidder } = useBidder(activeAuction?.highestBidder as string)

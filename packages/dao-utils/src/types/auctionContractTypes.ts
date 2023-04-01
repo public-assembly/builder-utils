@@ -35,7 +35,7 @@ export interface AuctionReturnTypes {
 
   auctionData?: AuctionData
   totalSupply?: number
-  createBid?: (event: React.FormEvent<HTMLFormElement>) => Promise<void>
+  createBid?: () => void
   updateBidAmount?: (value: string) => void
   createBidSuccess?: boolean
   createBidLoading?: boolean
