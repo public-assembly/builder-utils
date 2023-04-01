@@ -1,25 +1,22 @@
 /* @ts-ignore */
 import * as React from 'react'
-import { useDaoCollectionQuery } from '../hooks'
+import { useDaoCollectionQuery } from '../../hooks'
 import CurrentAuction from './CurrentAuction'
 import TokenRenderer from './TokenRenderer'
 import CircleArrow from './CircleArrow'
 
 export interface TokenExplorerProps extends React.HTMLProps<HTMLDivElement> {
-  /**
-   * Nounish NFT Contract address
-   */
   tokenAddress: `0x${string}`
   /**
-   * Renderer Component for current auction
+   * Renderer component for current auction
    */
   auctionRenderer?: React.ReactNode
   /**
-   * Renderer Component for dao tokens
+   * Renderer component for dao tokens
    */
   tokenRenderer?: (tokenId: string) => React.ReactNode
   /**
-   * Button to handle wallet connection
+   * Component to handle wallet connection
    */
   connectButton?: React.ReactNode
 }
@@ -36,7 +33,9 @@ export default function TokenExplorer({
   const [tokenId, setTokenId] = React.useState(0)
 
   React.useEffect(() => {
-    nftCount && setTokenId(nftCount - 1)
+    if (nftCount && nftCount > 0) {
+      setTokenId(nftCount - 1)
+    }
   }, [nftCount])
 
   const incrementId = React.useCallback(() => {
@@ -52,7 +51,6 @@ export default function TokenExplorer({
   }, [nftCount, tokenId])
 
   if (!nftCount) return null
-
   return (
     <div {...props} className="flex flex-col gap-2">
       {tokenId === nftCount - 1 ? (

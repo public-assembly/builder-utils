@@ -3,12 +3,8 @@ import * as React from 'react'
 import useSWR from 'swr'
 import { DAO_TOKEN_QUERY } from '../data/daoTokenQuery'
 import { zoraApiFetcher } from '../lib/zoraApiFetcher'
-import { Chain, NounishTokensQuery, NounishTokensQueryVariables } from '../types'
-
-export const CHAIN = {
-  1: Chain.Mainnet,
-  5: Chain.Goerli,
-}[process.env.NEXT_PUBLIC_CHAIN_ID || 1] as Chain
+import { NounishTokensQuery, NounishTokensQueryVariables } from '../types'
+import { CHAIN } from '../constants/chain'
 
 export type TokenData = {
   lastRefreshTime: string

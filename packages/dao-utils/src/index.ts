@@ -1,28 +1,29 @@
-// Authentication Components
-import AuthCheck from './components/authentication/AuthCheck'
+export {
+  AuctionCountdown,
+  CircleArrow,
+  CurrentAuction,
+  TokenExplorer,
+  TokenHolder,
+  TokenRenderer,
+  TokenThumbnail,
+  TokenTitle,
+  TokenWinningBid,
+} from './components/auction'
 
-// Auction Components
-import AuctionCountdown from './components/AuctionCountdown'
-import CircleArrow from './components/CircleArrow'
-import CurrentAuction from './components/CurrentAuction'
-import TokenExplorer from './components/TokenExplorer'
-import TokenHolder from './components/TokenHolder'
-import TokenRenderer from './components/TokenRenderer'
-import TokenThumbnail from './components/TokenThumbnail'
-import TokenTitle from './components/TokenTitle'
-import TokenWinningBid from './components/TokenWinningBid'
+export { AuthCheck, Avatar } from './components/authentication'
 
-// Proposal Components
-import ProposalCard from './components/ProposalCard'
-import ProposalCardGrid from './components/ProposalCardGrid'
-import ProposalDescription from './components/ProposalDescription'
-import ProposalPage from './components/ProposalPage'
-import ProposalPageGrid from './components/ProposalPageGrid'
-import ProposalStatus from './components/ProposalStatus'
-import ProposalTimestamp from './components/ProposalTimestamp'
-import ProposalTitle from './components/ProposalTitle'
-import ProposalVoting from './components/ProposalVoting'
-import Proposer from './components/Proposer'
+export {
+  ProposalCard,
+  ProposalCardGrid,
+  ProposalDescription,
+  ProposalPage,
+  ProposalPageGrid,
+  ProposalStatus,
+  ProposalTimestamp,
+  ProposalTitle,
+  ProposalVoting,
+  Proposer,
+} from './components/proposals'
 
 import {
   useActiveAuction,
@@ -47,35 +48,6 @@ import { shortenAddress, zoraApiFetcher, etherscanLink } from './lib'
 import { auctionAbi, governorAbi, managerAbi, metadataAbi, tokenAbi } from './abi'
 
 export {
-  /**
-   * Authentication Components
-   */
-  AuthCheck,
-  /**
-   * Auction Components
-   */
-  AuctionCountdown,
-  CircleArrow,
-  CurrentAuction,
-  TokenExplorer,
-  TokenHolder,
-  TokenRenderer,
-  TokenThumbnail,
-  TokenTitle,
-  TokenWinningBid,
-  /**
-   * Proposal Components
-   */
-  ProposalCard,
-  ProposalCardGrid,
-  ProposalDescription,
-  ProposalPage,
-  ProposalPageGrid,
-  ProposalStatus,
-  ProposalTimestamp,
-  ProposalTitle,
-  ProposalVoting,
-  Proposer,
   /**
    * Hooks
    */

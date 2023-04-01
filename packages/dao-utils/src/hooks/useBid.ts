@@ -1,13 +1,11 @@
-/* @ts-ignore */
 import * as React from 'react'
-import { useDaoToken } from '../hooks/useDaoToken'
-import { ethers } from 'ethers'
-import { Event } from '@ethersproject/contracts'
 import { etherscanLink } from '../lib'
+import { useDaoToken } from './useDaoToken'
+import { useManagerContext } from '../context'
 import { useContract } from 'wagmi'
 import { auctionAbi } from '../abi'
-import { useManagerContext } from '../context'
 import { ALCHEMY_RPC_URL } from '../constants/rpc'
+import { ethers } from 'ethers'
 
 export type AuctionEvent = {
   id: number
@@ -16,13 +14,13 @@ export type AuctionEvent = {
   transactionHash: string
 }
 
-export default function TokenWinningBid({
+export const useBid = ({
   tokenId,
   tokenAddress,
 }: {
   tokenAddress: `0x${string}`
   tokenId: string
-}) {
+}) => {
   const { daoAddresses } = useManagerContext()
 
   const auctionContract = useContract({
@@ -32,12 +30,14 @@ export default function TokenWinningBid({
   })
 
   const { tokenData } = useDaoToken({
-    tokenAddress: tokenAddress,
     tokenId: tokenId,
+    tokenAddress: tokenAddress,
   })
 
   const [winningBid, setWinningBid] = React.useState<string | undefined>('N/A')
   const [winningTx, setWinningTx] = React.useState<string | undefined>()
+  const [address, setAddress] = React.useState<string | undefined>()
+  const [tokenEvents, setTokenEvents] = React.useState<AuctionEvent[]>()
 
   React.useEffect(() => {
     async function getBids() {
@@ -54,7 +54,7 @@ export default function TokenWinningBid({
             'latest' /* Clamp at next token block number if decrementing */
           )
           if (bids) {
-            const auctionEventsArray = bids.map((event: Event) => {
+            const auctionEventsArray = bids.map((event: any) => {
               return {
                 id: parseInt(event.args?.tokenId?._hex, 16),
                 bidder: event.args?.bidder as string,
@@ -67,9 +67,12 @@ export default function TokenWinningBid({
               (token) => token?.id === Number(tokenId)
             )
 
+            setTokenEvents(tokenEvents)
+
             if (tokenEvents?.length) {
               const lastTokenEvent = tokenEvents.at(-1)
-              setWinningBid(`${lastTokenEvent?.amount} ETH`)
+              setAddress(lastTokenEvent?.bidder)
+              setWinningBid(`${lastTokenEvent?.amount}`)
               setWinningTx(etherscanLink({ hash: lastTokenEvent?.transactionHash }))
             } else {
               setWinningBid('N/A')
@@ -77,31 +80,11 @@ export default function TokenWinningBid({
             }
           }
         }
-      } catch (err) {
-        console.error(err)
-      }
+      } catch (err) {}
     }
     getBids()
 
-    return function cleanup() {
-      /**
-       * Short circuit the async call:
-       * https://stackoverflow.com/questions/37624144/is-there-a-way-to-short-circuit-async-await-flow
-       */
-      // console.log('unmount')
-    }
-  }, [auctionContract, tokenId, tokenData])
-
-  return (
-    <div className="flex flex-col leading-5 text-[color:var(--pa-pink)]">
-      <span className="opacity-50">Winning bid:</span>
-      <a
-        href={winningTx}
-        target="_blank"
-        rel="noreferrer"
-        className={`${!winningTx && 'pointer-events-none'} hover:underline`}>
-        {winningBid}
-      </a>
-    </div>
-  )
+    return function cleanup() {}
+  }, [auctionContract, tokenData, tokenId])
+  return { winningBid, winningTx, address, tokenEvents }
 }

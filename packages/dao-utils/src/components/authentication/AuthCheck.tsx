@@ -4,7 +4,6 @@ import { useAccount } from 'wagmi'
 
 export default function AuthCheck({
   formUI,
-  connectCopy,
   connectButton,
 }: {
   formUI?: JSX.Element

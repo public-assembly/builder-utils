@@ -12,7 +12,7 @@ function Auction() {
     <section className="max-w-[1240px] m-auto px-4 gap-8 flex flex-col">
       <Seo title="auction" />
       <div className="bg-slate-300 p-4 rounded-2xl text-black">
-        <AuctionModule address={tokenAddress} />
+        <AuctionModule tokenAddress={tokenAddress} />
       </div>
     </section>
   )

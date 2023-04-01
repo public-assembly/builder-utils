@@ -1,18 +1,14 @@
 /* @ts-ignore */
+import * as React from 'react'
 import useSWR from 'swr'
 import { DAO_PROPOSAL_QUERY } from '../data/daoProposalQuery'
 import { zoraApiFetcher } from '../lib/zoraApiFetcher'
 import {
   HexString,
-  Chain,
   NounishProposalsQuery,
   NounishProposalsQueryVariables,
 } from '../types'
-
-export const CHAIN = {
-  1: Chain.Mainnet,
-  5: Chain.Goerli,
-}[process.env.NEXT_PUBLIC_CHAIN_ID || 1] as Chain
+import { CHAIN } from '../constants/chain'
 
 export function useDaoProposalQuery({ tokenAddress }: { tokenAddress?: HexString }) {
   const { data: proposals, error } = useSWR<NounishProposalsQuery>(

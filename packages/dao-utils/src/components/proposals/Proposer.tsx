@@ -1,7 +1,7 @@
 /* @ts-ignore */
 import * as React from 'react'
 import { useEnsName } from 'wagmi'
-import { shortenAddress } from '../lib/shortenAddress'
+import { shortenAddress } from '../../lib/'
 
 export default function Proposer({ proposal }) {
   const { data: ensName } = useEnsName({
