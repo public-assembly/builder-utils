@@ -13,36 +13,33 @@ const MANAGER_PROXY_ADDRESS = {
   5: '0x0E9F3382Cf2508E3bc83248B5b4707FbA86D7Ee0',
 }[process.env.NEXT_PUBLIC_CHAIN_ID || 1]
 
-export const ManagerProvider: React.FC<ManagerProviderProps> = memo(
-  ({ children, tokenAddress }) => {
-    const [daoAddresses, setDaoAddress] = React.useState<DaoAddresses | null>(null)
+export function ManagerProvider({ children, tokenAddress }: ManagerProviderProps) {
+  const [daoAddresses, setDaoAddress] = React.useState<DaoAddresses | null>(null)
 
-    const { data: getAddresses } = useContractRead({
-      address: MANAGER_PROXY_ADDRESS,
-      abi: managerAbi,
-      functionName: 'getAddresses',
-      args: [tokenAddress],
-      onError(error: unknown) {
-        console.log(error)
-      },
-    })
+  useContractRead({
+    address: MANAGER_PROXY_ADDRESS,
+    abi: managerAbi,
+    functionName: 'getAddresses',
+    args: [tokenAddress],
+    onSuccess(getAddresses) {
+      console.log('Successful state setting')
+      setDaoAddress({
+        metadataAddress: getAddresses?.metadata,
+        auctionAddress: getAddresses?.auction,
+        treasuryAddress: getAddresses?.treasury,
+        governorAddress: getAddresses?.governor,
+      })
+    },
+    onError(error: unknown) {
+      console.log(error)
+    },
+    enabled: tokenAddress !== null,
+  })
 
-    useEffect(() => {
-      if (getAddresses) {
-        setDaoAddress({
-          metadataAddress: getAddresses?.metadata,
-          auctionAddress: getAddresses?.auction,
-          treasuryAddress: getAddresses?.treasury,
-          governorAddress: getAddresses?.governor,
-        })
-      }
-    }, [getAddresses])
+  const value = { tokenAddress, daoAddresses }
 
-    const value = { tokenAddress, daoAddresses }
-
-    return <ManagerContext.Provider value={value}>{children}</ManagerContext.Provider>
-  }
-)
+  return <ManagerContext.Provider value={value}>{children}</ManagerContext.Provider>
+}
 
 // Access the context value of the ManagerProvider
 export const useManagerContext = () => {
