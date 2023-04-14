@@ -2,66 +2,35 @@ import React, { useContext } from 'react'
 import { useContractRead } from 'wagmi'
 import { auctionAbi } from '../abi'
 import { useManagerContext } from './ManagerProvider'
-import { useActiveAuction, useDaoToken } from '../hooks'
 import { HexString, AuctionProviderProps, AuctionReturnTypes } from '../types'
 
 const AuctionContext = React.createContext({} as AuctionReturnTypes)
 
-export function AuctionProvider({ children, tokenId }: AuctionProviderProps) {
-  const { tokenAddress, daoAddresses } = useManagerContext()
+export function AuctionProvider({ children }: AuctionProviderProps) {
+  const { daoAddresses } = useManagerContext()
 
   const auctionAddress = React.useMemo(
     () => daoAddresses?.auctionAddress as HexString,
     [daoAddresses]
   )
 
-  const {
-    auctionData,
-    totalSupply,
-    createBid,
-    updateBidAmount,
-    createBidSuccess,
-    createBidLoading,
-    isValidBid,
-  } = useActiveAuction(tokenAddress as HexString)
-
-  const { tokenData } = useDaoToken({
-    tokenAddress: tokenAddress,
-    tokenId: tokenId as string,
-  })
-
   const { data: auction } = useContractRead({
     address: auctionAddress,
     abi: auctionAbi,
     functionName: 'auction',
+    chainId: Number(process.env.NEXT_PUBLIC_CHAIN_ID),
   })
-
-  const auctionState = React.useMemo(() => {
-    return {
-      tokenId: auction?.tokenId,
-      highestBid: auction?.highestBid,
-      highestBidder: auction?.highestBidder,
-      startTime: auction?.startTime,
-      endTime: auction?.endTime,
-      settled: auction?.settled,
-    }
-  }, [auction])
 
   return (
     <AuctionContext.Provider
       value={{
-        tokenAddress,
-        tokenData,
-        tokenId,
         auctionAddress,
-        auctionData,
-        auctionState,
-        totalSupply,
-        createBid,
-        updateBidAmount,
-        createBidSuccess,
-        createBidLoading,
-        isValidBid,
+        tokenId: auction?.tokenId,
+        highestBid: auction?.highestBid,
+        highestBidder: auction?.highestBidder,
+        startTime: auction?.startTime,
+        endTime: auction?.endTime,
+        settled: auction?.settled,
       }}>
       {children}
     </AuctionContext.Provider>

@@ -30,6 +30,8 @@ export default function TokenExplorer({
 }: TokenExplorerProps) {
   const { nftCount } = useDaoCollectionQuery({ tokenAddress: tokenAddress })
 
+  console.log(nftCount)
+
   const [tokenId, setTokenId] = React.useState(0)
 
   React.useEffect(() => {
