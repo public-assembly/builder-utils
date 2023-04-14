@@ -3,7 +3,7 @@ import type { AppProps } from 'next/app'
 import NextHead from 'next/head'
 import { AppWrapper } from '../components'
 import dynamic from 'next/dynamic'
-import { GovernorProvider } from '@public-assembly/dao-utils'
+import { GovernorProvider, AuctionProvider } from '@public-assembly/dao-utils'
 
 const DynamicManagerProvider = dynamic(
   () => import('@public-assembly/dao-utils').then((module) => module.ManagerProvider),
@@ -23,7 +23,9 @@ function App({ Component, pageProps }: AppProps) {
       <AppWrapper>
         <DynamicManagerProvider tokenAddress={tokenAddress}>
           <GovernorProvider>
-            <Component {...pageProps} />
+            <AuctionProvider>
+              <Component {...pageProps} />
+            </AuctionProvider>
           </GovernorProvider>
         </DynamicManagerProvider>
       </AppWrapper>

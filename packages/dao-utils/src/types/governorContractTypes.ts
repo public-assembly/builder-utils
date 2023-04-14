@@ -1,5 +1,5 @@
 import { NounsProposal } from '.'
-import { HexString } from './wagmiTypes'
+import { HexString } from './hexStringType'
 
 export interface GovernorProviderProps {
   children?: React.ReactNode

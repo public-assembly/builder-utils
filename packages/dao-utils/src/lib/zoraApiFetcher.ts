@@ -19,8 +19,8 @@ export const client = new GraphQLClient('https://api.zora.co/graphql', {
     'Content-Type': 'application/json',
     ...(!!process.env.NEXT_PUBLIC_ZORA_API_KEY && {
       'X-API-KEY': process.env.NEXT_PUBLIC_ZORA_API_KEY,
+      'X-ENABLE-NOUNS': 'true',
     }),
-    'X-ENABLE-NOUNS': 'true',
   }),
   mode: 'no-cors',
 })

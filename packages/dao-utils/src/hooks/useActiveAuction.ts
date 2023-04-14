@@ -1,3 +1,5 @@
+// const { tokenId, highestBid, highestBidder, startTime, endTime  } = useAuctionContext()
+
 import * as React from 'react'
 import { useDaoAuctionQuery } from './useDaoAuctionQuery'
 import { BigNumber, utils } from 'ethers'

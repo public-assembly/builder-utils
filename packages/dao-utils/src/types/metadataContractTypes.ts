@@ -1,4 +1,4 @@
-import { HexString } from './wagmiTypes'
+import { HexString } from './hexStringType'
 
 export interface MetadataProviderProps {
   children?: React.ReactNode

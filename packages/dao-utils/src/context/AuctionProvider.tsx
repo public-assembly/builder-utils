@@ -1,5 +1,6 @@
+// @ts-nocheck
 import React, { useContext } from 'react'
-import { useContractRead } from 'wagmi'
+import { useContractReads } from 'wagmi'
 import { auctionAbi } from '../abi'
 import { useManagerContext } from './ManagerProvider'
 import { HexString, AuctionProviderProps, AuctionReturnTypes } from '../types'
@@ -14,23 +15,41 @@ export function AuctionProvider({ children }: AuctionProviderProps) {
     [daoAddresses]
   )
 
-  const { data: auction } = useContractRead({
+  const auctionContract = {
     address: auctionAddress,
     abi: auctionAbi,
-    functionName: 'auction',
     chainId: Number(process.env.NEXT_PUBLIC_CHAIN_ID),
+  }
+
+  const { data: auction } = useContractReads({
+    contracts: [
+      {
+        ...auctionContract,
+        functionName: 'auction',
+      },
+      {
+        ...auctionContract,
+        functionName: 'minBidIncrement',
+      },
+      {
+        ...auctionContract,
+        functionName: 'reservePrice',
+      },
+    ],
   })
 
   return (
     <AuctionContext.Provider
       value={{
         auctionAddress,
-        tokenId: auction?.tokenId,
-        highestBid: auction?.highestBid,
-        highestBidder: auction?.highestBidder,
-        startTime: auction?.startTime,
-        endTime: auction?.endTime,
-        settled: auction?.settled,
+        tokenId: Number(auction?.[0][0]),
+        highestBid: auction?.[0][1],
+        highestBidder: auction?.[0][2],
+        startTime: auction?.[0][3],
+        endTime: auction?.[0][4],
+        settled: auction?.[0][5],
+        minBidIncrement: auction?.[1],
+        reservePrice: auction?.[2],
       }}>
       {children}
     </AuctionContext.Provider>

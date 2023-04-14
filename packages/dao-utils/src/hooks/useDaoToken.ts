@@ -35,7 +35,7 @@ export function useDaoToken({
   tokenAddress,
   tokenId,
 }: {
-  tokenAddress?: `0x${string}`
+  tokenAddress: `0x${string}`
   tokenId: string
 }) {
   const { data: tokenData, error } = useSWR<NounishTokensQuery>(

@@ -1,4 +1,4 @@
-import { HexString } from './wagmiTypes'
+import { HexString } from './hexStringType'
 import { PropsWithChildren } from 'react'
 
 export type ManagerProviderProps = PropsWithChildren<{

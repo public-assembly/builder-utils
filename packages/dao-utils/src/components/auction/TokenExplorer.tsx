@@ -1,9 +1,9 @@
 /* @ts-ignore */
 import * as React from 'react'
-import { useDaoCollectionQuery } from '../../hooks'
 import CurrentAuction from './CurrentAuction'
 import TokenRenderer from './TokenRenderer'
 import CircleArrow from './CircleArrow'
+import { useAuctionContext } from '../../context'
 
 export interface TokenExplorerProps extends React.HTMLProps<HTMLDivElement> {
   tokenAddress: `0x${string}`
@@ -28,34 +28,35 @@ export default function TokenExplorer({
   connectButton,
   ...props
 }: TokenExplorerProps) {
-  const { nftCount } = useDaoCollectionQuery({ tokenAddress: tokenAddress })
+  const { tokenId } = useAuctionContext()
 
-  console.log(nftCount)
+  console.log('Current token id', tokenId)
 
-  const [tokenId, setTokenId] = React.useState(0)
+  const [currentTokenId, setCurrentTokenId] = React.useState<number>(tokenId || 0)
+
+  console.log('Current token state', currentTokenId)
 
   React.useEffect(() => {
-    if (nftCount && nftCount > 0) {
-      setTokenId(nftCount - 1)
+    if (tokenId && tokenId > 0) {
+      setCurrentTokenId(tokenId)
     }
-  }, [nftCount])
+  }, [tokenId])
 
   const incrementId = React.useCallback(() => {
-    if (nftCount && tokenId < nftCount - 1) {
-      setTokenId(tokenId + 1)
+    if (tokenId && tokenId < currentTokenId - 1) {
+      setCurrentTokenId(currentTokenId + 1)
     }
-  }, [nftCount, tokenId])
+  }, [currentTokenId, tokenId])
 
   const decrementId = React.useCallback(() => {
-    if (nftCount && tokenId > 0) {
-      setTokenId(tokenId - 1)
+    if (tokenId && tokenId > 0) {
+      setCurrentTokenId(currentTokenId - 1)
     }
-  }, [nftCount, tokenId])
+  }, [currentTokenId, tokenId])
 
-  if (!nftCount) return <p className="animate-pulse">Loading...</p>
   return (
     <div {...props} className="flex flex-col gap-2">
-      {tokenId === nftCount - 1 ? (
+      {tokenId === currentTokenId ? (
         <>
           {auctionRenderer || (
             <CurrentAuction tokenAddress={tokenAddress} connectButton={connectButton} />
@@ -78,7 +79,9 @@ export default function TokenExplorer({
         </button>
         <button
           onClick={incrementId}
-          className={`${tokenId === nftCount - 1 && 'pointer-events-none opacity-20'}`}>
+          className={`${
+            tokenId === currentTokenId - 1 && 'pointer-events-none opacity-20'
+          }`}>
           <CircleArrow />
         </button>
       </div>
