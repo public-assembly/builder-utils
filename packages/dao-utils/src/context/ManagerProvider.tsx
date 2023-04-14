@@ -22,18 +22,17 @@ export function ManagerProvider({ children, tokenAddress }: ManagerProviderProps
     functionName: 'getAddresses',
     args: [tokenAddress],
     onSuccess(getAddresses) {
-      console.log('Successful state setting')
       setDaoAddress({
-        metadataAddress: getAddresses?.metadata,
-        auctionAddress: getAddresses?.auction,
-        treasuryAddress: getAddresses?.treasury,
-        governorAddress: getAddresses?.governor,
+        metadataAddress: getAddresses.metadata,
+        auctionAddress: getAddresses.auction,
+        treasuryAddress: getAddresses.treasury,
+        governorAddress: getAddresses.governor,
       })
     },
     onError(error: unknown) {
       console.log(error)
     },
-    enabled: tokenAddress !== null,
+    chainId: Number(process.env.NEXT_PUBLIC_CHAIN_ID),
   })
 
   const value = { tokenAddress, daoAddresses }
