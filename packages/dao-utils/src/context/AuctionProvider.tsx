@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useContext } from 'react'
+import React from 'react'
 import { useContractReads } from 'wagmi'
 import { auctionAbi } from '../abi'
 import { useManagerContext } from './ManagerProvider'
@@ -58,7 +58,7 @@ export function AuctionProvider({ children }: AuctionProviderProps) {
 
 // Access the context value of the AuctionProvider
 export const useAuctionContext = () => {
-  const context = useContext(AuctionContext)
+  const context = React.useContext(AuctionContext)
   if (!context) {
     throw Error('useAuctionContext hook must be used within a AuctionProvider')
   }
