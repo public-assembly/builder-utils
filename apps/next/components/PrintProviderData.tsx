@@ -27,7 +27,7 @@ export function PrintProviderData() {
           Name: <RawDisplayer data={tokenSettings?.[0]} />
           Symbol: <RawDisplayer data={tokenSettings?.[1]} />
           Total Supply:
-          {/* <RawDisplayer data={tokenSettings?.[2].toString()} /> */}
+          <RawDisplayer data={tokenSettings?.[2].toString()} />
         </div>
       ) : null}
     </>

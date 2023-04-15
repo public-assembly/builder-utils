@@ -3,6 +3,7 @@ import { useDaoCollectionQuery } from '../../hooks'
 import CurrentAuction from './CurrentAuction'
 import TokenRenderer from './TokenRenderer'
 import CircleArrow from './CircleArrow'
+import { useAuctionContext, useTokenContext } from '../../context'
 
 export interface TokenExplorerProps extends React.HTMLProps<HTMLDivElement> {
   tokenAddress: `0x${string}`
@@ -27,58 +28,67 @@ export default function TokenExplorer({
   connectButton,
   ...props
 }: TokenExplorerProps) {
-  const { nftCount } = useDaoCollectionQuery({ tokenAddress: tokenAddress })
+  const { tokenId } = useAuctionContext()
 
-  const [tokenId, setTokenId] = React.useState(0)
+  const { tokenSettings } = useTokenContext()
 
-  React.useEffect(() => {
-    if (nftCount && nftCount > 0) {
-      setTokenId(nftCount - 1)
-    }
-  }, [nftCount])
+  const totalSupply = tokenSettings?.[2].toNumber()
+
+  const [currentTokenId, setCurrentTokenId] = React.useState(tokenId)
 
   const incrementId = React.useCallback(() => {
-    if (nftCount && tokenId < nftCount - 1) {
-      setTokenId(tokenId + 1)
+    if (currentTokenId < tokenId) {
+      setCurrentTokenId(currentTokenId + 1)
     }
-  }, [nftCount, tokenId])
+  }, [tokenId, currentTokenId])
 
   const decrementId = React.useCallback(() => {
-    if (nftCount && tokenId > 0) {
-      setTokenId(tokenId - 1)
+    if (currentTokenId > 0) {
+      setCurrentTokenId(currentTokenId - 1)
     }
-  }, [nftCount, tokenId])
+  }, [tokenId, currentTokenId])
 
-  if (!nftCount) return <p className="animate-pulse">Loading...</p>
+  const renderContent = () => {
+    if (totalSupply && tokenId === totalSupply - 1) {
+      return (
+        auctionRenderer || (
+          <CurrentAuction tokenAddress={tokenAddress} connectButton={connectButton} />
+        )
+      )
+    } else {
+      return tokenRenderer ? (
+        tokenRenderer(tokenId.toString())
+      ) : (
+        <TokenRenderer tokenAddress={tokenAddress} tokenId={tokenId.toString()} />
+      )
+    }
+  }
+
   return (
     <div {...props} className="flex flex-col gap-2">
-      {tokenId === nftCount - 1 ? (
+      {tokenId ? (
         <>
-          {auctionRenderer || (
-            <CurrentAuction tokenAddress={tokenAddress} connectButton={connectButton} />
-          )}
+          {renderContent()}
+          <div className="flex flex-row gap-1">
+            <button
+              onClick={decrementId}
+              className={`${tokenId === 0 && 'pointer-events-none opacity-20'}`}>
+              <CircleArrow direction="backward" />
+            </button>
+            <button
+              onClick={incrementId}
+              className={`${
+                totalSupply &&
+                tokenId === totalSupply - 1 &&
+                'pointer-events-none opacity-20'
+              }`}>
+              <CircleArrow />
+            </button>
+          </div>
         </>
       ) : (
-        <>
-          {tokenRenderer ? (
-            tokenRenderer(tokenId.toString())
-          ) : (
-            <TokenRenderer tokenAddress={tokenAddress} tokenId={tokenId.toString()} />
-          )}
-        </>
+        <p className="animate-pulse">Loading...</p>
       )}
-      <div className="flex flex-row gap-1">
-        <button
-          onClick={decrementId}
-          className={`${tokenId === 0 && 'pointer-events-none opacity-20'}`}>
-          <CircleArrow direction="backward" />
-        </button>
-        <button
-          onClick={incrementId}
-          className={`${tokenId === nftCount - 1 && 'pointer-events-none opacity-20'}`}>
-          <CircleArrow />
-        </button>
-      </div>
     </div>
   )
 }
