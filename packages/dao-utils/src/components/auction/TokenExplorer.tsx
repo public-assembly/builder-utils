@@ -47,7 +47,7 @@ export default function TokenExplorer({
       )
     } else {
       return tokenRenderer ? (
-        tokenRenderer(tokenId.toString())
+        tokenRenderer(currentTokenId.toString())
       ) : (
         <TokenRenderer tokenAddress={tokenAddress} tokenId={currentTokenId.toString()} />
       )
