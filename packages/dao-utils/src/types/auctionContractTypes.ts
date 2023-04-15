@@ -9,7 +9,7 @@ export interface AuctionReturnTypes {
   auctionAddress?: HexString
   // tokenId?: BigNumber
   tokenId: number
-  highestBid?: BigNumber
+  highestBid: BigNumber
   highestBidder?: HexString
   startTime?: number
   endTime?: number
