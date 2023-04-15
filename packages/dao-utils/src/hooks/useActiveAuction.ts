@@ -1,23 +1,15 @@
-// const { tokenId, highestBid, highestBidder, startTime, endTime  } = useAuctionContext()
-
 import * as React from 'react'
 import { useDaoAuctionQuery } from './useDaoAuctionQuery'
 import { BigNumber, utils } from 'ethers'
-import { useBidder } from './useBidder'
 import { HexString } from '../types'
-import { tokenAbi, auctionAbi } from '../abi'
-import {
-  useContractRead,
-  useContractWrite,
-  usePrepareContractWrite,
-  useWaitForTransaction,
-} from 'wagmi'
-import { useManagerContext } from '../context'
+import { auctionAbi } from '../abi'
+import { useContractWrite, usePrepareContractWrite, useWaitForTransaction } from 'wagmi'
+import { useAuctionContext } from '../context'
 
 export function useActiveAuction(tokenAddress: HexString): any {
   const { activeAuction } = useDaoAuctionQuery({ tokenAddress: tokenAddress })
 
-  const { bidder } = useBidder(activeAuction?.highestBidder as string)
+  const { tokenId, auctionAddress } = useAuctionContext()
 
   const minBidAmount = React.useMemo(() => {
     if (
@@ -32,7 +24,6 @@ export function useActiveAuction(tokenAddress: HexString): any {
         .add(activeAuction?.highestBidPrice.chainTokenPrice.raw)
       return Number(utils.formatEther(minBidValue))
     } else {
-      /* @ts-ignore */
       return activeAuction?.reservePrice?.chainTokenPrice?.decimal as number
     }
   }, [
@@ -40,38 +31,6 @@ export function useActiveAuction(tokenAddress: HexString): any {
     activeAuction?.minBidIncrementPercentage,
     activeAuction?.reservePrice?.chainTokenPrice?.decimal,
   ])
-
-  /**
-   * Fetch all of this directly from contract
-   */
-  const auctionData = React.useMemo(() => {
-    return {
-      tokenId: activeAuction?.tokenId,
-      address: activeAuction?.address,
-      metadata: activeAuction?.metadata,
-      duration: activeAuction?.duration,
-      endTime: activeAuction?.endTime,
-      highestBidder: bidder,
-      highestBidPrice: activeAuction?.highestBidPrice?.chainTokenPrice?.decimal,
-      highestBidPriceRaw: activeAuction?.highestBidPrice?.chainTokenPrice?.raw,
-      minBidIncrement: activeAuction?.minBidIncrementPercentage,
-      minBidAmount: minBidAmount,
-      /* @ts-ignore */
-      reservePrice: activeAuction?.reservePrice?.chainTokenPrice?.raw,
-    }
-  }, [activeAuction, bidder, minBidAmount])
-
-  const [totalSupply, setTotalSupply] = React.useState<number>()
-
-  useContractRead({
-    address: tokenAddress,
-    abi: tokenAbi,
-    functionName: 'totalSupply',
-    onSuccess(data) {
-      setTotalSupply(data?.toNumber())
-    },
-    chainId: Number(process.env.NEXT_PUBLIC_CHAIN_ID),
-  })
 
   /**
    * Bid state variables
@@ -84,7 +43,7 @@ export function useActiveAuction(tokenAddress: HexString): any {
       let newValue: BigNumber
       try {
         newValue = utils.parseUnits(value, 18)
-        if (+value >= auctionData?.minBidAmount) {
+        if (+value >= minBidAmount) {
           setIsValidBid(true)
         } else {
           setIsValidBid(false)
@@ -96,21 +55,11 @@ export function useActiveAuction(tokenAddress: HexString): any {
         return
       }
     },
-    [setBidAmount, auctionData?.minBidAmount]
+    [setBidAmount, minBidAmount]
   )
 
-  const { daoAddresses } = useManagerContext()
-
-  const [tokenId, setTokenId] = React.useState<string>('0')
-
-  React.useEffect(() => {
-    if (auctionData?.tokenId) {
-      setTokenId(auctionData.tokenId)
-    }
-  }, [])
-
   const { config: createBidConfig } = usePrepareContractWrite({
-    address: daoAddresses?.auctionAddress,
+    address: auctionAddress,
     abi: auctionAbi,
     functionName: 'createBid',
     args: [BigNumber.from(tokenId)],
@@ -140,7 +89,5 @@ export function useActiveAuction(tokenAddress: HexString): any {
     createBidError,
     createBidLoading,
     createBidTx,
-    auctionData,
-    totalSupply,
   }
 }

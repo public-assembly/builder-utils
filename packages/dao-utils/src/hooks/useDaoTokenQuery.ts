@@ -31,7 +31,7 @@ export type TokenData = {
   }
 }
 
-export function useDaoToken({
+export function useDaoTokenQuery({
   tokenAddress,
   tokenId,
 }: {

@@ -1,6 +1,6 @@
 /* @ts-ignore */
 import * as React from 'react'
-import { useDaoToken } from '../../hooks/'
+import { useDaoTokenQuery } from '../../hooks/'
 
 export default function TokenTitle({
   tokenId,
@@ -15,7 +15,7 @@ export default function TokenTitle({
    */
   externalLinkBaseURI?: string
 }) {
-  const { tokenData } = useDaoToken({
+  const { tokenData } = useDaoTokenQuery({
     tokenAddress: tokenAddress,
     tokenId: tokenId,
   })
