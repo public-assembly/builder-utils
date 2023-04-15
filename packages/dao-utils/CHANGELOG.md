@@ -1,5 +1,11 @@
 # @public-assembly/dao-utils
 
+## 0.0.28
+
+### Patch Changes
+
+- Updates the logic inside the TokenExplorer component. Refactors the AuctionProvider component to return current auction state data.
+
 ## 0.0.27
 
 ### Patch Changes
