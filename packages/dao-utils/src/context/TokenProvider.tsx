@@ -12,6 +12,7 @@ export function TokenProvider({ children }: TokenProviderProps) {
   const tokenContract = {
     address: tokenAddress,
     abi: tokenAbi,
+    chainId: Number(process.env.NEXT_PUBLIC_CHAIN_ID),
   }
 
   const { data: tokenSettings } = useContractReads({

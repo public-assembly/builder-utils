@@ -1,5 +1,5 @@
 import { BigNumber } from 'ethers'
-import { HexString } from './wagmiTypes'
+import { HexString } from './hexStringType'
 
 export interface TokenProviderProps {
   children?: React.ReactNode

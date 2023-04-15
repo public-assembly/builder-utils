@@ -1,8 +1,10 @@
+// const { tokenId, highestBid, highestBidder, startTime, endTime  } = useAuctionContext()
+
 import * as React from 'react'
 import { useDaoAuctionQuery } from './useDaoAuctionQuery'
 import { BigNumber, utils } from 'ethers'
 import { useBidder } from './useBidder'
-import { HexString, AuctionData } from '../types'
+import { HexString } from '../types'
 import { tokenAbi, auctionAbi } from '../abi'
 import {
   useContractRead,
@@ -42,7 +44,7 @@ export function useActiveAuction(tokenAddress: HexString): any {
   /**
    * Fetch all of this directly from contract
    */
-  const auctionData = React.useMemo<AuctionData>(() => {
+  const auctionData = React.useMemo(() => {
     return {
       tokenId: activeAuction?.tokenId,
       address: activeAuction?.address,
@@ -68,6 +70,7 @@ export function useActiveAuction(tokenAddress: HexString): any {
     onSuccess(data) {
       setTotalSupply(data?.toNumber())
     },
+    chainId: Number(process.env.NEXT_PUBLIC_CHAIN_ID),
   })
 
   /**

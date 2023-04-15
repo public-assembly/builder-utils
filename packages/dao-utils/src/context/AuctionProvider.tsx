@@ -1,67 +1,55 @@
-import React, { useContext } from 'react'
-import { useContractRead } from 'wagmi'
+// @ts-nocheck
+import React from 'react'
+import { useContractReads } from 'wagmi'
 import { auctionAbi } from '../abi'
 import { useManagerContext } from './ManagerProvider'
-import { useActiveAuction, useDaoToken } from '../hooks'
 import { HexString, AuctionProviderProps, AuctionReturnTypes } from '../types'
 
 const AuctionContext = React.createContext({} as AuctionReturnTypes)
 
-export function AuctionProvider({ children, tokenId }: AuctionProviderProps) {
-  const { tokenAddress, daoAddresses } = useManagerContext()
+export function AuctionProvider({ children }: AuctionProviderProps) {
+  const { daoAddresses } = useManagerContext()
 
   const auctionAddress = React.useMemo(
     () => daoAddresses?.auctionAddress as HexString,
     [daoAddresses]
   )
 
-  const {
-    auctionData,
-    totalSupply,
-    createBid,
-    updateBidAmount,
-    createBidSuccess,
-    createBidLoading,
-    isValidBid,
-  } = useActiveAuction(tokenAddress as HexString)
-
-  const { tokenData } = useDaoToken({
-    tokenAddress: tokenAddress,
-    tokenId: tokenId as string,
-  })
-
-  const { data: auction } = useContractRead({
+  const auctionContract = {
     address: auctionAddress,
     abi: auctionAbi,
-    functionName: 'auction',
-  })
+    chainId: Number(process.env.NEXT_PUBLIC_CHAIN_ID),
+  }
 
-  const auctionState = React.useMemo(() => {
-    return {
-      tokenId: auction?.tokenId,
-      highestBid: auction?.highestBid,
-      highestBidder: auction?.highestBidder,
-      startTime: auction?.startTime,
-      endTime: auction?.endTime,
-      settled: auction?.settled,
-    }
-  }, [auction])
+  const { data: auction } = useContractReads({
+    contracts: [
+      {
+        ...auctionContract,
+        functionName: 'auction',
+      },
+      {
+        ...auctionContract,
+        functionName: 'minBidIncrement',
+      },
+      {
+        ...auctionContract,
+        functionName: 'reservePrice',
+      },
+    ],
+  })
 
   return (
     <AuctionContext.Provider
       value={{
-        tokenAddress,
-        tokenData,
-        tokenId,
         auctionAddress,
-        auctionData,
-        auctionState,
-        totalSupply,
-        createBid,
-        updateBidAmount,
-        createBidSuccess,
-        createBidLoading,
-        isValidBid,
+        tokenId: Number(auction?.[0][0]),
+        highestBid: auction?.[0][1],
+        highestBidder: auction?.[0][2],
+        startTime: auction?.[0][3],
+        endTime: auction?.[0][4],
+        settled: auction?.[0][5],
+        minBidIncrement: auction?.[1],
+        reservePrice: auction?.[2],
       }}>
       {children}
     </AuctionContext.Provider>
@@ -70,7 +58,7 @@ export function AuctionProvider({ children, tokenId }: AuctionProviderProps) {
 
 // Access the context value of the AuctionProvider
 export const useAuctionContext = () => {
-  const context = useContext(AuctionContext)
+  const context = React.useContext(AuctionContext)
   if (!context) {
     throw Error('useAuctionContext hook must be used within a AuctionProvider')
   }
