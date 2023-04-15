@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { etherscanLink } from '../lib'
-import { useDaoToken } from './useDaoToken'
+import { useDaoTokenQuery } from './useDaoTokenQuery'
 import { useManagerContext } from '../context'
 import { useContract } from 'wagmi'
 import { auctionAbi } from '../abi'
@@ -29,7 +29,7 @@ export const useBid = ({
     signerOrProvider: new ethers.providers.StaticJsonRpcProvider(ALCHEMY_RPC_URL),
   })
 
-  const { tokenData } = useDaoToken({
+  const { tokenData } = useDaoTokenQuery({
     tokenId: tokenId,
     tokenAddress: tokenAddress,
   })

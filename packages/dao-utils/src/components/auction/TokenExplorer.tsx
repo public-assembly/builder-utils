@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { useDaoCollectionQuery } from '../../hooks'
 import CurrentAuction from './CurrentAuction'
 import TokenRenderer from './TokenRenderer'
 import CircleArrow from './CircleArrow'
@@ -7,17 +6,8 @@ import { useAuctionContext, useTokenContext } from '../../context'
 
 export interface TokenExplorerProps extends React.HTMLProps<HTMLDivElement> {
   tokenAddress: `0x${string}`
-  /**
-   * Renderer component for current auction
-   */
   auctionRenderer?: React.ReactNode
-  /**
-   * Renderer component for dao tokens
-   */
   tokenRenderer?: (tokenId: string) => React.ReactNode
-  /**
-   * Component to handle wallet connection
-   */
   connectButton?: React.ReactNode
 }
 
@@ -59,7 +49,7 @@ export default function TokenExplorer({
       return tokenRenderer ? (
         tokenRenderer(tokenId.toString())
       ) : (
-        <TokenRenderer tokenAddress={tokenAddress} tokenId={tokenId.toString()} />
+        <TokenRenderer tokenAddress={tokenAddress} tokenId={currentTokenId.toString()} />
       )
     }
   }

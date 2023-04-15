@@ -1,6 +1,6 @@
 /* @ts-ignore */
 import * as React from 'react'
-import { useDaoToken } from '../../hooks/'
+import { useDaoTokenQuery } from '../../hooks/'
 
 export default function TokenThumbnail({
   tokenId,
@@ -11,7 +11,7 @@ export default function TokenThumbnail({
 }) {
   const [thumbnail, setThumbnail] = React.useState<undefined | string>()
 
-  const { tokenData } = useDaoToken({
+  const { tokenData } = useDaoTokenQuery({
     tokenAddress: tokenAddress,
     tokenId: tokenId,
   })

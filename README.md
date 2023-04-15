@@ -175,7 +175,7 @@ export {
   useDaoAuctionQuery,
   useDaoCollectionQuery,
   useDaoProposalQuery,
-  useDaoToken,
+  useDaoTokenQuery,
   useInterval,
   useVote,
   /**

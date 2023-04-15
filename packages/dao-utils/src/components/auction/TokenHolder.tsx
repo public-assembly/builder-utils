@@ -1,6 +1,6 @@
 /* @ts-ignore */
 import * as React from 'react'
-import { useDaoToken, useBidder } from '../../hooks'
+import { useDaoTokenQuery, useBidder } from '../../hooks'
 
 export default function TokenTitle({
   tokenId,
@@ -9,7 +9,7 @@ export default function TokenTitle({
   tokenAddress: `0x${string}`
   tokenId: string
 }) {
-  const { tokenData } = useDaoToken({
+  const { tokenData } = useDaoTokenQuery({
     tokenAddress: tokenAddress,
     tokenId: tokenId,
   })

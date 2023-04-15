@@ -1,6 +1,6 @@
 export { useCountdown } from './useCountdown'
 export { useDaoAuctionQuery } from './useDaoAuctionQuery'
-export { useDaoToken } from './useDaoToken'
+export { useDaoTokenQuery } from './useDaoTokenQuery'
 export { useInterval } from './useInterval'
 export { useBidder } from './useBidder'
 export { useBid } from './useBid'

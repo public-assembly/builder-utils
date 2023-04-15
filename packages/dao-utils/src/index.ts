@@ -33,7 +33,7 @@ import {
   useDaoAuctionQuery,
   useDaoCollectionQuery,
   useDaoProposalQuery,
-  useDaoToken,
+  useDaoTokenQuery,
   useInterval,
   useVote,
 } from './hooks'
@@ -59,7 +59,7 @@ export {
   useDaoAuctionQuery,
   useDaoCollectionQuery,
   useDaoProposalQuery,
-  useDaoToken,
+  useDaoTokenQuery,
   useInterval,
   useVote,
   /**
