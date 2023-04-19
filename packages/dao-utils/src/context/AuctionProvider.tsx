@@ -38,18 +38,21 @@ export function AuctionProvider({ children }: AuctionProviderProps) {
     ],
   })
 
+  if (!auction) return null
   return (
     <AuctionContext.Provider
       value={{
         auctionAddress,
-        tokenId: Number(auction?.[0][0]),
-        highestBid: auction?.[0][1],
-        highestBidder: auction?.[0][2],
-        startTime: auction?.[0][3],
-        endTime: auction?.[0][4],
-        settled: auction?.[0][5],
-        minBidIncrement: auction?.[1],
-        reservePrice: auction?.[2],
+        auctionState: {
+          tokenId: auction[0][0],
+          highestBid: auction[0][1],
+          highestBidder: auction[0][2],
+          startTime: auction[0][3],
+          endTime: auction[0][4],
+          settled: auction[0][5],
+          minBidIncrement: auction[1],
+          reservePrice: auction[2],
+        },
       }}>
       {children}
     </AuctionContext.Provider>
