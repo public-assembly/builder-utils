@@ -1,5 +1,11 @@
 # @public-assembly/dao-utils
 
+## 0.0.29
+
+### Patch Changes
+
+- Fixes a bug where certain provider components would return empty values.
+
 ## 0.0.28
 
 ### Patch Changes
