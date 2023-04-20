@@ -1,6 +1,5 @@
 import { RawDisplayer } from './RawDisplayer'
 import {
-  useAuctionContext,
   useManagerContext,
   useMetadataContext,
   useTokenContext,
@@ -10,9 +9,6 @@ export function PrintProviderData() {
   const { daoAddresses } = useManagerContext()
   const { metadataSettings } = useMetadataContext()
   const { tokenSettings } = useTokenContext()
-  const { auctionState } = useAuctionContext()
-
-  console.log(auctionState.tokenId.toString())
 
   return (
     <>

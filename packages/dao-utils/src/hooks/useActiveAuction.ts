@@ -9,7 +9,7 @@ import { useAuctionContext } from '../context'
 export function useActiveAuction(tokenAddress: HexString): any {
   const { activeAuction } = useDaoAuctionQuery({ tokenAddress: tokenAddress })
 
-  const { tokenId, auctionAddress } = useAuctionContext()
+  const { auctionState, auctionAddress } = useAuctionContext()
 
   const minBidAmount = React.useMemo(() => {
     if (
@@ -62,7 +62,7 @@ export function useActiveAuction(tokenAddress: HexString): any {
     address: auctionAddress,
     abi: auctionAbi,
     functionName: 'createBid',
-    args: [BigNumber.from(tokenId)],
+    args: [BigNumber.from(auctionState.tokenId)],
     overrides: { value: BigNumber.from(bidAmount) },
     enabled: isValidBid,
   })
