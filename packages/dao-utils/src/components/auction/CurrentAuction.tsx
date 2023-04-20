@@ -30,6 +30,11 @@ export default function CurrentAuction({
 
   const { nftCount } = useDaoCollectionQuery({ tokenAddress: tokenAddress })
 
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    createBid?.()
+  }
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 max-w-[1440px]" {...props}>
       <TokenThumbnail tokenId={tokenId} tokenAddress={tokenAddress} />
@@ -50,12 +55,13 @@ export default function CurrentAuction({
           <span>Bidder: {bidder.bidder}</span>
         </div>
         <div>
-          <form onSubmit={() => createBid?.()} className="flex flex-row gap-4">
+          <form onSubmit={handleSubmit} className="flex flex-row gap-4">
             <input
               className="form-input px-[10px] py-[5px]"
               type="text"
               pattern="[0-9.]*"
               placeholder={`${minBidAmount} ETH`}
+              disabled={createBidLoading}
               onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                 updateBidAmount(event.target.value)
               }
