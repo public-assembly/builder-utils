@@ -7,13 +7,14 @@ export interface AuctionProviderProps {
 
 export interface AuctionReturnTypes {
   auctionAddress?: HexString
-  // tokenId?: BigNumber
-  tokenId: number
-  highestBid: BigNumber
-  highestBidder?: HexString
-  startTime?: number
-  endTime?: number
-  settled?: boolean
-  minBidIncrement?: BigNumber
-  reservePrice?: BigNumber
+  auctionState: {
+    tokenId: BigNumber
+    highestBid: BigNumber
+    highestBidder: HexString
+    startTime: number
+    endTime: number
+    settled: boolean
+    minBidIncrement: BigNumber
+    reservePrice: BigNumber
+  }
 }

@@ -18,25 +18,27 @@ export default function TokenExplorer({
   connectButton,
   ...props
 }: TokenExplorerProps) {
-  const { tokenId } = useAuctionContext()
+  const { auctionState } = useAuctionContext()
+
+  const tokenId = auctionState.tokenId.toNumber()
 
   const { tokenSettings } = useTokenContext()
 
   const totalSupply = tokenSettings?.[2].toNumber()
 
-  const [currentTokenId, setCurrentTokenId] = React.useState(tokenId)
+  const [currentTokenId, setCurrentTokenId] = React.useState<number>(tokenId)
 
   const incrementId = React.useCallback(() => {
     if (currentTokenId < tokenId) {
       setCurrentTokenId(currentTokenId + 1)
     }
-  }, [tokenId, currentTokenId])
+  }, [auctionState, currentTokenId])
 
   const decrementId = React.useCallback(() => {
     if (currentTokenId > 0) {
       setCurrentTokenId(currentTokenId - 1)
     }
-  }, [tokenId, currentTokenId])
+  }, [auctionState, currentTokenId])
 
   const renderContent = () => {
     if (totalSupply && tokenId === totalSupply - 1) {
@@ -56,7 +58,7 @@ export default function TokenExplorer({
 
   return (
     <div {...props} className="flex flex-col gap-2">
-      {tokenId ? (
+      {auctionState.tokenId ? (
         <>
           {renderContent()}
           <div className="flex flex-row gap-1">

@@ -32,6 +32,7 @@ export function TokenProvider({ children }: TokenProviderProps) {
     ],
   })
 
+  if (!tokenSettings) return null
   return (
     <TokenContext.Provider
       value={{

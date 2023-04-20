@@ -21,6 +21,7 @@ export function MetadataProvider({ children }: MetadataProviderProps) {
     chainId: Number(process.env.NEXT_PUBLIC_CHAIN_ID),
   })
 
+  if (!metadataSettings) return null
   return (
     <MetadataContext.Provider
       value={{
