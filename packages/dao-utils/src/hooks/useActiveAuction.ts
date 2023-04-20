@@ -32,9 +32,6 @@ export function useActiveAuction(tokenAddress: HexString): any {
     activeAuction?.reservePrice?.chainTokenPrice?.decimal,
   ])
 
-  /**
-   * Bid state variables
-   */
   const [bidAmount, setBidAmount] = React.useState('0')
   const [isValidBid, setIsValidBid] = React.useState(false)
 
@@ -82,6 +79,7 @@ export function useActiveAuction(tokenAddress: HexString): any {
   })
 
   return {
+    minBidAmount,
     updateBidAmount,
     createBid,
     isValidBid,
@@ -89,5 +87,7 @@ export function useActiveAuction(tokenAddress: HexString): any {
     createBidError,
     createBidLoading,
     createBidTx,
+    auctionState,
+    auctionAddress,
   }
 }

@@ -5,12 +5,10 @@ import { DAO_TOKEN_QUERY } from '../data/daoTokenQuery'
 import { zoraApiFetcher } from '../lib/zoraApiFetcher'
 import { NounishTokensQuery, NounishTokensQueryVariables } from '../types'
 import { CHAIN } from '../constants/chain'
+import { HexString } from '../types'
 
 export type TokenData = {
   lastRefreshTime: string
-  /**
-   * ETH Wallet address of token holder
-   */
   owner: string
   /**
    * Token Metadata Object
@@ -35,7 +33,7 @@ export function useDaoTokenQuery({
   tokenAddress,
   tokenId,
 }: {
-  tokenAddress: `0x${string}`
+  tokenAddress: HexString
   tokenId: string
 }) {
   const { data: tokenData, error } = useSWR<NounishTokensQuery>(
@@ -45,10 +43,7 @@ export function useDaoTokenQuery({
         tokenAddress,
         tokenId,
         chain: CHAIN,
-      } as NounishTokensQueryVariables),
-    {
-      refreshInterval: 5000,
-    }
+      } as NounishTokensQueryVariables)
   )
 
   return {

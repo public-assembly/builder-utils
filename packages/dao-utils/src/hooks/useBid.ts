@@ -34,7 +34,7 @@ export const useBid = ({
     tokenAddress: tokenAddress,
   })
 
-  const [winningBid, setWinningBid] = React.useState<string | undefined>('N/A')
+  const [winningBid, setWinningBid] = React.useState<string | undefined>()
   const [winningTx, setWinningTx] = React.useState<string | undefined>()
   const [address, setAddress] = React.useState<string | undefined>()
   const [tokenEvents, setTokenEvents] = React.useState<AuctionEvent[]>()

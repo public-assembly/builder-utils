@@ -17,7 +17,6 @@ export default function TokenTitle({
   const { bidder: holder } = useBidder(tokenData?.owner)
 
   if (!tokenData) return null
-
   return (
     <a
       href={`https://etherscan.io/address/${tokenData?.owner}`}

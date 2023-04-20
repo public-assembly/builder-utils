@@ -10,8 +10,6 @@ export {
   TokenWinningBid,
 } from './components/auction'
 
-export { AuthCheck, Avatar } from './components/authentication'
-
 export {
   ProposalCard,
   ProposalCardGrid,
@@ -27,14 +25,16 @@ export {
 
 import {
   useActiveAuction,
-  useBidder,
   useBid,
+  useBidder,
   useCountdown,
   useDaoAuctionQuery,
   useDaoCollectionQuery,
   useDaoProposalQuery,
   useDaoTokenQuery,
   useInterval,
+  useTokenExplorer,
+  useTokenMetadata,
   useVote,
 } from './hooks'
 
@@ -53,14 +53,16 @@ export {
    * Hooks
    */
   useActiveAuction,
-  useBidder,
   useBid,
+  useBidder,
   useCountdown,
   useDaoAuctionQuery,
   useDaoCollectionQuery,
   useDaoProposalQuery,
   useDaoTokenQuery,
   useInterval,
+  useTokenExplorer,
+  useTokenMetadata,
   useVote,
   /**
    * Utility Functions

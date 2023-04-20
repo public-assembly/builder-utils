@@ -138,10 +138,6 @@ Create what's missing.
 ```js
 export {
   /**
-   * Authentication Components
-   */
-  AuthCheck,
-  /**
    * Auction Components
    */
   AuctionCountdown,
@@ -177,6 +173,8 @@ export {
   useDaoProposalQuery,
   useDaoTokenQuery,
   useInterval,
+  useTokenExplorer,
+  useTokenMetadata,
   useVote,
   /**
    * Utility Functions
