@@ -45,10 +45,7 @@ export function useDaoTokenQuery({
         tokenAddress,
         tokenId,
         chain: CHAIN,
-      } as NounishTokensQueryVariables),
-    {
-      refreshInterval: 5000,
-    }
+      } as NounishTokensQueryVariables)
   )
 
   return {
