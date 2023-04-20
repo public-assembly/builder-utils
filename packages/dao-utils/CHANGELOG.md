@@ -1,5 +1,11 @@
 # @public-assembly/dao-utils
 
+## 0.0.31
+
+### Patch Changes
+
+- Adds two new hooks, useTokenExplorer and useTokenMetadata. Refactors the CurrentAuction component to prevent a refresh when placing a bid.
+
 ## 0.0.30
 
 ### Patch Changes
