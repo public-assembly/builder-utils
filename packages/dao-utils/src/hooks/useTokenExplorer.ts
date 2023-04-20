@@ -20,11 +20,16 @@ export function useTokenExplorer() {
     }
   }, [tokenId, currentTokenId])
 
+  const isFirstToken = currentTokenId === 0
+  const isLastToken = tokenId === currentTokenId
+
   return {
     auctionState,
     tokenId,
     currentTokenId,
     incrementId,
     decrementId,
+    isFirstToken,
+    isLastToken,
   }
 }

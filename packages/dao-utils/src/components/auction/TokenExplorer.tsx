@@ -16,7 +16,7 @@ export default function TokenExplorer({
   connectButton,
   ...props
 }: TokenExplorerProps) {
-  const { auctionState, tokenId, currentTokenId, incrementId, decrementId } =
+  const { tokenId, currentTokenId, incrementId, decrementId, isLastToken } =
     useTokenExplorer()
 
   const { tokenSettings } = useTokenContext()
@@ -24,8 +24,8 @@ export default function TokenExplorer({
   const totalSupply = tokenSettings?.[2].toNumber()
 
   const renderContent = () => {
-    if (totalSupply && tokenId === totalSupply - 1) {
-      return <CurrentAuction tokenAddress={tokenAddress} connectButton={connectButton} />
+    if (isLastToken) {
+      return <CurrentAuction tokenAddress={tokenAddress} tokenId={tokenId.toString()} />
     } else {
       return (
         <TokenRenderer tokenAddress={tokenAddress} tokenId={currentTokenId.toString()} />
@@ -35,29 +35,21 @@ export default function TokenExplorer({
 
   return (
     <div {...props} className="flex flex-col gap-2">
-      {auctionState.tokenId ? (
-        <>
-          {renderContent()}
-          <div className="flex flex-row gap-1">
-            <button
-              onClick={decrementId}
-              className={`${tokenId === 0 && 'pointer-events-none opacity-20'}`}>
-              <CircleArrow direction="backward" />
-            </button>
-            <button
-              onClick={incrementId}
-              className={`${
-                totalSupply &&
-                tokenId === totalSupply - 1 &&
-                'pointer-events-none opacity-20'
-              }`}>
-              <CircleArrow />
-            </button>
-          </div>
-        </>
-      ) : (
-        <p className="animate-pulse">Loading...</p>
-      )}
+      {renderContent()}
+      <div className="flex flex-row gap-1">
+        <button
+          onClick={decrementId}
+          className={`${tokenId === 0 && 'pointer-events-none opacity-20'}`}>
+          <CircleArrow direction="backward" />
+        </button>
+        <button
+          onClick={incrementId}
+          className={`${
+            totalSupply && tokenId === totalSupply - 1 && 'pointer-events-none opacity-20'
+          }`}>
+          <CircleArrow />
+        </button>
+      </div>
     </div>
   )
 }

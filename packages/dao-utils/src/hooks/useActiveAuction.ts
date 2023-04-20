@@ -82,6 +82,7 @@ export function useActiveAuction(tokenAddress: HexString): any {
   })
 
   return {
+    minBidAmount,
     updateBidAmount,
     createBid,
     isValidBid,
@@ -89,5 +90,7 @@ export function useActiveAuction(tokenAddress: HexString): any {
     createBidError,
     createBidLoading,
     createBidTx,
+    auctionState,
+    auctionAddress,
   }
 }

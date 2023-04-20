@@ -10,8 +10,6 @@ export {
   TokenWinningBid,
 } from './components/auction'
 
-export { AuthCheck, Avatar } from './components/authentication'
-
 export {
   ProposalCard,
   ProposalCardGrid,
@@ -36,6 +34,7 @@ import {
   useDaoTokenQuery,
   useInterval,
   useTokenExplorer,
+  useTokenMetadata,
   useVote,
 } from './hooks'
 
@@ -63,6 +62,7 @@ export {
   useDaoTokenQuery,
   useInterval,
   useTokenExplorer,
+  useTokenMetadata,
   useVote,
   /**
    * Utility Functions
