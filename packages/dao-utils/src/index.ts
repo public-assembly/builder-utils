@@ -27,14 +27,15 @@ export {
 
 import {
   useActiveAuction,
-  useBidder,
   useBid,
+  useBidder,
   useCountdown,
   useDaoAuctionQuery,
   useDaoCollectionQuery,
   useDaoProposalQuery,
   useDaoTokenQuery,
   useInterval,
+  useTokenExplorer,
   useVote,
 } from './hooks'
 
@@ -53,14 +54,15 @@ export {
    * Hooks
    */
   useActiveAuction,
-  useBidder,
   useBid,
+  useBidder,
   useCountdown,
   useDaoAuctionQuery,
   useDaoCollectionQuery,
   useDaoProposalQuery,
   useDaoTokenQuery,
   useInterval,
+  useTokenExplorer,
   useVote,
   /**
    * Utility Functions

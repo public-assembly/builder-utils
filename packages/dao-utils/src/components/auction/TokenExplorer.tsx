@@ -2,55 +2,32 @@ import * as React from 'react'
 import CurrentAuction from './CurrentAuction'
 import TokenRenderer from './TokenRenderer'
 import CircleArrow from './CircleArrow'
-import { useAuctionContext, useTokenContext } from '../../context'
+import { useTokenContext } from '../../context'
+import { HexString } from '../../types'
+import { useTokenExplorer } from '../../hooks'
 
 export interface TokenExplorerProps extends React.HTMLProps<HTMLDivElement> {
-  tokenAddress: `0x${string}`
-  auctionRenderer?: React.ReactNode
-  tokenRenderer?: (tokenId: string) => React.ReactNode
+  tokenAddress: HexString
   connectButton?: React.ReactNode
 }
 
 export default function TokenExplorer({
   tokenAddress,
-  auctionRenderer,
-  tokenRenderer,
   connectButton,
   ...props
 }: TokenExplorerProps) {
-  const { auctionState } = useAuctionContext()
-
-  const tokenId = auctionState.tokenId.toNumber()
+  const { auctionState, tokenId, currentTokenId, incrementId, decrementId } =
+    useTokenExplorer()
 
   const { tokenSettings } = useTokenContext()
 
   const totalSupply = tokenSettings?.[2].toNumber()
 
-  const [currentTokenId, setCurrentTokenId] = React.useState<number>(tokenId)
-
-  const incrementId = React.useCallback(() => {
-    if (currentTokenId < tokenId) {
-      setCurrentTokenId(currentTokenId + 1)
-    }
-  }, [auctionState, currentTokenId])
-
-  const decrementId = React.useCallback(() => {
-    if (currentTokenId > 0) {
-      setCurrentTokenId(currentTokenId - 1)
-    }
-  }, [auctionState, currentTokenId])
-
   const renderContent = () => {
     if (totalSupply && tokenId === totalSupply - 1) {
-      return (
-        auctionRenderer || (
-          <CurrentAuction tokenAddress={tokenAddress} connectButton={connectButton} />
-        )
-      )
+      return <CurrentAuction tokenAddress={tokenAddress} connectButton={connectButton} />
     } else {
-      return tokenRenderer ? (
-        tokenRenderer(currentTokenId.toString())
-      ) : (
+      return (
         <TokenRenderer tokenAddress={tokenAddress} tokenId={currentTokenId.toString()} />
       )
     }
