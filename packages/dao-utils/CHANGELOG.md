@@ -1,5 +1,11 @@
 # @public-assembly/dao-utils
 
+## 0.0.30
+
+### Patch Changes
+
+- Fixes a bug where a value from useAuctionContext was being returned that no longer exists in the hook.
+
 ## 0.0.29
 
 ### Patch Changes
