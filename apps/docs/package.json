@@ -1,0 +1,23 @@
+{
+  "name": "builder-utils-documentation",
+  "version": "1.0.0",
+  "description": "Understanding the hooks and utilities that comprise builder utils",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/public-assembly/builder-utils.git"
+  },
+  "author": "@pblcasmbly @salieflewis",
+  "license": "MIT",
+  "dependencies": {
+    "next": "^12.3.0",
+    "nextra": "^2.5.0",
+    "nextra-theme-docs": "^2.5.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}
