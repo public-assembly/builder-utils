@@ -1,8 +1,9 @@
 {
+  "index": {
+    "display": "hidden"
+  },
   "getting_started": "Getting Started",
   "hooks": "Hooks",
   "providers": "Providers",
-  "index": {
-    "display": "hidden"
-  }
+  "tutorials": "Tutorials"
 }
