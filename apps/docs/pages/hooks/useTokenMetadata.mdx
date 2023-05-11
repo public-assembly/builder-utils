@@ -1,0 +1,26 @@
+## useTokenMetadata
+
+Hook for accessing the name and thumbnail of a token given its id.
+
+```jsx
+import { useTokenMetadata } from '@public-assembly/builder-utils'
+```
+
+## Usage
+
+```jsx
+import { useTokenMetadata } from '@public-assembly/builder-utils'
+
+function App({ tokenId }: { tokenId: string }) {
+  const { tokenName, tokenThumbnail } = useTokenMetadata({ tokenId })
+
+  return <></>
+}
+```
+
+## Returns
+
+```jsx
+tokenName?: string
+tokenThumbnail?: string
+```

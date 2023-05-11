@@ -1,0 +1,92 @@
+import { Tab, Tabs, Callout } from 'nextra-theme-docs'
+
+<Callout>
+  This tutorial is being written before dao-utils officially becomes builder-utils on npm.
+</Callout>
+
+# Building a Custom Auction Component
+
+This tutorial will walk you through building a custom auction component for your DAO using the builder-utils package. This is a React specific tutorial that leverages Next.js.
+
+### Create project and install dependencies
+
+Begin by setting up a basic Next.js app configured with [wagmi](https://wagmi.sh/). You can do this by leveraging the `create-wagmi` CLI. This tutorial uses the template automatically configured with [Next.js](https://nextjs.org/) and [ConnectKit](https://docs.family.co/connectkit).
+
+<Tabs items={['pnpm', 'npm', 'yarn']}>
+  <Tab>``` pnpm create wagmi --template next-connectkit ```</Tab>
+  <Tab>``` npm init wagmi --template next-connectkit ```</Tab>
+  <Tab>``` yarn create wagmi --template next-connectkit ```</Tab>
+</Tabs>
+
+Next install the builder utils package and its peer dependencies.
+
+<Tabs items={['pnpm', 'npm', 'yarn']}>
+  <Tab>``` pnpm add @public-assembly/builder-utils ```</Tab>
+  <Tab>``` npm i add @public-assembly/builder-utils ```</Tab>
+  <Tab>``` yarn add @public-assembly/dao-utils ```</Tab>
+</Tabs>
+
+```json
+ "peerDependencies": {
+    "date-fns": "^2.29.3",
+    "graphql": "^16.6.0",
+    "graphql-request": "^5.0.0",
+    "graphql-tag": "^2.12.6",
+    "swr": "^1.3.0",
+  },
+```
+
+The package's remaining peer dependencies should already be installed.
+
+### Ensure wallet connection is working
+
+### Configure the provider components
+
+Builder utils provides a collection of provider components used to dynamically pass data about your DAO throughout an application. You can configure these provider components by first navigating to your `_app.tsx` file and then wrapping your components with the `ManagerProvider` component.
+
+Because this component utilizes wagmi hooks, you'll need to ensure this component is being loaded client side. Below is a solution to this using [next/dynamic](https://nextjs.org/docs/advanced-features/dynamic-import) from Next.js.
+
+```jsx
+import dynamic from 'next/dynamic'
+
+const DynamicManagerProvider = dynamic(
+  () => import('@public-assembly/dao-utils').then((module) => module.ManagerProvider),
+  {
+    ssr: false,
+  }
+)
+
+function App() {
+  return (
+    <DynamicManagerProvider tokenAddress={tokenAddress}>
+      <YourRoutes />
+    </DynamicManagerProvider>
+  )
+}
+```
+
+In order to retrieve data about the current status of our auction, we'll need to wrap our React app in the `AuctionProvider` component. This component uses a combination of on and offchain data to provide context of the current auction anywhere within our app.
+
+```jsx
+// next/dynamic configuration
+
+function App() {
+  return (
+    <DynamicManagerProvider tokenAddress={tokenAddress}>
+      <AuctionProvider>
+        <YourRoutes />
+      <AuctionProvider>
+    </DynamicManagerProvider>
+  )
+}
+```
+
+### Implement an artwork component
+
+Create a new directory called `components` and within it create a React component called `Artwork.tsx`. This component will be responsible for rendering the daily artwork of your DAO.
+
+This component leverages the `useTokenMetadata` hook.
+
+```
+
+```
