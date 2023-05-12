@@ -1,6 +1,7 @@
 {
   "name": "builder-utils-documentation",
   "version": "1.0.0",
+  "private": true,
   "description": "Understanding the hooks and utilities that comprise builder utils",
   "scripts": {
     "dev": "next dev",
