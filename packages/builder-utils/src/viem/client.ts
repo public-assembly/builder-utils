@@ -1,3 +1,4 @@
+import * as React from 'react'
 import { createPublicClient, http, Transport } from 'viem'
 import { CHAIN } from './viemChain'
 
