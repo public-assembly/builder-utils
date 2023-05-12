@@ -2,9 +2,7 @@ import * as React from 'react'
 import { etherscanLink } from '../lib'
 import { useDaoTokenQuery } from './useDaoTokenQuery'
 import { useAuctionContext } from '../context'
-import { getContract } from 'wagmi/actions'
 import { Hex, Hash, parseAbiItem } from 'viem'
-import { auctionAbi } from '../abi'
 import { mainnetClient, goerliClient } from '../viem/client'
 
 export type AuctionEvent = {

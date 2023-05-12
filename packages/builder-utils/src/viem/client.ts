@@ -1,7 +1,8 @@
 import { createPublicClient, http } from 'viem'
 import { mainnet, goerli } from 'viem/chains'
+import type { PublicClient } from 'viem'
 
-export const mainnetClient = createPublicClient({
+export const mainnetClient: PublicClient = createPublicClient({
   batch: {
     multicall: true,
   },
@@ -11,7 +12,7 @@ export const mainnetClient = createPublicClient({
   ),
 })
 
-export const goerliClient = createPublicClient({
+export const goerliClient: PublicClient = createPublicClient({
   batch: {
     multicall: true,
   },
