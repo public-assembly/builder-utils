@@ -1,7 +1,5 @@
 /** @type {import('next').NextConfig} */
 
-const withTM = require('next-transpile-modules')(['@public-assembly/builder-utils'])
-
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
@@ -19,6 +17,7 @@ const nextConfig = {
     return config
   },
   pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
+  transpilePackages: ['@public-assembly/builder-utils'],
 }
 
-module.exports = withTM(nextConfig)
+module.exports = nextConfig
