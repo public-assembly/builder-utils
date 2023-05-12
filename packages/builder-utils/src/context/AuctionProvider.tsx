@@ -1,8 +1,9 @@
 import React from 'react'
 import { useContractReads } from 'wagmi'
+import { Hex } from 'viem'
 import { auctionAbi } from '../abi'
 import { useManagerContext } from './ManagerProvider'
-import { Hex, AuctionProviderProps, AuctionReturnTypes } from '../types'
+import { AuctionProviderProps, AuctionReturnTypes } from '../types'
 
 const AuctionContext = React.createContext({} as AuctionReturnTypes)
 
