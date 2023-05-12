@@ -1,16 +1,16 @@
 {
-  "name": "@public-assembly/dao-utils",
+  "name": "@public-assembly/builder-utils",
   "version": "0.0.31",
   "description": "React componentry and hooks to interact with the ourzora/nouns-protocol smart contracts.",
-  "main": "dist/public-assembly-dao-utils.cjs.js",
-  "module": "dist/public-assembly-dao-utils.esm.js",
+  "main": "dist/public-assembly-builder-utils.cjs.js",
+  "module": "dist/public-assembly-builder-utils.esm.js",
   "author": "Public Assembly",
   "license": "MIT",
   "private": false,
   "repository": {
     "type": "git",
-    "url": "https://github.com/public-assembly/dao-utils",
-    "directory": "packages/dao-utils"
+    "url": "https://github.com/public-assembly/builder-utils",
+    "directory": "packages/builder-utils"
   },
   "files": [
     "dist/**"

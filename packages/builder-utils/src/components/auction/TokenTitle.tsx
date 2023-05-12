@@ -1,6 +1,6 @@
 /* @ts-ignore */
 import * as React from 'react'
-import { useDaoTokenQuery } from '../../hooks/'
+import { useDaoTokenQuery } from '../../hooks'
 
 export default function TokenTitle({
   tokenId,
