@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 
-const withTM = require('next-transpile-modules')(['@public-assembly/dao-utils'])
+const withTM = require('next-transpile-modules')(['@public-assembly/builder-utils'])
 
 const nextConfig = {
   reactStrictMode: true,
@@ -19,9 +19,6 @@ const nextConfig = {
     return config
   },
   pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
-  experimental: {
-    esmExternals: 'loose',
-  },
 }
 
 module.exports = withTM(nextConfig)

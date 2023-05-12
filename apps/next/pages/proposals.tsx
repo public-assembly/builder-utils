@@ -1,5 +1,5 @@
 import { Seo } from '@/components/Seo'
-import { GovernorProvider, ProposalPageGrid } from '@public-assembly/dao-utils'
+import { GovernorProvider, ProposalPageGrid } from '@public-assembly/builder-utils'
 
 function Proposals() {
   return (

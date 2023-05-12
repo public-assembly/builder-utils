@@ -3,7 +3,7 @@ import {
   useManagerContext,
   useMetadataContext,
   useTokenContext,
-} from '@public-assembly/dao-utils'
+} from '@public-assembly/builder-utils'
 
 export function PrintProviderData() {
   const { daoAddresses } = useManagerContext()

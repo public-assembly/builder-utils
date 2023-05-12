@@ -2,24 +2,24 @@ import {
   useAccount,
   useDisconnect,
   useNetwork,
-  useProvider,
-  useSigner,
+  usePublicClient,
+  useWalletClient,
   useBalance,
   useEnsName,
   useEnsAvatar,
 } from 'wagmi'
-import { shortenAddress } from '../utils/shortenAddress'
+import { shortenAddress } from '@public-assembly/builder-utils'
 
 export function useAuth() {
-  const provider = useProvider()
+  const provider = usePublicClient()
 
-  const { data: signer } = useSigner()
+  const { data: signer } = useWalletClient()
   const { address, isConnecting } = useAccount()
   const { data: ensName } = useEnsName({
     address: address,
   })
   const { data: ensAvatar } = useEnsAvatar({
-    address: address,
+    name: address,
   })
   const { disconnect } = useDisconnect()
   const { chain } = useNetwork()

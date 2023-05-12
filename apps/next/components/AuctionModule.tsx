@@ -1,5 +1,5 @@
 import React from 'react'
-import { TokenExplorer } from '@public-assembly/dao-utils'
+import { TokenExplorer } from '@public-assembly/builder-utils'
 import Connect from './Connect'
 
 export default function AuctionModule({

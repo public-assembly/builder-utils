@@ -1,5 +1,5 @@
 import { Seo } from '@/components/Seo'
-import { MetadataProvider, TokenProvider } from '@public-assembly/dao-utils'
+import { MetadataProvider, TokenProvider } from '@public-assembly/builder-utils'
 import { PrintProviderData } from '../components'
 
 function Providers() {
