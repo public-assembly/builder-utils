@@ -9,6 +9,10 @@ jobs:
   build:
     name: Release
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [19]
+        pnpm-version: [8]
     steps:
       - name: Check out code
         uses: actions/checkout@v3
@@ -17,13 +21,13 @@ jobs:
 
       - uses: pnpm/action-setup@v2.0.1
         with:
-          version: 6.32.2
+          version: ${{ matrix.pnpm-version }}
 
-      - name: Setup Node.js environment
+      - name: Setup Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
-          node-version: 16
           cache: 'pnpm'
+          version: ${{ matrix.pnpm-version }}
 
       - name: Install dependencies
         run: pnpm install
@@ -33,7 +37,7 @@ jobs:
 
       - name: Create Release Pull Request or Publish to npm
         id: changesets
-        uses: changesets/action@v1
+        uses: changesets/action@v1.4.1
         with:
           publish: pnpm release
         env:
