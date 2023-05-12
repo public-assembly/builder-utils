@@ -8,5 +8,3 @@ export * from './governorContractTypes'
 export * from './managerContractTypes'
 export * from './metadataContractTypes'
 export * from './tokenContractTypes'
-// Misc
-export * from './misc'

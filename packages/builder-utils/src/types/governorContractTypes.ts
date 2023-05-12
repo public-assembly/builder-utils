@@ -1,5 +1,5 @@
 import { NounsProposal } from '.'
-import { Hex } from './misc'
+import { Hex } from 'viem'
 
 export interface GovernorProviderProps {
   children?: React.ReactNode

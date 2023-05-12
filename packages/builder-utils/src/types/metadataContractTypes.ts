@@ -1,4 +1,4 @@
-import { Hex } from './misc'
+import { Hex } from 'viem'
 
 export interface MetadataProviderProps {
   children?: React.ReactNode

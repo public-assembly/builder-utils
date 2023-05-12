@@ -1,8 +1,7 @@
 import * as React from 'react'
 import { useDaoAuctionQuery } from './useDaoAuctionQuery'
-import { Hex } from '../types'
 import { auctionAbi } from '../abi'
-import { formatEther, parseUnits } from 'viem'
+import { formatEther, parseUnits, Hex } from 'viem'
 import { useContractWrite, usePrepareContractWrite, useWaitForTransaction } from 'wagmi'
 import { useAuctionContext } from '../context'
 

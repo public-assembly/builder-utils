@@ -1,4 +1,4 @@
-import { Hex } from './misc'
+import { Hex } from 'viem'
 import { PropsWithChildren } from 'react'
 
 export type ManagerProviderProps = PropsWithChildren<{
