@@ -1,20 +1,19 @@
-import { BigNumber } from 'ethers'
-import { HexString } from './hexStringType'
+import { Hex } from './misc'
 
 export interface AuctionProviderProps {
   children: React.ReactNode
 }
 
 export interface AuctionReturnTypes {
-  auctionAddress?: HexString
+  auctionAddress?: Hex
   auctionState: {
-    tokenId: BigNumber
-    highestBid: BigNumber
-    highestBidder: HexString
+    tokenId: bigint
+    highestBid: bigint
+    highestBidder: Hex
     startTime: number
     endTime: number
     settled: boolean
-    minBidIncrement: BigNumber
-    reservePrice: BigNumber
+    minBidIncrement: bigint
+    reservePrice: bigint
   }
 }

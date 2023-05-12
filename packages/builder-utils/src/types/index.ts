@@ -9,4 +9,4 @@ export * from './managerContractTypes'
 export * from './metadataContractTypes'
 export * from './tokenContractTypes'
 // Misc
-export * from './hexStringType'
+export * from './misc'

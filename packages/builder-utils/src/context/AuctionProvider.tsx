@@ -1,9 +1,8 @@
-// @ts-nocheck
 import React from 'react'
 import { useContractReads } from 'wagmi'
 import { auctionAbi } from '../abi'
 import { useManagerContext } from './ManagerProvider'
-import { HexString, AuctionProviderProps, AuctionReturnTypes } from '../types'
+import { Hex, AuctionProviderProps, AuctionReturnTypes } from '../types'
 
 const AuctionContext = React.createContext({} as AuctionReturnTypes)
 
@@ -11,7 +10,7 @@ export function AuctionProvider({ children }: AuctionProviderProps) {
   const { daoAddresses } = useManagerContext()
 
   const auctionAddress = React.useMemo(
-    () => daoAddresses?.auctionAddress as HexString,
+    () => daoAddresses?.auctionAddress as Hex,
     [daoAddresses]
   )
 
@@ -21,7 +20,7 @@ export function AuctionProvider({ children }: AuctionProviderProps) {
     chainId: Number(process.env.NEXT_PUBLIC_CHAIN_ID),
   }
 
-  const { data: auction } = useContractReads({
+  const { data: auctionState } = useContractReads({
     contracts: [
       {
         ...auctionContract,
@@ -38,20 +37,28 @@ export function AuctionProvider({ children }: AuctionProviderProps) {
     ],
   })
 
-  if (!auction) return null
+  if (!auctionState) return null
   return (
     <AuctionContext.Provider
       value={{
         auctionAddress,
         auctionState: {
-          tokenId: auction[0][0],
-          highestBid: auction[0][1],
-          highestBidder: auction[0][2],
-          startTime: auction[0][3],
-          endTime: auction[0][4],
-          settled: auction[0][5],
-          minBidIncrement: auction[1],
-          reservePrice: auction[2],
+          // @ts-ignore
+          tokenId: auctionState[0][0],
+          // @ts-ignore
+          highestBid: auctionState[0][1],
+          // @ts-ignore
+          highestBidder: auctionState[0][2],
+          // @ts-ignore
+          startTime: auctionState[0][3],
+          // @ts-ignore
+          endTime: auctionState[0][4],
+          // @ts-ignore
+          settled: auctionState[0][5],
+          // @ts-ignore
+          minBidIncrement: auctionState[1],
+          // @ts-ignore
+          reservePrice: auctionState[2],
         },
       }}>
       {children}

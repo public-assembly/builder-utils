@@ -1,12 +1,12 @@
 import * as React from 'react'
 import { useDaoAuctionQuery } from './useDaoAuctionQuery'
-import { BigNumber, utils } from 'ethers'
-import { HexString } from '../types'
+import { Hex } from '../types'
 import { auctionAbi } from '../abi'
+import { formatEther, parseUnits } from 'viem'
 import { useContractWrite, usePrepareContractWrite, useWaitForTransaction } from 'wagmi'
 import { useAuctionContext } from '../context'
 
-export function useActiveAuction(tokenAddress: HexString): any {
+export function useActiveAuction(tokenAddress: Hex): any {
   const { activeAuction } = useDaoAuctionQuery({ tokenAddress: tokenAddress })
 
   const { auctionState, auctionAddress } = useAuctionContext()
@@ -16,13 +16,12 @@ export function useActiveAuction(tokenAddress: HexString): any {
       activeAuction?.highestBidPrice?.chainTokenPrice?.decimal &&
       activeAuction?.minBidIncrementPercentage
     ) {
-      const minBidValue = BigNumber.from(
+      const minBidValue =
+        ((Number(activeAuction?.highestBidPrice.chainTokenPrice.raw) *
+          activeAuction?.minBidIncrementPercentage) %
+          100) +
         activeAuction?.highestBidPrice.chainTokenPrice.raw
-      )
-        .mul(activeAuction?.minBidIncrementPercentage)
-        .div(100)
-        .add(activeAuction?.highestBidPrice.chainTokenPrice.raw)
-      return Number(utils.formatEther(minBidValue))
+      return Number(formatEther(BigInt(minBidValue)))
     } else {
       return activeAuction?.reservePrice?.chainTokenPrice?.decimal as number
     }
@@ -37,9 +36,9 @@ export function useActiveAuction(tokenAddress: HexString): any {
 
   const updateBidAmount = React.useCallback(
     (value: string) => {
-      let newValue: BigNumber
+      let newValue: BigInt
       try {
-        newValue = utils.parseUnits(value, 18)
+        newValue = parseUnits(`${Number(value)}`, 18)
         if (+value >= minBidAmount) {
           setIsValidBid(true)
         } else {
@@ -59,8 +58,8 @@ export function useActiveAuction(tokenAddress: HexString): any {
     address: auctionAddress,
     abi: auctionAbi,
     functionName: 'createBid',
-    args: [BigNumber.from(auctionState.tokenId)],
-    overrides: { value: BigNumber.from(bidAmount) },
+    args: [BigInt(auctionState.tokenId)],
+    value: BigInt(bidAmount),
     enabled: isValidBid,
   })
 

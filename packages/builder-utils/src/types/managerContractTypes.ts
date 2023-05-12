@@ -1,18 +1,18 @@
-import { HexString } from './hexStringType'
+import { Hex } from './misc'
 import { PropsWithChildren } from 'react'
 
 export type ManagerProviderProps = PropsWithChildren<{
-  tokenAddress: HexString
+  tokenAddress: Hex
 }>
 
 export type ManagerReturnTypes = {
-  tokenAddress?: HexString
+  tokenAddress?: Hex
   daoAddresses: DaoAddresses
 }
 
 export type DaoAddresses = {
-  metadataAddress: string
-  auctionAddress: string
-  treasuryAddress: string
-  governorAddress: string
+  metadataAddress: Hex
+  auctionAddress: Hex
+  treasuryAddress: Hex
+  governorAddress: Hex
 } | null

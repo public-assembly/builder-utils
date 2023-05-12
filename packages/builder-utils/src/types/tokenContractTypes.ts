@@ -1,11 +1,10 @@
-import { BigNumber } from 'ethers'
-import { HexString } from './hexStringType'
+import { Hex } from './misc'
 
 export interface TokenProviderProps {
   children?: React.ReactNode
 }
 
 export interface TokenReturnTypes {
-  tokenAddress?: HexString
-  tokenSettings?: [string, string, BigNumber]
+  tokenAddress?: Hex
+  tokenSettings?: [string, string, BigInt]
 }

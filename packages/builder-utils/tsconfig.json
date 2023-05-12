@@ -7,8 +7,9 @@
     "noImplicitAny": false,
     "allowSyntheticDefaultImports": true,
     "module": "ESNext",
-    "target": "ES2019",
+    "target": "ES2021",
     "preserveWatchOutput": true,
+    // Skip type checking for node modules
     "skipLibCheck": true,
     "noEmit": true,
     "strict": true,

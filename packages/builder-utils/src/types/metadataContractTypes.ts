@@ -1,11 +1,11 @@
-import { HexString } from './hexStringType'
+import { Hex } from './misc'
 
 export interface MetadataProviderProps {
   children?: React.ReactNode
 }
 
 type MetadataSettings = {
-  token: HexString
+  token: Hex
   projectURI: string
   description: string
   contractImage: string
@@ -13,7 +13,7 @@ type MetadataSettings = {
 }
 
 export interface MetadataReturnTypes {
-  tokenAddress?: HexString
-  metadataAddress?: HexString
+  tokenAddress?: Hex
+  metadataAddress?: Hex
   metadataSettings?: MetadataSettings
 }
