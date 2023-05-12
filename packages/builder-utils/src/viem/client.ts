@@ -1,6 +1,7 @@
 import { createPublicClient, http, Transport } from 'viem'
 import { CHAIN } from './viemChain'
 
+// @ts-ignore
 export const client = createPublicClient({
   batch: {
     multicall: true,
