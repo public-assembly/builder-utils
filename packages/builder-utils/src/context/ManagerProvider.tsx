@@ -2,7 +2,6 @@ import React, { createContext, useContext } from 'react'
 import { useContractRead } from 'wagmi'
 import { managerAbi } from '../abi'
 import { Hex } from 'viem'
-import { client } from '../viem/client'
 import type { ManagerProviderProps, ManagerReturnTypes, DaoAddresses } from '../types'
 
 const ManagerContext = createContext<ManagerReturnTypes | null>({

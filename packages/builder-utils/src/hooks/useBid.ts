@@ -5,7 +5,7 @@ import { useAuctionContext } from '../context'
 import { getContract } from 'wagmi/actions'
 import { Hex, Hash, parseAbiItem } from 'viem'
 import { auctionAbi } from '../abi'
-import { client } from '../viem/client'
+import { viemClient } from '../viem/client'
 
 export type AuctionEvent = {
   id: number
@@ -33,7 +33,7 @@ export const useBid = async ({
   const [address, setAddress] = React.useState<string | undefined>()
   const [tokenEvents, setTokenEvents] = React.useState<AuctionEvent[]>()
 
-  const logs = await client.getLogs({
+  const logs = await viemClient.getLogs({
     address: auctionAddress,
     event: parseAbiItem(
       'event AuctionBid(uint256 tokenId, address bidder, uint256 amount, bool extended, uint256 endTime)'
