@@ -4,7 +4,7 @@ import { useAuctionContext } from '../context'
 export function useTokenExplorer() {
   const { auctionState } = useAuctionContext()
 
-  const tokenId = auctionState.tokenId.toNumber()
+  const tokenId = Number(auctionState.tokenId)
 
   const [currentTokenId, setCurrentTokenId] = useState<number>(tokenId)
 

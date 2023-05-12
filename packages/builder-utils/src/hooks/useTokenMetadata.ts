@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useDaoTokenQuery } from './useDaoTokenQuery'
 import { useManagerContext } from '../context'
-import { HexString } from '../types'
+import { Hex } from 'viem'
 
 export function useTokenMetadata(tokenId: string) {
   const { tokenAddress } = useManagerContext()
@@ -10,7 +10,7 @@ export function useTokenMetadata(tokenId: string) {
   const [tokenName, setTokenName] = useState<undefined | string>()
 
   const { tokenData } = useDaoTokenQuery({
-    tokenAddress: tokenAddress as HexString,
+    tokenAddress: tokenAddress as Hex,
     tokenId: tokenId,
   })
 

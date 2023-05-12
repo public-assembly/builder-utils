@@ -1,11 +1,10 @@
-/* @ts-ignore */
 import * as React from 'react'
 import useSWR from 'swr'
 import { DAO_TOKEN_QUERY } from '../data/daoTokenQuery'
 import { zoraApiFetcher } from '../lib/zoraApiFetcher'
 import { NounishTokensQuery, NounishTokensQueryVariables } from '../types'
+import { Hex } from 'viem'
 import { CHAIN } from '../constants/chain'
-import { HexString } from '../types'
 
 export type TokenData = {
   lastRefreshTime: string
@@ -33,7 +32,7 @@ export function useDaoTokenQuery({
   tokenAddress,
   tokenId,
 }: {
-  tokenAddress: HexString
+  tokenAddress: Hex
   tokenId: string
 }) {
   const { data: tokenData, error } = useSWR<NounishTokensQuery>(

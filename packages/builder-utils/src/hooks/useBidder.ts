@@ -1,10 +1,11 @@
 import * as React from 'react'
 import { useEnsName } from 'wagmi'
+import { Hex } from 'viem'
 import { shortenAddress } from '../lib/shortenAddress'
 
-export function useBidder(address?: string) {
+export function useBidder(address?: Hex) {
   const { data: ensName } = useEnsName({
-    address: address as `0x${string}` | undefined,
+    address: address as Hex | undefined,
   })
 
   const bidder = React.useMemo(

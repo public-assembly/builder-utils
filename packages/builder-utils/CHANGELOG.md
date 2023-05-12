@@ -1,4 +1,4 @@
-# @public-assembly/dao-utils
+# @public-assembly/builder-utils
 
 ## 0.0.31
 
@@ -136,13 +136,13 @@
 
 ### Patch Changes
 
-- Updates logic in the TokenExplorer component to utilize a DAO’s nftCount versus totalSupply. This was causing issues with DAOs where some tokens were not bidded on, and thus burned.
+- Updates logic in the TokenExplorer component to utilize a builder’s nftCount versus totalSupply. This was causing issues with builders where some tokens were not bidded on, and thus burned.
 
 ## 0.0.8
 
 ### Patch Changes
 
-- Adds a TokenProvider and MetadataProvider to access DAO specific data across your app.
+- Adds a TokenProvider and MetadataProvider to access builder specific data across your app.
 
 ## 0.0.7
 

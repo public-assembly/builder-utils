@@ -1,4 +1,3 @@
-/* @ts-ignore */
 import * as React from 'react'
 import ProposalCard from './ProposalCard'
 import { useGovernorContext } from '../../context'

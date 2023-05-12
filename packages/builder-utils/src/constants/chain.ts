@@ -1,7 +1,6 @@
-import type { Chain } from 'viem'
-import { mainnet, goerli } from 'viem/chains'
+import { Chain } from '../types'
 
 export const CHAIN = {
-  1: mainnet,
-  5: goerli,
+  1: Chain.Mainnet,
+  5: Chain.Goerli,
 }[process.env.NEXT_PUBLIC_CHAIN_ID || 1] as Chain

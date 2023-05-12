@@ -2,7 +2,8 @@ import React, { useContext } from 'react'
 import { useContractRead } from 'wagmi'
 import { metadataAbi } from '../abi'
 import { useManagerContext } from './ManagerProvider'
-import type { HexString, MetadataProviderProps, MetadataReturnTypes } from '../types'
+import { Hex } from 'viem'
+import type { MetadataProviderProps, MetadataReturnTypes } from '../types'
 
 const MetadataContext = React.createContext({} as MetadataReturnTypes)
 
@@ -10,7 +11,7 @@ export function MetadataProvider({ children }: MetadataProviderProps) {
   const { tokenAddress, daoAddresses } = useManagerContext()
 
   const metadataAddress = React.useMemo(
-    () => daoAddresses?.metadataAddress as HexString,
+    () => daoAddresses?.metadataAddress as Hex,
     [daoAddresses]
   )
 
@@ -27,6 +28,7 @@ export function MetadataProvider({ children }: MetadataProviderProps) {
       value={{
         tokenAddress,
         metadataAddress,
+        // @ts-ignore
         metadataSettings,
       }}>
       {children}

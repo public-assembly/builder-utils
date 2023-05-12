@@ -1,12 +1,12 @@
-/* @ts-ignore */
 import * as React from 'react'
 import { useDaoTokenQuery } from '../../hooks'
+import { Hex } from 'viem'
 
 export default function TokenThumbnail({
   tokenId,
   tokenAddress,
 }: {
-  tokenAddress: `0x${string}`
+  tokenAddress: Hex
   tokenId: string
 }) {
   const [thumbnail, setThumbnail] = React.useState<undefined | string>()

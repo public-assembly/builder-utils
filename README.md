@@ -1,4 +1,4 @@
-# **dao-utils**
+# **builder-utils**
 
 React componentry and hooks to interact with the [ourzora/nouns-protocol](https://github.com/ourzora/nouns-protocol) smart contracts.
 
@@ -6,13 +6,13 @@ React componentry and hooks to interact with the [ourzora/nouns-protocol](https:
 
 ## **Getting Started**
 
-Begin by installing the [dao-utils](https://www.npmjs.com/package/@public-assembly/dao-utils?activeTab=versions) package into your React application.
+Begin by installing the [builder-utils](https://www.npmjs.com/package/@public-assembly/builder-utils?activeTab=versions) package into your React application.
 
-`npm i @public-assembly/dao-utils`
+`npm i @public-assembly/builder-utils`
 
-`pnpm add @public-assembly/dao-utils`
+`pnpm add @public-assembly/builder-utils`
 
-`yarn add @public-assembly/dao-utils`
+`yarn add @public-assembly/builder-utils`
 
 You'll also need to include the following dependencies at their specified versions.
 
@@ -32,7 +32,7 @@ You'll also need to include the following dependencies at their specified versio
 
 ### **Configuring & Using Providers**
 
-Your Nounish DAO consists of multiple smart contracts, with each contract handling unique functionality and capable of returning contract specific data.
+Your Nounish builder consists of multiple smart contracts, with each contract handling unique functionality and capable of returning contract specific data.
 
 This package contains hooks that enable you to retrieve that contract specific data from any part of your application. It utilizes React context and aggregates on and offchain chain data into contract specific providers.
 
@@ -42,7 +42,7 @@ To begin utilizing these providers, wrap your app with the `ManagerProvider` com
 import dynamic from 'next/dynamic'
 
 const DynamicManagerProvider = dynamic(
-  () => import('@public-assembly/dao-utils').then((module) => module.ManagerProvider),
+  () => import('@public-assembly/builder-utils').then((module) => module.ManagerProvider),
   {
     ssr: false,
   }
@@ -74,7 +74,7 @@ function App() {
 }
 ```
 
-By providing just the token address of your DAO, the `ManagerProvider` can retrieve the rest of the smart contract addresses associated with your DAO. Your DAO's token address is the address of your DAO's Token.sol contract, and is referred to as NFT under the smart contracts tab on [Nouns Builder](https://nouns.build/).
+By providing just the token address of your builder, the `ManagerProvider` can retrieve the rest of the smart contract addresses associated with your builder. Your builder's token address is the address of your builder's Token.sol contract, and is referred to as NFT under the smart contracts tab on [Nouns Builder](https://nouns.build/).
 
 Once you've set up the `ManagerProvider` component, you can freely nest the other provider components within it and easily access the data they provide using their corresponding hooks.
 
@@ -96,7 +96,7 @@ function App() {
 ```
 
 ```jsx
-import { useGovernorContext } from '@public-assembly/dao-utils'
+import { useGovernorContext } from '@public-assembly/builder-utils'
 
 function Proposals() {
   const { proposals, governorAddress } = useGovernorContext()
@@ -109,17 +109,17 @@ function Proposals() {
 
 ### **Componentry**
 
-In addition to the providers described above, there is a number of prebuilt components that will allow you to get up and running quickly. For instance, the `TokenExplorer` component is what is used on the auction page of this sample app. However, if you want to make unique decisions surrounding copy and styling, you'll have to take a [closer look](https://github.com/public-assembly/dao-utils/blob/main/packages/dao-utils/src/components/TokenExplorer.tsx) at the ways these components are put together.
+In addition to the providers described above, there is a number of prebuilt components that will allow you to get up and running quickly. For instance, the `TokenExplorer` component is what is used on the auction page of this sample app. However, if you want to make unique decisions surrounding copy and styling, you'll have to take a [closer look](https://github.com/public-assembly/builder-utils/blob/main/packages/builder-utils/src/components/TokenExplorer.tsx) at the ways these components are put together.
 
 ```jsx
-import { TokenExplorer } from '@public-assembly/dao-utils'
+import { TokenExplorer } from '@public-assembly/builder-utils'
 
 function AuctionExplorer() {
   return <TokenExplorer tokenAddress='0xdf9b7d26c8fc806b1ae6273684556761ff02d422' />
 }
 ```
 
-Beneath this getting started guide is a full list of all the hooks and componentry exposed via the package. If you're interested in contributing, please [open an issue](https://github.com/public-assembly/dao-utils/issues/new), create a pull request, or bring questions to the Public Assembly [forum](https://forum.public---assembly.com/).
+Beneath this getting started guide is a full list of all the hooks and componentry exposed via the package. If you're interested in contributing, please [open an issue](https://github.com/public-assembly/builder-utils/issues/new), create a pull request, or bring questions to the Public Assembly [forum](https://forum.public---assembly.com/).
 
 ---
 
@@ -168,10 +168,10 @@ export {
   useActiveAuction,
   useBidder,
   useCountdown,
-  useDaoAuctionQuery,
-  useDaoCollectionQuery,
-  useDaoProposalQuery,
-  useDaoTokenQuery,
+  usebuilderAuctionQuery,
+  usebuilderCollectionQuery,
+  usebuilderProposalQuery,
+  usebuilderTokenQuery,
   useInterval,
   useTokenExplorer,
   useTokenMetadata,

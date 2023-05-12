@@ -1,6 +1,8 @@
-import React, { createContext, useContext, useEffect, memo } from 'react'
+import React, { createContext, useContext } from 'react'
 import { useContractRead } from 'wagmi'
 import { managerAbi } from '../abi'
+import { Hex } from 'viem'
+import { client } from '../viem/client'
 import type { ManagerProviderProps, ManagerReturnTypes, DaoAddresses } from '../types'
 
 const ManagerContext = createContext<ManagerReturnTypes | null>({
@@ -17,16 +19,16 @@ export function ManagerProvider({ children, tokenAddress }: ManagerProviderProps
   const [daoAddresses, setDaoAddress] = React.useState<DaoAddresses | null>(null)
 
   useContractRead({
-    address: MANAGER_PROXY_ADDRESS,
+    address: MANAGER_PROXY_ADDRESS as Hex,
     abi: managerAbi,
     functionName: 'getAddresses',
     args: [tokenAddress],
     onSuccess(getAddresses) {
       setDaoAddress({
-        metadataAddress: getAddresses.metadata,
-        auctionAddress: getAddresses.auction,
-        treasuryAddress: getAddresses.treasury,
-        governorAddress: getAddresses.governor,
+        metadataAddress: getAddresses[0],
+        auctionAddress: getAddresses[1],
+        treasuryAddress: getAddresses[2],
+        governorAddress: getAddresses[3],
       })
     },
     onError(error: unknown) {

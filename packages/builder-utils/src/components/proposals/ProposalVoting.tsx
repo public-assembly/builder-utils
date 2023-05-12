@@ -1,4 +1,3 @@
-/* @ts-ignore */
 import * as React from 'react'
 import { useVote } from '../../hooks'
 

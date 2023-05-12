@@ -1,4 +1,3 @@
-/* @ts-ignore */
 import * as React from 'react'
 import { useBid } from '../../hooks'
 
@@ -9,6 +8,7 @@ export default function TokenWinningBid({
   tokenAddress: `0x${string}`
   tokenId: string
 }) {
+  // @ts-ignore
   const { winningBid, winningTx } = useBid({
     tokenId,
     tokenAddress,

@@ -3,13 +3,14 @@ import TokenThumbnail from './TokenThumbnail'
 import TokenTitle from './TokenTitle'
 import TokenHolder from './TokenHolder'
 import TokenWinningBid from './TokenWinningBid'
+import { Hex } from 'viem'
 
 export default function TokenRenderer({
   tokenId,
   tokenAddress,
   ...props
 }: {
-  tokenAddress: `0x${string}`
+  tokenAddress: Hex
   tokenId: string
 }) {
   return (

@@ -1,13 +1,13 @@
-/* @ts-ignore */
 import * as React from 'react'
 import { useDaoTokenQuery } from '../../hooks'
+import { Hex } from 'viem'
 
 export default function TokenTitle({
   tokenId,
   tokenAddress,
   externalLinkBaseURI = 'https://nouns.build/dao',
 }: {
-  tokenAddress: `0x${string}`
+  tokenAddress: Hex
   tokenId: string
   /**
    * External link base url

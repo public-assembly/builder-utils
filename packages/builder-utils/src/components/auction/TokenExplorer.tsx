@@ -3,11 +3,11 @@ import CurrentAuction from './CurrentAuction'
 import TokenRenderer from './TokenRenderer'
 import CircleArrow from './CircleArrow'
 import { useTokenContext } from '../../context'
-import { HexString } from '../../types'
 import { useTokenExplorer } from '../../hooks'
+import { Hex } from 'viem'
 
 export interface TokenExplorerProps extends React.HTMLProps<HTMLDivElement> {
-  tokenAddress: HexString
+  tokenAddress: Hex
   connectButton?: React.ReactNode
 }
 
@@ -21,7 +21,7 @@ export default function TokenExplorer({
 
   const { tokenSettings } = useTokenContext()
 
-  const totalSupply = tokenSettings?.[2].toNumber()
+  const totalSupply = Number(tokenSettings?.[2])
 
   const renderContent = () => {
     if (isLastToken) {

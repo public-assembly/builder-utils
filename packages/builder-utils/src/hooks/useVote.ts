@@ -1,7 +1,7 @@
-import type { HexString, NounsProposal } from '../types'
+import type { NounsProposal } from '../types'
 import { usePrepareContractWrite, useContractWrite, useWaitForTransaction } from 'wagmi'
 import { governorAbi } from '../abi'
-import { BigNumber } from 'ethers'
+import { Hex } from 'viem'
 import { useGovernorContext } from '../context'
 
 interface VotingFunctions {
@@ -28,7 +28,7 @@ export function useVote({ proposal, support, reason }: VoteProps): VotingFunctio
           address: governorAddress,
           abi: governorAbi,
           functionName: 'castVote',
-          args: [proposal.proposalId as HexString, BigNumber.from(support)],
+          args: [proposal.proposalId as Hex, BigInt(support)],
         }
       : undefined
   )
@@ -45,11 +45,7 @@ export function useVote({ proposal, support, reason }: VoteProps): VotingFunctio
           address: governorAddress,
           abi: governorAbi,
           functionName: 'castVoteWithReason',
-          args: [
-            proposal.proposalId as HexString,
-            BigNumber.from(support),
-            reason as string,
-          ],
+          args: [proposal.proposalId as Hex, BigInt(support), reason as string],
         }
       : undefined
   )

@@ -1,4 +1,3 @@
-/* @ts-ignore */
 import * as React from 'react'
 import { useCountdown } from '../../hooks/useCountdown'
 

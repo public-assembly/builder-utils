@@ -1,4 +1,3 @@
-/* @ts-ignore */
 import * as React from 'react'
 import ProposalStatus from './ProposalStatus'
 import ProposalTitle from './ProposalTitle'

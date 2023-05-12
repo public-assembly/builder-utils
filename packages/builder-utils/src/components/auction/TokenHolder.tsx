@@ -1,6 +1,6 @@
-/* @ts-ignore */
 import * as React from 'react'
 import { useDaoTokenQuery, useBidder } from '../../hooks'
+import { Hex } from 'viem'
 
 export default function TokenTitle({
   tokenId,
@@ -14,7 +14,7 @@ export default function TokenTitle({
     tokenId: tokenId,
   })
 
-  const { bidder: holder } = useBidder(tokenData?.owner)
+  const { bidder: holder } = useBidder(tokenData?.owner as Hex)
 
   if (!tokenData) return null
   return (

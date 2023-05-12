@@ -3,11 +3,10 @@ import AuctionCountdown from './AuctionCountdown'
 import TokenThumbnail from './TokenThumbnail'
 import TokenTitle from './TokenTitle'
 import { useActiveAuction, useDaoCollectionQuery, useBidder } from '../../hooks'
-import { HexString } from '../../types'
-import { ethers } from 'ethers'
+import { Hex, formatEther } from 'viem'
 
 export interface CurrentAuctionProps extends React.HTMLProps<HTMLDivElement> {
-  tokenAddress: HexString
+  tokenAddress: Hex
   tokenId: string
 }
 
@@ -47,7 +46,7 @@ export default function CurrentAuction({
           <div className="flex flex-row gap-10">
             <div className="flex flex-col">
               <span>Current Bid:</span>
-              <span>{ethers.utils.formatEther(auctionState.highestBid)} ETH</span>
+              <span>{formatEther(auctionState.highestBid)} ETH</span>
             </div>
 
             <AuctionCountdown endTime={Number(auctionState.endTime)} />
