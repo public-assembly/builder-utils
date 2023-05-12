@@ -6,7 +6,7 @@ React componentry and hooks to interact with the [ourzora/nouns-protocol](https:
 
 ### Documentation
 
-For documentation check out the [sample app](https://builder-utils-next.vercel.app/) or visit [GitHub](https://github.com/public-assembly/builder-utils).
+For documentation visit [GitHub](https://github.com/public-assembly/builder-utils).
 
 ### Installation:
 `npm i @public-assembly/builder-utils` 
