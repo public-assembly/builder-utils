@@ -6,7 +6,7 @@ import { Tab, Tabs, Callout } from 'nextra-theme-docs'
 
 # Building a Custom Auction Component
 
-This tutorial will walk you through building a custom auction component for your DAO using the builder-utils package. This is a React specific tutorial that leverages Next.js.
+This tutorial will walk you through building a custom auction component for your builder using the builder-utils package. This is a React specific tutorial that leverages Next.js.
 
 ### Create project and install dependencies
 
@@ -23,7 +23,7 @@ Next install the builder utils package and its peer dependencies.
 <Tabs items={['pnpm', 'npm', 'yarn']}>
   <Tab>``` pnpm add @public-assembly/builder-utils ```</Tab>
   <Tab>``` npm i add @public-assembly/builder-utils ```</Tab>
-  <Tab>``` yarn add @public-assembly/dao-utils ```</Tab>
+  <Tab>``` yarn add @public-assembly/builder-utils ```</Tab>
 </Tabs>
 
 ```json
@@ -38,11 +38,11 @@ Next install the builder utils package and its peer dependencies.
 
 The package's remaining peer dependencies should already be installed.
 
-### Ensure wallet connection is working
+### Ensure wallet connection is configured properly
 
 ### Configure the provider components
 
-Builder utils provides a collection of provider components used to dynamically pass data about your DAO throughout an application. You can configure these provider components by first navigating to your `_app.tsx` file and then wrapping your components with the `ManagerProvider` component.
+Builder utils provides a collection of provider components used to dynamically pass data about your builder throughout an application. You can configure these provider components by first navigating to your `_app.tsx` file and then wrapping your components with the `ManagerProvider` component.
 
 Because this component utilizes wagmi hooks, you'll need to ensure this component is being loaded client side. Below is a solution to this using [next/dynamic](https://nextjs.org/docs/advanced-features/dynamic-import) from Next.js.
 
@@ -50,7 +50,7 @@ Because this component utilizes wagmi hooks, you'll need to ensure this componen
 import dynamic from 'next/dynamic'
 
 const DynamicManagerProvider = dynamic(
-  () => import('@public-assembly/dao-utils').then((module) => module.ManagerProvider),
+  () => import('@public-assembly/builder-utils').then((module) => module.ManagerProvider),
   {
     ssr: false,
   }
@@ -83,7 +83,7 @@ function App() {
 
 ### Implement an artwork component
 
-Create a new directory called `components` and within it create a React component called `Artwork.tsx`. This component will be responsible for rendering the daily artwork of your DAO.
+Create a new directory called `components` and within it create a React component called `Artwork.tsx`. This component will be responsible for rendering the daily artwork of your builder.
 
 This component leverages the `useTokenMetadata` hook.
 
