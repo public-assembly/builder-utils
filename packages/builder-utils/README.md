@@ -9,10 +9,11 @@ React componentry and hooks to interact with the [ourzora/nouns-protocol](https:
 For documentation visit [GitHub](https://github.com/public-assembly/builder-utils).
 
 ### Installation:
-`npm i @public-assembly/builder-utils` 
-   
-`pnpm add @public-assembly/builder-utils` 
-   
+
+`npm i @public-assembly/builder-utils`
+
+`pnpm add @public-assembly/builder-utils`
+
 `yarn add @public-assembly/builder-utils`
 
 ### Community

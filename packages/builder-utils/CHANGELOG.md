@@ -1,5 +1,11 @@
 # @public-assembly/builder-utils
 
+## 0.0.33
+
+### Patch Changes
+
+- Dao utils is now builder utils. And wagmi now uses viem over ethers.
+
 ## 0.0.31
 
 ### Patch Changes
