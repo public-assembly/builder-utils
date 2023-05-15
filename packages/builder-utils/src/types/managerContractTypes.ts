@@ -10,9 +10,18 @@ export type ManagerReturnTypes = {
   daoAddresses: DaoAddresses
 }
 
-export type DaoAddresses = {
-  metadataAddress: string
-  auctionAddress: string
-  treasuryAddress: string
-  governorAddress: string
-} | null
+export type DaoAddresses =
+  | {
+      metadataAddress: Hex
+      auctionAddress: Hex
+      treasuryAddress: Hex
+      governorAddress: Hex
+    }
+  | undefined
+
+// export type DaoAddresses = {
+//   metadataAddress: Hex
+//   auctionAddress: Hex
+//   treasuryAddress: Hex
+//   governorAddress: Hex
+// }

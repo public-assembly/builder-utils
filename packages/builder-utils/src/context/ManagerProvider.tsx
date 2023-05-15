@@ -1,12 +1,12 @@
-import React, { createContext, useContext } from 'react'
-import { useContractRead } from 'wagmi'
+import React, { createContext, useContext, useEffect, useState } from 'react'
 import { managerAbi } from '../abi'
 import { Hex } from 'viem'
+import { mainnetClient, goerliClient } from '../viem/client'
 import type { ManagerProviderProps, ManagerReturnTypes, DaoAddresses } from '../types'
 
 const ManagerContext = createContext<ManagerReturnTypes | null>({
   tokenAddress: undefined,
-  daoAddresses: null,
+  daoAddresses: undefined,
 })
 
 const MANAGER_PROXY_ADDRESS = {
@@ -15,26 +15,29 @@ const MANAGER_PROXY_ADDRESS = {
 }[process.env.NEXT_PUBLIC_CHAIN_ID || 1]
 
 export function ManagerProvider({ children, tokenAddress }: ManagerProviderProps) {
-  const [daoAddresses, setDaoAddress] = React.useState<DaoAddresses | null>(null)
+  const [daoAddresses, setDaoAddresses] = useState<DaoAddresses>()
 
-  useContractRead({
-    address: MANAGER_PROXY_ADDRESS as Hex,
-    abi: managerAbi,
-    functionName: 'getAddresses',
-    args: [tokenAddress],
-    onSuccess(getAddresses) {
-      setDaoAddress({
-        metadataAddress: getAddresses[0],
-        auctionAddress: getAddresses[1],
-        treasuryAddress: getAddresses[2],
-        governorAddress: getAddresses[3],
-      })
-    },
-    onError(error: unknown) {
-      console.log(error)
-    },
-    chainId: Number(process.env.NEXT_PUBLIC_CHAIN_ID),
-  })
+  useEffect(() => {
+    async function getAddresses() {
+      try {
+        const fetchedAddresses = await (process.env.NEXT_PUBLIC_CHAIN_ID == '5'
+          ? goerliClient
+          : mainnetClient
+        ).readContract({
+          address: MANAGER_PROXY_ADDRESS as Hex,
+          abi: managerAbi,
+          functionName: 'getAddresses',
+          args: [tokenAddress],
+        })
+        // @ts-ignore
+        setDaoAddresses(fetchedAddresses)
+      } catch (error) {
+        // Handle any errors that occurred during the async operation
+        console.error(error)
+      }
+    }
+    getAddresses()
+  }, [tokenAddress])
 
   const value = { tokenAddress, daoAddresses }
 

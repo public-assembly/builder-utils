@@ -32,8 +32,8 @@ export const useBid = async ({
   const [tokenEvents, setTokenEvents] = React.useState<AuctionEvent[]>()
 
   const logs = await (process.env.NEXT_PUBLIC_CHAIN_ID == '5'
-    ? mainnetClient
-    : goerliClient
+    ? goerliClient
+    : mainnetClient
   ).getLogs({
     address: auctionAddress,
     event: parseAbiItem(
