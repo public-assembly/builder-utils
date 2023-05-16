@@ -1,18 +1,20 @@
 import React, { useContext } from 'react'
+import type { PropsWithChildren } from 'react'
 import { useManagerContext } from './ManagerProvider'
 import { useDaoProposalQuery } from '../hooks'
-import type { GovernorProviderProps, GovernorReturnTypes } from '../types'
+import type { NounsProposal } from '../types'
 import { Hex } from 'viem'
+
+export interface GovernorReturnTypes {
+  tokenAddress?: Hex
+  governorAddress: Hex
+  proposals?: NounsProposal[]
+}
 
 const GovernorContext = React.createContext({} as GovernorReturnTypes)
 
-export function GovernorProvider({ children }: GovernorProviderProps) {
-  const { tokenAddress, daoAddresses } = useManagerContext()
-
-  const governorAddress = React.useMemo(
-    () => daoAddresses?.governorAddress as Hex,
-    [daoAddresses]
-  )
+export function GovernorProvider({ children }: PropsWithChildren) {
+  const { tokenAddress, governorAddress } = useManagerContext()
 
   const { proposals } = useDaoProposalQuery({ tokenAddress: tokenAddress })
 
@@ -20,7 +22,7 @@ export function GovernorProvider({ children }: GovernorProviderProps) {
     <GovernorContext.Provider
       value={{
         tokenAddress,
-        governorAddress,
+        governorAddress: governorAddress as Hex,
         proposals,
       }}>
       {children}

@@ -1,69 +1,41 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
+import type { PropsWithChildren } from 'react'
 import { Hex } from 'viem'
 import { viemClient } from '../viem/client'
-import { auctionAbi } from '../abi'
 import { useManagerContext } from './ManagerProvider'
-import { AuctionProviderProps, AuctionReturnTypes } from '../types'
+import { getAuctionState } from '../data/getAuctionState'
+
+export interface Auction {
+  tokenId: bigint
+  highestBid: bigint
+  highestBidder: Hex
+  startTime: number
+  endTime: number
+  settled: boolean
+  minBidIncrement: bigint
+  reservePrice: bigint
+}
 
 // const AuctionContext = React.createContext({} as AuctionReturnTypes)
 
 const AuctionContext = React.createContext({})
 
-export function AuctionProvider({ children }: AuctionProviderProps) {
-  const [auctionState, setAuctionState] = useState()
+export function AuctionProvider({ children }: PropsWithChildren) {
+  const { auctionAddress } = useManagerContext()
 
-  const { daoAddresses } = useManagerContext()
+  // const auctionState = Promise.all([
+  //   getAuctionState({ auctionAddress: '0x4DD53079026017300C2489B91ceA62fFbe39ec19' }),
+  // ])
 
-  const auctionAddress = React.useMemo(
-    () => daoAddresses?.auctionAddress as Hex,
-    [daoAddresses]
-  )
+  // console.log(auctionState)
 
-  // const auctionAddress = daoAddresses?.auctionAddress as Hex
-
-  // const auctionAddress = '0x4DD53079026017300C2489B91ceA62fFbe39ec19' as Hex
-
-  const auctionContract = {
-    address: auctionAddress,
-    abi: auctionAbi,
-  }
-
-  useEffect(() => {
-    ;(async () => {
-      try {
-        const auctionState = await viemClient?.multicall({
-          contracts: [
-            {
-              ...auctionContract,
-              functionName: 'auction',
-            },
-            {
-              ...auctionContract,
-              functionName: 'minBidIncrement',
-            },
-            {
-              ...auctionContract,
-              functionName: 'reservePrice',
-            },
-          ],
-        })
-        // @ts-ignore
-        setAuctionState(auctionState)
-      } catch (error) {
-        console.error(error)
-      }
-    })()
-    // getAuctionState()
-  }, [])
-
-  console.log(auctionState)
+  let auctionState
 
   return (
     <AuctionContext.Provider
       value={{
         auctionAddress,
         auctionState,
-
         // tokenId: auctionState[0][0],
         // highestBid: auctionState[0][1],
         // highestBidder: auctionState[0][2],

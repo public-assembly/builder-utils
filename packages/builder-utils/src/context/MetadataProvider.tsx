@@ -1,27 +1,41 @@
 import React, { useContext, useEffect, useState } from 'react'
+import type { PropsWithChildren } from 'react'
 import { metadataAbi } from '../abi'
 import { useManagerContext } from './ManagerProvider'
 import { Hex } from 'viem'
 import { viemClient } from '../viem/client'
-import type { MetadataProviderProps, MetadataReturnTypes } from '../types'
+
+export interface MetadataProviderProps {
+  children?: React.ReactNode
+}
+
+export interface MetadataSettings {
+  token: Hex
+  projectURI: string
+  description: string
+  contractImage: string
+  rendererBase: string
+}
+
+export interface MetadataReturnTypes {
+  tokenAddress?: Hex
+  metadataAddress?: Hex
+  metadataSettings?: MetadataSettings
+}
 
 const MetadataContext = React.createContext({} as MetadataReturnTypes)
 
-export function MetadataProvider({ children }: MetadataProviderProps) {
+export function MetadataProvider({ children }: PropsWithChildren) {
   const [metadataSettings, setMetadataSettings] = useState()
 
-  const { tokenAddress, daoAddresses } = useManagerContext()
-
-  const metadataAddress = React.useMemo(
-    () => daoAddresses?.metadataAddress as Hex,
-    [daoAddresses]
-  )
+  const { tokenAddress, metadataAddress } = useManagerContext()
 
   useEffect(() => {
-    async function getMetadataSettings() {
+    // prettier-ignore
+    (async () => {
       try {
         const fetchedMetadataSettings = await viemClient?.readContract({
-          address: metadataAddress,
+          address: metadataAddress as Hex,
           abi: metadataAbi,
           functionName: 'settings',
         })
@@ -30,9 +44,10 @@ export function MetadataProvider({ children }: MetadataProviderProps) {
       } catch (error) {
         console.error(error)
       }
-    }
-    getMetadataSettings()
-  }, [tokenAddress])
+    })()
+  }, [metadataAddress])
+
+  console.log(metadataSettings)
 
   return (
     <MetadataContext.Provider

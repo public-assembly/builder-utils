@@ -3,12 +3,15 @@ import { useDaoAuctionQuery } from './useDaoAuctionQuery'
 import { auctionAbi } from '../abi'
 import { formatEther, parseUnits, Hex } from 'viem'
 import { useContractWrite, usePrepareContractWrite, useWaitForTransaction } from 'wagmi'
-import { useAuctionContext } from '../context'
+import { useAuctionContext, useManagerContext } from '../context'
 
 export function useActiveAuction(tokenAddress: Hex): any {
   const { activeAuction } = useDaoAuctionQuery({ tokenAddress: tokenAddress })
 
-  const { auctionState, auctionAddress } = useAuctionContext()
+  const { auctionAddress } = useManagerContext()
+
+  // @ts-ignore
+  const { auctionState } = useAuctionContext()
 
   const minBidAmount = React.useMemo(() => {
     if (

@@ -1,13 +1,18 @@
 import React, { useContext, useEffect, useState } from 'react'
+import type { PropsWithChildren } from 'react'
 import { tokenAbi } from '../abi'
 import { useManagerContext } from './ManagerProvider'
 import { Hex } from 'viem'
 import { viemClient } from '../viem/client'
-import type { TokenProviderProps, TokenReturnTypes } from '../types'
+
+export interface TokenReturnTypes {
+  tokenAddress?: Hex
+  tokenSettings?: [string, string, BigInt]
+}
 
 const TokenContext = React.createContext({} as TokenReturnTypes)
 
-export function TokenProvider({ children }: TokenProviderProps) {
+export function TokenProvider({ children }: PropsWithChildren) {
   const [tokenSettings, setTokenSettings] = useState()
   const { tokenAddress } = useManagerContext()
 
@@ -17,7 +22,8 @@ export function TokenProvider({ children }: TokenProviderProps) {
   }
 
   useEffect(() => {
-    async function getTokenSettings() {
+    // prettier-ignore
+    (async () => {
       try {
         const fetchedTokenSettings = await viemClient?.multicall({
           contracts: [
@@ -40,8 +46,7 @@ export function TokenProvider({ children }: TokenProviderProps) {
       } catch (error) {
         console.error(error)
       }
-    }
-    getTokenSettings()
+    })()
   }, [])
 
   return (
