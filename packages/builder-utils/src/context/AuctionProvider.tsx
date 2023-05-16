@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useContractReads } from 'wagmi'
 import { Hex } from 'viem'
+import { viemClient } from '../viem/client'
 import { auctionAbi } from '../abi'
 import { useManagerContext } from './ManagerProvider'
 import { AuctionProviderProps, AuctionReturnTypes } from '../types'
@@ -8,6 +9,7 @@ import { AuctionProviderProps, AuctionReturnTypes } from '../types'
 const AuctionContext = React.createContext({} as AuctionReturnTypes)
 
 export function AuctionProvider({ children }: AuctionProviderProps) {
+  const [auctionState, setAuctionState] = useState()
   const { daoAddresses } = useManagerContext()
 
   const auctionAddress = React.useMemo(
@@ -15,28 +17,38 @@ export function AuctionProvider({ children }: AuctionProviderProps) {
     [daoAddresses]
   )
 
-  const auctionContract = {
-    address: auctionAddress,
-    abi: auctionAbi,
-    chainId: Number(process.env.NEXT_PUBLIC_CHAIN_ID),
-  }
+  // const auctionContract = {
+  //   address: auctionAddress,
+  //   abi: auctionAbi,
+  //   chainId: Number(process.env.NEXT_PUBLIC_CHAIN_ID),
+  // }
 
-  const { data: auctionState } = useContractReads({
-    contracts: [
-      {
-        ...auctionContract,
-        functionName: 'auction',
-      },
-      {
-        ...auctionContract,
-        functionName: 'minBidIncrement',
-      },
-      {
-        ...auctionContract,
-        functionName: 'reservePrice',
-      },
-    ],
-  })
+  // useEffect(() => {
+  //   async function auctionState() {
+  //     try {
+  //       const auctionState = await viemClient?.multicall({
+  //         contracts: [
+  //           {
+  //             ...auctionContract,
+  //             functionName: 'auction',
+  //           },
+  //           {
+  //             ...auctionContract,
+  //             functionName: 'minBidIncrement',
+  //           },
+  //           {
+  //             ...auctionContract,
+  //             functionName: 'reservePrice',
+  //           },
+  //         ],
+  //       })
+  //       setAuctionState(auctionState)
+  //     } catch (error) {
+  //       console.error(error)
+  //     }
+  //     auctionState()
+  //   }
+  // }, [])
 
   if (!auctionState) return null
   return (

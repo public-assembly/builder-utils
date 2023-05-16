@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { managerAbi } from '../abi'
 import { Hex } from 'viem'
-import { mainnetClient, goerliClient } from '../viem/client'
+import { viemClient } from '../viem/client'
 import type { ManagerProviderProps, ManagerReturnTypes, DaoAddresses } from '../types'
 
 const ManagerContext = createContext<ManagerReturnTypes | null>({
@@ -20,10 +20,7 @@ export function ManagerProvider({ children, tokenAddress }: ManagerProviderProps
   useEffect(() => {
     async function getAddresses() {
       try {
-        const fetchedAddresses = await (process.env.NEXT_PUBLIC_CHAIN_ID == '5'
-          ? goerliClient
-          : mainnetClient
-        ).readContract({
+        const fetchedAddresses = await viemClient?.readContract({
           address: MANAGER_PROXY_ADDRESS as Hex,
           abi: managerAbi,
           functionName: 'getAddresses',
@@ -32,7 +29,6 @@ export function ManagerProvider({ children, tokenAddress }: ManagerProviderProps
         // @ts-ignore
         setDaoAddresses(fetchedAddresses)
       } catch (error) {
-        // Handle any errors that occurred during the async operation
         console.error(error)
       }
     }
