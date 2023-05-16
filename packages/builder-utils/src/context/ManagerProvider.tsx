@@ -18,7 +18,7 @@ export function ManagerProvider({ children, tokenAddress }: ManagerProviderProps
   const [daoAddresses, setDaoAddresses] = useState<DaoAddresses>()
 
   useEffect(() => {
-    async function getAddresses() {
+    ;(async () => {
       try {
         const fetchedAddresses = await viemClient?.readContract({
           address: MANAGER_PROXY_ADDRESS as Hex,
@@ -31,8 +31,7 @@ export function ManagerProvider({ children, tokenAddress }: ManagerProviderProps
       } catch (error) {
         console.error(error)
       }
-    }
-    getAddresses()
+    })()
   }, [tokenAddress])
 
   const value = { tokenAddress, daoAddresses }

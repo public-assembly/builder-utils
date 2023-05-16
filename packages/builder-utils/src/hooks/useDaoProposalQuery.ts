@@ -1,6 +1,6 @@
 import * as React from 'react'
 import useSWR from 'swr'
-import { DAO_PROPOSAL_QUERY } from '../data/daoProposalQuery'
+import { DAO_PROPOSAL_QUERY } from '../queries/daoProposalQuery'
 import { zoraApiFetcher } from '../lib/zoraApiFetcher'
 import { Hex } from 'viem'
 import { NounishProposalsQuery, NounishProposalsQueryVariables } from '../types'

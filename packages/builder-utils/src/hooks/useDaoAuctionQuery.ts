@@ -1,6 +1,6 @@
 import * as React from 'react'
 import useSWR from 'swr'
-import { DAO_AUCTION_QUERY } from '../data/daoAuctionQuery'
+import { DAO_AUCTION_QUERY } from '../queries/daoAuctionQuery'
 import { zoraApiFetcher } from '../lib/zoraApiFetcher'
 import { Hex } from 'viem'
 import { NounishAuctionsQuery, NounishAuctionsQueryVariables } from '../types'

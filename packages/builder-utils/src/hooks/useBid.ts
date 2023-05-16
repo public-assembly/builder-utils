@@ -19,6 +19,7 @@ export const useBid = async ({
   tokenAddress: Hex
   tokenId: string
 }) => {
+  // @ts-ignore
   const { auctionAddress } = useAuctionContext()
 
   const { tokenData } = useDaoTokenQuery({

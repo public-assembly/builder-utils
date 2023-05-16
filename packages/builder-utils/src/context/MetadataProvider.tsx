@@ -18,20 +18,20 @@ export function MetadataProvider({ children }: MetadataProviderProps) {
   )
 
   useEffect(() => {
-    async function getSettings() {
+    async function getMetadataSettings() {
       try {
-        const fetchedSettings = await viemClient?.readContract({
+        const fetchedMetadataSettings = await viemClient?.readContract({
           address: metadataAddress,
           abi: metadataAbi,
           functionName: 'settings',
         })
         // @ts-ignore
-        setMetadataSettings(fetchedSettings)
+        setMetadataSettings(fetchedMetadataSettings)
       } catch (error) {
         console.error(error)
       }
     }
-    getSettings()
+    getMetadataSettings()
   }, [tokenAddress])
 
   return (

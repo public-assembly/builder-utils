@@ -1,43 +1,53 @@
-import React, { useContext } from 'react'
-import { useContractReads } from 'wagmi'
+import React, { useContext, useEffect, useState } from 'react'
 import { tokenAbi } from '../abi'
 import { useManagerContext } from './ManagerProvider'
+import { Hex } from 'viem'
+import { viemClient } from '../viem/client'
 import type { TokenProviderProps, TokenReturnTypes } from '../types'
 
 const TokenContext = React.createContext({} as TokenReturnTypes)
 
 export function TokenProvider({ children }: TokenProviderProps) {
+  const [tokenSettings, setTokenSettings] = useState()
   const { tokenAddress } = useManagerContext()
 
   const tokenContract = {
-    address: tokenAddress,
+    address: tokenAddress as Hex,
     abi: tokenAbi,
-    chainId: Number(process.env.NEXT_PUBLIC_CHAIN_ID),
   }
 
-  const { data: tokenSettings } = useContractReads({
-    contracts: [
-      {
-        ...tokenContract,
-        functionName: 'name',
-      },
-      {
-        ...tokenContract,
-        functionName: 'symbol',
-      },
-      {
-        ...tokenContract,
-        functionName: 'totalSupply',
-      },
-    ],
-  })
+  useEffect(() => {
+    async function getTokenSettings() {
+      try {
+        const fetchedTokenSettings = await viemClient?.multicall({
+          contracts: [
+            {
+              ...tokenContract,
+              functionName: 'name',
+            },
+            {
+              ...tokenContract,
+              functionName: 'symbol',
+            },
+            {
+              ...tokenContract,
+              functionName: 'totalSupply',
+            },
+          ],
+        })
+        // @ts-ignore
+        setTokenSettings(fetchedTokenSettings)
+      } catch (error) {
+        console.error(error)
+      }
+    }
+    getTokenSettings()
+  }, [])
 
-  if (!tokenSettings) return null
   return (
     <TokenContext.Provider
       value={{
         tokenAddress,
-        // @ts-ignore
         tokenSettings,
       }}>
       {children}

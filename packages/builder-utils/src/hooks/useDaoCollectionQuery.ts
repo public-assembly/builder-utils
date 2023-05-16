@@ -1,6 +1,6 @@
 import * as React from 'react'
 import useSWR from 'swr'
-import { DAO_COLLECTION_QUERY } from '../data/daoCollectionQuery'
+import { DAO_COLLECTION_QUERY } from '../queries/daoCollectionQuery'
 import { zoraApiFetcher } from '../lib/zoraApiFetcher'
 import { Hex } from 'viem'
 import { NounishCollectionsQuery, NounishCollectionsQueryVariables } from '../types'
