@@ -1,94 +1,60 @@
-import * as React from 'react'
-import { useDaoAuctionQuery } from './useDaoAuctionQuery'
+import { useState, useEffect } from 'react'
 import { auctionAbi } from '../abi'
-import { formatEther, parseUnits, Hex } from 'viem'
-import { useContractWrite, usePrepareContractWrite, useWaitForTransaction } from 'wagmi'
-import { useAuctionContext, useManagerContext } from '../context'
+import { Hex, Hash } from 'viem'
+import { viemClient } from '../viem/client'
+import { useManagerContext } from '../context'
+import { getAuctionState } from '../data/getAuctionState'
+import { useMinBidAmount } from './useMinBidAmount'
 
-export function useActiveAuction(tokenAddress: Hex): any {
-  const { activeAuction } = useDaoAuctionQuery({ tokenAddress: tokenAddress })
+export interface AuctionState {
+  auctionState: {
+    tokenId?: bigint
+    highestBid?: bigint
+    highestBidder?: Hex
+    startTime?: number
+    endTime?: number
+    settled?: boolean
+  }
+}
+
+export function useCreateBid({ tokenAddress }: { tokenAddress: Hex }): any {
+  const [hash, setHash] = useState<Hash>()
 
   const { auctionAddress } = useManagerContext()
 
-  // @ts-ignore
-  const { auctionState } = useAuctionContext()
+  const [auctionState, setAuctionState] = useState<AuctionState>()
 
-  const minBidAmount = React.useMemo(() => {
-    if (
-      activeAuction?.highestBidPrice?.chainTokenPrice?.decimal &&
-      activeAuction?.minBidIncrementPercentage
-    ) {
-      const minBidValue =
-        ((Number(activeAuction?.highestBidPrice.chainTokenPrice.raw) *
-          activeAuction?.minBidIncrementPercentage) %
-          100) +
-        activeAuction?.highestBidPrice.chainTokenPrice.raw
-      return Number(formatEther(BigInt(minBidValue)))
-    } else {
-      return activeAuction?.reservePrice?.chainTokenPrice?.decimal as number
-    }
-  }, [
-    activeAuction?.highestBidPrice?.chainTokenPrice?.decimal,
-    activeAuction?.minBidIncrementPercentage,
-    activeAuction?.reservePrice?.chainTokenPrice?.decimal,
-  ])
-
-  const [bidAmount, setBidAmount] = React.useState('0')
-  const [isValidBid, setIsValidBid] = React.useState(false)
-
-  const updateBidAmount = React.useCallback(
-    (value: string) => {
-      let newValue: BigInt
+  useEffect(() => {
+    // prettier-ignore
+    (async () => {
       try {
-        newValue = parseUnits(`${Number(value)}`, 18)
-        if (+value >= minBidAmount) {
-          setIsValidBid(true)
-        } else {
-          setIsValidBid(false)
-        }
-        const bidString = newValue.toString()
-        setBidAmount(bidString)
-      } catch (e) {
-        console.error(e)
-        return
+        const fetchedAuctionState = await getAuctionState({ auctionAddress: auctionAddress as Hex })
+        setAuctionState(fetchedAuctionState)
+      } catch(error) {
+        console.log(error)
       }
-    },
-    [setBidAmount, minBidAmount]
-  )
+    })()
+  }, [auctionAddress])
 
-  const { config: createBidConfig } = usePrepareContractWrite({
-    address: auctionAddress,
-    abi: auctionAbi,
-    functionName: 'createBid',
-    args: [BigInt(auctionState.tokenId)],
-    value: BigInt(bidAmount),
-    enabled: isValidBid,
-  })
+  const { minBidAmount, bidAmount, setBidAmount, updateBidAmount, isValidBid } =
+    useMinBidAmount({ tokenAddress: tokenAddress })
 
-  const {
-    data: createBidData,
-    write: createBid,
-    isError: createBidError,
-  } = useContractWrite(createBidConfig)
-
-  const {
-    data: createBidTx,
-    isLoading: createBidLoading,
-    isSuccess: createBidSuccess,
-  } = useWaitForTransaction({
-    hash: createBidData?.hash,
-  })
+  const createBid = async () => {
+    // @ts-ignore
+    const { result } = await viemClient?.simulateContract({
+      address: auctionAddress as Hex,
+      abi: auctionAbi,
+      functionName: 'createBid',
+      args: [BigInt(auctionState?.auctionState.tokenId as bigint)],
+      value: BigInt(bidAmount),
+    })
+  }
 
   return {
+    createBid,
     minBidAmount,
     updateBidAmount,
-    createBid,
     isValidBid,
-    createBidSuccess,
-    createBidError,
-    createBidLoading,
-    createBidTx,
-    auctionState,
     auctionAddress,
   }
 }

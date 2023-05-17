@@ -12,39 +12,28 @@ export interface Auction {
   startTime: number
   endTime: number
   settled: boolean
+}
+
+export interface AuctionState {
+  auctionState: Auction
   minBidIncrement: bigint
   reservePrice: bigint
 }
 
-// const AuctionContext = React.createContext({} as AuctionReturnTypes)
+// extends AuctionState
+export interface AuctionReturnTypes {
+  auctionAddress: Hex
+}
 
-const AuctionContext = React.createContext({})
+const AuctionContext = React.createContext({} as AuctionReturnTypes)
 
 export function AuctionProvider({ children }: PropsWithChildren) {
   const { auctionAddress } = useManagerContext()
 
-  // const auctionState = Promise.all([
-  //   getAuctionState({ auctionAddress: '0x4DD53079026017300C2489B91ceA62fFbe39ec19' }),
-  // ])
-
-  // console.log(auctionState)
-
-  let auctionState
-
   return (
     <AuctionContext.Provider
       value={{
-        auctionAddress,
-        auctionState,
-        // tokenId: auctionState[0][0],
-        // highestBid: auctionState[0][1],
-        // highestBidder: auctionState[0][2],
-        // startTime: auctionState[0][3],
-        // endTime: auctionState[0][4],
-        // settled: auctionState[0][5],
-        // minBidIncrement: auctionState[1],
-        // reservePrice: auctionState[2],
-        // },
+        auctionAddress: auctionAddress as Hex,
       }}>
       {children}
     </AuctionContext.Provider>

@@ -1,10 +1,21 @@
 import Image from 'next/image'
-import { useActiveAuction } from '@public-assembly/builder-utils'
-// import { Inter } from 'next/font/google'
-
-// const inter = Inter({ subsets: ['latin'] })
+import { getAuctionState, useHistoricalBids } from '@public-assembly/builder-utils'
+import { Hex } from 'viem'
 
 export default function Home() {
+  const auctionAddress = process.env.NEXT_PUBLIC_AUCTION_ADDRESS
+
+  const auctionState = Promise.all([
+    getAuctionState({ auctionAddress: auctionAddress as Hex }),
+  ])
+
+  const { winningBid, winningTx, address } = useHistoricalBids({
+    tokenId: '1',
+    tokenAddress: process.env.NEXT_PUBLIC_TOKEN_ADDRESS as Hex,
+  })
+
+  console.log(winningBid, winningTx, address)
+
   return (
     <main className={`flex min-h-screen flex-col items-center justify-between p-24`}>
       <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">

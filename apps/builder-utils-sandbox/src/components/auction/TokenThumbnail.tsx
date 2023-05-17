@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { useDaoTokenQuery } from '../../hooks'
+import { useDaoTokenQuery } from '@public-assembly/builder-utils'
 import { Hex } from 'viem'
 
 export default function TokenThumbnail({

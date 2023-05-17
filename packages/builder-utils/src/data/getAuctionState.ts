@@ -1,8 +1,8 @@
 import { Hex } from 'viem'
-import { viemClient, mainnetClient } from '../viem/client'
+import { viemClient } from '../viem/client'
 import { auctionAbi } from '../abi'
 
-export interface Auction {
+export interface AuctionState {
   tokenId: bigint
   highestBid: bigint
   highestBidder: Hex
@@ -11,34 +11,21 @@ export interface Auction {
   settled: boolean
 }
 
-export interface AuctionState extends Auction {
-  auction: Auction
-  minBidIncrement: bigint
-  reservePrice: bigint
-}
-
 export const getAuctionState = async ({ auctionAddress }: { auctionAddress: Hex }) => {
-  const auctionContract = {
+  const auctionState = await viemClient?.readContract({
     address: auctionAddress,
     abi: auctionAbi,
-  } as const
-
-  const auctionState = await viemClient?.multicall({
-    contracts: [
-      {
-        ...auctionContract,
-        functionName: 'auction',
-      },
-      {
-        ...auctionContract,
-        functionName: 'minBidIncrement',
-      },
-      {
-        ...auctionContract,
-        functionName: 'reservePrice',
-      },
-    ],
+    functionName: 'auction',
   })
 
-  return { auctionState }
+  return {
+    auctionState: {
+      tokenId: auctionState?.[0],
+      highestBid: auctionState?.[1],
+      highestBidder: auctionState?.[2],
+      startTime: auctionState?.[3],
+      endTime: auctionState?.[4],
+      settled: auctionState?.[5],
+    },
+  }
 }
