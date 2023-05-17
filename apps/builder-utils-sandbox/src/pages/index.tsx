@@ -1,17 +1,13 @@
 import Image from 'next/image'
 import {
-  getAuctionState,
   useHistoricalBids,
   useAuctionState,
+  useAuctionSettings,
 } from '@public-assembly/builder-utils'
 import { Hex } from 'viem'
 
 export default function Home() {
-  const auctionAddress = process.env.NEXT_PUBLIC_AUCTION_ADDRESS
-
-  // const auctionState = Promise.all([
-  //   getAuctionState({ auctionAddress: auctionAddress as Hex }),
-  // ])
+  const { auctionSettings } = useAuctionSettings()
 
   const { winningBid, winningTx, address, filteredBidEvents } = useHistoricalBids({
     tokenId: '119',

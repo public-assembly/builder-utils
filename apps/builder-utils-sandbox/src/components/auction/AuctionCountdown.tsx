@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { useCountdown } from '../../hooks/useCountdown'
+import { useCountdown } from '@public-assembly/builder-utils'
 
 export default function AuctionCountdown({ endTime }: { endTime: number }) {
   const { countdownString, isEnded } = useCountdown(endTime)

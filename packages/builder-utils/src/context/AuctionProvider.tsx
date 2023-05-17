@@ -1,9 +1,7 @@
 import React from 'react'
 import type { PropsWithChildren } from 'react'
 import { Hex } from 'viem'
-import { viemClient } from '../viem/client'
 import { useManagerContext } from './ManagerProvider'
-import { getAuctionState } from '../data/getAuctionState'
 
 export interface Auction {
   tokenId: bigint

@@ -1,34 +1,10 @@
-import { useState, useCallback, useEffect } from 'react'
-import { Hex } from 'viem'
-import { getAuctionState } from '../data/getAuctionState'
+import { useState, useCallback } from 'react'
+import { useAuctionState } from './useAuctionState'
 
-export interface AuctionState {
-  auctionState: {
-    tokenId?: bigint
-    highestBid?: bigint
-    highestBidder?: Hex
-    startTime?: number
-    endTime?: number
-    settled?: boolean
-  }
-}
+export function useTokenExplorer() {
+  const { auctionState } = useAuctionState()
 
-export function useTokenExplorer({ auctionAddress }: { auctionAddress: Hex }) {
-  const [auctionState, setAuctionState] = useState<AuctionState>()
-
-  useEffect(() => {
-    // prettier-ignore
-    (async () => {
-      try {
-        const fetchedAuctionState = await getAuctionState({ auctionAddress: auctionAddress as Hex })
-        setAuctionState(fetchedAuctionState)
-      } catch(error) {
-        console.log(error)
-      }
-    })()
-  }, [auctionAddress])
-
-  const tokenId = Number(auctionState?.auctionState.tokenId)
+  const tokenId = Number(auctionState?.tokenId)
 
   const [currentTokenId, setCurrentTokenId] = useState<number>(tokenId)
 
