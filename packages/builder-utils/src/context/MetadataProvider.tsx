@@ -33,6 +33,7 @@ export function MetadataProvider({ children }: PropsWithChildren) {
   useEffect(() => {
     // prettier-ignore
     (async () => {
+      if (!metadataAddress) return
       try {
         const fetchedMetadataSettings = await viemClient?.readContract({
           address: metadataAddress as Hex,
@@ -47,8 +48,7 @@ export function MetadataProvider({ children }: PropsWithChildren) {
     })()
   }, [metadataAddress])
 
-  console.log(metadataSettings)
-
+  if (!metadataSettings) return
   return (
     <MetadataContext.Provider
       value={{

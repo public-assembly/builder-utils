@@ -9,12 +9,10 @@ export default function Home() {
     getAuctionState({ auctionAddress: auctionAddress as Hex }),
   ])
 
-  const { winningBid, winningTx, address } = useHistoricalBids({
-    tokenId: '1',
+  const { winningBid, winningTx, address, filteredBidEvents } = useHistoricalBids({
+    tokenId: '119',
     tokenAddress: process.env.NEXT_PUBLIC_TOKEN_ADDRESS as Hex,
   })
-
-  console.log(winningBid, winningTx, address)
 
   return (
     <main className={`flex min-h-screen flex-col items-center justify-between p-24`}>

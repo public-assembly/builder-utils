@@ -6,10 +6,10 @@ import { useManagerContext } from '../context'
 import { etherscanLink } from '../lib'
 
 export type AuctionEvent = {
-  id: bigint
-  bidder: string
+  id: number
+  bidder: Hex
   amount: string
-  transactionHash: string
+  transactionHash: Hash
 }
 
 export function useHistoricalBids({
@@ -29,14 +29,17 @@ export function useHistoricalBids({
   const [winningBid, setWinningBid] = useState<string | undefined>()
   const [winningTx, setWinningTx] = useState<string | undefined>()
   const [address, setAddress] = useState<string | undefined>()
-  const [bidEvents, setBidEvents] = useState<AuctionEvent[] | undefined>()
+  const [filteredBidEvents, setFilteredBidEvents] = useState<AuctionEvent[] | undefined>()
 
   useEffect(() => {
     if (!tokenData) return
     // prettier-ignore
     (async () => {
       try {
-        const fetchedEvents = await viemClient?.getLogs({
+        /**
+         * Return all `AuctionBid` events from the block during which it was minted until now
+         */
+        const fetchedBidEvents = await viemClient?.getLogs({
           address: auctionAddress,
           event: parseAbiItem(
             'event AuctionBid(uint256 tokenId, address bidder, uint256 amount, bool extended, uint256 endTime)'
@@ -44,21 +47,27 @@ export function useHistoricalBids({
           fromBlock: BigInt(tokenData?.mintInfo?.mintContext?.blockNumber),
           toBlock: 'latest',
         })
-
-        const bidEventsArray = fetchedEvents?.map((event) => {
+        /**
+         * Grab and format the `tokenId`, `bidder`, `amount`, and `transactionHash` of each bid
+         */
+        const prettyBidEvents = fetchedBidEvents?.map((event) => {
           return {
-            id: event.args?.tokenId,
-            bidder: event.args?.bidder as string,
+            id: Number(event.args?.tokenId),
+            bidder: event.args?.bidder as Hex,
             amount: formatEther(event.args?.amount),
-            transactionHash: event.transactionHash as string,
+            transactionHash: event.transactionHash as Hash,
           }
         })
-        const bidEvents = bidEventsArray?.filter((token) => token?.id === BigInt(tokenId))
+        console.log(prettyBidEvents)
+        /**
+         * Filter bids given the `tokenId` supplied as an argument to this hook
+         */
+        const filteredBidEvents = prettyBidEvents?.filter((token) => token.id == Number(tokenId))
 
-        setBidEvents(bidEvents)
+        setFilteredBidEvents(filteredBidEvents)
 
-        if (bidEvents?.length) {
-          const lastTokenEvent = bidEvents.at(-1)
+        if (filteredBidEvents?.length) {
+          const lastTokenEvent = filteredBidEvents.at(-1)
           setAddress(lastTokenEvent?.bidder)
           setWinningBid(`${lastTokenEvent?.amount}`)
           setWinningTx(etherscanLink({ hash: lastTokenEvent?.transactionHash }))
@@ -72,5 +81,5 @@ export function useHistoricalBids({
     })()
   }, [tokenData])
 
-  return { winningBid, winningTx, address, bidEvents }
+  return { winningBid, winningTx, address, filteredBidEvents }
 }
