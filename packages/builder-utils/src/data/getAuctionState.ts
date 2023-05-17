@@ -2,7 +2,7 @@ import { Hex } from 'viem'
 import { viemClient } from '../viem/client'
 import { auctionAbi } from '../abi'
 
-export interface AuctionState {
+type AuctionState = {
   tokenId: bigint
   highestBid: bigint
   highestBidder: Hex
