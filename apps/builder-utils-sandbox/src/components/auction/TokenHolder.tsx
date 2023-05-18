@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { useDaoTokenQuery, useBidder } from '../../hooks'
+import { useDaoTokenQuery, useEnsNameOrShorten } from '@public-assembly/builder-utils'
 import { Hex } from 'viem'
 
 export default function TokenTitle({
@@ -14,7 +14,7 @@ export default function TokenTitle({
     tokenId: tokenId,
   })
 
-  const { bidder: holder } = useBidder(tokenData?.owner as Hex)
+  // const { ensNameOrShorten: holder } = Promise.all([ensNameOrShorten(tokenData?.owner as Hex)])
 
   if (!tokenData) return null
   return (
@@ -24,7 +24,7 @@ export default function TokenTitle({
       rel="noreferrer"
       className="flex flex-col leading-5">
       <span className="opacity-50">Held by:</span>
-      <span className="hover:underline">{holder}</span>
+      {/* <span className="hover:underline">{holder}</span> */}
     </a>
   )
 }

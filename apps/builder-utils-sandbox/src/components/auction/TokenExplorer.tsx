@@ -2,8 +2,7 @@ import * as React from 'react'
 import CurrentAuction from './CurrentAuction'
 import TokenRenderer from './TokenRenderer'
 import CircleArrow from './CircleArrow'
-import { useTokenContext } from '../../context'
-import { useTokenExplorer } from '../../hooks'
+import { useTokenContext, useTokenExplorer } from '@public-assembly/builder-utils'
 import { Hex } from 'viem'
 
 export interface TokenExplorerProps extends React.HTMLProps<HTMLDivElement> {

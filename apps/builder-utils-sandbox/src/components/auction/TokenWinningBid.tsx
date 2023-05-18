@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { useBid } from '../../hooks'
+import { useHistoricalBids } from '@public-assembly/builder-utils'
 
 export default function TokenWinningBid({
   tokenId,
@@ -8,8 +8,7 @@ export default function TokenWinningBid({
   tokenAddress: `0x${string}`
   tokenId: string
 }) {
-  // @ts-ignore
-  const { winningBid, winningTx } = useBid({
+  const { winningBid, winningTx } = useHistoricalBids({
     tokenId,
     tokenAddress,
   })

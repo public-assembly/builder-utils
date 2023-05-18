@@ -1,6 +1,6 @@
 import * as React from 'react'
 import ProposalCard from './ProposalCard'
-import { useGovernorContext } from '../../context'
+import { useGovernorContext } from '@public-assembly/builder-utils'
 
 export default function ProposalCardGrid() {
   const { proposals } = useGovernorContext()

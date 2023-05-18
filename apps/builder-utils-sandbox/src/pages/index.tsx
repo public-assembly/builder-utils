@@ -1,8 +1,8 @@
 import Image from 'next/image'
 import {
-  useHistoricalBids,
   useAuctionState,
   useAuctionSettings,
+  useHistoricalBids,
 } from '@public-assembly/builder-utils'
 import { Hex } from 'viem'
 

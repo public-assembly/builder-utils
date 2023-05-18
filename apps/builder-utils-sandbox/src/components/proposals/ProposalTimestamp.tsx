@@ -1,6 +1,7 @@
 import * as React from 'react'
+import { NounsProposal } from '@public-assembly/builder-utils'
 
-export default function ProposalTimestamp({ proposal }) {
+export default function ProposalTimestamp({ proposal }: { proposal: NounsProposal }) {
   const dateFormat: [string, Intl.DateTimeFormatOptions] = [
     'en-us',
     {

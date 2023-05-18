@@ -2,7 +2,6 @@ import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
 import {
   ManagerProvider,
-  AuctionProvider,
   MetadataProvider,
   GovernorProvider,
   TokenProvider,
@@ -16,13 +15,11 @@ export default function App({ Component, pageProps }: AppProps) {
     <WagmiConfig config={config}>
       <ManagerProvider tokenAddress={process.env.NEXT_PUBLIC_TOKEN_ADDRESS as Hex}>
         <GovernorProvider>
-          <AuctionProvider>
-            <TokenProvider>
-              <MetadataProvider>
-                <Component {...pageProps} />
-              </MetadataProvider>
-            </TokenProvider>
-          </AuctionProvider>
+          <TokenProvider>
+            <MetadataProvider>
+              <Component {...pageProps} />
+            </MetadataProvider>
+          </TokenProvider>
         </GovernorProvider>
       </ManagerProvider>
     </WagmiConfig>

@@ -1,8 +1,7 @@
 import React, { useContext } from 'react'
 import type { PropsWithChildren } from 'react'
 import { useManagerContext } from './ManagerProvider'
-import { useDaoProposalQuery } from '../hooks'
-import type { NounsProposal } from '../types'
+import { useDaoProposalQuery, NounsProposal } from '../graphql'
 import { Hex } from 'viem'
 
 export interface GovernorReturnTypes {

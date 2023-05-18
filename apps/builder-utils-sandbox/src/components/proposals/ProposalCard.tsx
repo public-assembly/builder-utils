@@ -3,8 +3,9 @@ import ProposalStatus from './ProposalStatus'
 import ProposalTitle from './ProposalTitle'
 import Proposer from './Proposer'
 import ProposalTimestamp from './ProposalTimestamp'
+import { NounsProposal } from '@public-assembly/builder-utils'
 
-export default function ProposalCard({ proposal }) {
+export default function ProposalCard({ proposal }: { proposal: NounsProposal }) {
   return (
     <div className="p-4 text-black bg-slate-300 rounded-2xl">
       <div className="rounded-xl bg-gray-200 px-5 py-3">

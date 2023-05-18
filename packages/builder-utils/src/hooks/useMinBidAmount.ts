@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { useDaoAuctionQuery } from './useDaoAuctionQuery'
+import { useDaoAuctionQuery } from '../graphql/hooks/useDaoAuctionQuery'
 import { formatEther, parseUnits, Hex } from 'viem'
 
 export function useMinBidAmount({ tokenAddress }: { tokenAddress: Hex }): any {

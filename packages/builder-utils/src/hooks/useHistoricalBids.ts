@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Hex, Hash, parseAbiItem, formatEther } from 'viem'
 import { viemClient } from '../viem/client'
-import { useDaoTokenQuery } from '../hooks'
+import { useDaoTokenQuery } from '../graphql/hooks'
 import { useManagerContext } from '../context'
 import { etherscanLink } from '../lib'
 
@@ -58,7 +58,6 @@ export function useHistoricalBids({
             transactionHash: event.transactionHash as Hash,
           }
         })
-        console.log(prettyBidEvents)
         /**
          * Filter bids given the `tokenId` supplied as an argument to this hook
          */

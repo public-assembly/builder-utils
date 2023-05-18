@@ -2,7 +2,10 @@ import * as React from 'react'
 import AuctionCountdown from './AuctionCountdown'
 import TokenThumbnail from './TokenThumbnail'
 import TokenTitle from './TokenTitle'
-import { useDaoCollectionQuery, ensNameOrShorten } from '@public-assembly/builder-utils'
+import {
+  useDaoCollectionQuery,
+  useEnsNameOrShorten,
+} from '@public-assembly/builder-utils'
 import { Hex, formatEther } from 'viem'
 
 export interface CurrentAuctionProps extends React.HTMLProps<HTMLDivElement> {
@@ -27,7 +30,7 @@ export default function CurrentAuction({
 
   // const bidder = useBidder(auctionState.highestBidder)
 
-  const { nftCount } = useDaoCollectionQuery({ tokenAddress: tokenAddress })
+  // const { nftCount } = useDaoCollectionQuery({ tokenAddress: tokenAddress })
 
   // function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
   //   event.preventDefault()

@@ -9,24 +9,20 @@ export interface MetadataProviderProps {
   children?: React.ReactNode
 }
 
-export interface MetadataSettings {
-  token: Hex
-  projectURI: string
-  description: string
-  contractImage: string
-  rendererBase: string
-}
+type MetadataSettings =
+  | readonly [`0x${string}`, string, string, string, string]
+  | undefined
 
 export interface MetadataReturnTypes {
-  tokenAddress?: Hex
-  metadataAddress?: Hex
-  metadataSettings?: MetadataSettings
+  tokenAddress: Hex
+  metadataAddress: Hex
+  metadataSettings: MetadataSettings
 }
 
 const MetadataContext = React.createContext({} as MetadataReturnTypes)
 
-export function MetadataProvider({ children }: PropsWithChildren) {
-  const [metadataSettings, setMetadataSettings] = useState()
+export function MetadataProvider({ children }: PropsWithChildren): JSX.Element {
+  const [metadataSettings, setMetadataSettings] = useState<MetadataSettings>()
 
   const { tokenAddress, metadataAddress } = useManagerContext()
 
@@ -40,7 +36,6 @@ export function MetadataProvider({ children }: PropsWithChildren) {
           abi: metadataAbi,
           functionName: 'settings',
         })
-        // @ts-ignore
         setMetadataSettings(fetchedMetadataSettings)
       } catch (error) {
         console.error(error)
@@ -48,12 +43,12 @@ export function MetadataProvider({ children }: PropsWithChildren) {
     })()
   }, [metadataAddress])
 
-  if (!metadataSettings) return
+  if (!metadataSettings) return <></>
   return (
     <MetadataContext.Provider
       value={{
         tokenAddress,
-        metadataAddress,
+        metadataAddress: metadataAddress as Hex,
         metadataSettings,
       }}>
       {children}

@@ -5,9 +5,9 @@ const withTM = require('next-transpile-modules')(['@public-assembly/builder-util
 const nextConfig = {
   reactStrictMode: true,
   // transpilePackages: ['@public-assembly/builder-utils'],
-  experimental: {
-    esmExternals: 'loose',
-  },
+  // experimental: {
+  //   esmExternals: 'loose',
+  // },
 }
 
 module.exports = withTM(nextConfig)

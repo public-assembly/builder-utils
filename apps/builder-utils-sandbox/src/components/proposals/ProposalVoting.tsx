@@ -1,15 +1,15 @@
 import * as React from 'react'
-import { useVote } from '../../hooks'
+import { NounsProposal } from '@public-assembly/builder-utils'
 
-export default function ProposalVoting({ proposal }) {
+export default function ProposalVoting({ proposal }: { proposal: NounsProposal }) {
   const [support, setSupport] = React.useState<0 | 1 | 2 | undefined>()
   const [reason, setReason] = React.useState<string | undefined>()
 
-  const { castVote, castVoteWithReason } = useVote({
-    proposal,
-    support,
-    reason,
-  })
+  // const { castVote, castVoteWithReason } = useVote({
+  //   proposal,
+  //   support,
+  //   reason,
+  // })
 
   if (proposal?.status == 'ACTIVE') {
     return (
@@ -32,7 +32,7 @@ export default function ProposalVoting({ proposal }) {
               Abstain
             </button>
           </div>
-          <div>
+          {/* <div>
             {reason === undefined ? (
               <button disabled={support === undefined} onClick={() => castVote}>
                 Submit Vote
@@ -42,7 +42,7 @@ export default function ProposalVoting({ proposal }) {
                 Submit Vote With Reason
               </button>
             )}
-          </div>
+          </div> */}
         </div>
         <textarea
           className="w-full bg-gray-200 rounded-xl px-4 py-2 mt-4"

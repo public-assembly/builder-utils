@@ -6,8 +6,9 @@ import ProposalTimestamp from './ProposalTimestamp'
 import VoteTally from './VoteTally'
 import ProposalDescription from './ProposalDescription'
 import ProposalVoting from './ProposalVoting'
+import { NounsProposal } from '@public-assembly/builder-utils'
 
-export default function ProposalPage({ proposal }) {
+export default function ProposalPage({ proposal }: { proposal: NounsProposal }) {
   return (
     <div className="p-4 text-black bg-slate-300 rounded-2xl">
       <div className="rounded-xl bg-gray-200 px-5 py-3">
