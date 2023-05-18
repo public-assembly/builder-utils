@@ -9,11 +9,19 @@ import {
 import { Hex } from 'viem'
 import { WagmiConfig } from 'wagmi'
 import { config } from '../wagmi'
+import dynamic from 'next/dynamic'
+
+const DynamicManagerProvider = dynamic(
+  () => import('@public-assembly/builder-utils').then((module) => module.ManagerProvider),
+  {
+    ssr: false,
+  }
+)
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <WagmiConfig config={config}>
-      <ManagerProvider tokenAddress={process.env.NEXT_PUBLIC_TOKEN_ADDRESS as Hex}>
+      <DynamicManagerProvider tokenAddress={process.env.NEXT_PUBLIC_TOKEN_ADDRESS as Hex}>
         <GovernorProvider>
           <TokenProvider>
             <MetadataProvider>
@@ -21,7 +29,7 @@ export default function App({ Component, pageProps }: AppProps) {
             </MetadataProvider>
           </TokenProvider>
         </GovernorProvider>
-      </ManagerProvider>
+      </DynamicManagerProvider>
     </WagmiConfig>
   )
 }
