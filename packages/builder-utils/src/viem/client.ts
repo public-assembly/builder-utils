@@ -7,9 +7,7 @@ export const mainnetClient: PublicClient = createPublicClient({
     multicall: true,
   },
   chain: mainnet,
-  transport: http(
-    `http://mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_KEY}`
-  ),
+  transport: http(process.env.NEXT_PUBLIC_MAINNET_ALCHEMY_ENDPOINT),
 })
 
 export const goerliClient: PublicClient = createPublicClient({
@@ -17,7 +15,8 @@ export const goerliClient: PublicClient = createPublicClient({
     multicall: true,
   },
   chain: goerli,
-  transport: http(
-    `http://goerli.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_KEY}`
-  ),
+  transport: http(process.env.NEXT_PUBLIC_GOERLI_ALCHEMY_ENDPOINT),
 })
+
+export const viemClient: PublicClient | undefined =
+  process.env.NEXT_PUBLIC_CHAIN_ID == '5' ? goerliClient : mainnetClient

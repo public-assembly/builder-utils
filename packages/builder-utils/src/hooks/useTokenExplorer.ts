@@ -1,10 +1,10 @@
 import { useState, useCallback } from 'react'
-import { useAuctionContext } from '../context'
+import { useAuctionState } from './useAuctionState'
 
 export function useTokenExplorer() {
-  const { auctionState } = useAuctionContext()
+  const { auctionState } = useAuctionState()
 
-  const tokenId = Number(auctionState.tokenId)
+  const tokenId = Number(auctionState?.tokenId)
 
   const [currentTokenId, setCurrentTokenId] = useState<number>(tokenId)
 

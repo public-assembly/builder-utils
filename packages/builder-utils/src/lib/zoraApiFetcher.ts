@@ -1,17 +1,12 @@
 import { DocumentNode } from 'graphql'
 import { GraphQLClient } from 'graphql-request'
 import {
-  Chain,
   NounishAuctionsQueryVariables,
   NounishCollectionsQueryVariables,
   NounishProposalsQueryVariables,
   NounishTokensQueryVariables,
-} from '../types'
-
-export const CHAIN = {
-  1: Chain.Mainnet,
-  5: Chain.Goerli,
-}[process.env.NEXT_PUBLIC_CHAIN_ID || 1] as Chain
+} from '../graphql'
+import { CHAIN } from '../graphql/constants/chain'
 
 export const client = new GraphQLClient('https://api.zora.co/graphql', {
   method: 'POST',

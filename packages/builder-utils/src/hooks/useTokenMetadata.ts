@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useDaoTokenQuery } from './useDaoTokenQuery'
+import { useDaoTokenQuery } from '../graphql'
 import { useManagerContext } from '../context'
 import { Hex } from 'viem'
 
