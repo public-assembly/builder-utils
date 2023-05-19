@@ -6,7 +6,7 @@ export function HistoricalAuction({ tokenId }: { tokenId: number }) {
   return (
     <>
       <h1>{tokenName}</h1>
-      <img src={tokenThumbnail} />
+      <img src={tokenThumbnail} width={500} height={500} />
     </>
   )
 }
