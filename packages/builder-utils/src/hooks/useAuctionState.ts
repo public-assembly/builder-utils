@@ -13,8 +13,17 @@ export interface AuctionState {
   settled: boolean
 }
 
+const initialAuctionState: AuctionState = {
+  tokenId: 0,
+  highestBid: '0',
+  highestBidder: '0x0',
+  startTime: 0,
+  endTime: 0,
+  settled: false,
+}
+
 export function useAuctionState() {
-  const [auctionState, setAuctionState] = useState<AuctionState>()
+  const [auctionState, setAuctionState] = useState<AuctionState>(initialAuctionState)
 
   const { auctionAddress } = useManagerContext()
 
