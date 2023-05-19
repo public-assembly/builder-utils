@@ -1,6 +1,6 @@
 {
   "name": "@public-assembly/builder-utils",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "React componentry and hooks to interact with the ourzora/nouns-protocol smart contracts.",
   "main": "dist/public-assembly-builder-utils.cjs.js",
   "module": "dist/public-assembly-builder-utils.esm.js",
