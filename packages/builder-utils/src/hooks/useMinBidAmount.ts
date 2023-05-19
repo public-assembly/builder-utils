@@ -1,8 +1,10 @@
 import * as React from 'react'
 import { useDaoAuctionQuery } from '../graphql/hooks/useDaoAuctionQuery'
+import { useManagerContext } from '../context'
 import { formatEther, parseUnits, Hex } from 'viem'
 
-export function useMinBidAmount({ tokenAddress }: { tokenAddress: Hex }): any {
+export function useMinBidAmount() {
+  const { tokenAddress } = useManagerContext()
   const { activeAuction } = useDaoAuctionQuery({ tokenAddress: tokenAddress })
 
   const minBidAmount = React.useMemo(() => {

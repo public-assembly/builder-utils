@@ -6,7 +6,7 @@ import { Tab, Tabs, Callout } from 'nextra-theme-docs'
 
 # Building a Custom Auction Component
 
-This tutorial will walk you through building a custom auction component for your builder using the builder-utils package. This is a React specific tutorial that leverages Next.js.
+This tutorial will walk you through building a custom auction component for your builder using the builder-utils package. This is a React specific tutorial that leverages Next.js. All styling decisions will be left to the developer implementing this tutorial.
 
 ### Create project and install dependencies
 
@@ -38,13 +38,15 @@ Next install the builder utils package and its peer dependencies.
 
 The package's remaining peer dependencies should already be installed.
 
-### Ensure wallet connection is configured properly
+### Setup wallet connection
+
+If you're using a wallet connection client like [RainbowKit](https://www.rainbowkit.com/docs/installation) or [ConnectKit](https://docs.family.co/connectkit), refer to their respective docs to get properly configured.
 
 ### Configure the provider components
 
-Builder utils provides a collection of provider components used to dynamically pass data about your builder throughout an application. You can configure these provider components by first navigating to your `_app.tsx` file and then wrapping your components with the `ManagerProvider` component.
+Builder utils provides a collection of provider components used to dynamically pass contract specific data throughout your application. Begin configuring these provider components by first navigating to your `_app.tsx` file and then wrapping your component tree with the `ManagerProvider` component.
 
-Because this component utilizes wagmi hooks, you'll need to ensure this component is being loaded client side. Below is a solution to this using [next/dynamic](https://nextjs.org/docs/advanced-features/dynamic-import) from Next.js.
+Note that because the `ManagerProvider` utilizies React hooks, you'll need to ensure this component is being loaded client side. Below is a solution to this using [next/dynamic](https://nextjs.org/docs/advanced-features/dynamic-import) from Next.js.
 
 ```jsx
 import dynamic from 'next/dynamic'
@@ -65,28 +67,182 @@ function App() {
 }
 ```
 
-In order to retrieve data about the current status of our auction, we'll need to wrap our React app in the `AuctionProvider` component. This component uses a combination of on and offchain data to provide context of the current auction anywhere within our app.
+### Create a skeleton component
+
+Within your `src` directory, create a new folder called `components` and within it create a React component called `AuctionSkeleton.tsx`. This component will exist as a layout component that dynamically switches between the current auction and historical auctions while rendering the respective interface elements.
+
+This component leverages the [`useTokenExplorer`](pages/hooks/useTokenExplorer.mdx) hook which returns two functions each responsible for navigating between past tokens and the current auction.
 
 ```jsx
-// next/dynamic configuration
+import { useTokenExplorer } from '@public-assembly/builder-utils'
 
-function App() {
+export function AuctionSkeleton() {
+  const { incrementId, decrementId } = useTokenExplorer()
+
   return (
-    <DynamicManagerProvider tokenAddress={tokenAddress}>
-      <AuctionProvider>
-        <YourRoutes />
-      <AuctionProvider>
-    </DynamicManagerProvider>
+    <>
+      <button onClick={decrementId}>Backward</button>
+      <button onClick={incrementId}>Forward</button>
+    </>
   )
 }
 ```
 
-### Implement an artwork component
+Additionally you'll want to grab two more of the destructured elements returned by the useTokenExplorer hook, boolean elements that will allow you to disable your buttons if the user has reached the first or last (current) token.
 
-Create a new directory called `components` and within it create a React component called `Artwork.tsx`. This component will be responsible for rendering the daily artwork of your builder.
+```jsx
+export function AuctionSkeleton() {
+  const { incrementId, decrementId, isFirstToken, isLastToken } = useTokenExplorer()
 
-This component leverages the `useTokenMetadata` hook.
-
+  return (
+    <>
+      <button disabled={isFirstToken} onClick={decrementId}>
+        Backward
+      </button>
+      <button disabled={isLastToken} onClick={incrementId}>
+        Forward
+      </button>
+    </>
+  )
+}
 ```
 
+Next we'll create another component called `CurrentAuction` which will render all the data associated with the current auction.
+
+This component leverages the [`useTokenMetadata`](pages/hooks/useTokenMetadata.mdx) hook which accepts a string representing the token id to render and returns the name and artwork for that token.
+
+Note that the `tokenId` passed into `useTokenMetadata` is in the form of a number, but must be convereted into a string in order to be properly formatted for the underlying API call.
+
+```jsx
+import { useTokenMetadata, useTokenExplorer } from '@public-assembly/builder-utils'
+
+export function CurrentAuction({ tokenId }: { tokenId: number }) {
+  const { tokenName, tokenThumbnail } = useTokenMetadata(String(tokenId))
+
+  return <></>
+}
 ```
+
+We'll flesh out the `CurrentAuction` component a bit more by adding an img tag and rendering the artwork alongside the token name. If you're interested in using Next's native Image component, be sure to read the documentation [here](https://nextjs.org/docs/pages/api-reference/components/image).
+
+```jsx
+import { useTokenMetadata, useAuctionState } from '@public-assembly/builder-utils'
+
+export function CurrentAuction() {
+  const { auctionState } = useAuctionState()
+  const { tokenName, tokenThumbnail } = useTokenMetadata(String(auctionState?.tokenId))
+
+  return (
+    <>
+      <h1>{tokenName}</h1>
+      <img src={tokenThumbnail} />
+    </>
+  )
+}
+```
+
+Next we'll create a `HistoricalAuction` component. Similarly to the `CurrentAuction` component, this component will utilize the `useTokenMetadata` hook, but instead of grabbing the tokenId from the `auctionState` object, this component will accept `tokenId` as a prop.
+
+```jsx
+import { useTokenMetadata } from '@public-assembly/builder-utils'
+
+export function HistoricalAuction({ tokenId }: { tokenId: number }) {
+  const { tokenName, tokenThumbnail } = useTokenMetadata(String(tokenId))
+
+  return (
+    <>
+      <h1>{tokenName}</h1>
+      <img src={tokenThumbnail} />
+    </>
+  )
+}
+```
+
+Lets return to our `AuctionSkeleton` component and setup conditional rendering based on whether or not the state of the token id object reflects the current auction.
+
+We'll create an arrow function called `renderContent` that checks if the `isLastToken` boolean is true. If so it will return the `CurrentAuction` component, if not it will render the `HistoricalAuction` component. Additionally we can use the `isLastToken` boolean alongisde the `isFirstToken` boolean to create disabled states for our explorer buttons.
+
+```jsx
+import { useTokenExplorer } from '@public-assembly/builder-utils'
+import { CurrentAuction } from './CurrentAuction'
+import { HistoricalAuction } from './HistoricalAuction'
+
+export function AuctionSkeleton() {
+  const { currentTokenId, incrementId, decrementId, isFirstToken, isLastToken } =
+    useTokenExplorer()
+
+  const renderContent = () => {
+    if (isLastToken) {
+      return <CurrentAuction />
+    } else {
+      return <HistoricalAuction tokenId={currentTokenId} />
+    }
+  }
+
+  return (
+    <>
+      {renderContent()}
+      <>
+        <button disabled={isFirstToken} onClick={decrementId}>
+          Backward
+        </button>
+        <button disabled={isLastToken} onClick={incrementId}>
+          Forward
+        </button>
+      </>
+    </>
+  )
+}
+```
+
+### Add bidding functionality
+
+We'll start by adding a `hooks` folder to our `src` directory. This will house the contract interaction scaffolding we've prepared with wagmi. Create a new hook called `useCreateBid` and add the following code.
+
+```jsx
+import { useContractWrite, usePrepareContractWrite, useWaitForTransaction } from 'wagmi'
+import { Hex } from 'viem'
+import {
+  useManagerContext,
+  auctionAbi,
+  useAuctionState,
+} from '@public-assembly/builder-utils'
+
+export function useCreateBid({ bidAmount }: { bidAmount: string }) {
+  const { auctionAddress } = useManagerContext()
+  const { auctionState } = useAuctionState()
+
+  const { config: createBidConfig } = usePrepareContractWrite({
+    address: auctionAddress as Hex,
+    abi: auctionAbi,
+    functionName: 'createBid',
+    args: [BigInt(auctionState?.tokenId as number)],
+    value: BigInt(bidAmount),
+  })
+
+  const {
+    data: createBidData,
+    write: createBid,
+    isError: createBidError,
+  } = useContractWrite(createBidConfig)
+  const {
+    data: createBidTx,
+    isLoading: createBidLoading,
+    isSuccess: createBidSuccess,
+  } = useWaitForTransaction({
+    hash: createBidData?.hash,
+  })
+
+  return {
+    createBid,
+    createBidSuccess,
+    createBidError,
+    createBidLoading,
+    createBidTx,
+  }
+}
+```
+
+This hook will allow us to dynamically create a write call to our DAO's auction contract. Using user input values to create bid interactions on the contract.
+
+We'll create a separate component that'll be rendered inside our `CurrentAuction` component that handles bidding functionality.

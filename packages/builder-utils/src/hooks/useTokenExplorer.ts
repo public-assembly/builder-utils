@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import { useAuctionState } from './useAuctionState'
 
 export function useTokenExplorer() {
@@ -7,6 +7,10 @@ export function useTokenExplorer() {
   const tokenId = Number(auctionState?.tokenId)
 
   const [currentTokenId, setCurrentTokenId] = useState<number>(tokenId)
+
+  useEffect(() => {
+    setCurrentTokenId(tokenId)
+  }, [auctionState])
 
   const incrementId = useCallback(() => {
     if (currentTokenId < tokenId) {

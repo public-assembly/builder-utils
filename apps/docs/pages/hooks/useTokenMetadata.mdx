@@ -11,10 +11,13 @@ import { useTokenMetadata } from '@public-assembly/builder-utils'
 ```jsx
 import { useTokenMetadata } from '@public-assembly/builder-utils'
 
-function App({ tokenId }: { tokenId: string }) {
-  const { tokenName, tokenThumbnail } = useTokenMetadata({ tokenId })
+function App() {
+  const { tokenName, tokenThumbnail } = useTokenMetadata('1' // tokenId)
 
-  return <></>
+  return <>
+      <p>{tokenName}</p>
+      <img src={tokenThumbnail}></img>
+    </>
 }
 ```
 
