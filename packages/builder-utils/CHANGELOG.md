@@ -1,5 +1,11 @@
 # @public-assembly/builder-utils
 
+## 0.1.1
+
+### Patch Changes
+
+- 8bd4a66: useMinBidAmount no longer accepts a token address as an argument. useTokenExplorer now has a useEffect hook to ensure the initial state of currentTokenId is correct.
+
 ## 0.1.0
 
 ### Minor Changes
