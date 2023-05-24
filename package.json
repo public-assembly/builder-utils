@@ -9,15 +9,13 @@
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "build": "turbo run build",
-    "build:package": "preconstruct build",
     "clean": "turbo run clean && rm -rf node_modules",
-    "dev": "preconstruct dev && turbo run dev",
+    "dev": "turbo run dev",
     "lint": "turbo run lint",
-    "postinstall": "preconstruct dev",
     "prepare": "husky install",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "version-packages": "changeset version",
-    "release": "preconstruct build && changeset version && changeset publish"
+    "release": "changeset version && changeset publish"
   },
   "devDependencies": {
     "@changesets/cli": "^2.24.4",
@@ -36,11 +34,6 @@
     "tsup": "^6.7.0",
     "turbo": "^1.6.3",
     "typescript": "^4.8.3"
-  },
-  "preconstruct": {
-    "packages": [
-      "packages/*"
-    ]
   },
   "lint-staged": {
     "apps/**/*.{js,ts,jsx,tsx}": [
