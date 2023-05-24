@@ -9,7 +9,7 @@
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "build": "turbo run build",
-    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
+    "clean": "turbo clean && rm -rf node_modules",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "prepare": "husky install",
