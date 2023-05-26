@@ -54,7 +54,7 @@ export function useHistoricalBids({
           return {
             id: Number(event.args?.tokenId),
             bidder: event.args?.bidder as Hex,
-            amount: formatEther(event.args?.amount),
+            amount: formatEther(event.args?.amount as bigint),
             transactionHash: event.transactionHash as Hash,
           }
         })

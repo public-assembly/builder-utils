@@ -9,23 +9,16 @@
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "build": "turbo run build",
-    "build:package": "preconstruct build",
-    "clean": "turbo run clean && rm -rf node_modules",
-    "dev": "preconstruct dev && turbo run dev",
+    "clean": "turbo clean && rm -rf node_modules",
+    "dev": "turbo run dev",
     "lint": "turbo run lint",
-    "postinstall": "preconstruct dev",
     "prepare": "husky install",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "version-packages": "changeset version",
-    "release": "preconstruct build && changeset version && changeset publish"
+    "release": "changeset version && changeset publish"
   },
   "devDependencies": {
-    "@babel/core": "^7.19.1",
-    "@babel/preset-env": "^7.19.1",
-    "@babel/preset-react": "^7.18.6",
-    "@babel/preset-typescript": "^7.18.6",
     "@changesets/cli": "^2.24.4",
-    "@preconstruct/cli": "^2.2.1",
     "@zoralabs/eslint-config": "^0.0.1",
     "buffer": "^6.0.3",
     "eslint": "^8.23.1",
@@ -41,11 +34,6 @@
     "tsup": "^6.7.0",
     "turbo": "^1.6.3",
     "typescript": "^4.8.3"
-  },
-  "preconstruct": {
-    "packages": [
-      "packages/*"
-    ]
   },
   "lint-staged": {
     "apps/**/*.{js,ts,jsx,tsx}": [
@@ -66,5 +54,6 @@
   "engines": {
     "node": "^14.13.1 || >=16.0.0",
     "pnpm": ">=7"
-  }
+  },
+  "packageManager": "pnpm@8.5.0"
 }

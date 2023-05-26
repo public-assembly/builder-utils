@@ -1,5 +1,6 @@
 export * from './useAuctionSettings'
 export * from './useAuctionState'
+export * from './useContractOwner'
 export * from './useCountdown'
 export * from './useEnsNameOrShorten'
 export * from './useHistoricalBids'

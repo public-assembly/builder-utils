@@ -4,6 +4,7 @@ import {
   useAuctionState,
   useAuctionSettings,
   useHistoricalBids,
+  useContractOwner,
 } from '@public-assembly/builder-utils'
 import { Hex } from 'viem'
 import { CurrentAuction } from '@/components/CurrentAuction'
@@ -18,9 +19,12 @@ export default function Home() {
 
   const { auctionState } = useAuctionState()
 
+  const { contractOwner } = useContractOwner()
+
   return (
     <>
       <AuctionSkeleton />
+      <h1>{contractOwner}</h1>
     </>
   )
 }
