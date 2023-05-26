@@ -2,6 +2,7 @@ import { Hex, formatEther } from 'viem'
 import { useManagerContext } from '../context'
 import { auctionAbi } from '../abi'
 import { useContractRead } from 'wagmi'
+import { useEnsNameOrShorten } from './useEnsNameOrShorten'
 
 export interface AuctionState {
   tokenId: number
@@ -24,7 +25,7 @@ export function useAuctionState(): { auctionState: AuctionState } {
   return {
     auctionState: {
       tokenId: Number(auctionState?.[0]),
-      highestBid: String(auctionState?.[1]),
+      highestBid: formatEther(auctionState?.[1] as bigint),
       highestBidder: auctionState?.[2] as Hex,
       startTime: Number(auctionState?.[3]),
       endTime: Number(auctionState?.[4]),
