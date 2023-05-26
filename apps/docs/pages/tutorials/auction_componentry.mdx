@@ -1,16 +1,12 @@
 import { Tab, Tabs, Callout } from 'nextra-theme-docs'
 
-<Callout>
-  This tutorial is being written before dao-utils officially becomes builder-utils on npm.
-</Callout>
+# Build a custom auction component
 
-# Building a Custom Auction Component
+This tutorial will walk you through building a custom auction component for your Nouns Builder DAO. This is a React specific tutorial that leverages [Next.js](https://nextjs.org/) (Next) and its [App Router](https://nextjs.org/docs/app). Additionally, styling is accomplished with [Tailwind CSS](https://tailwindcss.com/), but any other approach will work just fine.
 
-This tutorial will walk you through building a custom auction component for your builder using the builder-utils package. This is a React specific tutorial that leverages Next.js. All styling decisions will be left to the developer implementing this tutorial.
+### Create a new project and install dependencies
 
-### Create project and install dependencies
-
-Begin by setting up a basic Next.js app configured with [wagmi](https://wagmi.sh/). You can do this by leveraging the `create-wagmi` CLI. This tutorial uses the template automatically configured with [Next.js](https://nextjs.org/) and [ConnectKit](https://docs.family.co/connectkit).
+In a new directory, use the `create-wagmi` CLI tool to spin up a Next project configured with [wagmi](https://wagmi.sh/). We'll use a template preloaded with [ConnectKit](https://docs.family.co/connectkit).
 
 <Tabs items={['pnpm', 'npm', 'yarn']}>
   <Tab>``` pnpm create wagmi --template next-connectkit ```</Tab>
@@ -18,7 +14,9 @@ Begin by setting up a basic Next.js app configured with [wagmi](https://wagmi.sh
   <Tab>``` yarn create wagmi --template next-connectkit ```</Tab>
 </Tabs>
 
-Next install the builder utils package and its peer dependencies.
+Follow the command line prompts. If you don't have an Alchemy/Infura API key or WalletConnect ID handy, you can always provide it manually later on.
+
+Install the builder utils package and its peer dependencies listed below.
 
 <Tabs items={['pnpm', 'npm', 'yarn']}>
   <Tab>``` pnpm add @public-assembly/builder-utils ```</Tab>
@@ -36,40 +34,53 @@ Next install the builder utils package and its peer dependencies.
   },
 ```
 
-The package's remaining peer dependencies should already be installed.
+### Clean up your project
 
-### Setup wallet connection
+For the sake of this tutorial, you won't need any of the hooks or components that arrive with wagmi's template. Besides the `ConnectButton`, you can delete all of the components and functions inside each of these folders. Then make sure to visit the `page.tsx` component inside your `app` directory and remove the unsued imports and rendering instances.
 
-If you're using a wallet connection client like [RainbowKit](https://www.rainbowkit.com/docs/installation) or [ConnectKit](https://docs.family.co/connectkit), refer to their respective docs to get properly configured.
+```jsx
+import { ConnectButton } from '../components/ConnectButton'
+
+export function Page() {
+  return <ConnectButton />
+}
+
+export default Page
+```
 
 ### Configure the provider components
 
-Builder utils provides a collection of provider components used to dynamically pass contract specific data throughout your application. Begin configuring these provider components by first navigating to your `_app.tsx` file and then wrapping your component tree with the `ManagerProvider` component.
+Builder utils provides a collection of provider components used to dynamically pass contract specific data throughout your application. Begin configuring these provider components by first navigating to your `app` directory and then to the `providers.tsx` component.
 
-Note that because the `ManagerProvider` utilizies React hooks, you'll need to ensure this component is being loaded client side. Below is a solution to this using [next/dynamic](https://nextjs.org/docs/advanced-features/dynamic-import) from Next.js.
+Import the `ManagerProvider` component from builder utils and nest it beneath the wallet connection provider. This component accepts your DAO's token contract address as a prop. For this tutorial we'll use Public Assembly's. You can find this address for your DAO by navigating to the 'Smart Contract' tab beneath the artwork for your DAO on [Nouns Builder](https://nouns.build/).
 
 ```jsx
-import dynamic from 'next/dynamic'
+'use client'
 
-const DynamicManagerProvider = dynamic(
-  () => import('@public-assembly/builder-utils').then((module) => module.ManagerProvider),
-  {
-    ssr: false,
-  }
-)
+import { ConnectKitProvider } from 'connectkit'
+import * as React from 'react'
+import { WagmiConfig } from 'wagmi'
+import { config } from '../wagmi'
+import { ManagerProvider } from '@public-assembly/builder-utils'
 
-function App() {
+export function Providers({ children }: { children: React.ReactNode }) {
+  const [mounted, setMounted] = React.useState(false)
+  React.useEffect(() => setMounted(true), [])
   return (
-    <DynamicManagerProvider tokenAddress={tokenAddress}>
-      <YourRoutes />
-    </DynamicManagerProvider>
+    <WagmiConfig config={config}>
+      <ConnectKitProvider>
+        <ManagerProvider tokenAddress='0xd2e7684cf3e2511cc3b4538bb2885dc206583076'>
+          {mounted && children}
+        </ManagerProvider>
+      </ConnectKitProvider>
+    </WagmiConfig>
   )
 }
 ```
 
 ### Create a skeleton component
 
-Within your `src` directory, create a new folder called `components` and within it create a React component called `AuctionSkeleton.tsx`. This component will exist as a layout component that dynamically switches between the current auction and historical auctions while rendering the respective interface elements.
+In your `components` directory create a component called `AuctionSkeleton.tsx`. This component will exist as a layout component that dynamically switches between the current auction and historical auctions while rendering the respective interface elements.
 
 This component leverages the [`useTokenExplorer`](pages/hooks/useTokenExplorer.mdx) hook which returns two functions each responsible for navigating between past tokens and the current auction.
 
@@ -107,7 +118,7 @@ export function AuctionSkeleton() {
 }
 ```
 
-Next we'll create another component called `CurrentAuction` which will render all the data associated with the current auction.
+Next we'll create another component called `CurrentAuction.tsx` which will render all the data associated with the current auction.
 
 This component leverages the [`useTokenMetadata`](pages/hooks/useTokenMetadata.mdx) hook which accepts a string representing the token id to render and returns the name and artwork for that token.
 
