@@ -1,8 +1,8 @@
-import React, { createContext, useContext, useEffect, useState } from 'react'
+import React, { createContext, useContext } from 'react'
 import type { PropsWithChildren } from 'react'
+import { useContractRead } from 'wagmi'
 import { managerAbi } from '../abi'
 import { Hex } from 'viem'
-import { viemClient } from '../viem/client'
 
 export interface ManagerProviderProps {
   tokenAddress: Hex
@@ -27,25 +27,12 @@ export function ManagerProvider({
   children,
   tokenAddress,
 }: PropsWithChildren<ManagerProviderProps>) {
-  const [daoAddresses, setDaoAddresses] = useState<Hex[]>()
-
-  useEffect(() => {
-    // prettier-ignore
-    (async () => {
-      try {
-        const fetchedAddresses = await viemClient?.readContract({
-          address: MANAGER_PROXY_ADDRESS as Hex,
-          abi: managerAbi,
-          functionName: 'getAddresses',
-          args: [tokenAddress],
-        })
-        // @ts-ignore
-        setDaoAddresses(fetchedAddresses)
-      } catch (error) {
-        console.error(error)
-      }
-    })()
-  }, [tokenAddress])
+  const { data: daoAddresses } = useContractRead({
+    address: MANAGER_PROXY_ADDRESS as Hex,
+    abi: managerAbi,
+    functionName: 'getAddresses',
+    args: [tokenAddress],
+  })
 
   const value = {
     tokenAddress,

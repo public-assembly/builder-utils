@@ -1,53 +1,53 @@
 import React, { useContext, useEffect, useState } from 'react'
 import type { PropsWithChildren } from 'react'
+import { useContractReads } from 'wagmi'
 import { tokenAbi } from '../abi'
 import { useManagerContext } from './ManagerProvider'
 import { Hex } from 'viem'
-import { viemClient } from '../viem/client'
+
+type TokenName =
+  | { error: Error; result?: undefined; status: 'failure' }
+  | { error?: undefined; result: string; status: 'success' }
+
+type TokenSymbol =
+  | { error: Error; result?: undefined; status: 'failure' }
+  | { error?: undefined; result: string; status: 'success' }
+
+type TotalSupply =
+  | { error: Error; result?: undefined; status: 'failure' }
+  | { error?: undefined; result: bigint; status: 'success' }
 
 export interface TokenReturnTypes {
-  tokenAddress?: Hex
-  tokenSettings?: [string, string, BigInt]
+  tokenAddress: Hex
+  tokenSettings: [TokenName, TokenSymbol, TotalSupply] | undefined
 }
 
 const TokenContext = React.createContext({} as TokenReturnTypes)
 
 export function TokenProvider({ children }: PropsWithChildren) {
-  const [tokenSettings, setTokenSettings] = useState()
   const { tokenAddress } = useManagerContext()
 
   const tokenContract = {
-    address: tokenAddress as Hex,
+    address: tokenAddress,
     abi: tokenAbi,
   }
 
-  useEffect(() => {
-    // prettier-ignore
-    (async () => {
-      try {
-        const fetchedTokenSettings = await viemClient?.multicall({
-          contracts: [
-            {
-              ...tokenContract,
-              functionName: 'name',
-            },
-            {
-              ...tokenContract,
-              functionName: 'symbol',
-            },
-            {
-              ...tokenContract,
-              functionName: 'totalSupply',
-            },
-          ],
-        })
-        // @ts-ignore
-        setTokenSettings(fetchedTokenSettings)
-      } catch (error) {
-        console.error(error)
-      }
-    })()
-  }, [])
+  const { data: tokenSettings } = useContractReads({
+    contracts: [
+      {
+        ...tokenContract,
+        functionName: 'name',
+      },
+      {
+        ...tokenContract,
+        functionName: 'symbol',
+      },
+      {
+        ...tokenContract,
+        functionName: 'totalSupply',
+      },
+    ],
+  })
 
   return (
     <TokenContext.Provider

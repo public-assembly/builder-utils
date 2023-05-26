@@ -1,7 +1,6 @@
-import { useState, useEffect } from 'react'
-import { viemClient } from '../viem/client'
 import { auctionAbi } from '../abi'
 import { useManagerContext } from '../context'
+import { useContractReads } from 'wagmi'
 
 type AuctionSettingResult =
   | { error: Error; result?: undefined; status: 'failure' }
@@ -13,44 +12,25 @@ export interface AuctionSettings {
 }
 
 export function useAuctionSettings() {
-  const [auctionSettings, setAuctionSettings] = useState<AuctionSettings>()
-
   const { auctionAddress } = useManagerContext()
 
-  useEffect(() => {
-    if (!auctionAddress) return
-    // prettier-ignore
-    (async () => {
-      const auctionContract = {
-        address: auctionAddress,
-        abi: auctionAbi,
-      } as const
-      try {
-        const fetchedAuctionSettings = await viemClient?.multicall({
-          contracts: [
-            {
-              ...auctionContract,
-              functionName: 'minBidIncrement',
-            },
-            {
-              ...auctionContract,
-              functionName: 'reservePrice',
-            },
-          ],
-        })
-        if (fetchedAuctionSettings) {
-          setAuctionSettings({
-              // @ts-ignore
-              minBidIncrement: Number(fetchedAuctionSettings[0].result), 
-              // @ts-ignore
-              reservePrice: Number(fetchedAuctionSettings[1].result)
-          });
-      }
-      } catch (error) {
-        console.log(error)
-      }
-    })()
-  }, [auctionAddress])
+  const auctionContract = {
+    address: auctionAddress,
+    abi: auctionAbi,
+  }
+
+  const { data: auctionSettings } = useContractReads({
+    contracts: [
+      {
+        ...auctionContract,
+        functionName: 'minBidIncrement',
+      },
+      {
+        ...auctionContract,
+        functionName: 'reservePrice',
+      },
+    ],
+  })
 
   return { auctionSettings }
 }
