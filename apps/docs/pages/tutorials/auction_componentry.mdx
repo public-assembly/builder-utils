@@ -8,21 +8,49 @@ This tutorial will walk you through building a custom auction component for your
 
 In a new directory, use the `create-wagmi` CLI tool to spin up a Next project configured with [wagmi](https://wagmi.sh/). We'll use a template preloaded with [ConnectKit](https://docs.family.co/connectkit).
 
-<Tabs items={['pnpm', 'npm', 'yarn']}>
-  <Tab>``` pnpm create wagmi --template next-connectkit ```</Tab>
-  <Tab>``` npm init wagmi --template next-connectkit ```</Tab>
-  <Tab>``` yarn create wagmi --template next-connectkit ```</Tab>
+{/* prettier-ignore-start */}
+<Tabs items={['npm', 'pnpm', 'yarn']}>
+  <Tab>
+```bash
+pnpm create wagmi --template next-connectkit
+```
+  </Tab>
+  <Tab>
+```bash
+npm init wagmi --template next-connectkit
+```
+  </Tab>
+  <Tab>
+```bash
+yarn create wagmi --template next-connectkit
+```
+  </Tab>
 </Tabs>
+{/* prettier-ignore-end */}
 
 Follow the command line prompts. If you don't have an Alchemy/Infura API key or WalletConnect ID handy, you can always provide it manually later on.
 
 Install the builder utils package and its peer dependencies listed below.
 
-<Tabs items={['pnpm', 'npm', 'yarn']}>
-  <Tab>``` pnpm add @public-assembly/builder-utils ```</Tab>
-  <Tab>``` npm i add @public-assembly/builder-utils ```</Tab>
-  <Tab>``` yarn add @public-assembly/builder-utils ```</Tab>
+{/* prettier-ignore-start */}
+<Tabs items={['npm', 'pnpm', 'yarn']}>
+  <Tab>
+```bash
+pnpm add @public-assembly/builder-utils
+```
+  </Tab>
+  <Tab>
+```bash
+npm install @public-assembly/builder-utils
+```
+  </Tab>
+  <Tab>
+```bash
+yarn add @public-assembly/builder-utils
+```
+  </Tab>
 </Tabs>
+{/* prettier-ignore-end */}
 
 ```json
  "peerDependencies": {
