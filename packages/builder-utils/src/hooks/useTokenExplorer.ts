@@ -8,10 +8,6 @@ export function useTokenExplorer() {
 
   const [currentTokenId, setCurrentTokenId] = useState<number>(tokenId)
 
-  useEffect(() => {
-    setCurrentTokenId(tokenId)
-  }, [auctionState])
-
   const incrementId = useCallback(() => {
     if (currentTokenId < tokenId) {
       setCurrentTokenId(currentTokenId + 1)
@@ -28,7 +24,6 @@ export function useTokenExplorer() {
   const isLastToken = tokenId === currentTokenId
 
   return {
-    auctionState,
     tokenId,
     currentTokenId,
     incrementId,
