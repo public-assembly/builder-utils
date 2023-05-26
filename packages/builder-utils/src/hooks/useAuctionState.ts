@@ -1,8 +1,7 @@
-import { useState, useEffect } from 'react'
 import { Hex, formatEther } from 'viem'
-import { viemClient } from '../viem/client'
 import { useManagerContext } from '../context'
 import { auctionAbi } from '../abi'
+import { useContractRead } from 'wagmi'
 
 export interface AuctionState {
   tokenId: number
@@ -13,49 +12,23 @@ export interface AuctionState {
   settled: boolean
 }
 
-const initialAuctionState: AuctionState = {
-  tokenId: 0,
-  highestBid: '0',
-  highestBidder: '0x0',
-  startTime: 0,
-  endTime: 0,
-  settled: false,
-}
-
-export function useAuctionState() {
-  const [auctionState, setAuctionState] = useState<AuctionState>(initialAuctionState)
-
+export function useAuctionState(): { auctionState: AuctionState } {
   const { auctionAddress } = useManagerContext()
 
-  useEffect(() => {
-    if (!auctionAddress) return
-    // prettier-ignore
-    (async () => {
-      try {
-        const fetchedAuctionState = await viemClient?.readContract({
-          address: auctionAddress as Hex,
-          abi: auctionAbi,
-          functionName: 'auction',
-        })
-        /**
-         * Construct an object that matches the `AuctionState` interface
-         */
-        if (fetchedAuctionState) {
-            const [tokenId, highestBid, highestBidder, startTime, endTime, settled] = fetchedAuctionState;
-            setAuctionState({
-              tokenId: Number(tokenId),
-              highestBid: formatEther(highestBid),
-              highestBidder,
-              startTime,
-              endTime,
-              settled
-            });
-          }
-      } catch (error) {
-        console.log(error)
-      }
-    })()
-  }, [auctionAddress])
+  const { data: auctionState } = useContractRead({
+    address: auctionAddress as Hex,
+    abi: auctionAbi,
+    functionName: 'auction',
+  })
 
-  return { auctionState }
+  return {
+    auctionState: {
+      tokenId: Number(auctionState?.[0]),
+      highestBid: String(auctionState?.[1]),
+      highestBidder: auctionState?.[2] as Hex,
+      startTime: Number(auctionState?.[3]),
+      endTime: Number(auctionState?.[4]),
+      settled: Boolean(auctionState?.[5]),
+    },
+  }
 }
