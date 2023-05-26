@@ -1,9 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 import type { PropsWithChildren } from 'react'
+import { useContractRead } from 'wagmi'
 import { metadataAbi } from '../abi'
 import { useManagerContext } from './ManagerProvider'
 import { Hex } from 'viem'
-import { viemClient } from '../viem/client'
 
 export interface MetadataProviderProps {
   children?: React.ReactNode
@@ -22,26 +22,13 @@ export interface MetadataReturnTypes {
 const MetadataContext = React.createContext({} as MetadataReturnTypes)
 
 export function MetadataProvider({ children }: PropsWithChildren): JSX.Element {
-  const [metadataSettings, setMetadataSettings] = useState<MetadataSettings>()
-
   const { tokenAddress, metadataAddress } = useManagerContext()
 
-  useEffect(() => {
-    // prettier-ignore
-    (async () => {
-      if (!metadataAddress) return
-      try {
-        const fetchedMetadataSettings = await viemClient?.readContract({
-          address: metadataAddress as Hex,
-          abi: metadataAbi,
-          functionName: 'settings',
-        })
-        setMetadataSettings(fetchedMetadataSettings)
-      } catch (error) {
-        console.error(error)
-      }
-    })()
-  }, [metadataAddress])
+  const { data: metadataSettings } = useContractRead({
+    address: metadataAddress as Hex,
+    abi: metadataAbi,
+    functionName: 'settings',
+  })
 
   if (!metadataSettings) return <></>
   return (
