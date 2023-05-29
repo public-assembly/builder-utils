@@ -9,6 +9,7 @@ export function useSettle() {
     address: auctionAddress,
     abi: auctionAbi,
     functionName: 'settleCurrentAndCreateNewAuction',
+    chainId: Number(process.env.NEXT_PUBLIC_CHAIN_ID),
   })
 
   const {

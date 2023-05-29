@@ -12,9 +12,9 @@ export function useCreateBid({ bidAmount }: { bidAmount: string }) {
     address: auctionAddress as Hex,
     abi: auctionAbi,
     functionName: 'createBid',
-
     args: [BigInt(auctionState?.tokenId as number)],
     value: BigInt(bidAmount),
+    chainId: Number(process.env.NEXT_PUBLIC_CHAIN_ID),
   })
 
   const {
@@ -22,6 +22,7 @@ export function useCreateBid({ bidAmount }: { bidAmount: string }) {
     write: createBid,
     isError: createBidError,
   } = useContractWrite(createBidConfig)
+
   const {
     data: createBidTx,
     isLoading: createBidLoading,

@@ -20,6 +20,7 @@ export function useAuctionState(): { auctionState: AuctionState } {
     address: auctionAddress as Hex,
     abi: auctionAbi,
     functionName: 'auction',
+    chainId: Number(process.env.NEXT_PUBLIC_CHAIN_ID),
   })
 
   return {
