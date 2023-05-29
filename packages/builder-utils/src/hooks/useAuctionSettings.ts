@@ -17,6 +17,7 @@ export function useAuctionSettings() {
   const auctionContract = {
     address: auctionAddress,
     abi: auctionAbi,
+    chainId: Number(process.env.NEXT_PUBLIC_CHAIN_ID),
   }
 
   const { data: auctionSettings } = useContractReads({

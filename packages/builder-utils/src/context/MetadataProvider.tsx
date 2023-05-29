@@ -28,6 +28,7 @@ export function MetadataProvider({ children }: PropsWithChildren): JSX.Element {
     address: metadataAddress as Hex,
     abi: metadataAbi,
     functionName: 'settings',
+    chainId: Number(process.env.NEXT_PUBLIC_CHAIN_ID),
   })
 
   if (!metadataSettings) return <></>

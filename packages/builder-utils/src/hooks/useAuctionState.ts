@@ -20,12 +20,13 @@ export function useAuctionState(): { auctionState: AuctionState } {
     address: auctionAddress as Hex,
     abi: auctionAbi,
     functionName: 'auction',
+    chainId: Number(process.env.NEXT_PUBLIC_CHAIN_ID),
   })
 
   return {
     auctionState: {
       tokenId: Number(auctionState?.[0]),
-      highestBid: formatEther(auctionState?.[1] as bigint),
+      highestBid: auctionState ? formatEther(auctionState?.[1] as bigint) : '',
       highestBidder: auctionState?.[2] as Hex,
       startTime: Number(auctionState?.[3]),
       endTime: Number(auctionState?.[4]),

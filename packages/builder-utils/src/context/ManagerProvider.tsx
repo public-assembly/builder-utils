@@ -32,6 +32,7 @@ export function ManagerProvider({
     abi: managerAbi,
     functionName: 'getAddresses',
     args: [tokenAddress],
+    chainId: Number(process.env.NEXT_PUBLIC_CHAIN_ID),
   })
 
   const value = {
