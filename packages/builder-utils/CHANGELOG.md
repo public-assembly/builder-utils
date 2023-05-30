@@ -1,5 +1,11 @@
 # @public-assembly/builder-utils
 
+## 0.1.2
+
+### Patch Changes
+
+- f0f15c3: Reintroduces wagmi and alongside it, two write hooks, useCreateBid and useSettle. useTokenExplorer now expects a token id object as an argument.
+
 ## 0.1.1
 
 ### Patch Changes
