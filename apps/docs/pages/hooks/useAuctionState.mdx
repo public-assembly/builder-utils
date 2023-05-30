@@ -1,0 +1,49 @@
+---
+title: 'useAuctionState'
+description: 'Hook for querying the current state of an auction.'
+---
+
+## useAuctionState
+
+Hook for querying the current state of an auction.
+
+```tsx
+import { useAuctionState } from '@public-assembly/builder-utils'
+```
+
+## Usage
+
+```tsx
+import { useAuctionState } from '@public-assembly/builder-utils'
+
+function App() {
+  const { tokenId, highestBid, highestBidder, startTime, endTime, settled } =
+    useAuctionState()
+
+  return (
+    <>
+      <p>Latest minted token: {tokenId}</p>
+      <p>Highest bid: {highestBid}</p>
+      <p>Highest bidder: {highestBidder}</p>
+      <p>Auction start time: {startTime}</p>
+      <p>Auction end time: {endTime}</p>
+      <p>Has the auction been settled?: {settled}</p>
+    </>
+  )
+}
+```
+
+## Returns
+
+```tsx
+{
+  auctionState: {
+    tokenId: number
+    highestBid: string || ''
+    highestBidder: `0x${string}`
+    startTime: number
+    endTime: number
+    settled: boolean
+  }
+}
+```

@@ -1,14 +1,19 @@
+---
+title: 'useTokenMetadata'
+description: 'Hook for accessing the name and thumbnail of a token given its id.'
+---
+
 ## useTokenMetadata
 
 Hook for accessing the name and thumbnail of a token given its id.
 
-```jsx
+```tsx
 import { useTokenMetadata } from '@public-assembly/builder-utils'
 ```
 
 ## Usage
 
-```jsx
+```tsx
 import { useTokenMetadata } from '@public-assembly/builder-utils'
 
 function App() {
@@ -23,7 +28,9 @@ function App() {
 
 ## Returns
 
-```jsx
-tokenName?: string
-tokenThumbnail?: string
+```tsx
+{
+  tokenName?: string
+  tokenThumbnail?: string
+}
 ```
