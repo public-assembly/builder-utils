@@ -1,4 +1,5 @@
 {
-  "useActiveAuction": "useActiveAuction",
-  "useTokenMetadata": "useTokenMetadata"
+  "useAuctionState": "useAuctionState",
+  "useTokenMetadata": "useTokenMetadata",
+  "useTokenExplorer": "useTokenExplorer"
 }
