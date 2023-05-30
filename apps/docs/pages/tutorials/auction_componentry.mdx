@@ -9,22 +9,11 @@ This tutorial will walk you through building a custom auction component for your
 In a new directory, use the `create-wagmi` CLI tool to spin up a Next project configured with [wagmi](https://wagmi.sh/). We'll use a template preloaded with [ConnectKit](https://docs.family.co/connectkit).
 
 {/* prettier-ignore-start */}
+
 <Tabs items={['npm', 'pnpm', 'yarn']}>
-  <Tab>
-```bash
-pnpm create wagmi --template next-connectkit
-```
-  </Tab>
-  <Tab>
-```bash
-npm init wagmi --template next-connectkit
-```
-  </Tab>
-  <Tab>
-```bash
-yarn create wagmi --template next-connectkit
-```
-  </Tab>
+  <Tab>``` pnpm create wagmi --template next-connectkit ```</Tab>
+  <Tab>``` npm init wagmi --template next-connectkit ```</Tab>
+  <Tab>``` yarn create wagmi --template next-connectkit ```</Tab>
 </Tabs>
 {/* prettier-ignore-end */}
 
@@ -33,22 +22,11 @@ Follow the command line prompts. If you don't have an Alchemy/Infura API key or 
 Install the builder utils package and its peer dependencies listed below.
 
 {/* prettier-ignore-start */}
+
 <Tabs items={['npm', 'pnpm', 'yarn']}>
-  <Tab>
-```bash
-pnpm add @public-assembly/builder-utils
-```
-  </Tab>
-  <Tab>
-```bash
-npm install @public-assembly/builder-utils
-```
-  </Tab>
-  <Tab>
-```bash
-yarn add @public-assembly/builder-utils
-```
-  </Tab>
+  <Tab>``` pnpm add @public-assembly/builder-utils ```</Tab>
+  <Tab>``` npm install @public-assembly/builder-utils ```</Tab>
+  <Tab>``` yarn add @public-assembly/builder-utils ```</Tab>
 </Tabs>
 {/* prettier-ignore-end */}
 
@@ -97,7 +75,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <WagmiConfig config={config}>
       <ConnectKitProvider>
-        <ManagerProvider tokenAddress='0xd2e7684cf3e2511cc3b4538bb2885dc206583076'>
+        <ManagerProvider tokenAddress="0xd2e7684cf3e2511cc3b4538bb2885dc206583076">
           {mounted && children}
         </ManagerProvider>
       </ConnectKitProvider>
@@ -110,9 +88,11 @@ export function Providers({ children }: { children: React.ReactNode }) {
 
 In your `components` directory create a component called `AuctionSkeleton.tsx`. This component will exist as a layout component that dynamically switches between the current auction and historical auctions while rendering the respective interface elements.
 
-This component leverages the [`useTokenExplorer`](pages/hooks/useTokenExplorer.mdx) hook which returns two functions each responsible for navigating between past tokens and the current auction.
+This component leverages the [`useTokenExplorer`](pages/hooks/useTokenExplorer.mdx) hook which returns two functions each responsible for navigating between past tokens and the current auction. Additionally, notice the use of the `'use client'` directive at the top of the component. This ensures that this component and its children are exist as part of the client bundle.
 
 ```jsx
+'use client'
+
 import { useTokenExplorer } from '@public-assembly/builder-utils'
 
 export function AuctionSkeleton() {
@@ -236,52 +216,77 @@ export function AuctionSkeleton() {
 
 ### Add bidding functionality
 
-We'll start by adding a `hooks` folder to our `src` directory. This will house the contract interaction scaffolding we've prepared with wagmi. Create a new hook called `useCreateBid` and add the following code.
+Create another component called `Bidding.tsx`. In we'll leverage two hooks from builder utils to dynamically create write calls to our DAO's auction contract. This component will be rendered inside our `CurrentAuction` component. We'll use an html form element to handle bid submissions, but keep in mind this can be done in a variety of ways.
 
 ```jsx
-import { useContractWrite, usePrepareContractWrite, useWaitForTransaction } from 'wagmi'
-import { Hex } from 'viem'
+import { AuctionCountdown } from './AuctionCountdown'
+import { useCreateBid } from '@public-assembly/builder-utils'
 import {
-  useManagerContext,
-  auctionAbi,
   useAuctionState,
+  useManagerContext,
+  useMinBidAmount,
 } from '@public-assembly/builder-utils'
 
-export function useCreateBid({ bidAmount }: { bidAmount: string }) {
-  const { auctionAddress } = useManagerContext()
+export function Bidding() {
   const { auctionState } = useAuctionState()
 
-  const { config: createBidConfig } = usePrepareContractWrite({
-    address: auctionAddress as Hex,
-    abi: auctionAbi,
-    functionName: 'createBid',
-    args: [BigInt(auctionState?.tokenId as number)],
-    value: BigInt(bidAmount),
+  const { tokenAddress } = useManagerContext()
+
+  const { minBidAmount, bidAmount, updateBidAmount, isValidBid } = useMinBidAmount()
+
+  const { createBid, createBidLoading, createBidSuccess } = useCreateBid({
+    bidAmount: bidAmount,
   })
 
-  const {
-    data: createBidData,
-    write: createBid,
-    isError: createBidError,
-  } = useContractWrite(createBidConfig)
-  const {
-    data: createBidTx,
-    isLoading: createBidLoading,
-    isSuccess: createBidSuccess,
-  } = useWaitForTransaction({
-    hash: createBidData?.hash,
-  })
-
-  return {
-    createBid,
-    createBidSuccess,
-    createBidError,
-    createBidLoading,
-    createBidTx,
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    createBid?.()
   }
+
+  return (
+    <>
+      <>
+        <div>
+          <span>Current Bid:</span>
+          <span>{auctionState?.highestBid} ETH</span>
+        </div>
+        <AuctionCountdown endTime={Number(auctionState?.endTime)} />
+        <span>Bidder: {auctionState?.highestBidder}</span>
+      </>
+
+      <div>
+        <form onSubmit={handleSubmit}>
+          <input
+            style={{ color: 'black' }}
+            type="text"
+            pattern="[0-9.]*"
+            placeholder={`${minBidAmount} ETH`}
+            disabled={createBidLoading}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+              updateBidAmount(event.target.value)
+            }
+          />
+          {!createBidLoading && !createBidSuccess ? (
+            <button>Place Bid</button>
+          ) : (
+            <>
+              {createBidLoading && <span>Submitting bid</span>}
+              {createBidSuccess && (
+                <a
+                  href={`https://nouns.build/dao/${tokenAddress}`}
+                  target="_blank"
+                  rel="noreferrer">
+                  Bid placed: view on nouns.build
+                </a>
+              )}
+            </>
+          )}
+        </form>
+      </div>
+    </>
+  )
 }
 ```
 
-This hook will allow us to dynamically create a write call to our DAO's auction contract. Using user input values to create bid interactions on the contract.
+### Include countdown and settle functionality
 
-We'll create a separate component that'll be rendered inside our `CurrentAuction` component that handles bidding functionality.

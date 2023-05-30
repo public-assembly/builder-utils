@@ -2,7 +2,7 @@
   "name": "builder-utils-documentation",
   "version": "1.0.0",
   "private": true,
-  "description": "Understanding the hooks and utilities that comprise builder utils",
+  "description": "React hooks and utilities for Nouns Builder DAOs",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

@@ -1,31 +1,29 @@
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback } from 'react'
 import { useAuctionState } from './useAuctionState'
 
-export function useTokenExplorer() {
+export function useTokenExplorer({ tokenId }: { tokenId: number }) {
   const { auctionState } = useAuctionState()
 
-  const tokenId = Number(auctionState?.tokenId)
-
-  const [currentTokenId, setCurrentTokenId] = useState<number>(tokenId)
+  const [navigatedTokenId, setNavigatedTokenId] = useState<number>(tokenId)
 
   const incrementId = useCallback(() => {
-    if (currentTokenId < tokenId) {
-      setCurrentTokenId(currentTokenId + 1)
+    if (navigatedTokenId < auctionState.tokenId) {
+      setNavigatedTokenId(navigatedTokenId + 1)
     }
-  }, [tokenId, currentTokenId])
+  }, [tokenId, navigatedTokenId])
 
   const decrementId = useCallback(() => {
-    if (currentTokenId > 0) {
-      setCurrentTokenId(currentTokenId - 1)
+    if (navigatedTokenId > 0) {
+      setNavigatedTokenId(navigatedTokenId - 1)
     }
-  }, [tokenId, currentTokenId])
+  }, [tokenId, navigatedTokenId])
 
-  const isFirstToken = currentTokenId === 0
-  const isLastToken = tokenId === currentTokenId
+  const isFirstToken = navigatedTokenId === 0
+  const isLastToken = navigatedTokenId === auctionState.tokenId
 
   return {
     tokenId,
-    currentTokenId,
+    navigatedTokenId,
     incrementId,
     decrementId,
     isFirstToken,
