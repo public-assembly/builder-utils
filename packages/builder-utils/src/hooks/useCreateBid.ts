@@ -15,6 +15,7 @@ export function useCreateBid({ bidAmount }: { bidAmount: string }) {
     args: [BigInt(auctionState?.tokenId as number)],
     value: BigInt(bidAmount),
     chainId: Number(process.env.NEXT_PUBLIC_CHAIN_ID),
+    enabled: Number(bidAmount) > 0,
   })
 
   const {

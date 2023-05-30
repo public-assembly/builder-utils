@@ -1,9 +1,9 @@
 import * as React from 'react'
-import { useCountdown, useSettle } from '@public-assembly/builder-utils'
+import { useCountdown } from '@public-assembly/builder-utils'
+import { SettleAuction } from './SettleAuction'
 
 export function AuctionCountdown({ endTime }: { endTime: number }) {
   const { countdownString, isEnded } = useCountdown(endTime)
-  const { settle, settleLoading } = useSettle()
 
   return (
     <div className="flex flex-col">
@@ -13,9 +13,7 @@ export function AuctionCountdown({ endTime }: { endTime: number }) {
           <span>{countdownString}</span>
         </>
       ) : (
-        <button disabled={settleLoading} onClick={() => settle?.()}>
-          Settle auction
-        </button>
+        <SettleAuction />
       )}
     </div>
   )
