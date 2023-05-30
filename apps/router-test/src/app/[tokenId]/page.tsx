@@ -3,7 +3,7 @@
 import { ConnectButton } from '../../components/ConnectButton'
 import { AuctionSkeleton } from '../../components/AuctionSkeleton'
 
-export function Page({ params }: { params: { tokenId: string } }) {
+export default function Page({ params }: { params: { tokenId: string } }) {
   return (
     <>
       <ConnectButton />
@@ -11,5 +11,3 @@ export function Page({ params }: { params: { tokenId: string } }) {
     </>
   )
 }
-
-export default Page

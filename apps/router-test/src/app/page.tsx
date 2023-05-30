@@ -3,7 +3,7 @@
 import { useAuctionState } from '@public-assembly/builder-utils'
 import Link from 'next/link'
 
-export function Page() {
+export default function Page() {
   const { auctionState } = useAuctionState()
   return (
     <>
@@ -13,5 +13,3 @@ export function Page() {
     </>
   )
 }
-
-export default Page
