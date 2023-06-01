@@ -3,4 +3,7 @@ export default {
   project: {
     link: 'https://github.com/public-assembly/builder-utils',
   },
+  footer: {
+    text: 'Built by Public Assembly',
+  },
 }
