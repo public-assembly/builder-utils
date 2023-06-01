@@ -13,4 +13,5 @@ export default {
       titleTemplate: `%s - Builder Utils`,
     }
   },
+  primaryHue: 190,
 }
