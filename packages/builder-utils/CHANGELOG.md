@@ -1,5 +1,11 @@
 # @public-assembly/builder-utils
 
+## 0.1.3
+
+### Patch Changes
+
+- 447cce2: Removes the set state return function from useMinBidAmount. Adds the duration function to the multicall inside useAuctionSettings.
+
 ## 0.1.2
 
 ### Patch Changes
