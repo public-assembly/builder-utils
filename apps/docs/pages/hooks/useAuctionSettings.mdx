@@ -1,0 +1,46 @@
+---
+title: 'useAuctionSettings'
+description: 'Hook for querying a the auction settings of a DAO.'
+---
+
+## useAuctionSettings
+
+Hook for querying a the auction settings of a DAO.
+
+```tsx
+import { useAuctionSettings } from '@public-assembly/builder-utils'
+```
+
+## Usage
+
+```tsx
+import { useAuctionSettings } from '@public-assembly/builder-utils'
+
+function App() {
+  const { auctionSettings } = useAuctionSettings()
+
+  return (
+    <>
+      <p>Minimum bid increment: {auctionSettings?.[0]}</p>
+      <p>Reserve price: {auctionSettings?.[1]}</p>
+      <p>Auction duration: {auctionSettings?.[2]}</p>
+    </>
+  )
+}
+```
+
+## Returns
+
+```tsx
+{
+  auctionSettings: ({
+      error: Error;
+      result?: undefined;
+      status: "failure";
+  } | {
+      error?: undefined;
+      result: unknown;
+      status: "success";
+  })[] | undefined
+}
+```

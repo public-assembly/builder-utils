@@ -1,0 +1,46 @@
+---
+title: 'useCreateBid'
+description: 'Hook for participating in an auction.'
+---
+
+## useCreateBid
+
+Hook for participating in an auction.
+
+```tsx
+import { useCreateBid } from '@public-assembly/builder-utils'
+```
+
+## Usage
+
+```tsx
+import { useCreateBid } from '@public-assembly/builder-utils'
+
+function App({ bidAmount }: { bidAmount: string }) {
+  const { createBid, createBidLoading, createBidSuccess } = useCreateBid({
+    bidAmount: bidAmount,
+  })
+
+  return (
+    <>
+      <button onClick={() => createBid?.()}>Create bid</button>
+      <p>Bid successful?: {createBidSuccess}</p>
+      <p>Bid error?: {createBidError}</p>
+      <p>Bid loading?: {createBidLoading}</p>
+      <p>Bid transaction: {createBidTx}</p>
+    </>
+  )
+}
+```
+
+## Returns
+
+```tsx
+{
+  createBid: (() => void) | undefined
+  createBidSuccess: boolean
+  createBidError: boolean
+  createBidLoading: boolean
+  createBidTx: : TransactionReceipt<bigint, number, "success" | "reverted", TransactionType> | undefined
+}
+```

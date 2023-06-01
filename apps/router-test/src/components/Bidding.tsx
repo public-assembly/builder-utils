@@ -1,6 +1,6 @@
 import { AuctionCountdown } from './AuctionCountdown'
-import { useCreateBid, useEnsNameOrShorten } from '@public-assembly/builder-utils'
 import {
+  useCreateBid,
   useAuctionState,
   useManagerContext,
   useMinBidAmount,

@@ -53,7 +53,6 @@ export function useMinBidAmount() {
   return {
     minBidAmount,
     bidAmount,
-    setBidAmount,
     updateBidAmount,
     isValidBid,
   }

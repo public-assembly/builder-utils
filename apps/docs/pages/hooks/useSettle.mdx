@@ -1,0 +1,46 @@
+---
+title: 'useSettle'
+description: 'Hook for settling an auction.'
+---
+
+## useSettle
+
+Hook for settling an auction.
+
+```tsx
+import { useSettle } from '@public-assembly/builder-utils'
+```
+
+## Usage
+
+```tsx
+import { useSettle } from '@public-assembly/builder-utils'
+
+function App() {
+  const { settle, settleSuccess, settleError, settleLoading, settleTx } = useSettle()
+
+  return (
+    <>
+      <button disabled={settleLoading} onClick={() => settle?.()}>
+        Settle auction
+      </button>
+      <p>Settle successful?: {settleSuccess}</p>
+      <p>Settle error?: {settleError}</p>
+      <p>Settle loading?: {settleLoading}</p>
+      <p>Settle transaction: {settleTx}</p>
+    </>
+  )
+}
+```
+
+## Returns
+
+```tsx
+{
+  settle: (() => void) | undefined
+  settleSuccess: boolean
+  settleError: boolean
+  settleLoading: boolean
+  settleTx: TransactionReceipt<bigint, number, "success" | "reverted", TransactionType> | undefined
+}
+```

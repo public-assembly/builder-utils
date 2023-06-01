@@ -1,0 +1,50 @@
+---
+title: 'useMinBidAmount'
+description: 'Hook for checking the validity of bid inputs.'
+---
+
+## useMinBidAmount
+
+Hook for checking the validity of bid inputs.
+
+```tsx
+import { useMinBidAmount } from '@public-assembly/builder-utils'
+```
+
+## Usage
+
+```tsx
+import { useMinBidAmount } from '@public-assembly/builder-utils'
+
+function App() {
+  const { minBidAmount, bidAmount, updateBidAmount, isValidBid } =
+    useMinBidAmount()
+
+  return (
+    <>
+      <p>Minimum bid amount: {minBidAmount}</p>
+      <p>Supplied bid amount: {bidAmount}</p>
+      <p>Is the supplied bid valid?: {isValidBid}</p>
+      <form onSubmit={...}>
+        <input
+          placeholder={minBidAmount}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+            updateBidAmount(event.target.value)
+          }
+        />
+      </form>
+    </>
+  )
+}
+```
+
+## Returns
+
+```tsx
+{
+  minBidAmount: number
+  bidAmount: string
+  updateBidAmount: (value: string) => void
+  isValidBid: boolean
+}
+```

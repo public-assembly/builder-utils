@@ -1,5 +1,3 @@
-'use client'
-
 import { useTokenExplorer } from '@public-assembly/builder-utils'
 import { CurrentAuction } from './CurrentAuction'
 import { HistoricalAuction } from './HistoricalAuction'
@@ -15,7 +13,7 @@ export function AuctionSkeleton({ tokenId }: { tokenId: string }) {
     if (isLastToken) {
       return <CurrentAuction tokenId={tokenId} />
     } else {
-      return <HistoricalAuction tokenId={navigatedTokenId} />
+      return <HistoricalAuction navigatedTokenId={navigatedTokenId} />
     }
   }
 

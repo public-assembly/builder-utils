@@ -9,6 +9,7 @@ type AuctionSettingResult =
 export interface AuctionSettings {
   minBidIncrement: AuctionSettingResult
   reservePrice: AuctionSettingResult
+  duration: AuctionSettingResult
 }
 
 export function useAuctionSettings() {
@@ -29,6 +30,10 @@ export function useAuctionSettings() {
       {
         ...auctionContract,
         functionName: 'reservePrice',
+      },
+      {
+        ...auctionContract,
+        functionName: 'duration',
       },
     ],
   })

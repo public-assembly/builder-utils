@@ -1,7 +1,7 @@
 import { useTokenMetadata } from '@public-assembly/builder-utils'
 
-export function HistoricalAuction({ tokenId }: { tokenId: number }) {
-  const { tokenName, tokenThumbnail } = useTokenMetadata(String(tokenId))
+export function HistoricalAuction({ navigatedTokenId }: { navigatedTokenId: number }) {
+  const { tokenName, tokenThumbnail } = useTokenMetadata(String(navigatedTokenId))
 
   return (
     <>

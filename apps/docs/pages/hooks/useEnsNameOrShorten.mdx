@@ -1,0 +1,38 @@
+---
+title: 'useEnsNameOrShorten'
+description: 'Hook for getting the ENS name of an address if it exists, if not render a shortened address.'
+---
+
+## useEnsNameOrShorten
+
+Hook for getting the ENS name of an address if it exists, if not render a shortened address.
+
+```tsx
+import { useEnsNameOrShorten } from '@public-assembly/builder-utils'
+```
+
+## Usage
+
+```tsx
+import { useEnsNameOrShorten } from '@public-assembly/builder-utils'
+
+function App() {
+  const { address } = useEnsNameOrShorten({
+    address: '0x784fa0c3c12aee8f571ef3c91408cb2219b431dc',
+  })
+
+  return (
+    <>
+      <p>ENS name or shortened address: {ensNameOrShorten}</p>
+    </>
+  )
+}
+```
+
+## Returns
+
+```tsx
+{
+  ensNameOrShorten: string | undefined
+}
+```
