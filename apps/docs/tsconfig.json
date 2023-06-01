@@ -15,13 +15,6 @@
     "isolatedModules": true,
     "jsx": "preserve"
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "pages/hooks/use_active_auction.mdx",
-    "pages/getting_started.mdx",
-    "pages/hooks/useAuctionSettings.mdx"
-  ],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
 }
