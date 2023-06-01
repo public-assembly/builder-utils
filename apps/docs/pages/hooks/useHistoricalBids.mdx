@@ -1,0 +1,45 @@
+---
+title: 'useHistoricalBids'
+description: 'Hook for querying historical bids on an auction.'
+---
+
+## useHistoricalBids
+
+Hook for querying historical bids on an auction.
+
+```tsx
+import { useHistoricalBids } from '@public-assembly/builder-utils'
+```
+
+## Usage
+
+```tsx
+import { useHistoricalBids } from '@public-assembly/builder-utils'
+
+function App() {
+  const { winningBid, winningTx, address, filteredBidEvents } = useHistoricalBids({
+    tokenId: '1',
+    tokenAddress: '0xd2e7684cf3e2511cc3b4538bb2885dc206583076',
+  })
+
+  return (
+    <>
+      <p>Winning bid: {winningBid}</p>
+      <p>Winning transaction: {winningTx}</p>
+      <p>Winner of auction: {address}</p>
+      <p>Array of bid events: {filteredBidEvents}</p>
+    </>
+  )
+}
+```
+
+## Returns
+
+```tsx
+{
+  winningBid: string | undefined
+  winningTx: string | undefined
+  address: string | undefined
+  filteredBidEvents: AuctionEvent[] | undefined
+}
+```

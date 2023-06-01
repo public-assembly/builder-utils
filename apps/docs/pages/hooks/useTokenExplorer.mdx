@@ -16,14 +16,14 @@ import { useTokenExplorer } from '@public-assembly/builder-utils'
 ```tsx
 import { useTokenExplorer } from '@public-assembly/builder-utils'
 
-function App() {
-  const { tokenId, currentTokenId, incrementId, decrementId, isFirstToken, isLastToken } =
-    useTokenExplorer()
+function App({ tokenId }: { tokenId: number }) {
+  const { tokenId, navigatedTokenId, incrementId, decrementId, isFirstToken, isLastToken } =
+    useTokenExplorer({ tokenId: tokenId })
 
   return (
     <>
       <p>Latest minted token: {tokenId}</p>
-      <p>Now viewing token: {currentTokenId}</p>
+      <p>Now viewing token: {navigatedTokenId}</p>
       <>
         <button disabled={isFirstToken} onClick={decrementId}>
           Backward
@@ -42,7 +42,7 @@ function App() {
 ```tsx
 {
   tokenId: number
-  currentTokenId: number
+  navigatedTokenId: number
   incrementId: () => void
   decrementId: () => void
   isFirstToken: boolean

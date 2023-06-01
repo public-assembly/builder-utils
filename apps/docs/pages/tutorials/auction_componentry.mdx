@@ -9,11 +9,22 @@ This tutorial will walk you through building a custom auction component for your
 In a new directory, use the `create-wagmi` CLI tool to spin up a Next project configured with [wagmi](https://wagmi.sh/). We'll use a template preloaded with [ConnectKit](https://docs.family.co/connectkit).
 
 {/* prettier-ignore-start */}
-
-<Tabs items={['npm', 'pnpm', 'yarn']}>
-  <Tab>``` pnpm create wagmi --template next-connectkit ```</Tab>
-  <Tab>``` npm init wagmi --template next-connectkit ```</Tab>
-  <Tab>``` yarn create wagmi --template next-connectkit ```</Tab>
+<Tabs items={['pnpm', 'npm', 'yarn']}>
+  <Tab>
+  ```
+  pnpm create wagmi --template next-connectkit
+  ```
+  </Tab>
+  <Tab>
+  ```
+  npm init wagmi --template next-connectkit
+  ```
+  </Tab>
+  <Tab>
+  ```
+  yarn create wagmi --template next-connectkit
+  ```
+  </Tab>
 </Tabs>
 {/* prettier-ignore-end */}
 
@@ -22,15 +33,26 @@ Follow the command line prompts. If you don't have an Alchemy/Infura API key or 
 Install the builder utils package and its peer dependencies listed below.
 
 {/* prettier-ignore-start */}
-
-<Tabs items={['npm', 'pnpm', 'yarn']}>
-  <Tab>``` pnpm add @public-assembly/builder-utils ```</Tab>
-  <Tab>``` npm install @public-assembly/builder-utils ```</Tab>
-  <Tab>``` yarn add @public-assembly/builder-utils ```</Tab>
+<Tabs items={['pnpm', 'npm', 'yarn']}>
+  <Tab>
+  ```
+  pnpm add @public-assembly/builder-utils
+  ```
+  </Tab>
+  <Tab>
+  ```
+  npm i @public-assembly/builder-utils
+  ```
+  </Tab>
+  <Tab>
+  ```
+  yarn add @public-assembly/builder-utils
+  ```
+  </Tab>
 </Tabs>
 {/* prettier-ignore-end */}
 
-```json
+```
  "peerDependencies": {
     "date-fns": "^2.29.3",
     "graphql": "^16.6.0",
@@ -54,7 +76,7 @@ export function Page() {
 export default Page
 ```
 
-### Configure the provider components
+### Configure the provider
 
 Builder utils provides a collection of provider components used to dynamically pass contract specific data throughout your application. Begin configuring these provider components by first navigating to your `app` directory and then to the `providers.tsx` component.
 
@@ -88,15 +110,15 @@ export function Providers({ children }: { children: React.ReactNode }) {
 
 In your `components` directory create a component called `AuctionSkeleton.tsx`. This component will exist as a layout component that dynamically switches between the current auction and historical auctions while rendering the respective interface elements.
 
-This component leverages the [`useTokenExplorer`](pages/hooks/useTokenExplorer.mdx) hook which returns two functions each responsible for navigating between past tokens and the current auction. Additionally, notice the use of the `'use client'` directive at the top of the component. This ensures that this component and its children are exist as part of the client bundle.
+This component leverages the [`useTokenExplorer`](pages/hooks/useTokenExplorer.mdx) hook which returns two functions each responsible for navigating between past tokens and the current auction. Additionally, notice the use of the `'use client'` directive at the top of the component. This ensures that this component and its children exist as part of the client bundle.
 
 ```jsx
 'use client'
 
 import { useTokenExplorer } from '@public-assembly/builder-utils'
 
-export function AuctionSkeleton() {
-  const { incrementId, decrementId } = useTokenExplorer()
+export function AuctionSkeleton({ tokenId }: { tokenId: string }) {
+  const { incrementId, decrementId } = useTokenExplorer({ tokenId: Number(tokenId) })
 
   return (
     <>
@@ -107,11 +129,13 @@ export function AuctionSkeleton() {
 }
 ```
 
-Additionally you'll want to grab two more of the destructured elements returned by the useTokenExplorer hook, boolean elements that will allow you to disable your buttons if the user has reached the first or last (current) token.
+Additionally you'll want to grab two more of the destructured elements returned by the useTokenExplorer hook, boolean elements that will allow you to disable the navigation buttons if the user has reached the first or last (current) token.
 
 ```jsx
-export function AuctionSkeleton() {
-  const { incrementId, decrementId, isFirstToken, isLastToken } = useTokenExplorer()
+export function AuctionSkeleton({ tokenId }: { tokenId: string }) {
+  const { incrementId, decrementId, isFirstToken, isLastToken } = useTokenExplorer({
+    tokenId: Number(tokenId),
+  })
 
   return (
     <>
@@ -135,8 +159,8 @@ Note that the `tokenId` passed into `useTokenMetadata` is in the form of a numbe
 ```jsx
 import { useTokenMetadata, useTokenExplorer } from '@public-assembly/builder-utils'
 
-export function CurrentAuction({ tokenId }: { tokenId: number }) {
-  const { tokenName, tokenThumbnail } = useTokenMetadata(String(tokenId))
+export function CurrentAuction({ tokenId }: { tokenId: string }) {
+  const { tokenName, tokenThumbnail } = useTokenMetadata(tokenId)
 
   return <></>
 }
@@ -147,9 +171,8 @@ We'll flesh out the `CurrentAuction` component a bit more by adding an img tag a
 ```jsx
 import { useTokenMetadata, useAuctionState } from '@public-assembly/builder-utils'
 
-export function CurrentAuction() {
-  const { auctionState } = useAuctionState()
-  const { tokenName, tokenThumbnail } = useTokenMetadata(String(auctionState?.tokenId))
+export function CurrentAuction({ tokenId }: { tokenId: string }) {
+  const { tokenName, tokenThumbnail } = useTokenMetadata(tokenId)
 
   return (
     <>
@@ -160,18 +183,18 @@ export function CurrentAuction() {
 }
 ```
 
-Next we'll create a `HistoricalAuction` component. Similarly to the `CurrentAuction` component, this component will utilize the `useTokenMetadata` hook, but instead of grabbing the tokenId from the `auctionState` object, this component will accept `tokenId` as a prop.
+Next we'll create a `HistoricalAuction` component. Similarly to the `CurrentAuction` component, this component will utilize the `useTokenMetadata` hook, but instead of grabbing the tokenId from the current state of the auction, this component will accept `navigatedTokenId` as a prop. This refers to the state of the component determined by the interacting user.
 
 ```jsx
 import { useTokenMetadata } from '@public-assembly/builder-utils'
 
-export function HistoricalAuction({ tokenId }: { tokenId: number }) {
-  const { tokenName, tokenThumbnail } = useTokenMetadata(String(tokenId))
+export function HistoricalAuction({ navigatedTokenId }: { navigatedTokenId: number }) {
+  const { tokenName, tokenThumbnail } = useTokenMetadata(String(navigatedTokenId))
 
   return (
     <>
       <h1>{tokenName}</h1>
-      <img src={tokenThumbnail} />
+      <img src={tokenThumbnail} width={500} height={500} />
     </>
   )
 }
@@ -186,15 +209,15 @@ import { useTokenExplorer } from '@public-assembly/builder-utils'
 import { CurrentAuction } from './CurrentAuction'
 import { HistoricalAuction } from './HistoricalAuction'
 
-export function AuctionSkeleton() {
-  const { currentTokenId, incrementId, decrementId, isFirstToken, isLastToken } =
-    useTokenExplorer()
+export function AuctionSkeleton({ tokenId }: { tokenId: string }) {
+  const { navigatedTokenId, incrementId, decrementId, isFirstToken, isLastToken } =
+    useTokenExplorer({ tokenId: Number(tokenId) })
 
   const renderContent = () => {
     if (isLastToken) {
-      return <CurrentAuction />
+      return <CurrentAuction tokenId={tokenId} />
     } else {
-      return <HistoricalAuction tokenId={currentTokenId} />
+      return <HistoricalAuction navigatedTokenId={navigatedTokenId} />
     }
   }
 
@@ -214,17 +237,42 @@ export function AuctionSkeleton() {
 }
 ```
 
+### Integrate a countdown
+
+Builder utils provides a handy hook called `useCountdown` that returns a string variable `countdownString` indicating when an auction will end. Additionally that same hook returns a boolean value `isEnded` conveying whether or not an auction is over. We can utilize this hook in another component we'll create called `AuctionCountdown.tsx`.
+
+```jsx
+import { useCountdown } from '@public-assembly/builder-utils'
+
+export function AuctionCountdown({ endTime }: { endTime: number }) {
+  const { countdownString, isEnded } = useCountdown(endTime)
+
+  return (
+    <div>
+      {!isEnded ? (
+        <>
+          <span>Auction ends in:</span>
+          <span>{countdownString}</span>
+        </>
+      ) : (
+        <span>Auction ended</span>
+      )}
+    </div>
+  )
+}
+```
+
 ### Add bidding functionality
 
-Create another component called `Bidding.tsx`. In we'll leverage two hooks from builder utils to dynamically create write calls to our DAO's auction contract. This component will be rendered inside our `CurrentAuction` component. We'll use an html form element to handle bid submissions, but keep in mind this can be done in a variety of ways.
+Create another component called `Bidding.tsx`. In it we'll leverage two hooks from builder utils to dynamically create write calls to our DAO's auction contract. This component will be rendered inside our `CurrentAuction` component and utilize an html form element to handle bid submissions. This component also makes use of the `AuctionCountdown` we just created in the step above.
 
 ```jsx
 import { AuctionCountdown } from './AuctionCountdown'
-import { useCreateBid } from '@public-assembly/builder-utils'
 import {
   useAuctionState,
   useManagerContext,
   useMinBidAmount,
+  useCreateBid,
 } from '@public-assembly/builder-utils'
 
 export function Bidding() {
@@ -288,5 +336,144 @@ export function Bidding() {
 }
 ```
 
-### Include countdown and settle functionality
+### Include settle ability
 
+Now that we've integrated bidding functionality, we need to make sure that our users can move on to the next auction once the current one ends. For this we'll leverage the `useSettle` hook which provides a write function and respective feedback states for exactly this feature. Let's utilize this hook in a new component called `SettleAuction.tsx`.
+
+```jsx
+import { useSettle } from '@public-assembly/builder-utils'
+
+export function SettleAuction() {
+  const { settle, settleLoading } = useSettle()
+
+  return (
+    <button disabled={settleLoading} onClick={() => settle?.()}>
+      Settle auction
+    </button>
+  )
+}
+```
+
+### Utilize dynamic routing
+
+The last step to glue everything together is to leverage dyanmic routing from Next. With dynamic routing we'll be able to create a unique link for every minted token, providing a shareable url for our users.
+
+Begin by creating a new folder in our `app` directory, called `[tokenId]`. The brackets denote that this will be a dynamic route. Within that directory, create another page component, `page.tsx`. Again, notice the use of the `'use client'` directive at the top of the component. This will allow us to remove that same directive from this function's children, so you can go ahead and make those adjustments in both the `AuctionSkeleton` and `ConnectButton` components.
+
+```
+'use client'
+
+import { ConnectButton } from '../../components/ConnectButton'
+import { AuctionSkeleton } from '../../components/AuctionSkeleton'
+
+export default function Page({ params }: { params: { tokenId: string } }) {
+  return (
+    <>
+      <ConnectButton />
+      <AuctionSkeleton tokenId={params.tokenId} />
+    </>
+  )
+}
+```
+
+This component takes a `tokenId` which will be informed by our current route and passed into our `AuctionSkeleton` component. Now that we've defined our dynamic route, we'll revisit a couple of our previously created components and add the appropriate changes to handle this configuration.
+
+In our `AuctionSkeleton` component we'll utilize Next's router API to navigate to the appropriate routes when exploring tokens.
+
+```jsx
+import { useTokenExplorer } from '@public-assembly/builder-utils'
+import { CurrentAuction } from './CurrentAuction'
+import { HistoricalAuction } from './HistoricalAuction'
+import { useRouter } from 'next/navigation'
+
+export function AuctionSkeleton({ tokenId }: { tokenId: string }) {
+  const { navigatedTokenId, incrementId, decrementId, isFirstToken, isLastToken } =
+    useTokenExplorer({ tokenId: Number(tokenId) })
+
+  const router = useRouter()
+
+  const renderContent = () => {
+    if (isLastToken) {
+      return <CurrentAuction tokenId={tokenId} />
+    } else {
+      return <HistoricalAuction navigatedTokenId={navigatedTokenId} />
+    }
+  }
+
+  function incrementAndPush() {
+    incrementId()
+    router.push(`/${navigatedTokenId + 1}`)
+  }
+
+  function decrementAndPush() {
+    decrementId()
+    router.push(`/${navigatedTokenId - 1}`)
+  }
+
+  return (
+    <>
+      {renderContent()}
+      <>
+        <button disabled={isFirstToken} onClick={decrementAndPush}>
+          Backward
+        </button>
+        <button disabled={isLastToken} onClick={incrementAndPush}>
+          Forward
+        </button>
+      </>
+    </>
+  )
+}
+```
+
+In our `SettleAuction` component, we'll implement a useEffect hook in addition to Next's router API to navigate to the next token once the previous auction has been succesfully settled.
+
+```jsx
+import { useSettle, useAuctionState } from '@public-assembly/builder-utils'
+import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
+
+export function SettleAuction() {
+  const { settle, settleLoading, settleSuccess } = useSettle()
+  const { auctionState } = useAuctionState()
+  const router = useRouter()
+
+  useEffect(() => {
+    if (settleSuccess) {
+      router.push(`/${auctionState.tokenId + 1}`)
+    }
+  }, [settleSuccess])
+
+  return (
+    <button disabled={settleLoading} onClick={() => settle?.()}>
+      Settle auction
+    </button>
+  )
+}
+```
+
+Lastly, we'll return to our `AuctionCountdown` component and swap in our newly configured `SettleAuction` component to appear when an auction ends.
+
+```jsx
+import { useCountdown } from '@public-assembly/builder-utils'
+import { SettleAuction } from './SettleAuction'
+
+export function AuctionCountdown({ endTime }: { endTime: number }) {
+  const { countdownString, isEnded } = useCountdown(endTime)
+
+  return (
+    <div className="flex flex-col">
+      {!isEnded ? (
+        <>
+          <span>Auction ends in:</span>
+          <span>{countdownString}</span>
+        </>
+      ) : (
+        <SettleAuction />
+      )}
+    </div>
+  )
+}
+```
+
+That's everything! I hope you're excited to style and share your new custom auction component. If you have any comments and suggestions for this tutorial, I'd encourage you to [open an issue](https://github.com/public-assembly/builder-utils/issues/new), create a pull request, or reach out to me directly on [Twitter](https://twitter.com/salieflewis).

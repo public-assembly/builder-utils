@@ -20,7 +20,8 @@
     "**/*.ts",
     "**/*.tsx",
     "pages/hooks/use_active_auction.mdx",
-    "pages/getting_started.mdx"
+    "pages/getting_started.mdx",
+    "pages/hooks/useAuctionSettings.mdx"
   ],
   "exclude": ["node_modules"]
 }

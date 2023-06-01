@@ -1,7 +1,7 @@
 {
   "name": "@public-assembly/builder-utils",
   "version": "0.1.2",
-  "description": "React componentry and hooks to interact with the ourzora/nouns-protocol smart contracts.",
+  "description": "React hooks and utilities for Nouns Builder DAOs.",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "author": "Public Assembly",

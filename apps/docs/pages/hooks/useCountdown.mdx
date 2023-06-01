@@ -1,0 +1,38 @@
+---
+title: 'useCountdown'
+description: 'Hook for querying when an auction will end.'
+---
+
+## useCountdown
+
+Hook for querying when an auction will end.
+
+```tsx
+import { useCountdown } from '@public-assembly/builder-utils'
+```
+
+## Usage
+
+```tsx
+import { useCountdown } from '@public-assembly/builder-utils'
+
+function App({ endTime }: { endTime: number }) {
+  const { countdownString, isEnded } = useCountdown(endTime)
+
+  return (
+    <>
+      <p>Auction ends in: {countdownString}</p>
+      <p>Is the auction over?: {isEnded}</p>
+    </>
+  )
+}
+```
+
+## Returns
+
+```tsx
+{
+  isEnded: boolean
+  countdownString: string
+}
+```
