@@ -2,15 +2,12 @@
 
 const config = {
   overwrite: true,
-  schema: 'https://api.zora.co/graphql',
+  schema: 'https://api.thegraph.com/subgraphs/name/neokry/nouns-builder-mainnet',
   documents: [
-    'src/data/daoAuctionQuery.ts',
-    'src/data/daoCollectionQuery.ts',
-    'src/data/daoProposalQuery.ts',
-    'src/data/daoTokenQuery.ts',
+    'src/subgraph/queries/daoAddresses.ts',
   ],
   generates: {
-    'src/types/graphql/': {
+    'src/subgraph/types/': {
       preset: 'client',
       plugins: [],
     },

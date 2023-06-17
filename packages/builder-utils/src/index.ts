@@ -18,3 +18,7 @@ export * from './hooks'
  * Lib (Utilities)
  */
 export * from './lib'
+/**
+ * Subgraph
+ */
+export * from './subgraph'
