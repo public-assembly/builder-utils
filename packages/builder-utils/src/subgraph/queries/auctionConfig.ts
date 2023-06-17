@@ -1,6 +1,6 @@
-import gql from 'graphql-tag'
+import { graphql } from '../types'
 
-export const AUCTION_CONFIG_QUERY = gql`
+export const AUCTION_CONFIG_QUERY = graphql(`
   query AuctionConfig($id: ID!) {
     dao(id: $id) {
       id
@@ -12,4 +12,4 @@ export const AUCTION_CONFIG_QUERY = gql`
       }
     }
   }
-`
+`)

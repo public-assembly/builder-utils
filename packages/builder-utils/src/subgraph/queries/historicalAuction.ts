@@ -1,7 +1,7 @@
-import gql from 'graphql-tag'
+import { graphql } from '../types'
 
-export const HISTORICAL_AUCTION_QUERY = gql`
-  query HistoricalAuction($id: ID!, $tokenId: BigInt) {
+export const HISTORICAL_AUCTION_QUERY = graphql(`
+  query HistoricalAuction($id: ID!, $tokenId: BigInt!) {
     dao(id: $id) {
       id
       auctions(where: { tokenId: $tokenId }) {
@@ -25,4 +25,4 @@ export const HISTORICAL_AUCTION_QUERY = gql`
       }
     }
   }
-`
+`)

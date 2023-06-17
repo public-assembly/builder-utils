@@ -7,10 +7,6 @@ export * from './abi'
  */
 export * from './context'
 /**
- * GraphQL
- */
-export * from './graphql'
-/**
  * Hooks
  */
 export * from './hooks'

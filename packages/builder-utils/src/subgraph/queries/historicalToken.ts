@@ -1,6 +1,6 @@
-import gql from 'graphql-tag'
+import { graphql } from '../types'
 
-export const HISTORICAL_TOKEN_QUERY = gql`
+export const HISTORICAL_TOKEN_QUERY = graphql(`
   query HistoricalToken($id: ID!, $tokenId: BigInt!) {
     dao(id: $id) {
       id
@@ -13,4 +13,4 @@ export const HISTORICAL_TOKEN_QUERY = gql`
       }
     }
   }
-`
+`)
