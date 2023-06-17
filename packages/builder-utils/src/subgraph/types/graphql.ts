@@ -1803,6 +1803,47 @@ export enum _SubgraphErrorPolicy_ {
   Deny = 'deny',
 }
 
+export type AuctionConfigQueryVariables = Exact<{
+  id: Scalars['ID']
+}>
+
+export type AuctionConfigQuery = {
+  __typename?: 'Query'
+  dao?: {
+    __typename?: 'DAO'
+    id: string
+    auctionConfig: {
+      __typename?: 'AuctionConfig'
+      minimumBidIncrement: any
+      reservePrice: any
+      timeBuffer: any
+      duration: any
+    }
+  } | null
+}
+
+export type CurrentAuctionQueryVariables = Exact<{
+  id: Scalars['ID']
+}>
+
+export type CurrentAuctionQuery = {
+  __typename?: 'Query'
+  dao?: {
+    __typename?: 'DAO'
+    id: string
+    currentAuction?: {
+      __typename?: 'Auction'
+      startTime: any
+      endTime: any
+      extended: boolean
+      settled: boolean
+      tokenId: any
+      winningBid?: { __typename?: 'AuctionBid'; amount: any; bidder: any } | null
+      highestBid?: { __typename?: 'AuctionBid'; amount: any; bidder: any } | null
+    } | null
+  } | null
+}
+
 export type DaoAddressesQueryVariables = Exact<{
   id: Scalars['ID']
 }>
@@ -1819,6 +1860,187 @@ export type DaoAddressesQuery = {
   } | null
 }
 
+export type HistoricalAuctionQueryVariables = Exact<{
+  id: Scalars['ID']
+  tokenId?: InputMaybe<Scalars['BigInt']>
+}>
+
+export type HistoricalAuctionQuery = {
+  __typename?: 'Query'
+  dao?: {
+    __typename?: 'DAO'
+    id: string
+    auctions: Array<{
+      __typename?: 'Auction'
+      startTime: any
+      endTime: any
+      extended: boolean
+      settled: boolean
+      tokenId: any
+      winningBid?: { __typename?: 'AuctionBid'; amount: any; bidder: any } | null
+      highestBid?: { __typename?: 'AuctionBid'; bidder: any; amount: any } | null
+      bids?: Array<{ __typename?: 'AuctionBid'; bidder: any; amount: any }> | null
+    }>
+  } | null
+}
+
+export type HistoricalTokenQueryVariables = Exact<{
+  id: Scalars['ID']
+  tokenId: Scalars['BigInt']
+}>
+
+export type HistoricalTokenQuery = {
+  __typename?: 'Query'
+  dao?: {
+    __typename?: 'DAO'
+    id: string
+    tokens: Array<{
+      __typename?: 'Token'
+      tokenId: any
+      name: string
+      owner: any
+      mintedAt: any
+      image: string
+    }>
+  } | null
+}
+
+export const AuctionConfigDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'AuctionConfig' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'ID' } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'dao' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'id' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'auctionConfig' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'minimumBidIncrement' },
+                      },
+                      { kind: 'Field', name: { kind: 'Name', value: 'reservePrice' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'timeBuffer' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'duration' } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<AuctionConfigQuery, AuctionConfigQueryVariables>
+export const CurrentAuctionDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'CurrentAuction' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'ID' } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'dao' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'id' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'currentAuction' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'startTime' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'endTime' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'extended' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'winningBid' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'amount' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'bidder' } },
+                          ],
+                        },
+                      },
+                      { kind: 'Field', name: { kind: 'Name', value: 'settled' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'tokenId' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'highestBid' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'amount' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'bidder' } },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<CurrentAuctionQuery, CurrentAuctionQueryVariables>
 export const DaoAddressesDocument = {
   kind: 'Document',
   definitions: [
@@ -1865,3 +2087,199 @@ export const DaoAddressesDocument = {
     },
   ],
 } as unknown as DocumentNode<DaoAddressesQuery, DaoAddressesQueryVariables>
+export const HistoricalAuctionDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'HistoricalAuction' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'ID' } },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'tokenId' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'BigInt' } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'dao' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'id' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'auctions' },
+                  arguments: [
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'where' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: 'tokenId' },
+                            value: {
+                              kind: 'Variable',
+                              name: { kind: 'Name', value: 'tokenId' },
+                            },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'startTime' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'endTime' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'extended' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'winningBid' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'amount' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'bidder' } },
+                          ],
+                        },
+                      },
+                      { kind: 'Field', name: { kind: 'Name', value: 'settled' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'tokenId' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'highestBid' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'bidder' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'amount' } },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'bids' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'bidder' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'amount' } },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<HistoricalAuctionQuery, HistoricalAuctionQueryVariables>
+export const HistoricalTokenDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'HistoricalToken' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'ID' } },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'tokenId' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'BigInt' } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'dao' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'id' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'tokens' },
+                  arguments: [
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'where' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: 'tokenId' },
+                            value: {
+                              kind: 'Variable',
+                              name: { kind: 'Name', value: 'tokenId' },
+                            },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'tokenId' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'owner' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'mintedAt' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'image' } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<HistoricalTokenQuery, HistoricalTokenQueryVariables>

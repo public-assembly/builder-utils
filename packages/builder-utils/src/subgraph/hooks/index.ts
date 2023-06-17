@@ -1,1 +1,5 @@
+export * from './useAuctionConfigQuery'
+export * from './useCurrentAuctionQuery'
 export * from './useDaoAddressesQuery'
+export * from './useHistoricalAuctionQuery'
+export * from './useHistoricalTokenQuery'
