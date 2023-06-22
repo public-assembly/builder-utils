@@ -1,5 +1,11 @@
 # @public-assembly/builder-utils
 
+## 0.1.4
+
+### Patch Changes
+
+- be68c9b: Moves package away from the existing ZORA API dependency. Utilizes Nouns Builder subgraph.
+
 ## 0.1.3
 
 ### Patch Changes
