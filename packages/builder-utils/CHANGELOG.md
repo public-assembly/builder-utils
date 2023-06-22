@@ -1,5 +1,11 @@
 # @public-assembly/builder-utils
 
+## 0.1.5
+
+### Patch Changes
+
+- fded1c8: Reintroduces the GovernorProvider component and associated hook to handle proposal data.
+
 ## 0.1.4
 
 ### Patch Changes
