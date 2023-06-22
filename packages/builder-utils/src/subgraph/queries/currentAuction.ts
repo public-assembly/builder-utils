@@ -3,9 +3,10 @@ import { graphql } from '../types'
 export const CURRENT_AUCTION_QUERY = graphql(`
   query CurrentAuction($id: ID!) {
     dao(id: $id) {
-      id
       currentAuction {
-        tokenId
+        token {
+          tokenId
+        }
         startTime
         endTime
         extended
@@ -17,6 +18,9 @@ export const CURRENT_AUCTION_QUERY = graphql(`
         highestBid {
           amount
           bidder
+        }
+        token {
+          tokenId
         }
       }
     }

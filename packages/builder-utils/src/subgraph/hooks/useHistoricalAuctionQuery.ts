@@ -22,30 +22,34 @@ export function useHistoricalAuctionQuery({
       } as HistoricalAuctionQueryVariables)
   )
   return {
-    tokenId: historicalAuction?.dao?.auctions[0]?.tokenId,
-    startTime: historicalAuction?.dao?.auctions[0]?.startTime
-      ? formatFromUnix(historicalAuction?.dao?.auctions[0]?.startTime)
+    tokenId: historicalAuction?.dao?.tokens[0]?.tokenId,
+    startTime: historicalAuction?.dao?.tokens[0]?.auction?.startTime
+      ? formatFromUnix(historicalAuction?.dao?.tokens[0]?.auction?.startTime)
       : '',
-    endTime: historicalAuction?.dao?.auctions[0]?.endTime
-      ? formatFromUnix(historicalAuction?.dao?.auctions[0]?.endTime)
+    endTime: historicalAuction?.dao?.tokens[0]?.auction?.endTime
+      ? formatFromUnix(historicalAuction?.dao?.tokens[0]?.auction?.endTime)
       : '',
-    extended: historicalAuction?.dao?.auctions[0]?.extended,
-    settled: historicalAuction?.dao?.auctions[0]?.settled,
-    winningBid: historicalAuction?.dao?.auctions[0]?.winningBid?.amount
-      ? formatEther(BigInt(historicalAuction?.dao?.auctions[0]?.winningBid?.amount))
+    extended: historicalAuction?.dao?.tokens[0]?.auction?.extended,
+    settled: historicalAuction?.dao?.tokens[0]?.auction?.settled,
+    winningBid: historicalAuction?.dao?.tokens[0]?.auction?.winningBid?.amount
+      ? formatEther(
+          BigInt(historicalAuction?.dao?.tokens[0]?.auction?.winningBid?.amount)
+        )
       : '',
     winningBidder: useEnsNameOrShorten({
-      address: historicalAuction?.dao?.auctions[0]?.winningBid?.bidder,
+      address: historicalAuction?.dao?.tokens[0]?.auction?.winningBid?.bidder,
     }).ensNameOrShorten,
-    highestBid: historicalAuction?.dao?.auctions[0]?.highestBid?.amount
-      ? formatEther(BigInt(historicalAuction?.dao?.auctions[0]?.highestBid?.amount))
+    highestBid: historicalAuction?.dao?.tokens[0]?.auction?.highestBid?.amount
+      ? formatEther(
+          BigInt(historicalAuction?.dao?.tokens[0]?.auction?.highestBid?.amount)
+        )
       : '',
     highestBidder: useEnsNameOrShorten({
-      address: historicalAuction?.dao?.auctions[0]?.highestBid?.bidder,
+      address: historicalAuction?.dao?.tokens[0]?.auction?.highestBid?.bidder,
     }).ensNameOrShorten,
-    bids: historicalAuction?.dao?.auctions.flatMap((auction) => {
-      return auction?.bids
-        ? auction.bids.map((bid) => ({
+    bids: historicalAuction?.dao?.tokens.flatMap((auction) => {
+      return auction?.auction?.bids
+        ? auction?.auction?.bids.map((bid) => ({
             bidder: bid.bidder,
             amount: formatEther(bid.amount),
           }))
