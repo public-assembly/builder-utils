@@ -19,7 +19,9 @@
     "build": "tsup src/index.ts --format esm,cjs --dts --external react",
     "dev": "tsup src/index.ts --format esm,cjs --watch --dts --external react",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
-    "codegen": "graphql-codegen --config typegen.cjs"
+    "codegen-config": "graphql-codegen --config codegen.ts",
+    "codegen": "graphql-codegen",
+    "codegen-watch": "graphql-codegen --watch"
   },
   "peerDependencies": {
     "date-fns": "^2.29.3",
@@ -36,6 +38,7 @@
     "@graphql-codegen/cli": "3.2.1",
     "@graphql-codegen/client-preset": "2.1.0",
     "@graphql-codegen/introspection": "3.0.1",
+    "@graphql-codegen/typescript": "^4.0.0",
     "@graphql-typed-document-node/core": "^3.1.2",
     "@types/react": "^18.0.20",
     "@types/react-dom": "^18.0.6",

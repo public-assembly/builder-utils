@@ -1,7 +1,6 @@
 import { useManagerContext } from '../context'
 import { auctionAbi } from '../abi'
 import { useContractWrite, usePrepareContractWrite, useWaitForTransaction } from 'wagmi'
-import { useEffect } from 'react'
 
 export function useSettle() {
   const { auctionAddress } = useManagerContext()

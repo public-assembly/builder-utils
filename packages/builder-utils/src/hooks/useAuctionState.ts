@@ -2,7 +2,6 @@ import { Hex, formatEther } from 'viem'
 import { useManagerContext } from '../context'
 import { auctionAbi } from '../abi'
 import { useContractRead } from 'wagmi'
-import { useEnsNameOrShorten } from './useEnsNameOrShorten'
 
 export interface AuctionState {
   tokenId: number

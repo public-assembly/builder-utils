@@ -1,6 +1,6 @@
-/** @type {import('@graphql-codegen/cli').CodegenConfig} */
+import { CodegenConfig } from '@graphql-codegen/cli'
 
-const config = {
+const config: CodegenConfig = {
   overwrite: true,
   schema: 'https://api.thegraph.com/subgraphs/name/neokry/nouns-builder-mainnet',
   documents: [
@@ -13,10 +13,7 @@ const config = {
   generates: {
     'src/subgraph/types/': {
       preset: 'client',
-      plugins: [],
-    },
-    './graphql.schema.json': {
-      plugins: ['introspection'],
+      plugins: ['typescript'],
     },
   },
 }

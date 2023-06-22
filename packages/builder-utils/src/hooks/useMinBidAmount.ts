@@ -1,31 +1,22 @@
 import * as React from 'react'
-import { useDaoAuctionQuery } from '../graphql/hooks/useDaoAuctionQuery'
+import { useCurrentAuctionQuery, useAuctionConfigQuery } from '../subgraph'
 import { useManagerContext } from '../context'
 import { formatEther, parseUnits } from 'viem'
 
 export function useMinBidAmount() {
   const { tokenAddress } = useManagerContext()
-  const { activeAuction } = useDaoAuctionQuery({ tokenAddress: tokenAddress })
+  const { highestBid } = useCurrentAuctionQuery({ tokenAddress: tokenAddress })
+  const { minimumBidIncrement } = useAuctionConfigQuery({ tokenAddress: tokenAddress })
 
   const minBidAmount = React.useMemo(() => {
-    if (
-      activeAuction?.highestBidPrice?.chainTokenPrice?.decimal &&
-      activeAuction?.minBidIncrementPercentage
-    ) {
+    if (highestBid) {
       const minBidValue =
-        ((Number(activeAuction?.highestBidPrice.chainTokenPrice.raw) *
-          activeAuction?.minBidIncrementPercentage) %
-          100) +
-        activeAuction?.highestBidPrice.chainTokenPrice.raw
+        (Number(highestBid) * (minimumBidIncrement / 100) + Number(highestBid)) * 1e18
       return Number(formatEther(BigInt(minBidValue)))
     } else {
-      return activeAuction?.reservePrice?.chainTokenPrice?.decimal as number
+      return Number(highestBid)
     }
-  }, [
-    activeAuction?.highestBidPrice?.chainTokenPrice?.decimal,
-    activeAuction?.minBidIncrementPercentage,
-    activeAuction?.reservePrice?.chainTokenPrice?.decimal,
-  ])
+  }, [highestBid, minimumBidIncrement])
 
   const [bidAmount, setBidAmount] = React.useState('0')
   const [isValidBid, setIsValidBid] = React.useState(false)
