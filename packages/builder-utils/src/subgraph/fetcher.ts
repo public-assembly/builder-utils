@@ -1,21 +1,25 @@
 import { client } from './client'
-import { Fetcher } from 'swr'
-import { TypedDocumentNode } from '@graphql-typed-document-node/core'
 import { DocumentNode } from 'graphql'
 import {
   AuctionConfigQueryVariables,
   CurrentAuctionQueryVariables,
   DaoAddressesQueryVariables,
+  DaoProposalsQueryVariables,
   HistoricalAuctionQueryVariables,
   HistoricalTokenQueryVariables,
+  ProposalDetailsQueryVariables,
+  ProposalVotesQueryVariables,
 } from './types/graphql'
 
 type FetcherVariablesProps =
   | AuctionConfigQueryVariables
   | CurrentAuctionQueryVariables
   | DaoAddressesQueryVariables
+  | DaoProposalsQueryVariables
   | HistoricalAuctionQueryVariables
   | HistoricalTokenQueryVariables
+  | ProposalDetailsQueryVariables
+  | ProposalVotesQueryVariables
 
 /**
  * The key defined in the invoking hook is, by default, passed to fetcher

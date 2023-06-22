@@ -14,7 +14,7 @@ export function useCurrentAuctionQuery({ tokenAddress }: { tokenAddress: Hex }) 
   )
 
   return {
-    tokenId: currentAuction?.dao?.currentAuction?.tokenId,
+    tokenId: currentAuction?.dao?.currentAuction?.token?.tokenId,
     startTime: currentAuction?.dao?.currentAuction?.startTime
       ? formatFromUnix(currentAuction?.dao?.currentAuction?.startTime)
       : '',
