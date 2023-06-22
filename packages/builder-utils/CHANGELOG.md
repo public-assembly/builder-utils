@@ -1,5 +1,11 @@
 # @public-assembly/builder-utils
 
+## 0.1.6
+
+### Patch Changes
+
+- 455eb48: Adds the useVote hook for voting interactions.
+
 ## 0.1.5
 
 ### Patch Changes
