@@ -1,5 +1,11 @@
 # @public-assembly/builder-utils
 
+## 0.1.7
+
+### Patch Changes
+
+- 0ebdd53: Ensures that isFirstToken and isLastToken are defined regardless if values are numbers or strings.
+
 ## 0.1.6
 
 ### Patch Changes
