@@ -18,8 +18,8 @@ export function useTokenExplorer({ tokenId }: { tokenId: number }) {
     }
   }, [tokenId, navigatedTokenId])
 
-  const isFirstToken = navigatedTokenId === 0
-  const isLastToken = navigatedTokenId === auctionState.tokenId
+  const isFirstToken = navigatedTokenId == 0
+  const isLastToken = navigatedTokenId == auctionState.tokenId
 
   return {
     tokenId,
