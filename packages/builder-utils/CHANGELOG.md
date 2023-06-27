@@ -1,5 +1,11 @@
 # @public-assembly/builder-utils
 
+## 0.1.11
+
+### Patch Changes
+
+- 22eae33: Return bids from current auction query.
+
 ## 0.1.10
 
 ### Patch Changes
