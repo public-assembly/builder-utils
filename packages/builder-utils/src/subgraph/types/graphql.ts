@@ -1880,6 +1880,7 @@ export type CurrentAuctionQuery = {
       token: { __typename?: 'Token'; tokenId: any }
       winningBid?: { __typename?: 'AuctionBid'; amount: any; bidder: any } | null
       highestBid?: { __typename?: 'AuctionBid'; amount: any; bidder: any } | null
+      bids?: Array<{ __typename?: 'AuctionBid'; bidder: any; amount: any }> | null
     } | null
   } | null
 }
@@ -2169,6 +2170,29 @@ export const CurrentAuctionDocument = {
                           ],
                         },
                       },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'bids' },
+                        arguments: [
+                          {
+                            kind: 'Argument',
+                            name: { kind: 'Name', value: 'orderBy' },
+                            value: { kind: 'EnumValue', value: 'amount' },
+                          },
+                          {
+                            kind: 'Argument',
+                            name: { kind: 'Name', value: 'orderDirection' },
+                            value: { kind: 'EnumValue', value: 'desc' },
+                          },
+                        ],
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'bidder' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'amount' } },
+                          ],
+                        },
+                      },
                     ],
                   },
                 },
@@ -2433,6 +2457,18 @@ export const HistoricalAuctionDocument = {
                             {
                               kind: 'Field',
                               name: { kind: 'Name', value: 'bids' },
+                              arguments: [
+                                {
+                                  kind: 'Argument',
+                                  name: { kind: 'Name', value: 'orderBy' },
+                                  value: { kind: 'EnumValue', value: 'amount' },
+                                },
+                                {
+                                  kind: 'Argument',
+                                  name: { kind: 'Name', value: 'orderDirection' },
+                                  value: { kind: 'EnumValue', value: 'desc' },
+                                },
+                              ],
                               selectionSet: {
                                 kind: 'SelectionSet',
                                 selections: [

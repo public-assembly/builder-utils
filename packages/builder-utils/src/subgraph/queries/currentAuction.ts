@@ -22,6 +22,10 @@ export const CURRENT_AUCTION_QUERY = graphql(`
         token {
           tokenId
         }
+        bids(orderBy: amount, orderDirection: desc) {
+          bidder
+          amount
+        }
       }
     }
   }
