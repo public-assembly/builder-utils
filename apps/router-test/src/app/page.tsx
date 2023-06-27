@@ -7,6 +7,7 @@ import {
   useMinBidAmount,
   useAuctionConfigQuery,
   useProposalVotesQuery,
+  useHistoricalBids,
 } from '@public-assembly/builder-utils'
 import Link from 'next/link'
 
@@ -47,6 +48,13 @@ export default function Page() {
   })
 
   console.log(proposalVotes)
+
+  const { filteredBidEvents } = useHistoricalBids({
+    tokenAddress: '0xd2e7684cf3e2511cc3b4538bb2885dc206583076',
+    tokenId: String(auctionState.tokenId),
+  })
+
+  console.log(filteredBidEvents)
 
   return (
     <>

@@ -1,6 +1,7 @@
 export * from './auctionConfig'
 export * from './currentAuction'
 export * from './daoAddresses'
+export * from './daoDetails'
 export * from './daoProposals'
 export * from './historicalAuction'
 export * from './historicalToken'

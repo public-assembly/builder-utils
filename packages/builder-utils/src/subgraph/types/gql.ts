@@ -19,6 +19,8 @@ const documents = {
     types.CurrentAuctionDocument,
   '\n  query DaoAddresses($id: ID!) {\n    dao(id: $id) {\n      treasuryAddress\n      auctionAddress\n      governorAddress\n      metadataAddress\n    }\n  }\n':
     types.DaoAddressesDocument,
+  '\n  query DaoDetails($id: ID!) {\n    dao(id: $id) {\n      name\n      symbol\n      description\n      contractImage\n      projectURI\n      ownerCount\n      totalSupply\n      totalAuctionSales\n      proposalCount\n    }\n  }\n':
+    types.DaoDetailsDocument,
   '\n  query DaoProposals($id: ID!) {\n    dao(id: $id) {\n      proposals(orderDirection: desc, orderBy: timeCreated) {\n        id\n      }\n    }\n  }\n':
     types.DaoProposalsDocument,
   '\n  query HistoricalAuction($id: ID!, $tokenId: BigInt!) {\n    dao(id: $id) {\n      tokens(where: { tokenId: $tokenId }) {\n        tokenId\n        auction {\n          startTime\n          endTime\n          extended\n          winningBid {\n            amount\n            bidder\n          }\n          settled\n          highestBid {\n            bidder\n            amount\n          }\n          bids {\n            bidder\n            amount\n          }\n        }\n      }\n    }\n  }\n':
@@ -63,6 +65,12 @@ export function graphql(
 export function graphql(
   source: '\n  query DaoAddresses($id: ID!) {\n    dao(id: $id) {\n      treasuryAddress\n      auctionAddress\n      governorAddress\n      metadataAddress\n    }\n  }\n'
 ): typeof documents['\n  query DaoAddresses($id: ID!) {\n    dao(id: $id) {\n      treasuryAddress\n      auctionAddress\n      governorAddress\n      metadataAddress\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query DaoDetails($id: ID!) {\n    dao(id: $id) {\n      name\n      symbol\n      description\n      contractImage\n      projectURI\n      ownerCount\n      totalSupply\n      totalAuctionSales\n      proposalCount\n    }\n  }\n'
+): typeof documents['\n  query DaoDetails($id: ID!) {\n    dao(id: $id) {\n      name\n      symbol\n      description\n      contractImage\n      projectURI\n      ownerCount\n      totalSupply\n      totalAuctionSales\n      proposalCount\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
