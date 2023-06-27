@@ -1,6 +1,7 @@
 export * from './useAuctionConfigQuery'
 export * from './useCurrentAuctionQuery'
 export * from './useDaoAddressesQuery'
+export * from './useDaoDetailsQuery'
 export * from './useDaoProposalsQuery'
 export * from './useHistoricalAuctionQuery'
 export * from './useHistoricalTokenQuery'

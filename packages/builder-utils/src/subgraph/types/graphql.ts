@@ -1899,6 +1899,26 @@ export type DaoAddressesQuery = {
   } | null
 }
 
+export type DaoDetailsQueryVariables = Exact<{
+  id: Scalars['ID']
+}>
+
+export type DaoDetailsQuery = {
+  __typename?: 'Query'
+  dao?: {
+    __typename?: 'DAO'
+    name: string
+    symbol: string
+    description: string
+    contractImage: string
+    projectURI: string
+    ownerCount: number
+    totalSupply: number
+    totalAuctionSales: any
+    proposalCount: number
+  } | null
+}
+
 export type DaoProposalsQueryVariables = Exact<{
   id: Scalars['ID']
 }>
@@ -2206,6 +2226,56 @@ export const DaoAddressesDocument = {
     },
   ],
 } as unknown as DocumentNode<DaoAddressesQuery, DaoAddressesQueryVariables>
+export const DaoDetailsDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'DaoDetails' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'ID' } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'dao' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'id' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'symbol' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'contractImage' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'projectURI' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'ownerCount' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'totalSupply' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'totalAuctionSales' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'proposalCount' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<DaoDetailsQuery, DaoDetailsQueryVariables>
 export const DaoProposalsDocument = {
   kind: 'Document',
   definitions: [
