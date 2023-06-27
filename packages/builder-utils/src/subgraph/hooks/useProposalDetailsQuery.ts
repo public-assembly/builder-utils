@@ -11,6 +11,8 @@ export function useProposalDetailsQuery({ proposalId }: { proposalId: string }) 
     () => fetcher(PROPOSAL_DETAILS_QUERY, { proposalId } as ProposalDetailsQueryVariables)
   )
 
+  const proposer = useEnsNameOrShorten({ address: proposalDetails?.proposal?.proposer })
+
   return {
     forVotes: proposalDetails?.proposal?.forVotes,
     againstVotes: proposalDetails?.proposal?.againstVotes,
@@ -18,13 +20,14 @@ export function useProposalDetailsQuery({ proposalId }: { proposalId: string }) 
     calldatas: proposalDetails?.proposal?.calldatas,
     description: proposalDetails?.proposal?.description,
     descriptionHash: proposalDetails?.proposal?.descriptionHash,
-    executableFrom: proposalDetails?.proposal?.executableFrom,
-    expiresAt: proposalDetails?.proposal?.expiresAt,
+    executableFrom: formatFromUnix({
+      timestamp: proposalDetails?.proposal?.executableFrom,
+    }),
+    expiresAt: formatFromUnix({ timestamp: proposalDetails?.proposal?.expiresAt }),
     proposalId: proposalDetails?.proposal?.proposalId,
     proposalNumber: proposalDetails?.proposal?.proposalNumber,
     proposalThreshold: proposalDetails?.proposal?.proposalThreshold,
-    proposer: useEnsNameOrShorten({ address: proposalDetails?.proposal?.proposer })
-      .ensNameOrShorten,
+    proposer: proposer,
     quorumVotes: proposalDetails?.proposal?.quorumVotes,
     targets: proposalDetails?.proposal?.targets,
     timeCreated: formatFromUnix({ timestamp: proposalDetails?.proposal?.timeCreated }),

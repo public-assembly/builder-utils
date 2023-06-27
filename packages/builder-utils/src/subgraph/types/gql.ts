@@ -23,7 +23,7 @@ const documents = {
     types.DaoDetailsDocument,
   '\n  query DaoProposals($id: ID!) {\n    dao(id: $id) {\n      proposals(orderDirection: desc, orderBy: timeCreated) {\n        id\n      }\n    }\n  }\n':
     types.DaoProposalsDocument,
-  '\n  query HistoricalAuction($id: ID!, $tokenId: BigInt!) {\n    dao(id: $id) {\n      tokens(where: { tokenId: $tokenId }) {\n        tokenId\n        auction {\n          startTime\n          endTime\n          extended\n          winningBid {\n            amount\n            bidder\n          }\n          settled\n          highestBid {\n            bidder\n            amount\n          }\n          bids {\n            bidder\n            amount\n          }\n        }\n      }\n    }\n  }\n':
+  '\n  query HistoricalAuction($id: ID!, $tokenId: BigInt!) {\n    dao(id: $id) {\n      tokens(where: { tokenId: $tokenId }) {\n        tokenId\n        auction {\n          startTime\n          endTime\n          extended\n          winningBid {\n            amount\n            bidder\n          }\n          settled\n          bids {\n            bidder\n            amount\n          }\n        }\n      }\n    }\n  }\n':
     types.HistoricalAuctionDocument,
   '\n  query HistoricalToken($id: ID!, $tokenId: BigInt!) {\n    dao(id: $id) {\n      tokens(where: { tokenId: $tokenId }) {\n        tokenId\n        name\n        owner\n        mintedAt\n        image\n      }\n    }\n  }\n':
     types.HistoricalTokenDocument,
@@ -81,8 +81,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  query HistoricalAuction($id: ID!, $tokenId: BigInt!) {\n    dao(id: $id) {\n      tokens(where: { tokenId: $tokenId }) {\n        tokenId\n        auction {\n          startTime\n          endTime\n          extended\n          winningBid {\n            amount\n            bidder\n          }\n          settled\n          highestBid {\n            bidder\n            amount\n          }\n          bids {\n            bidder\n            amount\n          }\n        }\n      }\n    }\n  }\n'
-): typeof documents['\n  query HistoricalAuction($id: ID!, $tokenId: BigInt!) {\n    dao(id: $id) {\n      tokens(where: { tokenId: $tokenId }) {\n        tokenId\n        auction {\n          startTime\n          endTime\n          extended\n          winningBid {\n            amount\n            bidder\n          }\n          settled\n          highestBid {\n            bidder\n            amount\n          }\n          bids {\n            bidder\n            amount\n          }\n        }\n      }\n    }\n  }\n']
+  source: '\n  query HistoricalAuction($id: ID!, $tokenId: BigInt!) {\n    dao(id: $id) {\n      tokens(where: { tokenId: $tokenId }) {\n        tokenId\n        auction {\n          startTime\n          endTime\n          extended\n          winningBid {\n            amount\n            bidder\n          }\n          settled\n          bids {\n            bidder\n            amount\n          }\n        }\n      }\n    }\n  }\n'
+): typeof documents['\n  query HistoricalAuction($id: ID!, $tokenId: BigInt!) {\n    dao(id: $id) {\n      tokens(where: { tokenId: $tokenId }) {\n        tokenId\n        auction {\n          startTime\n          endTime\n          extended\n          winningBid {\n            amount\n            bidder\n          }\n          settled\n          bids {\n            bidder\n            amount\n          }\n        }\n      }\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

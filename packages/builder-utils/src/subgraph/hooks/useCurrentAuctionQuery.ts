@@ -13,28 +13,35 @@ export function useCurrentAuctionQuery({ tokenAddress }: { tokenAddress: Hex }) 
       fetcher(CURRENT_AUCTION_QUERY, { id: tokenAddress } as CurrentAuctionQueryVariables)
   )
 
+  const winningBidder = useEnsNameOrShorten({
+    address: currentAuction?.dao?.currentAuction?.winningBid?.bidder,
+  })
+  const highestBidder = useEnsNameOrShorten({
+    address: currentAuction?.dao?.currentAuction?.highestBid?.bidder,
+  })
+
   return {
     tokenId: currentAuction?.dao?.currentAuction?.token?.tokenId,
     startTime: currentAuction?.dao?.currentAuction?.startTime
-      ? formatFromUnix(currentAuction?.dao?.currentAuction?.startTime)
+      ? formatFromUnix({
+          timestamp: currentAuction?.dao?.currentAuction?.startTime,
+        })
       : '',
     endTime: currentAuction?.dao?.currentAuction?.endTime
-      ? formatFromUnix(currentAuction?.dao?.currentAuction?.endTime)
+      ? formatFromUnix({
+          timestamp: currentAuction?.dao?.currentAuction?.endTime,
+        })
       : '',
     extended: currentAuction?.dao?.currentAuction?.extended,
     settled: currentAuction?.dao?.currentAuction?.settled,
-    error,
     winningBid: currentAuction?.dao?.currentAuction?.winningBid?.amount
       ? formatEther(BigInt(currentAuction?.dao?.currentAuction?.winningBid?.amount))
       : '',
-    winningBidder: useEnsNameOrShorten({
-      address: currentAuction?.dao?.currentAuction?.winningBid?.bidder,
-    }).ensNameOrShorten,
+    winningBidder: winningBidder,
     highestBid: currentAuction?.dao?.currentAuction?.highestBid?.amount
       ? formatEther(BigInt(currentAuction?.dao?.currentAuction?.highestBid?.amount))
       : '',
-    highestBidder: useEnsNameOrShorten({
-      address: currentAuction?.dao?.currentAuction?.highestBid?.bidder,
-    }).ensNameOrShorten,
+    highestBidder: highestBidder,
+    error,
   }
 }

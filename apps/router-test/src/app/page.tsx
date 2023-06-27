@@ -8,53 +8,56 @@ import {
   useAuctionConfigQuery,
   useProposalVotesQuery,
   useHistoricalBids,
+  useProposalDetailsQuery,
 } from '@public-assembly/builder-utils'
 import Link from 'next/link'
 
 export default function Page() {
   const { auctionState } = useAuctionState()
 
-  console.log(auctionState)
+  // console.log(auctionState)
 
   const currentTokenId = auctionState.tokenId
 
-  const { tokenName, tokenId, tokenOwner, tokenImage, mintedAt } =
-    useHistoricalTokenQuery({
+  // const { tokenName, tokenId, tokenOwner, tokenImage, mintedAt } =
+  //   useHistoricalTokenQuery({
+  //     tokenAddress: '0xd2e7684cf3e2511cc3b4538bb2885dc206583076',
+  //     tokenId: currentTokenId ? BigInt(auctionState.tokenId) : BigInt(false),
+  //   })
+
+  // console.log(tokenName, tokenId, tokenOwner, tokenImage, mintedAt)
+
+  const { winningBid, startTime, endTime, bids, winningBidder } =
+    useHistoricalAuctionQuery({
       tokenAddress: '0xd2e7684cf3e2511cc3b4538bb2885dc206583076',
-      tokenId: currentTokenId ? BigInt(auctionState.tokenId) : BigInt(false),
+      // tokenId: currentTokenId ? BigInt(auctionState.tokenId) : BigInt(false),
+      tokenId: BigInt(54),
     })
 
-  console.log(tokenName, tokenId, tokenOwner, tokenImage, mintedAt)
+  // console.log(winningBid, startTime, endTime, bids, winningBidder)
 
-  const { winningBid, highestBid, startTime, endTime, bids } = useHistoricalAuctionQuery({
-    tokenAddress: '0xd2e7684cf3e2511cc3b4538bb2885dc206583076',
-    tokenId: currentTokenId ? BigInt(auctionState.tokenId) : BigInt(false),
-  })
+  // const { minimumBidIncrement } = useAuctionConfigQuery({
+  //   tokenAddress: '0xd2e7684cf3e2511cc3b4538bb2885dc206583076',
+  // })
 
-  console.log(winningBid, highestBid, startTime, endTime, bids)
+  // console.log(minimumBidIncrement)
 
-  const { minimumBidIncrement } = useAuctionConfigQuery({
-    tokenAddress: '0xd2e7684cf3e2511cc3b4538bb2885dc206583076',
-  })
+  // const { minBidAmount } = useMinBidAmount()
 
-  console.log(minimumBidIncrement)
+  // console.log('Min bid amount:', minBidAmount)
 
-  const { minBidAmount } = useMinBidAmount()
+  // const { proposalVotes } = useProposalVotesQuery({
+  //   proposalId: '0xb0f228abbc5af114f9844f299b5d97ab99959f36786a8cfaddf237e072906956',
+  // })
 
-  console.log('Min bid amount:', minBidAmount)
+  // console.log(proposalVotes)
 
-  const { proposalVotes } = useProposalVotesQuery({
-    proposalId: '0xb0f228abbc5af114f9844f299b5d97ab99959f36786a8cfaddf237e072906956',
-  })
+  // const { filteredBidEvents } = useHistoricalBids({
+  //   tokenAddress: '0xd2e7684cf3e2511cc3b4538bb2885dc206583076',
+  //   tokenId: String(auctionState.tokenId),
+  // })
 
-  console.log(proposalVotes)
-
-  const { filteredBidEvents } = useHistoricalBids({
-    tokenAddress: '0xd2e7684cf3e2511cc3b4538bb2885dc206583076',
-    tokenId: String(auctionState.tokenId),
-  })
-
-  console.log(filteredBidEvents)
+  // console.log(filteredBidEvents)
 
   return (
     <>
