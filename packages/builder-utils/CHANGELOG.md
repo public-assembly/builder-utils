@@ -1,5 +1,11 @@
 # @public-assembly/builder-utils
 
+## 0.1.9
+
+### Patch Changes
+
+- 314f271: Previously certain return statements were breaking the rules of hooks. Fixes ENS resolution approach.
+
 ## 0.1.8
 
 ### Patch Changes
