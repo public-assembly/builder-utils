@@ -22,12 +22,15 @@ export function useHistoricalTokenQuery({
       } as HistoricalTokenQueryVariables)
   )
 
+  const tokenOwner = useEnsNameOrShorten({
+    address: historicalToken?.dao?.tokens[0]?.owner,
+  })
+
   return {
     tokenId: historicalToken?.dao?.tokens[0]?.tokenId,
     tokenName: historicalToken?.dao?.tokens[0]?.name,
     tokenImage: historicalToken?.dao?.tokens[0]?.image,
-    tokenOwner: useEnsNameOrShorten({ address: historicalToken?.dao?.tokens[0]?.owner })
-      .ensNameOrShorten,
+    tokenOwner: tokenOwner,
     mintedAt: formatFromUnix({ timestamp: historicalToken?.dao?.tokens[0]?.mintedAt }),
     mintedAtRaw: historicalToken?.dao?.tokens[0]?.mintedAt,
     error,

@@ -14,10 +14,6 @@ export const HISTORICAL_AUCTION_QUERY = graphql(`
             bidder
           }
           settled
-          highestBid {
-            bidder
-            amount
-          }
           bids {
             bidder
             amount

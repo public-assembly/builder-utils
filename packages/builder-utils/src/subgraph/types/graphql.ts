@@ -1950,7 +1950,6 @@ export type HistoricalAuctionQuery = {
         extended: boolean
         settled: boolean
         winningBid?: { __typename?: 'AuctionBid'; amount: any; bidder: any } | null
-        highestBid?: { __typename?: 'AuctionBid'; bidder: any; amount: any } | null
         bids?: Array<{ __typename?: 'AuctionBid'; bidder: any; amount: any }> | null
       } | null
     }>
@@ -2431,23 +2430,6 @@ export const HistoricalAuctionDocument = {
                               },
                             },
                             { kind: 'Field', name: { kind: 'Name', value: 'settled' } },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'highestBid' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'bidder' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'amount' },
-                                  },
-                                ],
-                              },
-                            },
                             {
                               kind: 'Field',
                               name: { kind: 'Name', value: 'bids' },
