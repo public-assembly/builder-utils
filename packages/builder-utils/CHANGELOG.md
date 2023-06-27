@@ -1,5 +1,11 @@
 # @public-assembly/builder-utils
 
+## 0.1.8
+
+### Patch Changes
+
+- 010a37b: Adds a daoDetails query and associated hook to return general information about a DAO.
+
 ## 0.1.7
 
 ### Patch Changes

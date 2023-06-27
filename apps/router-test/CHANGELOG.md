@@ -1,5 +1,12 @@
 # router-test
 
+## 0.0.8
+
+### Patch Changes
+
+- Updated dependencies [010a37b]
+  - @public-assembly/builder-utils@0.1.8
+
 ## 0.0.7
 
 ### Patch Changes
