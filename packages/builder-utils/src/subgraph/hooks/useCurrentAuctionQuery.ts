@@ -42,6 +42,12 @@ export function useCurrentAuctionQuery({ tokenAddress }: { tokenAddress: Hex }) 
       ? formatEther(BigInt(currentAuction?.dao?.currentAuction?.highestBid?.amount))
       : '',
     highestBidder: highestBidder,
+    bids: currentAuction?.dao?.currentAuction?.bids?.map((bid) => {
+      return {
+        bidder: bid.bidder,
+        amount: formatEther(bid.amount),
+      }
+    }),
     error,
   }
 }
