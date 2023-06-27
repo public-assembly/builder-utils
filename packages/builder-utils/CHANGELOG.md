@@ -1,5 +1,11 @@
 # @public-assembly/builder-utils
 
+## 0.1.10
+
+### Patch Changes
+
+- f716ef4: Adds sort order to bid queries. Adds bid query directly to current auction query.
+
 ## 0.1.9
 
 ### Patch Changes
