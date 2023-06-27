@@ -9,6 +9,7 @@ import {
   useProposalVotesQuery,
   useHistoricalBids,
   useProposalDetailsQuery,
+  useCurrentAuctionQuery,
 } from '@public-assembly/builder-utils'
 import Link from 'next/link'
 
@@ -27,18 +28,24 @@ export default function Page() {
 
   // console.log(tokenName, tokenId, tokenOwner, tokenImage, mintedAt)
 
-  const { winningBid, startTime, endTime, bids, winningBidder } =
-    useHistoricalAuctionQuery({
-      tokenAddress: '0xd2e7684cf3e2511cc3b4538bb2885dc206583076',
-      // tokenId: currentTokenId ? BigInt(auctionState.tokenId) : BigInt(false),
-      tokenId: BigInt(54),
-    })
+  // const { winningBid, startTime, endTime, bids, winningBidder } =
+  //   useHistoricalAuctionQuery({
+  //     tokenAddress: '0xd2e7684cf3e2511cc3b4538bb2885dc206583076',
+  //     // tokenId: currentTokenId ? BigInt(auctionState.tokenId) : BigInt(false),
+  //     tokenId: BigInt(54),
+  //   })
 
-  // console.log(winningBid, startTime, endTime, bids, winningBidder)
+  // console.log(bids)
 
   // const { minimumBidIncrement } = useAuctionConfigQuery({
   //   tokenAddress: '0xd2e7684cf3e2511cc3b4538bb2885dc206583076',
   // })
+
+  const { bids } = useCurrentAuctionQuery({
+    tokenAddress: '0xdf9b7d26c8fc806b1ae6273684556761ff02d422',
+  })
+
+  console.log(bids)
 
   // console.log(minimumBidIncrement)
 
