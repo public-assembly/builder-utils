@@ -1,5 +1,12 @@
 # router-test
 
+## 0.0.12
+
+### Patch Changes
+
+- Updated dependencies [f3719c0]
+  - @public-assembly/builder-utils@0.1.12
+
 ## 0.0.11
 
 ### Patch Changes
