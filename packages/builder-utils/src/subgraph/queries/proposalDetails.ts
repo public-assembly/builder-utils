@@ -6,20 +6,25 @@ export const PROPOSAL_DETAILS_QUERY = graphql(`
       abstainVotes
       againstVotes
       calldatas
+      canceled
       description
       descriptionHash
       executableFrom
+      executed
       expiresAt
       forVotes
       proposalId
       proposalNumber
       proposalThreshold
       proposer
+      queued
       quorumVotes
       targets
       timeCreated
       title
       values
+      vetoed
+      voteCount
       voteEnd
       voteStart
       snapshotBlockNumber

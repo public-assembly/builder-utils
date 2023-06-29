@@ -32,7 +32,9 @@ export function useHistoricalTokenQuery({
     tokenImage: historicalToken?.dao?.tokens[0]?.image,
     tokenOwner: tokenOwner,
     mintedAt: formatFromUnix({ timestamp: historicalToken?.dao?.tokens[0]?.mintedAt }),
-    mintedAtRaw: historicalToken?.dao?.tokens[0]?.mintedAt,
+    mintedAtRaw: historicalToken?.dao?.tokens[0]?.mintedAt
+      ? BigInt(historicalToken?.dao?.tokens[0]?.mintedAt)
+      : '',
     error,
   }
 }

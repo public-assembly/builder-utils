@@ -21,11 +21,6 @@ export function useHistoricalBids({
 }) {
   const { auctionAddress } = useManagerContext()
 
-  // const { tokenData } = useDaoTokenQuery({
-  //   tokenId: tokenId,
-  //   tokenAddress: tokenAddress,
-  // })
-
   const { mintedAtRaw } = useHistoricalTokenQuery({
     tokenAddress,
     tokenId: BigInt(tokenId),
@@ -49,7 +44,7 @@ export function useHistoricalBids({
           event: parseAbiItem(
             'event AuctionBid(uint256 tokenId, address bidder, uint256 amount, bool extended, uint256 endTime)'
           ),
-          fromBlock: BigInt(mintedAtRaw),
+          fromBlock: mintedAtRaw as bigint,
           toBlock: 'latest',
         })
         /**
