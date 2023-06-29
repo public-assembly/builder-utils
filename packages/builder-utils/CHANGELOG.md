@@ -1,5 +1,11 @@
 # @public-assembly/builder-utils
 
+## 0.1.12
+
+### Patch Changes
+
+- f3719c0: Handles BigInt conversion natively on time based data queries. Adjust the GovernorProvider to return an array of stateful proposals and the associated type.
+
 ## 0.1.11
 
 ### Patch Changes
