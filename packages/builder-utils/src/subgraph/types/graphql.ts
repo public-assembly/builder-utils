@@ -1928,7 +1928,37 @@ export type DaoProposalsQuery = {
   __typename?: 'Query'
   dao?: {
     __typename?: 'DAO'
-    proposals: Array<{ __typename?: 'Proposal'; id: string }>
+    proposals: Array<{
+      __typename?: 'Proposal'
+      id: string
+      abstainVotes: number
+      againstVotes: number
+      calldatas?: string | null
+      canceled: boolean
+      description?: string | null
+      descriptionHash: any
+      executableFrom?: any | null
+      executed: boolean
+      expiresAt?: any | null
+      forVotes: number
+      proposalId: any
+      proposalNumber: number
+      proposalThreshold: any
+      proposer: any
+      queued: boolean
+      quorumVotes: any
+      targets: Array<any>
+      timeCreated: any
+      title?: string | null
+      values: Array<any>
+      vetoed: boolean
+      voteCount: number
+      voteEnd: any
+      voteStart: any
+      snapshotBlockNumber: any
+      transactionHash: any
+      dao: { __typename?: 'DAO'; governorAddress: any; tokenAddress: any }
+    }>
   } | null
 }
 
@@ -1988,20 +2018,25 @@ export type ProposalDetailsQuery = {
     abstainVotes: number
     againstVotes: number
     calldatas?: string | null
+    canceled: boolean
     description?: string | null
     descriptionHash: any
     executableFrom?: any | null
+    executed: boolean
     expiresAt?: any | null
     forVotes: number
     proposalId: any
     proposalNumber: number
     proposalThreshold: any
     proposer: any
+    queued: boolean
     quorumVotes: any
     targets: Array<any>
     timeCreated: any
     title?: string | null
     values: Array<any>
+    vetoed: boolean
+    voteCount: number
     voteEnd: any
     voteStart: any
     snapshotBlockNumber: any
@@ -2349,7 +2384,58 @@ export const DaoProposalsDocument = {
                   ],
                   selectionSet: {
                     kind: 'SelectionSet',
-                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'id' } }],
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'abstainVotes' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'againstVotes' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'calldatas' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'canceled' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'descriptionHash' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'executableFrom' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'executed' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'expiresAt' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'forVotes' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'proposalId' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'proposalNumber' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'proposalThreshold' },
+                      },
+                      { kind: 'Field', name: { kind: 'Name', value: 'proposer' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'queued' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'quorumVotes' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'targets' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'timeCreated' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'values' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'vetoed' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'voteCount' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'voteEnd' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'voteStart' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'snapshotBlockNumber' },
+                      },
+                      { kind: 'Field', name: { kind: 'Name', value: 'transactionHash' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'dao' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'governorAddress' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'tokenAddress' },
+                            },
+                          ],
+                        },
+                      },
+                    ],
                   },
                 },
               ],
@@ -2615,20 +2701,25 @@ export const ProposalDetailsDocument = {
                 { kind: 'Field', name: { kind: 'Name', value: 'abstainVotes' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'againstVotes' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'calldatas' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'canceled' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'description' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'descriptionHash' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'executableFrom' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'executed' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'expiresAt' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'forVotes' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'proposalId' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'proposalNumber' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'proposalThreshold' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'proposer' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'queued' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'quorumVotes' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'targets' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'timeCreated' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'title' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'values' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'vetoed' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'voteCount' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'voteEnd' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'voteStart' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'snapshotBlockNumber' } },

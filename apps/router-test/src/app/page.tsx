@@ -10,6 +10,9 @@ import {
   useHistoricalBids,
   useProposalDetailsQuery,
   useCurrentAuctionQuery,
+  useProposalPermissions,
+  useDaoProposalsQuery,
+  useGovernorContext,
 } from '@public-assembly/builder-utils'
 import Link from 'next/link'
 
@@ -19,6 +22,23 @@ export default function Page() {
   // console.log(auctionState)
 
   const currentTokenId = auctionState.tokenId
+
+  const { proposals } = useGovernorContext()
+
+  // console.log('Proposals array:', proposals)
+
+  const { daoProposals } = useDaoProposalsQuery({
+    tokenAddress: '0xd2e7684cf3e2511cc3b4538bb2885dc206583076',
+  })
+
+  const { proposalDetails } = useProposalDetailsQuery({
+    proposalId: '0x39198d469ff9ca1dbe1c32dc48b93a6d82c86ed8038723a43043f9066ed52bca',
+  })
+
+  const { canVeto, canCancel, canVote } = useProposalPermissions({
+    proposalId: proposalDetails.proposalId,
+    timeCreated: proposalDetails.timeCreatedRaw as bigint,
+  })
 
   // const { tokenName, tokenId, tokenOwner, tokenImage, mintedAt } =
   //   useHistoricalTokenQuery({
@@ -41,11 +61,11 @@ export default function Page() {
   //   tokenAddress: '0xd2e7684cf3e2511cc3b4538bb2885dc206583076',
   // })
 
-  const { bids } = useCurrentAuctionQuery({
-    tokenAddress: '0xdf9b7d26c8fc806b1ae6273684556761ff02d422',
-  })
+  // const { bids } = useCurrentAuctionQuery({
+  //   tokenAddress: '0xdf9b7d26c8fc806b1ae6273684556761ff02d422',
+  // })
 
-  console.log(bids)
+  // console.log(bids)
 
   // console.log(minimumBidIncrement)
 

@@ -1,3 +1,5 @@
 export * from './etherscanLink'
 export * from './formatFromUnix'
+export * from './getProposalState'
+export * from './parseBase64String'
 export * from './shortenAddress'
