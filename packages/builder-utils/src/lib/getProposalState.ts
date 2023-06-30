@@ -2,32 +2,33 @@ import { governorAbi } from '../abi'
 import { Hash, Hex } from 'viem'
 import { readContract } from 'wagmi/actions'
 
-export enum ProposalState {
-  Pending = 0,
-  Active = 1,
-  Canceled = 2,
-  Defeated = 3,
-  Succeeded = 4,
-  Queued = 5,
-  Expired = 6,
-  Executed = 7,
-  Vetoed = 8,
+export const ProposalState = {
+  0: 'Pending',
+  1: 'Active',
+  2: 'Canceled',
+  3: 'Defeated',
+  4: 'Succeeded',
+  5: 'Queued',
+  6: 'Expired',
+  7: 'Executed',
+  8: 'Vetoed',
 }
 
 export const getProposalState = async (governorAddress: Hex, proposalId: Hash) => {
-  return (await readContract({
+  return await readContract({
     address: governorAddress,
     abi: governorAbi,
     functionName: 'state',
     args: [proposalId],
-  })) as ProposalState
+  })
 }
 
-export const getStatefulProposals = async (daoProposals, governorAddress) => {
+export const getStatefulProposals = async (daoProposals, governorAddress: Hex) => {
   const statefulProposals = await Promise.all(
     daoProposals.map(async (proposal) => {
       const state = await getProposalState(governorAddress, proposal.id)
-      return { ...proposal, state }
+      const stateString = ProposalState[state] // Access the string value from the ProposalState object
+      return { ...proposal, state: stateString }
     })
   )
 

@@ -6,7 +6,7 @@ import { Proposal } from '../subgraph/types/graphql'
 import { Hex } from 'viem'
 import { getStatefulProposals } from '../lib/getProposalState'
 
-export type StatefulProposal = Omit<Proposal, '__typename' | 'votes'> & {
+export type StatefulProposal = Omit<Proposal, '__typename'> & {
   state: string
 }
 
@@ -28,7 +28,7 @@ export function GovernorProvider({ children }: PropsWithChildren) {
     if (!daoProposals) return
     // prettier-ignore
     (async () => {
-      setProposals(await getStatefulProposals(daoProposals, governorAddress))
+      setProposals(await getStatefulProposals(daoProposals, governorAddress as Hex))
     })()
   }, [daoProposals])
 
