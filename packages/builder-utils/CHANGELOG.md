@@ -1,5 +1,11 @@
 # @public-assembly/builder-utils
 
+## 0.1.14
+
+### Patch Changes
+
+- f3aad6b: Fixes error where vote details were being returned by the wrong query.
+
 ## 0.1.13
 
 ### Patch Changes
