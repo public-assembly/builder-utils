@@ -1,5 +1,11 @@
 # @public-assembly/builder-utils
 
+## 0.1.13
+
+### Patch Changes
+
+- 27f7780: getStatefulProposals now returns a proposals state as the corresponding string name. Votes is added to the dao proposals query.
+
 ## 0.1.12
 
 ### Patch Changes
