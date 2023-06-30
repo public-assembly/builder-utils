@@ -35,6 +35,12 @@ export const DAO_PROPOSALS_QUERY = graphql(`
           governorAddress
           tokenAddress
         }
+        votes {
+          reason
+          support
+          voter
+          weight
+        }
       }
     }
   }
