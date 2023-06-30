@@ -33,6 +33,12 @@ export const PROPOSAL_DETAILS_QUERY = graphql(`
         governorAddress
         tokenAddress
       }
+      votes {
+        reason
+        support
+        voter
+        weight
+      }
     }
   }
 `)

@@ -60,6 +60,7 @@ export function useProposalDetailsQuery({ proposalId }: { proposalId: string }) 
       transactionHash: proposalDetails?.proposal?.transactionHash,
       governorAddress: proposalDetails?.proposal?.dao.governorAddress,
       tokenAddress: proposalDetails?.proposal?.dao.tokenAddress,
+      votes: proposalDetails?.proposal?.votes,
     },
   }
 }
