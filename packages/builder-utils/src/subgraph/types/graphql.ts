@@ -1958,6 +1958,13 @@ export type DaoProposalsQuery = {
       snapshotBlockNumber: any
       transactionHash: any
       dao: { __typename?: 'DAO'; governorAddress: any; tokenAddress: any }
+      votes: Array<{
+        __typename?: 'ProposalVote'
+        reason?: string | null
+        support: ProposalVoteSupport
+        voter: any
+        weight: number
+      }>
     }>
   } | null
 }
@@ -2439,6 +2446,19 @@ export const DaoProposalsDocument = {
                               kind: 'Field',
                               name: { kind: 'Name', value: 'tokenAddress' },
                             },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'votes' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'reason' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'support' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'voter' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'weight' } },
                           ],
                         },
                       },
