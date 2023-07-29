@@ -4,7 +4,7 @@
 
 ### Patch Changes
 
-- : Adds support for Zora Testnet (chainId - 999)
+- de21088 : Adds support for Zora Testnet (chainId - 999)
 
 ## 0.1.14
 
