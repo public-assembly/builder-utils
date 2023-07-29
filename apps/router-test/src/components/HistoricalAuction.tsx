@@ -2,7 +2,7 @@ import { useHistoricalTokenQuery } from '@public-assembly/builder-utils'
 
 export function HistoricalAuction({ navigatedTokenId }: { navigatedTokenId: number }) {
   const { tokenName, tokenImage } = useHistoricalTokenQuery({
-    tokenAddress: '0xd2e7684cf3e2511cc3b4538bb2885dc206583076',
+    tokenAddress: process.env.NEXT_PUBLIC_TOKEN_ADDRESS as `0x${string}`,
     tokenId: BigInt(navigatedTokenId),
   })
 
