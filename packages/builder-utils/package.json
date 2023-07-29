@@ -1,6 +1,6 @@
 {
   "name": "@public-assembly/builder-utils",
-  "version": "0.1.14",
+  "version": "0.1.15",
   "description": "React hooks and utilities for Nouns Builder DAOs.",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -31,8 +31,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "swr": "^1.3.0",
-    "viem": "^0.3.36",
-    "wagmi": "^1.0.6"
+    "viem": "^1.1.4",
+    "wagmi": "^1.2.1"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "3.2.1",
@@ -50,7 +50,7 @@
     "react-dom": "^18.2.0",
     "swr": "^1.3.0",
     "typescript": "^5.0.4",
-    "viem": "^0.3.36",
-    "wagmi": "^1.0.6"
+    "viem": "^1.1.4",
+    "wagmi": "^1.2.1"
   }
 }

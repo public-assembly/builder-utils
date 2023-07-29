@@ -1,5 +1,11 @@
 # @public-assembly/builder-utils
 
+## 0.1.15
+
+### Patch Changes
+
+- : Adds support for Zora Testnet (chainId - 999)
+
 ## 0.1.14
 
 ### Patch Changes
