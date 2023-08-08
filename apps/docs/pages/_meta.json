@@ -3,7 +3,5 @@
     "display": "hidden"
   },
   "getting_started": "Getting Started",
-  "hooks": "Hooks",
-  "subgraph": "Subgraph",
-  "tutorials": "Tutorials"
+  "hooks": "Hooks"
 }
