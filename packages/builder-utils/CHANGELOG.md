@@ -1,5 +1,12 @@
 # @public-assembly/builder-utils
 
+## 0.1.18
+
+### Patch Changes
+
+- f8c924f: Updates `useVote` to accept a `proposalId` rather than a `Proposal` object.
+- f8c924f: Bumps viem to ~1.5.4 and wagmi to ^1.3.9, in addition bumps typescript to ^5.1.6.
+
 ## 0.1.17
 
 ### Patch Changes
