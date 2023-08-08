@@ -1,6 +1,6 @@
 {
   "name": "@public-assembly/builder-utils",
-  "version": "0.1.15",
+  "version": "0.1.16",
   "description": "React hooks and utilities for Nouns Builder DAOs.",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
