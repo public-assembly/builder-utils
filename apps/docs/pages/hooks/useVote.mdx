@@ -19,22 +19,15 @@ import { useVote } from '@public-assembly/builder-utils'
 function App() {
   const { canVeto, canCancel, canVote } = useVote({
     proposalId: '0xaf97d910e87200254e6e9af15e5f22b9ed51a191440218073b86f9954ed0366b',
-    timeCreated: 17872951,
+    support: 1,
+    reason: "Create what's missing"
   })
-
-  const { address } = useAccount()
 
   return (
     <>
-      <p>
-        {address} can veto?: {canVeto}
-      </p>
-      <p>
-        {address} can cancel?: {canCancel}
-      </p>
-      <p>
-        {address} can vote: : {canVote}
-      </p>
+      <button onClick={() => castVote?.()}>Cast vote</button>
+      <p>Vote loading?: {castVoteLoading}</p>
+      <p>Vote successful?: {castVoteSuccess}</p>
     </>
   )
 }
