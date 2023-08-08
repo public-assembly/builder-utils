@@ -19,10 +19,12 @@ import { useTokenMetadata } from '@public-assembly/builder-utils'
 function App() {
   const { tokenName, tokenThumbnail } = useTokenMetadata('1')
 
-  return <>
+  return (
+    <>
       <p>{tokenName}</p>
       <img src={tokenThumbnail}></img>
     </>
+  )
 }
 ```
 
