@@ -1,5 +1,11 @@
 # @public-assembly/builder-utils
 
+## 0.2.0
+
+### Minor Changes
+
+- 82a8de6: Updated to provide zora testnet support
+
 ## 0.1.15
 
 ### Patch Changes
