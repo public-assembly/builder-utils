@@ -1,0 +1,54 @@
+---
+title: 'useVote'
+description: 'Hook to facilitate voting actions given a proposal.'
+---
+
+## useVote
+
+Hook to facilitate voting actions given a proposal
+
+```tsx
+import { useVote } from '@public-assembly/builder-utils'
+```
+
+## Usage
+
+```tsx
+import { useVote } from '@public-assembly/builder-utils'
+
+function App() {
+  const { canVeto, canCancel, canVote } = useVote({
+    proposalId: '0xaf97d910e87200254e6e9af15e5f22b9ed51a191440218073b86f9954ed0366b',
+    timeCreated: 17872951,
+  })
+
+  const { address } = useAccount()
+
+  return (
+    <>
+      <p>
+        {address} can veto?: {canVeto}
+      </p>
+      <p>
+        {address} can cancel?: {canCancel}
+      </p>
+      <p>
+        {address} can vote: : {canVote}
+      </p>
+    </>
+  )
+}
+```
+
+## Returns
+
+```tsx
+{
+  castVote: (() => void) | undefined
+  castVoteLoading: boolean
+  castVoteSuccess: boolean
+  castVoteWithReason: (() => void) | undefined
+  castVoteWithReasonLoading: boolean
+  castVoteWithReasonSuccess: boolean
+}
+```

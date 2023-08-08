@@ -1,8 +1,7 @@
-import type { Hex } from 'viem'
+import { type Hash } from 'viem'
 import { usePrepareContractWrite, useContractWrite, useWaitForTransaction } from 'wagmi'
 import { governorAbi } from '../abi'
 import { useGovernorContext } from '../context'
-import { Proposal } from '../subgraph/types/graphql'
 
 interface VotingFunctions {
   castVote?: () => void
@@ -14,12 +13,12 @@ interface VotingFunctions {
 }
 
 interface VoteProps {
-  proposal: Proposal
+  proposalId: Hash
   support?: number
   reason?: string
 }
 
-export function useVote({ proposal, support, reason }: VoteProps): VotingFunctions {
+export function useVote({ proposalId, support, reason }: VoteProps): VotingFunctions {
   const { governorAddress } = useGovernorContext()
 
   const { config: castVoteConfig } = usePrepareContractWrite(
@@ -28,7 +27,7 @@ export function useVote({ proposal, support, reason }: VoteProps): VotingFunctio
           address: governorAddress,
           abi: governorAbi,
           functionName: 'castVote',
-          args: [proposal.proposalId as Hex, BigInt(support)],
+          args: [proposalId, BigInt(support)],
         }
       : undefined
   )
@@ -45,7 +44,7 @@ export function useVote({ proposal, support, reason }: VoteProps): VotingFunctio
           address: governorAddress,
           abi: governorAbi,
           functionName: 'castVoteWithReason',
-          args: [proposal.proposalId as Hex, BigInt(support), reason as string],
+          args: [proposalId, BigInt(support), reason as string],
         }
       : undefined
   )

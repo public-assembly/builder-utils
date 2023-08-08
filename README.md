@@ -2,7 +2,7 @@
 
 ### Installation
 
-Begin by installing the builder utils package into your React application.
+Begin by installing Builder Utils into your React application.
 
 ```
 pnpm add @public-assembly/builder-utils
@@ -25,12 +25,14 @@ You'll also need to include the following dependencies at their specified versio
     "graphql-request": "^5.0.0",
     "graphql-tag": "^2.12.6",
     "swr": "^1.3.0",
+    "viem": "^1.1.4",
+    "wagmi": "^1.2.1"
   },
 ```
 
 ### Configuring & Using Providers
 
-Builder utils provides a collection of provider components used to dynamically pass contract specific data throughout your application. Begin configuring these provider components by wrapping your component tree with the `ManagerProvider` component and supplying your DAO's token address. This wrapper should live in the same place your providing your `WagmiConfig`.
+Builder Utils provides a collection of provider components used to dynamically pass contract specific data throughout your application. Begin configuring these provider components by wrapping your component tree with the `ManagerProvider` component and supplying your DAO's token address. This wrapper should live in the same place your providing your `WagmiConfig`.
 
 ```jsx
 import { WagmiConfig } from 'wagmi'
