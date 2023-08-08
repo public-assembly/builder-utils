@@ -1,5 +1,11 @@
 # @public-assembly/builder-utils
 
+## 0.1.17
+
+### Patch Changes
+
+- a85bced: Added support for zora mainnet and base
+
 ## 0.1.15
 
 ### Patch Changes
